@@ -102,3 +102,18 @@
   background: none;
   cursor: pointer;
 }
+
+/*
+ * Wariant czarny. Uzywany dla akcji pomocniczej lezacej na jasnym tle zdjecia,
+ * gdzie czerwien konkurowalaby z glownym CTA w naglowku.
+ */
+.cta--ink {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.cta--ink:hover,
+.cta--ink:focus-visible {
+  background-color: var(--color-signal);
+  color: var(--color-paper);
+}

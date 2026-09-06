@@ -38,6 +38,22 @@ const FORMATS = [
 /** Formaty zrodlowe. PNG jest preferowany (bezstratny), JPG dopuszczalny. */
 const SOURCE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg'])
 
+/*
+ * Kadry pochodne: art-directed wyciecie z istniejacego zrodla.
+ *
+ * Mechanizm zostaje, bo `object-position` nie zastapi swiadomego kadru, gdy
+ * kontener ma skrajna proporcje. Lista jest dzis pusta: hero uzywa pelnego
+ * kadru 16:9, w ktorym pusta sciana zajmuje lewa czesc obrazu na calej
+ * wysokosci - dokladnie tam, gdzie lezy tekst.
+ *
+ * Format wpisu:
+ *   { source: 'hero/plik.png', name: 'nazwa-kadru', top: 0.35, height: 0.39,
+ *     widths: [1200, 1600] }
+ * Wartosci `top` i `height` to udzial wysokosci zrodla, nie piksele, wiec
+ * podmiana zdjecia na wieksze nie wymaga zmiany konfiguracji.
+ */
+const DERIVED_CROPS = []
+
 function classify(width, height) {
   const ratio = width / height
   if (ratio < 1) return 'portrait'
@@ -120,6 +136,45 @@ for (const source of sources) {
     .map((r) => `${r.w}.${r.ext} ${(r.size / 1024).toFixed(0)}kB`)
     .join('  ')
   console.log(`${label}\n  ${sizes}`)
+}
+
+// --- Kadry pochodne ---
+for (const crop of DERIVED_CROPS) {
+  const source = resolve(IMAGES_ROOT, crop.source)
+  const dir = resolve(source, '..')
+  const meta = await sharp(source).metadata()
+
+  const top = Math.round(meta.height * crop.top)
+  const height = Math.min(Math.round(meta.height * crop.height), meta.height - top)
+
+  for (const entry of await readdir(dir)) {
+    const ext = extname(entry).slice(1).toLowerCase()
+    if (!FORMATS.some((f) => f.ext === ext)) continue
+    if (!entry.startsWith(`${crop.name}-`)) continue
+    await unlink(join(dir, entry))
+    removed += 1
+  }
+
+  const sizes = []
+  for (const w of crop.widths.filter((width) => width <= meta.width)) {
+    for (const { ext, options } of FORMATS) {
+      const out = join(dir, `${crop.name}-${w}.${ext}`)
+      await sharp(source)
+        .extract({ left: 0, top, width: meta.width, height })
+        .resize({ width: w, withoutEnlargement: true })
+        .toFormat(ext, options)
+        .toFile(out)
+
+      const { size } = await stat(out)
+      totalBytes += size
+      generated += 1
+      sizes.push(`${w}.${ext} ${(size / 1024).toFixed(0)}kB`)
+    }
+  }
+
+  const ratio = (meta.width / height).toFixed(2)
+  console.log(`${crop.name} (kadr pochodny ${meta.width}x${height}, proporcja ${ratio})`)
+  console.log(`  ${sizes.join('  ')}`)
 }
 
 console.log(

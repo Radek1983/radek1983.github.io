@@ -16,7 +16,7 @@
 .ticker__track {
   display: flex;
   gap: var(--space-8);
-  padding-block: var(--space-2);
+  padding-block: var(--space-1);
   padding-inline: var(--grid-margin);
   white-space: nowrap;
   font-size: var(--step-label);
@@ -30,6 +30,13 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
+}
+
+/* Pozycja o naborze wyrozniona kolorem sygnalowym. Pasek jest czarny,
+   wiec to jedyny potrzebny akcent - bez dodatkowego tla i bez plakietki. */
+.ticker__item--accent {
+  color: var(--color-signal);
+  font-weight: 800;
 }
 
 .ticker__item::after {

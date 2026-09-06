@@ -301,22 +301,40 @@ test.describe('motion', () => {
   test('reveal odslania tresc, a nie zostawia jej ukrytej (ANIM-003)', async ({ page }) => {
     await page.goto('/')
 
-    // Element w pierwszym ekranie musi byc widoczny natychmiast po starcie.
+    /*
+     * H1 swiadomie NIE ma reveal: jest kandydatem na element LCP, a start
+     * od opacity 0 opoznialby jego pomiar. Musi byc widoczny od razu.
+     */
     const h1 = page.locator('.hero__title')
-    await expect(h1).toHaveClass(/is-visible/)
+    await expect(h1).not.toHaveAttribute('data-animation', /.*/)
     await expect(h1).toBeVisible()
-    // Prog, nie rownosc: przejscie trwa 560 ms, wiec w chwili sprawdzenia
-    // opacity moze wynosic np. 0.999. Istotne jest, ze tresc jest odslaniana.
+    expect(await h1.evaluate((el) => getComputedStyle(el).opacity)).toBe('1')
+
+    /*
+     * Tresc, ktora uzytkownik faktycznie widzi po wczytaniu, nie moze startowac
+     * od stanu ukrytego. Prog 70% wysokosci ekranu jest celowy: sekcja wchodzaca
+     * dolna krawiedzia na kilkanascie pikseli ma prawo czekac na swoj reveal -
+     * to jest sens tego mechanizmu, a nie usterka.
+     */
+    const ukryteWWidoku = await page.evaluate(
+      () =>
+        [...document.querySelectorAll('[data-animation]')].filter((el) => {
+          const r = el.getBoundingClientRect()
+          return r.top < window.innerHeight * 0.7 && getComputedStyle(el).opacity === '0'
+        }).length,
+    )
+    expect(ukryteWWidoku).toBe(0)
+
+    // Element ponizej fold odslania sie po przewinieciu - tam reveal ma sens.
+    const faqHead = page.locator('#faq-title')
+    await expect(faqHead).toHaveAttribute('data-animation', /.+/)
+    await faqHead.scrollIntoViewIfNeeded()
+    await expect(faqHead).toHaveClass(/is-visible/)
     await expect
-      .poll(async () => Number(await h1.evaluate((el) => getComputedStyle(el).opacity)), {
+      .poll(async () => Number(await faqHead.evaluate((el) => getComputedStyle(el).opacity)), {
         timeout: 3000,
       })
       .toBeGreaterThan(0.95)
-
-    // Element ponizej fold odslania sie po przewinieciu.
-    const faqHead = page.locator('#faq-title')
-    await faqHead.scrollIntoViewIfNeeded()
-    await expect(faqHead).toHaveClass(/is-visible/)
   })
 
   test('siatka bezpieczenstwa odslania wszystko, gdy obserwator milczy', async ({ page }) => {

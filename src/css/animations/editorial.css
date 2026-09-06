@@ -18,11 +18,20 @@
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    /* --- Momentum wordmarku. Regula 3: typografia ma momentum. --- */
+    /*
+     * --- Momentum wordmarku. Regula 3: typografia ma momentum. ---
+     *
+     * Dryf PIONOWY, nie poziomy. Wordmark lezy na zdjeciu w lewym gornym rogu,
+     * wiec przesuniecie w bok wycinalo pierwsza litere za krawedzia ekranu.
+     *
+     * Timeline liczony od scrolla dokumentu, nie od widocznosci elementu:
+     * element stoi na samej gorze strony, wiec faza "entry" jest juz zakonczona
+     * w chwili wczytania i animacja startowalaby w polowie.
+     */
     .hero__wordmark {
       animation: wordmark-drift linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 60%;
+      animation-timeline: scroll(root);
+      animation-range: 0% 45%;
       will-change: translate;
     }
 
@@ -32,7 +41,7 @@
       }
 
       to {
-        translate: -7vw 0;
+        translate: 0 -1.75rem;
       }
     }
 

@@ -120,20 +120,62 @@ test.describe('tresc i SEO', () => {
   })
 
   test('nabor jest informacja czasowa, a nie tematem przewodnim', async ({ page }) => {
-    // Wlasciciel ustalil, ze nabor po 1 pazdziernika ma zniknac, wiec cala tresc
-    // czasowa musi byc oznaczona i dac sie usunac w trzech miejscach.
-    // Cztery elementy w trzech miejscach: pasek pod naglowkiem, data i plakietka
-    // w sekcji 07 oraz jedno pytanie FAQ.
-    const temporary = page.locator('[data-temporary="nabor-2026"]')
-    await expect(temporary).toHaveCount(4)
+    /*
+     * Wlasciciel przenios nabor do paska faktow na gorze i usunal czerwony baner.
+     * Nabor moze byc wiec widoczny, ale kazdy jego element musi dac sie usunac
+     * po 1 pazdziernika. Piec elementow w czterech miejscach: dwie pozycje
+     * w pasku, data i plakietka w sekcji 07 oraz jedno pytanie FAQ.
+     */
+    await expect(page.locator('[data-temporary="nabor-2026"]')).toHaveCount(5)
 
-    // Pasek informacyjny na gorze niesie wylacznie fakty stale.
-    const ticker = await page.locator('.ticker').innerText()
-    expect(ticker.toLowerCase()).not.toContain('nabór')
-    expect(ticker.toLowerCase()).not.toContain('października')
+    // Warunek istotny: zadna wzmianka o naborze nie moze byc nieoznaczona,
+    // bo wtedy zostalaby na stronie po usunieciu bloku czasowego.
+    const nieoznaczone = await page.evaluate(() => {
+      /*
+       * Wzorzec celuje w datowane twierdzenia, nie w samo slowo "nabor".
+       * Zdanie "status naboru" w final CTA jest stale i zostaje na stronie
+       * takze po 1 pazdziernika - to opis procesu, nie termin.
+       */
+      const wzorzec = /nab[oó]r trwa|1 pa[zż]dziernika|pa[zż]dziernik[a]? 2026/i
+      const out = []
+      for (const el of document.querySelectorAll('main *, .ticker *, .site-footer *')) {
+        if (el.children.length > 0) continue
+        if (!wzorzec.test(el.textContent)) continue
+        if (el.closest('[data-temporary="nabor-2026"]')) continue
+        out.push(el.textContent.trim().slice(0, 60))
+      }
+      return out
+    })
+    expect(nieoznaczone).toEqual([])
 
-    // Naglowek sekcji 07 opisuje warunek stały, nie date.
+    // Naglowek sekcji 07 opisuje warunek staly, nie date.
     await expect(page.locator('#nabor-title')).toContainText(/piątego dziecka/i)
+
+    // Czerwony baner zostal usuniety - nabor nie ma wlasnego pasa na stronie.
+    await expect(page.locator('.notice')).toHaveCount(0)
+  })
+
+  test('w pierwszym ekranie jest dokladnie jedno CTA zgloszeniowe', async ({ page }) => {
+    /*
+     * Wlasciciel zglosil trzy przyciski zgloszeniowe w jednym widoku. Docelowo
+     * ma byc DOKLADNIE JEDEN - w pasku na gorze. Przycisk "Zobacz ofertę"
+     * nie jest tu liczony: to akcja pomocnicza o innym celu i w innym kolorze.
+     */
+    const zgloszeniowe = await page.evaluate(() =>
+      [...document.querySelectorAll('a.cta')]
+        .filter((el) => /zg[lł]o[sś] dziecko/i.test(el.textContent))
+        .filter((el) => {
+          const r = el.getBoundingClientRect()
+          return r.top < window.innerHeight && r.bottom > 0 && el.offsetParent !== null
+        })
+        .map((el) => el.textContent.trim().replace(/\s+/g, ' ')),
+    )
+    expect(zgloszeniowe).toHaveLength(1)
+
+    // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
+    const hero = await page.locator('.hero').innerText()
+    expect(hero).not.toMatch(/55 z[lł]/)
+    expect(hero).not.toMatch(/zg[lł]o[sś] dziecko/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

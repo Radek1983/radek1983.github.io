@@ -82,12 +82,18 @@
          Bez autoplay - pasek jest statyczny, na mobile przewijalny palcem. -->
     <div class="ticker">
       <p class="ticker__track">
+        <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
+        <span class="ticker__item ticker__item--accent" data-temporary="nabor-2026">
+          Nabór trwa
+        </span>
+        <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
         <span class="ticker__item">Angielski dla klas 1-8</span>
+        <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
+        <span class="ticker__item" data-temporary="nabor-2026">Start październik 2026</span>
+        <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
         <span class="ticker__item">SP 402, Warszawa</span>
         <span class="ticker__item">Zajęcia po lekcjach</span>
-        <span class="ticker__item">55 zł/godz.</span>
-        <span class="ticker__item">Rodzeństwo 50 zł/godz.</span>
-        <span class="ticker__item">Minimum 5 dzieci w grupie</span>
+        <span class="ticker__item">Małe grupy 5-8 dzieci</span>
       </p>
     </div>
 
@@ -113,115 +119,97 @@
       </div>
     </header>
 
-    <!-- ==========================================================================
-         BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA
-         Pełna procedura usunięcia: docs/CONTENT.md, sekcja „Blok czasowy: nabór".
-         ========================================================================== -->
-    <aside class="notice" data-temporary="nabor-2026" aria-label="Aktualny nabór">
-      <p class="notice__text">
-        <strong>Nabór trwa.</strong> Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5
-        dzieci.
-      </p>
-      <a class="notice__link u-link" href="#kontakt">Zgłoś dziecko do grupy</a>
-    </aside>
-    <!-- ===================== KONIEC BLOKU CZASOWEGO ============================= -->
-
     <main id="main">
       <!-- ============================================================
            01 HERO / NABÓR — Czy to dla mojego dziecka?
            ============================================================ -->
       <section class="section hero" aria-labelledby="hero-title">
-        <div class="container">
-          <!-- Wordmark jest elementem kompozycji, nie nagłówkiem. Rolę semantyczną
-               niesie H1, więc dla czytników ekranu ten napis jest ukryty. -->
-          <p class="u-wordmark hero__wordmark" aria-hidden="true">High Five</p>
+        <!--
+          Fotografia wypelnia hero, a caly tekst lezy na pustej scianie w lewej
+          czesci kadru. Typografia nachodzaca na zdjecie jest wprost dopuszczona
+          przez brief; sciana jest niemal biala, wiec tekst w kolorze INK ma pelny
+          kontrast i nie potrzebuje ani przycienienia, ani gradientu.
 
-          <div class="hero__body">
-            <div class="hero__text">
-              <h1 class="hero__title" id="hero-title" data-animation="reveal">
-                Angielski po lekcjach. W tej samej szkole.
-              </h1>
+          Kolejnosc w DOM: tekst PRZED fotografia. Na mobile daje to naturalny
+          uklad tekst-nad-zdjeciem, a na desktopie tekst jest pozycjonowany
+          absolutnie nad kadrem.
+        -->
+        <div class="hero__stage">
+          <div class="hero__overlay">
+            <p class="u-wordmark hero__wordmark" aria-hidden="true">High Five</p>
 
-              <p class="u-lead">
-                Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe
-                grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu
-                ósmoklasisty.
-              </p>
+            <h1 class="hero__title" id="hero-title">Angielski po lekcjach. W tej samej szkole.</h1>
 
-              <div class="hero__status">
-                <p class="hero__price">
-                  55 zł / godz. <span aria-hidden="true">·</span> rodzeństwo 50 zł
-                </p>
-                <p>
-                  Zajęcia grupowe po lekcjach na terenie szkoły. Grupa rusza po zebraniu minimum 5
-                  dzieci.
-                </p>
-              </div>
+            <p class="u-lead hero__lead">
+              Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe
+              grupy i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
+            </p>
 
-              <div class="hero__actions">
-                <a class="cta cta--large" href="#kontakt">
-                  Zgłoś dziecko do grupy
-                  <span class="cta__arrow" aria-hidden="true">→</span>
-                </a>
-                <a class="u-link" href="#oferta">Zobacz ofertę</a>
-              </div>
-            </div>
-
-            <figure class="media media--hero hero__media" data-animation="mask-up">
-              <picture>
-                <source
-                  media="(min-width: 48rem) and (max-width: 61.999rem)"
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-768.avif   768w,
-                    /src/assets/images/hero/hero-classroom-1200.avif 1200w,
-                    /src/assets/images/hero/hero-classroom-1600.avif 1600w
-                  "
-                  sizes="100vw"
-                />
-                <source
-                  media="(min-width: 48rem) and (max-width: 61.999rem)"
-                  type="image/webp"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-768.webp   768w,
-                    /src/assets/images/hero/hero-classroom-1200.webp 1200w,
-                    /src/assets/images/hero/hero-classroom-1600.webp 1600w
-                  "
-                  sizes="100vw"
-                />
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-portrait-480.avif   480w,
-                    /src/assets/images/hero/hero-classroom-portrait-768.avif   768w,
-                    /src/assets/images/hero/hero-classroom-portrait-1120.avif 1120w
-                  "
-                  sizes="(min-width: 62rem) 48vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/hero/hero-classroom-portrait-768.webp"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-portrait-480.webp   480w,
-                    /src/assets/images/hero/hero-classroom-portrait-768.webp   768w,
-                    /src/assets/images/hero/hero-classroom-portrait-1120.webp 1120w
-                  "
-                  sizes="(min-width: 62rem) 48vw, 100vw"
-                  alt="Dwoje dzieci przy wspólnym zadaniu w jasnej sali, w trakcie rozmowy"
-                  width="1122"
-                  height="1402"
-                  fetchpriority="high"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
+            <a class="cta cta--ink" href="#oferta">
+              Zobacz ofertę
+              <span class="cta__arrow" aria-hidden="true">→</span>
+            </a>
           </div>
+
+          <figure class="media hero__media">
+            <picture>
+              <source
+                media="(min-width: 48rem)"
+                type="image/avif"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-768.avif   768w,
+                  /src/assets/images/hero/hero-classroom-1200.avif 1200w,
+                  /src/assets/images/hero/hero-classroom-1600.avif 1600w
+                "
+                sizes="100vw"
+              />
+              <source
+                media="(min-width: 48rem)"
+                type="image/webp"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-768.webp   768w,
+                  /src/assets/images/hero/hero-classroom-1200.webp 1200w,
+                  /src/assets/images/hero/hero-classroom-1600.webp 1600w
+                "
+                sizes="100vw"
+              />
+              <source
+                type="image/avif"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-portrait-480.avif   480w,
+                  /src/assets/images/hero/hero-classroom-portrait-768.avif   768w,
+                  /src/assets/images/hero/hero-classroom-portrait-1120.avif 1120w
+                "
+                sizes="100vw"
+              />
+              <img
+                src="/src/assets/images/hero/hero-classroom-portrait-768.webp"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-portrait-480.webp   480w,
+                  /src/assets/images/hero/hero-classroom-portrait-768.webp   768w,
+                  /src/assets/images/hero/hero-classroom-portrait-1120.webp 1120w
+                "
+                sizes="100vw"
+                alt="Dwoje dzieci przy wspólnym zadaniu w jasnej sali, w trakcie rozmowy"
+                width="1672"
+                height="941"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+          </figure>
         </div>
       </section>
 
       <!-- ============================================================
            02 PO LEKCJACH — Gdzie i dlaczego wygodnie?
            ============================================================ -->
-      <section class="section" id="po-lekcjach" aria-labelledby="po-lekcjach-title">
+      <section
+        class="section"
+        id="po-lekcjach"
+        data-animation="section"
+        aria-labelledby="po-lekcjach-title"
+      >
         <div class="container">
           <div class="after-school__grid">
             <div class="after-school__text">
@@ -303,6 +291,7 @@
       <section
         class="section benefits"
         id="korzysci"
+        data-animation="section"
         data-theme="signal"
         aria-labelledby="korzysci-title"
       >
@@ -353,7 +342,12 @@
            04 KURSY — Która oferta?
            Dwa pełnowymiarowe moduły. Drugi w motywie BLUE.
            ============================================================ -->
-      <section class="section section--tight" id="oferta" aria-labelledby="oferta-title">
+      <section
+        class="section section--tight"
+        id="oferta"
+        data-animation="section"
+        aria-labelledby="oferta-title"
+      >
         <div class="container">
           <div class="section__head">
             <p class="u-label section__label">
@@ -366,141 +360,153 @@
           </div>
         </div>
 
-        <div class="courses__grid">
-          <article class="course">
-            <div class="course__head">
-              <p class="u-label">Klasy 1-7</p>
-              <p class="course__index" aria-hidden="true">01</p>
-            </div>
+        <div class="courses__stage">
+          <!--
+            Nieruchome tlo typograficzne. Napis stoi, a moduly oferty przesuwaja
+            sie po nim i stopniowo go zaslaniaja. Wzorzec ze wskazanej referencji.
+            Element dekoracyjny, wiec ukryty przed czytnikami ekranu - tresc niesie
+            naglowek sekcji.
+          -->
+          <div class="courses__backdrop" aria-hidden="true">
+            <span>Klasy 1-8</span>
+          </div>
 
-            <figure class="media media--4-5 course__media" data-animation="mask-up">
-              <picture>
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/courses/course-kids-480.avif   480w,
-                    /src/assets/images/courses/course-kids-768.avif   768w,
-                    /src/assets/images/courses/course-kids-1120.avif 1120w
-                  "
-                  sizes="(min-width: 62rem) 44vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/courses/course-kids-768.webp"
-                  srcset="
-                    /src/assets/images/courses/course-kids-480.webp   480w,
-                    /src/assets/images/courses/course-kids-768.webp   768w,
-                    /src/assets/images/courses/course-kids-1120.webp 1120w
-                  "
-                  sizes="(min-width: 62rem) 44vw, 100vw"
-                  alt="Uczennica młodszych klas mówi i gestykuluje podczas zajęć"
-                  width="1122"
-                  height="1402"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
-
-            <h3 class="u-h2 course__title" data-animation="reveal">Angielski dla dzieci</h3>
-
-            <div class="course__body">
-              <p>
-                Regularne zajęcia dopasowane do wieku i poziomu grupy. Rozwijamy słownictwo,
-                rozumienie, gramatykę potrzebną w praktyce oraz przede wszystkim swobodę używania
-                języka.
-              </p>
-              <p>
-                W młodszych klasach tempo i zadania są krótsze i bardziej aktywne. W starszych coraz
-                więcej miejsca zajmuje precyzja, dłuższa wypowiedź, czytanie i praca nad językiem
-                potrzebnym w szkole.
-              </p>
-            </div>
-
-            <dl class="course__facts">
-              <div class="course__fact">
-                <dt>Format</dt>
-                <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
+          <div class="courses__grid">
+            <article class="course">
+              <div class="course__head">
+                <p class="u-label">Klasy 1-7</p>
+                <p class="course__index" aria-hidden="true">01</p>
               </div>
-              <div class="course__fact">
-                <dt>Minimum</dt>
-                <dd>5 dzieci w grupie</dd>
-              </div>
-              <div class="course__fact">
-                <dt>Cena</dt>
-                <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
-              </div>
-            </dl>
-          </article>
 
-          <article class="course" data-theme="blue">
-            <div class="course__head">
-              <p class="u-label">Klasa 8</p>
-              <p class="course__index" aria-hidden="true">02</p>
-            </div>
+              <figure class="media media--4-5 course__media" data-animation="mask-up">
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcset="
+                      /src/assets/images/courses/course-kids-480.avif   480w,
+                      /src/assets/images/courses/course-kids-768.avif   768w,
+                      /src/assets/images/courses/course-kids-1120.avif 1120w
+                    "
+                    sizes="(min-width: 62rem) 44vw, 100vw"
+                  />
+                  <img
+                    src="/src/assets/images/courses/course-kids-768.webp"
+                    srcset="
+                      /src/assets/images/courses/course-kids-480.webp   480w,
+                      /src/assets/images/courses/course-kids-768.webp   768w,
+                      /src/assets/images/courses/course-kids-1120.webp 1120w
+                    "
+                    sizes="(min-width: 62rem) 44vw, 100vw"
+                    alt="Uczennica młodszych klas mówi i gestykuluje podczas zajęć"
+                    width="1122"
+                    height="1402"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
 
-            <figure class="media media--4-5 course__media" data-animation="mask-up">
-              <picture>
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/courses/course-exam-480.avif   480w,
-                    /src/assets/images/courses/course-exam-768.avif   768w,
-                    /src/assets/images/courses/course-exam-1120.avif 1120w
-                  "
-                  sizes="(min-width: 62rem) 44vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/courses/course-exam-768.webp"
-                  srcset="
-                    /src/assets/images/courses/course-exam-480.webp   480w,
-                    /src/assets/images/courses/course-exam-768.webp   768w,
-                    /src/assets/images/courses/course-exam-1120.webp 1120w
-                  "
-                  sizes="(min-width: 62rem) 44vw, 100vw"
-                  alt="Starszy uczeń pracuje nad zadaniem, notując w zeszycie"
-                  width="1122"
-                  height="1402"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
+              <h3 class="u-h2 course__title" data-animation="reveal">Angielski dla dzieci</h3>
 
-            <h3 class="u-h2 course__title" data-animation="reveal">
-              Przygotowanie do egzaminu ósmoklasisty
-            </h3>
-
-            <div class="course__body">
-              <p>
-                Program dla ósmoklasistów, którzy chcą uporządkować materiał, poznać logikę zadań
-                egzaminacyjnych i regularnie ćwiczyć w warunkach zbliżonych do egzaminu.
-              </p>
-              <p>
-                Pracujemy nad rozumieniem ze słuchu i tekstu, środkami językowymi, funkcjami
-                językowymi oraz wypowiedzią pisemną. Ważnym elementem jest plan pracy, kontrola
-                czasu i analiza błędów.
-              </p>
-              <p>
-                <strong>Nie obiecujemy wyniku.</strong> Dajemy regularny trening i sposób pracy,
-                który pomaga wejść na egzamin przygotowanym.
-              </p>
-            </div>
-
-            <dl class="course__facts">
-              <div class="course__fact">
-                <dt>Format</dt>
-                <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
+              <div class="course__body">
+                <p>
+                  Regularne zajęcia dopasowane do wieku i poziomu grupy. Rozwijamy słownictwo,
+                  rozumienie, gramatykę potrzebną w praktyce oraz przede wszystkim swobodę używania
+                  języka.
+                </p>
+                <p>
+                  W młodszych klasach tempo i zadania są krótsze i bardziej aktywne. W starszych
+                  coraz więcej miejsca zajmuje precyzja, dłuższa wypowiedź, czytanie i praca nad
+                  językiem potrzebnym w szkole.
+                </p>
               </div>
-              <div class="course__fact">
-                <dt>Minimum</dt>
-                <dd>5 dzieci w grupie</dd>
+
+              <dl class="course__facts">
+                <div class="course__fact">
+                  <dt>Format</dt>
+                  <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
+                </div>
+                <div class="course__fact">
+                  <dt>Minimum</dt>
+                  <dd>5 dzieci w grupie</dd>
+                </div>
+                <div class="course__fact">
+                  <dt>Cena</dt>
+                  <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="course" data-theme="blue">
+              <div class="course__head">
+                <p class="u-label">Klasa 8</p>
+                <p class="course__index" aria-hidden="true">02</p>
               </div>
-              <div class="course__fact">
-                <dt>Cena</dt>
-                <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
+
+              <figure class="media media--4-5 course__media" data-animation="mask-up">
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcset="
+                      /src/assets/images/courses/course-exam-480.avif   480w,
+                      /src/assets/images/courses/course-exam-768.avif   768w,
+                      /src/assets/images/courses/course-exam-1120.avif 1120w
+                    "
+                    sizes="(min-width: 62rem) 44vw, 100vw"
+                  />
+                  <img
+                    src="/src/assets/images/courses/course-exam-768.webp"
+                    srcset="
+                      /src/assets/images/courses/course-exam-480.webp   480w,
+                      /src/assets/images/courses/course-exam-768.webp   768w,
+                      /src/assets/images/courses/course-exam-1120.webp 1120w
+                    "
+                    sizes="(min-width: 62rem) 44vw, 100vw"
+                    alt="Starszy uczeń pracuje nad zadaniem, notując w zeszycie"
+                    width="1122"
+                    height="1402"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
+
+              <h3 class="u-h2 course__title" data-animation="reveal">
+                Przygotowanie do egzaminu ósmoklasisty
+              </h3>
+
+              <div class="course__body">
+                <p>
+                  Program dla ósmoklasistów, którzy chcą uporządkować materiał, poznać logikę zadań
+                  egzaminacyjnych i regularnie ćwiczyć w warunkach zbliżonych do egzaminu.
+                </p>
+                <p>
+                  Pracujemy nad rozumieniem ze słuchu i tekstu, środkami językowymi, funkcjami
+                  językowymi oraz wypowiedzią pisemną. Ważnym elementem jest plan pracy, kontrola
+                  czasu i analiza błędów.
+                </p>
+                <p>
+                  <strong>Nie obiecujemy wyniku.</strong> Dajemy regularny trening i sposób pracy,
+                  który pomaga wejść na egzamin przygotowanym.
+                </p>
               </div>
-            </dl>
-          </article>
+
+              <dl class="course__facts">
+                <div class="course__fact">
+                  <dt>Format</dt>
+                  <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
+                </div>
+                <div class="course__fact">
+                  <dt>Minimum</dt>
+                  <dd>5 dzieci w grupie</dd>
+                </div>
+                <div class="course__fact">
+                  <dt>Cena</dt>
+                  <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -508,7 +514,13 @@
            05 JAK UCZYMY — Jak wyglądają zajęcia?
            Czarny ekran, cztery czasowniki. Świadoma przerwa od fotografii.
            ============================================================ -->
-      <section class="section method" id="metoda" data-theme="ink" aria-labelledby="metoda-title">
+      <section
+        class="section method"
+        id="metoda"
+        data-animation="section"
+        data-theme="ink"
+        aria-labelledby="metoda-title"
+      >
         <div class="container">
           <p class="u-label section__label">
             <span>05</span>
@@ -546,7 +558,7 @@
            06 CENA — Ile?
            Liczby jako dominująca typografia. Bez pricing cards.
            ============================================================ -->
-      <section class="section" id="cennik" aria-labelledby="cennik-title">
+      <section class="section" id="cennik" data-animation="section" aria-labelledby="cennik-title">
         <div class="container">
           <div class="section__head">
             <p class="u-label section__label">
@@ -586,7 +598,13 @@
            07 NABÓR / START — Kiedy rusza grupa?
            Bez fikcyjnego licznika zapisanych dzieci.
            ============================================================ -->
-      <section class="section" id="nabor" data-theme="ink" aria-labelledby="nabor-title">
+      <section
+        class="section"
+        id="nabor"
+        data-animation="section"
+        data-theme="ink"
+        aria-labelledby="nabor-title"
+      >
         <div class="container">
           <div class="section__head">
             <p class="u-label section__label">
@@ -633,7 +651,12 @@
       <!-- ============================================================
            08 LOKALIZACJA — Czy to wygodne?
            ============================================================ -->
-      <section class="section" id="lokalizacja" aria-labelledby="lokalizacja-title">
+      <section
+        class="section"
+        id="lokalizacja"
+        data-animation="section"
+        aria-labelledby="lokalizacja-title"
+      >
         <div class="container">
           <div class="location__grid">
             <div class="location__text">
@@ -707,7 +730,13 @@
            Poza dziewięcioma aktami lejka dla rodziców — patrz
            docs/ADR/0005-trzecia-sciezka-oferty-seniorzy.md
            ============================================================ -->
-      <section class="section" id="seniorzy" data-theme="blue" aria-labelledby="seniorzy-title">
+      <section
+        class="section"
+        id="seniorzy"
+        data-animation="section"
+        data-theme="blue"
+        aria-labelledby="seniorzy-title"
+      >
         <div class="container">
           <div class="seniors__grid">
             <div class="seniors__text">
@@ -810,7 +839,7 @@
       <!-- ============================================================
            09 FAQ + FINAL CTA — Co dalej?
            ============================================================ -->
-      <section class="section" id="faq" aria-labelledby="faq-title">
+      <section class="section" id="faq" data-animation="section" aria-labelledby="faq-title">
         <div class="container">
           <div class="faq-section__grid">
             <div class="faq-section__head">
@@ -895,7 +924,12 @@
         </div>
       </section>
 
-      <section class="section section--airy" id="kontakt" aria-labelledby="kontakt-title">
+      <section
+        class="section section--airy"
+        id="kontakt"
+        data-animation="section"
+        aria-labelledby="kontakt-title"
+      >
         <div class="container">
           <div class="contact__grid">
             <h2 class="u-display contact__claim" id="kontakt-title" data-animation="reveal">

@@ -10,6 +10,11 @@
   display: grid;
   gap: 1px; /* Jedyny separator: hairline miedzy modulami. */
   background-color: var(--color-rule);
+
+  /* Nad nieruchomym tlem typograficznym - moduly sa nieprzezroczyste,
+     wiec zaslaniaja napis w miare przewijania. */
+  position: relative;
+  z-index: 1;
 }
 
 .course {
@@ -93,4 +98,44 @@
   .course__media {
     aspect-ratio: 16 / 9;
   }
+}
+
+/*
+ * Nieruchome tlo typograficzne pod modulami oferty.
+ *
+ * Wzorzec ze wskazanej referencji: napis stoi w miejscu, a media przesuwaja sie
+ * po nim i stopniowo go zaslaniaja. Realizacja przez position: sticky na
+ * elemencie o zerowej wysokosci - nie zajmuje miejsca w przeplywie, wiec nie
+ * przesuwa siatki ani o pixel.
+ *
+ * Zadnego JavaScriptu i zadnego pinowania sekcji: uzytkownik przewija normalnie.
+ */
+
+.courses__stage {
+  position: relative;
+}
+
+.courses__backdrop {
+  position: sticky;
+  inset-block-start: 42vh;
+  z-index: 0;
+  block-size: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.courses__backdrop span {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 12vw, 12rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  translate: 0 -50%;
+
+  /* Przygaszony granat marki - plaski kolor, nie gradient. */
+  color: color-mix(in srgb, var(--color-blue) 15%, var(--color-paper));
 }

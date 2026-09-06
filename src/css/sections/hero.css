@@ -1,117 +1,104 @@
 /*
  * 01 HERO / NABOR
  *
- * Kompozycja: gigantyczny wordmark na pelna szerokosc, pod nim H1 i lead po lewej,
- * fotografia wychodzaca poza prawa krawedz. Zadnego wysrodkowanego naglowka
- * na zdjeciu z gradientem - to anty-wzorzec z briefu.
+ * Fotografia wypelnia sekcje, a caly tekst lezy na pustej scianie w lewej czesci
+ * kadru: wordmark, H1, lead i jeden pomocniczy przycisk.
+ *
+ * Kadr NIE jest odbijany lustrzanie - sciana jest w oryginale po lewej i tam
+ * zostaje. Wczesniejsze odbicie przenosilo ja na prawo, ale wlasciciel wybral
+ * uklad z tekstem po lewej.
+ *
+ * Glowne CTA "Zgloś dziecko do grupy" nie wystepuje w hero. Zostaje wylacznie
+ * w naglowku i w dalszych sekcjach decyzyjnych - w pierwszym ekranie jest wiec
+ * dokladnie jedno wezwanie do dzialania.
+ *
+ * Wysokosc jest twardym ograniczeniem: sekcja musi zmiescic sie na jednym ekranie
+ * razem z paskiem faktow i naglowkiem.
  */
 
 .hero {
-  padding-block: clamp(1.5rem, 3vw, 2.5rem) 0;
+  padding-block: 0;
+}
+
+.hero__stage {
+  position: relative;
+}
+
+/* --- Tekst --- */
+
+.hero__overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  padding-inline: var(--grid-margin);
 }
 
 .hero__wordmark {
-  /* Wordmark to element kompozycji, nie naglowek. Rola semantyczna
-     nalezy do H1, wiec tutaj aria-hidden po stronie HTML. */
-  margin-block-end: clamp(1rem, 2.5vw, 2rem);
-  white-space: nowrap;
-}
-
-/*
- * Mobile nie jest pomniejszonym desktopem. Na jednej linii wordmark zeszedlby
- * do 72 px i stracil obecnosc; zamiast tego lamie sie na dwie linie i rosnie.
- * Makieta mobilna z briefu pokazuje dokladnie taki uklad.
- */
-@media (width < 48rem) {
-  .hero__wordmark {
-    font-size: min(30vw, 7rem);
-    white-space: normal;
-    max-inline-size: 4.5em;
-    line-height: 0.82;
-  }
-}
-
-.hero__body {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-  gap: var(--grid-gutter);
-  align-items: start;
-}
-
-.hero__text {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  padding-block-end: var(--space-8);
+  margin: 0;
+  font-size: min(26vw, 5.5rem);
+  line-height: 0.82;
+  max-inline-size: 4.5em;
 }
 
 .hero__title {
   max-inline-size: 22ch;
 }
 
-.hero__status {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-rule);
-  max-inline-size: var(--measure-narrow);
+.hero__lead {
+  max-inline-size: 46ch;
 }
 
-.hero__price {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  font-weight: 800;
-  letter-spacing: var(--tracking-heading);
-  line-height: 1.1;
-}
+/* --- Fotografia --- */
 
-.hero__price span {
-  color: var(--color-signal);
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  align-items: center;
-}
-
-/* Media: na mobile pelna szerokosc pod tekstem. */
 .hero__media {
-  grid-column: 1 / -1;
-  margin-inline: calc(50% - 50vw);
+  aspect-ratio: 4 / 5;
 }
+
+/* --- Tablet i desktop: tekst nad kadrem --- */
 
 @media (width >= 62rem) {
-  /*
-   * Desktop: fotografia po LEWEJ, wychodzaca poza lewa krawedz ekranu,
-   * tekst po prawej. Kolejnosc w DOM pozostaje tekst-najpierw - obraz jest
-   * ilustracja, wiec czytnik ekranu i klawiatura dostaja najpierw tresc.
-   */
-  .hero__body {
-    align-items: stretch;
-  }
-
-  .hero__text {
-    /* grid-row jawnie, bo automatyczne rozmieszczanie nie cofa sie do
-       wczesniejszych kolumn - media z kolumn 1-6 wyladowalyby w drugim wierszu. */
-    grid-row: 1;
-    grid-column: 8 / -1;
-    padding-block: var(--space-2) var(--space-8);
-  }
-
-  /*
-   * Kluczowe: media NIE ma wlasnej proporcji na desktopie, tylko rozciaga sie
-   * do wysokosci wiersza wyznaczonej przez kolumne tekstu. Wczesniej proporcja
-   * 3:4 na szerokiej kolumnie dawala 1328 px wysokosci przy 785 px tekstu,
-   * czyli 543 px pustki - czytalo sie to jak pusta strona.
-   */
   .hero__media {
-    grid-row: 1;
-    grid-column: 1 / span 6;
-    margin-inline: calc(-1 * var(--bleed-inline)) 0;
-    align-self: stretch;
+    /*
+     * Kadr wypelnia to, co zostalo z ekranu po pasku faktow i naglowku.
+     * Wyrazony w svh, a nie proporcja: proporcja przy pelnej szerokosci
+     * dawalaby ponad 1000 px i wypchnelaby sekcje pod krawedz ekranu.
+     */
+    aspect-ratio: auto;
+    block-size: clamp(24rem, calc(100svh - 7rem), 48rem);
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+
+    /*
+     * Szerokosc dopasowana do pustej sciany w kadrze - ok. 40% obrazu.
+     * Tekst nie moze wejsc na postacie, bo tam kontrast przestaje dzialac.
+     */
+    inline-size: min(42vw, 38rem);
+    justify-content: center;
+    gap: var(--space-6);
+    padding-inline: max(var(--grid-margin), calc(50vw - var(--container-max) / 2));
+  }
+
+  .hero__wordmark {
+    font-size: min(9vw, 8.5rem);
+    max-inline-size: none;
+    white-space: nowrap;
+    line-height: 0.86;
+  }
+
+  .hero__title {
+    font-size: clamp(1.625rem, 2.6vw, 2.75rem);
+    max-inline-size: 24ch;
+  }
+
+  .hero__lead {
+    font-size: clamp(1rem, 1.05vw, 1.1875rem);
+    max-inline-size: 44ch;
   }
 }

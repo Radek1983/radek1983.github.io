@@ -31,7 +31,17 @@ export default defineConfig({
     // Testujemy build produkcyjny, nie dev server - blizej tego, co zobaczy uzytkownik.
     command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    /*
+     * Swiadomie `false`, nie `!process.env.CI`.
+     *
+     * Przy reuzyciu dzialajacego serwera Playwright pomija cala komende, a wiec
+     * i build. Testy sprawdzaly wtedy CICHO poprzedni artefakt: przechodzily
+     * albo padaly z niewlasciwego powodu. Lepiej zaplacic kilka sekund na
+     * ponowny build niz ufac wynikowi dotyczacemu nieaktualnego kodu.
+     *
+     * Konsekwencja: port 4173 musi byc wolny przed `npm run test:e2e`.
+     */
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 })
