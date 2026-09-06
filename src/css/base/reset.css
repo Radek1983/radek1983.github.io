@@ -1,0 +1,42 @@
+/* Reset minimalny. Bez normalize - tylko to, co projekt faktycznie potrzebuje. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+img,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Kotwice musza uwzgledniac wysokosc sticky headera (spec 6.3). */
+:target {
+  scroll-margin-block-start: var(--space-16);
+}
+
+/* Reduced motion jest obowiazkowe (spec 7.4). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

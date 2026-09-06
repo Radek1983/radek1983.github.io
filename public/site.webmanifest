@@ -1,0 +1,9 @@
+{
+  "name": "High Five - angielski dla dzieci w SP 402 Warszawa",
+  "short_name": "High Five",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F2EFE8",
+  "theme_color": "#0A0A0A",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
