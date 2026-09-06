@@ -259,6 +259,54 @@ test.describe('responsywnosc', () => {
     })
   }
 
+  /*
+   * Tekst hero lezy na pustej scianie w kadrze. Sciana konczy sie okolo 44%
+   * szerokosci zdjecia, a napisy sa czarne - kazde ich wejscie na postac
+   * to utrata kontrastu, wiec blad dostepnosci, nie tylko estetyki.
+   *
+   * Regresja, ktora ten test lapie, byla nieoczywista: kolumna byla najszersza
+   * NIE przy najszerszym ekranie. Przy 1680 px lewy margines juz zniknal,
+   * a szerokosc pola wciaz rosla z 52vw, wiec wiersz siegal 48% i wchodzil
+   * na dziewczynke. Przy 1900 px ten sam kod trzymal sie w 42%.
+   */
+  for (const width of [1024, 1280, 1440, 1536, 1680, 1920, 2560]) {
+    test(`tekst hero nie wchodzi na postacie przy ${width} px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 865 })
+      await page.goto('/')
+
+      const right = await page.evaluate(() => {
+        const boxes = ['.hero__wordmark', '.hero__title', '.hero__lead'].flatMap((sel) => {
+          const el = document.querySelector(sel)
+          return el ? [...el.getClientRects()] : []
+        })
+        return Math.max(...boxes.map((b) => b.right))
+      })
+
+      // 41% szerokosci ekranu: 40vw z CSS plus punkt tolerancji na
+      // zaokraglenia subpikselowe.
+      expect(right).toBeLessThanOrEqual(width * 0.41)
+    })
+  }
+
+  test('kazde zdanie naglowka hero stoi w jednej linii', async ({ page }) => {
+    /*
+     * Wymog wlasciciela: "Angielski po lekcjach." i "W tej samej szkole."
+     * maja sie miescic w jednej linijce kazde, przy niezmienionym stopniu
+     * pisma. Przy dwoch zdaniach i jawnym <br> oznacza to dokladnie 2 linie.
+     */
+    for (const width of [1024, 1280, 1440, 1680, 1920, 2560]) {
+      await page.setViewportSize({ width, height: 865 })
+      await page.goto('/')
+
+      const lines = await page.evaluate(() => {
+        const el = document.querySelector('.hero__title')
+        const lh = parseFloat(getComputedStyle(el).lineHeight)
+        return Math.round(el.getBoundingClientRect().height / lh)
+      })
+      expect(lines, `szerokosc ${width} px`).toBe(2)
+    }
+  })
+
   test('mobile ma wlasna choreografie, nie pomniejszony desktop (VIZ-004)', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/')

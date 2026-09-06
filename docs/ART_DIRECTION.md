@@ -57,6 +57,36 @@ cropy, czasem częściowo ucięte krawędzią. **Nie stock, nie klasa ustawiona 
 SP 402 i **nigdzie nie wolno tego sugerować** — ani w treści, ani w atrybutach `alt`.
 To wymóg briefu, nie ostrożność.
 
+## Strefa bezpieczna tekstu na zdjęciu
+
+Cały tekst hero — wordmark, H1, lead i przycisk — leży na **pustej ścianie w lewej części
+kadru**. Napisy są czarne, więc wejście na postać to utrata kontrastu, czyli błąd
+dostępności, nie tylko kompozycji.
+
+Ściana w kadrze hero kończy się około **44% szerokości zdjęcia**. Strefa bezpieczna to
+**40% szerokości ekranu** — cztery punkty procentowe zapasu. Token: `--measure-hero-safe`
+w `src/css/sections/hero.css`.
+
+Mechanika jest ważna, bo intuicja tu myli. Granica liczy się **od krawędzi ekranu**, a nie
+od szerokości pola tekstowego. Szerokość pola sama z siebie nie wystarcza: lewy margines
+rośnie razem z ekranem (tekst trzyma się krawędzi treści kontenera), więc pole zdefiniowane
+w `vw` puchło w środkowym zakresie i przy 1680 px tekst sięgał 48% szerokości — dokładnie
+na twarz dziewczynki — mimo że przy 1900 px ten sam kod mieścił się w 42%.
+
+Dwa napisy nie mogą po prostu zawinąć się w pole i wymagają ograniczenia **stopnia pisma**:
+
+- **wordmark** ma `white-space: nowrap`, więc zamiast się zwęzić wyszedłby za pole;
+- **H1** musi trzymać każde zdanie w jednej linii (wymóg właściciela), więc gdy pole zwęża
+  się bardziej niż potrzeba, maleje stopień pisma, a nie liczba linii.
+
+Oba używają dzielnika: stosunku szerokości napisu do stopnia pisma (wordmark 4.5,
+H1 9.9 dla `Angielski po lekcjach.`). **Zmiana treści wordmarku, copy nagłówka albo kroju
+pisma wymaga przeliczenia tych liczb.**
+
+Reguła jest pilnowana testami w `tests/e2e/layout.spec.js` na siedmiu szerokościach od
+1024 do 2560 px. Jeśli kiedyś podmienimy kadr hero na taki, w którym pusta przestrzeń jest
+w innym miejscu albo innej szerokości, trzeba zmienić `--measure-hero-safe` i próg w teście.
+
 ## Uwaga praktyczna do generowania obrazów
 
 Znaczna część generatorów obrazów odmawia tworzenia fotorealistycznych wizerunków dzieci

@@ -18,6 +18,19 @@
 
 .hero {
   padding-block: 0;
+
+  /*
+   * Prawa granica tekstu, liczona od krawedzi ekranu.
+   *
+   * Pusta sciana w kadrze konczy sie okolo 44% szerokosci zdjecia - dalej
+   * zaczynaja sie postacie i czarny tekst przestaje byc czytelny. 40vw
+   * trzyma cztery punkty procentowe zapasu.
+   *
+   * Procent szerokosci ekranu, a nie stala w rem: kadr jest full-bleed
+   * i przy tych wysokosciach widac cala jego szerokosc, wiec sciana zajmuje
+   * staly UDZIAL w szerokosci, a nie stala liczbe pikseli.
+   */
+  --measure-hero-safe: 40vw;
 }
 
 .hero__stage {
@@ -76,13 +89,18 @@
     z-index: 1;
 
     /*
-     * Szerokosc dopasowana do pustej sciany w kadrze. Tekst nie moze wejsc
-     * na postacie, bo tam kontrast przestaje dzialac.
+     * Pole konczy sie dokladnie na granicy pustej sciany w kadrze. Poniewaz
+     * --measure-hero-safe liczy sie od krawedzi EKRANU, a lewy padding jest
+     * czescia inline-size (border-box), prawa krawedz tresci wypada zawsze
+     * w tym samym punkcie kadru - niezaleznie od rozdzielczosci.
      *
-     * Pole musi pomiescic "Angielski po lekcjach." w jednej linii przy
-     * niezmienionym stopniu pisma - stad 52rem, a nie 38rem.
+     * Wczesniej bylo tu min(52vw, 52rem) i to bylo zle na dwa sposoby.
+     * Pole nie roslo razem z lewym marginesem, wiec przy 2560 px zostawalo
+     * 252 px na tekst i naglowek lamal sie na kilka linii. A w srodkowym
+     * zakresie, przy 1680 px, margines juz zniknal, pole wciaz roslo z 52vw
+     * i tekst siegal 48% szerokosci - czyli wchodzil na dziewczynke.
      */
-    inline-size: min(52vw, 52rem);
+    inline-size: calc(var(--measure-hero-safe) + var(--space-6));
     justify-content: center;
     gap: var(--space-6);
 
@@ -92,21 +110,30 @@
      * po 182 px z kazdej strony, zostawiajac 244 px na tekst. Naglowek lamal
      * sie wtedy na szesc linii.
      */
-    padding-inline: calc(var(--grid-margin) + max(0px, (100vw - var(--container-max)) / 2))
-      var(--space-6);
+    padding-inline: var(--bleed-inline) var(--space-6);
   }
 
   .hero__wordmark {
-    font-size: min(9vw, 8.5rem);
+    /*
+     * Wordmark obowiazuje ta sama granica co reszte tekstu - jest czarny
+     * i lezy na tym samym zdjeciu.
+     *
+     * Nie da sie tego zrobic przez max-inline-size: napis ma white-space:
+     * nowrap, wiec zamiast sie zwezic po prostu wyszedlby za pole. Dlatego
+     * ograniczamy stopien pisma. Dzielnik 4.5 to stosunek szerokosci napisu
+     * "High Five" do jego stopnia pisma w Inter Display ExtraBold z tracking
+     * display - zmiana tresci wordmarku albo kroju wymaga przeliczenia.
+     */
+    font-size: min(9vw, 8.5rem, calc((var(--measure-hero-safe) - var(--bleed-inline)) / 4.5));
     max-inline-size: none;
     white-space: nowrap;
     line-height: 0.86;
   }
 
   /*
-   * Bez wlasnej miary: szerokosc wyznacza pole tekstowe, wiec H1 i lead stoja
-   * w kolumnie o jednakowej szerokosci. Wlasne max-inline-size zwezalo je
-   * niezaleznie od pola i to wlasnie lamalo naglowek.
+   * Bez wlasnej miary: granice wyznacza pole, wiec H1 i lead stoja w kolumnie
+   * o identycznej szerokosci. Lead zawija sie wczesniej tylko dlatego, ze ma
+   * mniejszy stopien pisma.
    */
   .hero__title,
   .hero__lead {
@@ -114,7 +141,20 @@
   }
 
   .hero__title {
-    font-size: clamp(1.625rem, 2.6vw, 2.75rem);
+    /*
+     * Wlasciciel wymaga, zeby kazde zdanie naglowka stalo w jednej linii.
+     * Drugi argument min() to gwarancja tego przy kazdej rozdzielczosci:
+     * gdy pole zwezi sie bardziej niz potrzeba na "Angielski po lekcjach.",
+     * maleje stopien pisma, a nie liczba linii.
+     *
+     * 9.9 to stosunek szerokosci tego zdania do stopnia pisma. Zmiana copy
+     * naglowka albo kroju wymaga przeliczenia - test w tests/e2e pilnuje,
+     * ze naglowek nadal ma dokladnie dwie linie.
+     */
+    font-size: min(
+      clamp(1.625rem, 2.6vw, 2.75rem),
+      calc((var(--measure-hero-safe) - var(--bleed-inline)) / 9.9)
+    );
   }
 
   .hero__lead {
