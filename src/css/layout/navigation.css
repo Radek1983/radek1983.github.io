@@ -50,8 +50,16 @@
   display: none;
 }
 
+@media (width >= 48rem) {
+  .ticker__track {
+    justify-content: center;
+  }
+}
+
 @media (width < 48rem) {
-  /* Na waskim ekranie pasek przewija sie poziomo palcem, nie zawija. */
+  /* Na waskim ekranie pasek przewija sie poziomo palcem, nie zawija.
+     Centrowanie jest tu wykluczone: przy przewijaniu poziomym schowaloby
+     poczatek listy poza dostepnym obszarem. */
   .ticker__track {
     overflow-x: auto;
     scrollbar-width: none;

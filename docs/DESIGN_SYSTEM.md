@@ -124,7 +124,7 @@ przy 1440 × 900 — test `VIZ-001` pilnuje, żeby nie zrobił się z tego deck 
 
 ## 6. CTA i menu
 
-**Primary CTA:** `Zgłoś dziecko do grupy`, niezmienne, prowadzi do `#kontakt`.
+**Primary CTA:** `Zapisz się na zajęcia`, w nagłówku skrócone do `Zapisz się`, prowadzi do `#kontakt`. Brzmienie zmienione na polecenie właściciela — ADR 0006.
 Warianty: `.cta--large` (hero, final), `.cta--ghost` (akcja pomocnicza, np. „Wyznacz trasę").
 Minimalna wysokość 48 px — powyżej wymaganych 44 px.
 

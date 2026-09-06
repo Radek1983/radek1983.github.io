@@ -109,7 +109,8 @@ Sekcje briefu oznaczone jako gotowe copy to zatwierdzony copy deck. Przenieś je
 - **H1:** `Angielski po lekcjach. W tej samej szkole.`
 - **Hero lead:** `Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.`
 - **Nabór:** `Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.`
-- **Primary CTA (niezmienne):** `Zgłoś dziecko do grupy`
+- **Primary CTA:** `Zapisz się na zajęcia`, w nagłówku skrócone do `Zapisz się`.
+  Wcześniej brief żądał `Zgłoś dziecko do grupy`. Zmianę polecił właściciel: „zgłoś dziecko” czyta się jak zgłoszenie na policję. Cel, kolor i rola CTA bez zmian — **ADR 0006**
 - **Lokalna propozycja wartości:** `Mniej logistyki. Znane miejsce. Więcej ciągłości.`
 - **Język metody:** `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.`
 
@@ -387,7 +388,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ### D2 — mechanika i konsekwencje
 
-CTA `Zgłoś dziecko do grupy` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
+CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
 ukrytą treść. Dane kontaktowe stoją w DOM od pierwszego renderu jako `<a href="tel:…">`
 i `<a href="mailto:…">`, bo awaria JS nie może ukryć jedynej drogi kontaktu. Ewentualne
 rozwinięcie po kliknięciu istnieje wyłącznie jako mikrointerakcja **nad treścią już obecną
@@ -402,7 +403,7 @@ preferowany kontakt) — to przenosi wartość utraconego formularza bez żadneg
   serwerową, endpoint serverless albo usługa formularzowa z kluczem publicznym.
 - Dane kontaktowe: patrz **D6**. Wartości tymczasowe przekazane przez właściciela — nie wymyślaj
   własnych i nie zmieniaj ich bez polecenia.
-- `FORM-001` = **N/A** w v1. `BIZ-007` spełnione (CTA niezmienione). `BIZ-010` = **N/A**.
+- `FORM-001` = **N/A** w v1. `BIZ-010` = **N/A**. `BIZ-007` — **odstępstwo**, patrz ADR 0006: CTA prowadzi do kontaktu jak przewiduje D2, ale brzmi inaczej niż cytat w kryterium.
 
 **Uwaga:** D2 jest odstępstwem od master promptu §7 i §16, które przewidują krótki formularz jako
 główną ścieżkę konwersji. Odstępstwo zostało świadomie zatwierdzone przez właściciela. Przy każdej
@@ -424,6 +425,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Kadry AI jako mock (D4)                         | Placeholdery wyraźnie oznaczone, docelowe proporcje 4:5 / 3:2 / 16:9, minimum 6 spójnych kadrów. **Nie udawaj, że placeholder pokazuje rzeczywistych uczniów SP 402.** Wymagania w `docs/ART_DIRECTION.md` i `docs/CONTENT_GAPS.md`                                                                                                                                                                                                                                        |
 | Brak formularza (D2)                            | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15                                                                                                                                                                                                                                                                                                                                                                                     |
 | Hosting i `base` — ADR 0001                     | GitHub Pages user site, `base` = `/`, źródło „GitHub Actions” ustawiane ręcznie w Settings → Pages                                                                                                                                                                                                                                                                                                                                                                         |
+| Brzmienie primary CTA — ADR 0006                | Odstępstwo polecone przez właściciela: `Zapisz się na zajęcia` zamiast `Zgłoś dziecko do grupy` z master promptu §7. Czasownik „zgłosić” niosł skojarzenie ze zgłoszeniem na policję. Funkcja, cel `#kontakt` i kolor sygnałowy bez zmian, więc zakaz miękkich CTA nadal obowiązuje. **BIZ-007 formalnie naruszone** — w raporcie odbioru jako odstępstwo, nie PASS                                                                                                        |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 
 ## 17. Kryteria odbioru
@@ -431,8 +433,8 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 Przed zakończeniem oceń **PASS / N-A / BLOCKED** i zwróć raport zgodnie z master promptem §33.
 
 **Biznesowe (BIZ-001…015):** klasy 1–8 jasne; SP 402 + „po lekcjach” jasne; nabór + 01.10
-widoczne; minimum 5 jawne; 55/50 zł jawne; tylko 2 ścieżki ofertowe; primary CTA = `Zgłoś dziecko
-do grupy`; brak wymyślonych faktów; brak sugerowania oficjalnej relacji ze SP 402; formularz
+widoczne; minimum 5 jawne; 55/50 zł jawne; tylko 2 ścieżki ofertowe; primary CTA — brzmienie
+zmienione przez właściciela, ADR 0006; brak wymyślonych faktów; brak sugerowania oficjalnej relacji ze SP 402; formularz
 krótki (**N/A w v1**); strona działa biznesowo bez animacji; brak generycznego card-landingu;
 brand-first art direction widoczna w screenshocie; mobile ma własną choreografię; komunikat
 zapamiętywalny po 15 sekundach.
@@ -452,7 +454,7 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie podejmuj samodzielnie decyzji przy sprzeczności z `instructions/`** — pytaj, patrz §0.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
-- **Nie zmieniaj primary CTA** na „Sprawdź poziom”, „Umów konsultację”, „Trial” itp.
+- **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz podstron** poza zakresem pierwszego one-page bez zlecenia.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR

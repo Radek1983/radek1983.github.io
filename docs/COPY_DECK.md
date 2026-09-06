@@ -13,7 +13,7 @@ zmienić. Procedura zmiany treści: `docs/CONTENT.md`.
 | `title`            | `High Five - angielski dla dzieci w SP 402 Warszawa`                                                                                              | `<head>`                  |
 | `meta description` | `Zajęcia z angielskiego dla klas 1-8 po lekcjach w SP 402 w Warszawie. Przygotowanie do egzaminu ósmoklasisty. Nabór trwa, start 1 października.` | `<head>`                  |
 | **H1**             | `Angielski po lekcjach. W tej samej szkole.`                                                                                                      | `#hero-title`             |
-| **Primary CTA**    | `Zgłoś dziecko do grupy`                                                                                                                          | hero, nabór, dock mobilny |
+| **Primary CTA**    | `Zapisz się na zajęcia` (w nagłówku: `Zapisz się`)                                                                                                | hero, nabór, dock mobilny |
 | Wordmark           | `High Five`                                                                                                                                       | `.hero__wordmark`, stopka |
 
 Title, description i H1 są **cytatami dosłownymi** z briefu. Test w `tests/smoke/page.spec.js`
@@ -35,7 +35,7 @@ ani przycienienia, ani gradientu — jednego i drugiego brief zabrania.
 **W hero NIE MA:**
 
 - ceny — żyje w pasku faktów i w sekcji `#cennik`;
-- głównego CTA `Zgłoś dziecko do grupy` — zostaje w pasku na górze oraz w sekcjach
+- głównego CTA `Zapisz się na zajęcia` — zostaje w nagłówku oraz w sekcjach
   decyzyjnych `#nabor` i `#kontakt`.
 
 Decyzja właściciela: w pierwszym ekranie ma być **dokładnie jedno** wezwanie zgłoszeniowe.
@@ -219,7 +219,7 @@ przekazał właściciel i widnieje publicznie na stronie Terminalu Kultury.
 
 **Nagłówek:** `Gotowi na High Five?`
 
-> Zgłoś dziecko do grupy. Odezwiemy się z informacją o poziomie, terminie i statusie naboru.
+> Zapisz dziecko na zajęcia. Odezwiemy się z informacją o poziomie, terminie i statusie naboru.
 
 Kanały: telefon i e-mail, oba jako duże klikalne wiersze. Dodatkowo `mailto:` z gotowym
 tematem i szkieletem treści (imię rodzica, klasa dziecka, kontakt, uwagi) — to przenosi
