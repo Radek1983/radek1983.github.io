@@ -68,11 +68,17 @@ test.describe('tresc i SEO', () => {
     await expect(body).toContainText('egzaminu ósmoklasisty')
   })
 
-  test('primary CTA jest niezmienione i prowadzi do sekcji kontaktu', async ({ page }) => {
-    const cta = page.getByRole('link', { name: /Zgłoś dziecko do grupy/ }).first()
+  test('primary CTA prowadzi do sekcji kontaktu', async ({ page }) => {
+    const cta = page.getByRole('link', { name: /Zapisz si/ }).first()
     await expect(cta).toHaveAttribute('href', '#kontakt')
 
-    // Brief zabrania podmiany glownego CTA na inne wezwania.
+    /*
+     * Brzmienie zmienil wlasciciel: "Zglos dziecko" czytalo sie jak zgloszenie
+     * na policje (ADR 0006). Zakaz z briefu dotyczy oslabienia konwersji -
+     * podmiany na "Sprawdz poziom", "Umow konsultacje", "Trial". Nowa etykieta
+     * nadal wzywa wprost do zapisu i nadal prowadzi do #kontakt, wiec te
+     * asercje zostaja.
+     */
     await expect(page.locator('body')).not.toContainText('Sprawdź poziom')
     await expect(page.locator('body')).not.toContainText('lekcja próbna')
     await expect(page.locator('body')).not.toContainText('darmowa lekcja')
@@ -163,7 +169,7 @@ test.describe('tresc i SEO', () => {
      */
     const zgloszeniowe = await page.evaluate(() =>
       [...document.querySelectorAll('a.cta')]
-        .filter((el) => /zg[lł]o[sś] dziecko/i.test(el.textContent))
+        .filter((el) => /zapisz si[eę]/i.test(el.textContent))
         .filter((el) => {
           const r = el.getBoundingClientRect()
           return r.top < window.innerHeight && r.bottom > 0 && el.offsetParent !== null
@@ -175,7 +181,7 @@ test.describe('tresc i SEO', () => {
     // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
     const hero = await page.locator('.hero').innerText()
     expect(hero).not.toMatch(/55 z[lł]/)
-    expect(hero).not.toMatch(/zg[lł]o[sś] dziecko/i)
+    expect(hero).not.toMatch(/zapisz si[eę]/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

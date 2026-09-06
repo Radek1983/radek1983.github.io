@@ -154,10 +154,11 @@ test.describe('oferta dla seniorow', () => {
     // Wariant obrysowany, nie wypelniony kolorem akcji.
     await expect(link).toHaveClass(/cta--ghost/)
 
-    // Primary CTA pozostaje niezmienione i nadal prowadzi do kontaktu.
-    await expect(
-      page.getByRole('link', { name: /Zgłoś dziecko do grupy/ }).first(),
-    ).toHaveAttribute('href', '#kontakt')
+    // Primary CTA nadal prowadzi do kontaktu.
+    await expect(page.getByRole('link', { name: /Zapisz si/ }).first()).toHaveAttribute(
+      'href',
+      '#kontakt',
+    )
   })
 
   test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {
