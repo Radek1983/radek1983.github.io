@@ -1,47 +1,130 @@
-/* Tokeny projektu HIGH FIVE. Zrodlo: brief v3, rozdz. "Design system". */
+/*
+ * Tokeny projektu HIGH FIVE. Zrodlo: brief v3, rozdzial "Design system".
+ *
+ * Cztery kolory, jedna rodzina display, jedna tekstowa. Corner radius 0, cienie 0,
+ * gradienty 0 - to nie oszczednosc, a jezyk marki.
+ */
 
 :root {
-  /* Kolor. PAPER + INK dominuja. RED = akcja. BLUE = drugi akt marki. Bez gradientow. */
+  /* --- Paleta marki. Cztery wartosci, bez odcieni pochodnych. --- */
   --color-paper: #f2efe8;
   --color-ink: #0a0a0a;
   --color-signal: #f23b2f;
   --color-blue: #123b8c;
 
-  /* Role semantyczne - komponenty odwoluja sie do nich, nie do surowych kolorow. */
+  /* --- Role semantyczne. Komponenty uzywaja WYLACZNIE tych, nigdy surowych kolorow.
+         Dzieki temu zmiana motywu sekcji przez [data-theme] dziala automatycznie. --- */
   --color-bg: var(--color-paper);
   --color-text: var(--color-ink);
   --color-accent: var(--color-signal);
+  --color-rule: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  --color-cta-bg: var(--color-signal);
+  --color-cta-text: var(--color-paper);
 
-  /* Typografia. Docelowo Inter Display + Inter, self-hosted WOFF2. */
-  --font-display: system-ui, sans-serif;
-  --font-body: system-ui, sans-serif;
+  /* --- Typografia --- */
+  --font-display: 'Inter Display', 'Inter', system-ui, sans-serif;
+  --font-body: inter, system-ui, sans-serif;
 
-  /* Skala plynna przez clamp() - nigdy samo vw. */
-  --step-display: clamp(3.5rem, 9vw, 10rem);
-  --step-h1: clamp(2.8rem, 7vw, 7rem);
-  --step-h2: clamp(2rem, 4.5vw, 4.75rem);
-  --step-body: clamp(1rem, 0.4vw + 0.92rem, 1.25rem);
+  /*
+   * Skala plynna przez clamp(). Nigdy samo vw - bez gornego ogranicznika
+   * naglowek na monitorze 2560 px staje sie nieczytelna plama.
+   *
+   * --step-wordmark jest osobnym poziomem: to nie naglowek, a element
+   * kompozycji, ktory ma prawo wyjsc poza krawedz ekranu.
+   */
+  --step-wordmark: clamp(4.5rem, 17vw, 17rem);
+  --step-display: clamp(3.25rem, 10vw, 9rem);
+  --step-h1: clamp(2.25rem, 5.2vw, 5rem);
+  --step-h2: clamp(1.875rem, 4vw, 3.75rem);
+  --step-h3: clamp(1.25rem, 1.6vw, 1.625rem);
+  --step-body: clamp(1rem, 0.35vw + 0.94rem, 1.1875rem);
+  --step-lead: clamp(1.125rem, 0.8vw + 1rem, 1.5rem);
+  --step-label: 0.8125rem;
+  --leading-tight: 0.86;
+  --leading-heading: 1.02;
+  --leading-body: 1.55;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-label: 0.14em;
 
-  /* Rytm pionowy i poziomy. */
+  /* Maksymalna dlugosc wiersza tekstu ciaglego. Naglowki display moga ja przekraczac,
+     body copy nie - rozdz. 29.1 specyfikacji. */
+  --measure: 34rem;
+  --measure-narrow: 26rem;
+
+  /* --- Rytm --- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
+  --space-3: 0.75rem;
   --space-4: 1rem;
+  --space-6: 1.5rem;
   --space-8: 2rem;
+  --space-12: 3rem;
   --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
-  /* Siatka: desktop 12 kolumn, margines 24-36 px; mobile 4 kolumny, margines 16-20 px. */
-  --space-gutter: 1rem;
-  --space-margin: 1.25rem;
+  /* Odstep pionowy sekcji. Rytm jest zmienny - sekcje NIE maja jednakowej wysokosci. */
+  --space-section: clamp(4rem, 9vw, 9rem);
 
-  /* Motion. Corner radius i cienie celowo nie maja tokenow - w modulach wynosza zero. */
-  --dur-fast: 180ms;
-  --dur-normal: 420ms;
+  /* --- Siatka: desktop 12 kolumn, mobile 4. Margines i gutter z briefu. --- */
+  --grid-columns: 4;
+  --grid-gutter: 0.75rem;
+  --grid-margin: 1.25rem;
+  --container-max: 96rem;
+
+  /* --- Motion. Wartosci startowe z briefu; warstwa ruchu powstaje w osobnym kroku. --- */
+  --dur-micro: 180ms;
+  --dur-reveal: 560ms;
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Warstwy --- */
+  --z-ticker: 20;
+  --z-header: 30;
+  --z-skip: 40;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 1rem;
+    --grid-margin: 1.75rem;
+  }
 }
 
 @media (width >= 64rem) {
   :root {
-    --space-gutter: 1rem;
-    --space-margin: 2rem;
+    --grid-gutter: 1.25rem;
+    --grid-margin: 2.25rem;
   }
+}
+
+/*
+ * Motywy sekcji. Realizowane wylacznie przez podmiane rol semantycznych,
+ * nigdy przez nadpisywanie kolorow w komponentach (spec 29.3).
+ */
+
+[data-theme='ink'] {
+  --color-bg: var(--color-ink);
+  --color-text: var(--color-paper);
+  --color-rule: color-mix(in srgb, var(--color-paper) 22%, transparent);
+  --color-cta-bg: var(--color-signal);
+  --color-cta-text: var(--color-paper);
+}
+
+[data-theme='signal'] {
+  --color-bg: var(--color-signal);
+  --color-text: var(--color-paper);
+  --color-rule: color-mix(in srgb, var(--color-paper) 30%, transparent);
+  --color-cta-bg: var(--color-ink);
+  --color-cta-text: var(--color-paper);
+}
+
+[data-theme='blue'] {
+  --color-bg: var(--color-blue);
+  --color-text: var(--color-paper);
+  --color-rule: color-mix(in srgb, var(--color-paper) 26%, transparent);
+  --color-cta-bg: var(--color-paper);
+  --color-cta-text: var(--color-blue);
 }

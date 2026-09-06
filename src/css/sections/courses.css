@@ -1,0 +1,85 @@
+/*
+ * 04 KURSY
+ *
+ * Dwa pelnowymiarowe moduly, nie karty. Drugi niesie motyw BLUE -
+ * kolor egzaminacyjnego aktu marki, przez co rozroznienie ofert
+ * jest widoczne przed przeczytaniem jednego slowa.
+ */
+
+.courses__grid {
+  display: grid;
+  gap: 1px; /* Jedyny separator: hairline miedzy modulami. */
+  background-color: var(--color-rule);
+}
+
+.course {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  padding: clamp(1.75rem, 3.5vw, 3.5rem);
+}
+
+.course__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-8);
+}
+
+.course__index {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  opacity: 0.28;
+}
+
+.course__title {
+  margin-block-end: var(--space-6);
+  max-inline-size: 16ch;
+}
+
+.course__media {
+  margin-block-end: var(--space-8);
+}
+
+.course__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Fakty operacyjne: format, minimum, cena. Lista definicyjna, nie akapit. */
+.course__facts {
+  display: grid;
+  gap: var(--space-2);
+  margin-block-start: var(--space-8);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+  font-size: 0.9375rem;
+}
+
+.course__fact {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.course__fact dt {
+  flex: none;
+  min-inline-size: 9rem;
+  opacity: 0.6;
+}
+
+.course__fact dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+@media (width >= 62rem) {
+  .courses__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -1,0 +1,35 @@
+/*
+ * Inter 4.1, samohostowany. Licencja SIL OFL 1.1 - patrz src/assets/fonts/LICENSE-Inter.txt.
+ * Brief wskazuje Inter Display ExtraBold/Bold jako display oraz Inter Regular/Medium jako tekst.
+ *
+ * Trzy pliki zamiast pelnej rodziny: jeden krój display i dwie grubosci tekstowe.
+ * Kazdy dodatkowy plik to ~110 kB bez zysku kompozycyjnego - hierarchie budujemy
+ * rozmiarem i swiatlem, nie mnozeniem grubosci.
+ */
+
+@font-face {
+  font-family: 'Inter Display';
+  src: url('../../assets/fonts/InterDisplay-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+
+  /* swap: tekst pojawia sie natychmiast w kroju zastepczym, potem podmienia sie na Inter.
+     Chroni LCP - uzytkownik nigdy nie patrzy na puste miejsce. */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../../assets/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../../assets/fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

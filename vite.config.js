@@ -18,7 +18,21 @@ const CSP = [
   "font-src 'self'",
   "connect-src 'self'",
   "form-action 'self'",
-  'upgrade-insecure-requests',
+  /*
+   * `upgrade-insecure-requests` jest tu SWIADOMIE pominiete.
+   *
+   * WebKit stosuje te dyrektywe rowniez do 127.0.0.1, w przeciwienstwie do Chrome,
+   * ktory wylacza localhost. Przy `vite preview` na http oznaczalo to, ze Safari
+   * probowal pobrac arkusz po https i go nie ladowal - testy e2e sprawdzalyby
+   * strone bez stylow, niczego nie wykrywajac.
+   *
+   * Ochrona jest tu zbedna: wszystkie podzasoby maja adresy wzgledne, wiec na
+   * produkcji ida po https wymuszonym przez "Enforce HTTPS" w GitHub Pages.
+   * Nie ma w projekcie ani jednego absolutnego adresu http.
+   *
+   * W ops/headers.example.conf dyrektywa pozostaje - tam jest naglowkiem HTTP
+   * i nie wplywa na lokalne testy.
+   */
 ].join('; ')
 
 /**

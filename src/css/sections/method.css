@@ -1,0 +1,87 @@
+/*
+ * 05 JAK UCZYMY
+ *
+ * Scena typograficzna na czarnym tle. Brief nazywa to swiadoma przerwa
+ * od fotografii - w tej sekcji nie ma i nie moze byc zdjecia.
+ */
+
+.method {
+  padding-block: clamp(5rem, 12vw, 12rem);
+}
+
+.method__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  align-items: end;
+}
+
+.method__verbs {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cztery czasowniki jeden pod drugim. Kazdy to wlasna linia kompozycji,
+   dlatego line-height jest ciasny i litery prawie sie stykaja. */
+.method__verb {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 11vw, 9.5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+/* Ostatni czasownik w kolorze sygnalowym - to on jest puenta. */
+.method__verb:last-child {
+  color: var(--color-signal);
+}
+
+.method__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-block-start: var(--space-12);
+}
+
+/* Proces w pieciu krokach jako lista numerowana - nie diagram, nie ikony. */
+.method__steps {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  font-size: 0.9375rem;
+}
+
+.method__step {
+  display: flex;
+  gap: var(--space-4);
+  padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--color-rule);
+  counter-increment: step;
+}
+
+.method__step::before {
+  content: counter(step, decimal-leading-zero);
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  opacity: 0.5;
+}
+
+@media (width >= 62rem) {
+  .method__verbs {
+    grid-column: 1 / span 7;
+  }
+
+  .method__text {
+    grid-column: 9 / -1;
+    margin-block-start: 0;
+    padding-block-end: var(--space-6);
+  }
+}

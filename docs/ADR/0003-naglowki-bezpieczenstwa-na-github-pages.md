@@ -45,6 +45,19 @@ to rzeczywiście krótki cache. Hashowane assety **nie** dostaną `immutable, ma
 `<meta http-equiv="Cache-Control">` nie jest respektowany przez cache HTTP przeglądarek
 i nie zostanie dodany — to nieporozumienie, nie obejście.
 
+### Dlaczego w meta nie ma `upgrade-insecure-requests`
+
+Dyrektywa była w pierwszej wersji polityki i została usunięta po odkryciu konkretnego skutku:
+**WebKit stosuje ją również do `127.0.0.1`**, w przeciwieństwie do Chrome, który wyłącza
+localhost. Przy `vite preview` na `http` Safari próbował pobrać arkusz stylów po `https`
+i go nie ładował — testy e2e sprawdzały wtedy stronę **bez stylów**, nie wykrywając niczego.
+Dziewięć testów przechodziło albo padało z niewłaściwego powodu.
+
+Ochrona jest tu zbędna: wszystkie podzasoby mają adresy względne, więc na produkcji ładują się
+po HTTPS wymuszonym przez „Enforce HTTPS". W projekcie nie ma ani jednego absolutnego adresu
+`http://`. W `ops/headers.example.conf` dyrektywa pozostaje — tam jest nagłówkiem HTTP
+i nie wpływa na lokalne testy.
+
 ## Wpływ i jego ograniczenie
 
 **Brak `frame-ancestors`** — strona może zostać osadzona w ramce na obcej witrynie.

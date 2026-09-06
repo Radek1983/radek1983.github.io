@@ -1,0 +1,43 @@
+/*
+ * 03 CO DZIECKO ZYSKUJE
+ *
+ * Korzysci jako rytm typograficzny, nie grid ikon. Dwa pasy oversized
+ * przesuniete wzgledem siebie, pod nimi trzy krotkie zdania.
+ */
+
+.benefits {
+  padding-block: clamp(4rem, 10vw, 10rem);
+}
+
+.benefits__marquee {
+  margin-block-end: clamp(2.5rem, 6vw, 6rem);
+}
+
+.benefits__list {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter) var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.benefits__item {
+  grid-column: 1 / -1;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.benefits__item h3 {
+  margin-block-end: var(--space-2);
+}
+
+.benefits__item p {
+  max-inline-size: 30ch;
+}
+
+@media (width >= 48rem) {
+  .benefits__item {
+    grid-column: span 4;
+  }
+}

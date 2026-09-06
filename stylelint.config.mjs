@@ -3,8 +3,13 @@ export default {
   extends: ['stylelint-config-standard'],
   ignoreFiles: ['dist/**/*', 'node_modules/**/*'],
   rules: {
-    // Tokeny projektu: --hf-*, --color-*, --space-*, --font-*, --step-*, --dur-*, --ease-*, --z-*
-    'custom-property-pattern': '^(hf|color|space|font|step|dur|ease|z)-[a-z0-9-]+$',
+    /*
+     * Tokeny projektu. Zamknieta lista prefiksow - kazdy nowy wymaga swiadomego
+     * dopisania tutaj, co powstrzymuje rozjazd nazewnictwa w variables.css.
+     * Sufiks jest opcjonalny, bo tokeny jak --measure wystepuja bez niego.
+     */
+    'custom-property-pattern':
+      '^(hf|color|space|font|step|dur|ease|z|grid|tracking|leading|measure|container|header)(-[a-z0-9-]+)?$',
 
     // .komponent, .komponent__element, .komponent--wariant, .is-stan (spec 7.2)
     'selector-class-pattern':

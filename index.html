@@ -10,9 +10,10 @@
       content="Zajęcia z angielskiego dla klas 1-8 po lekcjach w SP 402 w Warszawie. Przygotowanie do egzaminu ósmoklasisty. Nabór trwa, start 1 października."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#f2efe8" />
     <link rel="canonical" href="https://radek1983.github.io/" />
 
-    <!-- Open Graph. og:image dostarcza czesc biznesowa - patrz docs/CONTENT_GAPS.md -->
+    <!-- Open Graph. og:image dostarcza część biznesowa - patrz docs/CONTENT_GAPS.md -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
@@ -26,67 +27,822 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- Preload tylko kroju display: nim złożony jest wordmark i H1, czyli element LCP.
+         Kroje tekstowe ładują się z font-display: swap i nie konkurują o pasmo. -->
+    <link
+      rel="preload"
+      href="/src/assets/fonts/InterDisplay-ExtraBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <link rel="stylesheet" href="/src/css/main.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "High Five",
+        "description": "Zajęcia z języka angielskiego dla dzieci z klas 1-8, prowadzone po lekcjach na terenie Szkoły Podstawowej nr 402 w Warszawie. Osobna ścieżka przygotowania do egzaminu ósmoklasisty.",
+        "url": "https://radek1983.github.io/",
+        "email": "janek.gitara@onet.pl",
+        "telephone": "+48789789789",
+        "areaServed": "Warszawa",
+        "location": {
+          "@type": "Place",
+          "name": "Szkoła Podstawowa nr 402 im. Haliny Konopackiej",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 22",
+            "postalCode": "03-982",
+            "addressLocality": "Warszawa",
+            "addressCountry": "PL"
+          }
+        }
+      }
+    </script>
   </head>
 
   <body>
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
+    <!-- Potwierdzone fakty widoczne przed pierwszym scrollem.
+         Bez autoplay - pasek jest statyczny, na mobile przewijalny palcem. -->
+    <div class="ticker">
+      <p class="ticker__track">
+        <span class="ticker__item">Nabór trwa</span>
+        <span class="ticker__item">Start 1 października</span>
+        <span class="ticker__item">SP 402, Warszawa</span>
+        <span class="ticker__item">55 zł/godz.</span>
+        <span class="ticker__item">Rodzeństwo 50 zł/godz.</span>
+        <span class="ticker__item">Minimum 5 dzieci</span>
+      </p>
+    </div>
+
     <header class="site-header">
-      <nav aria-label="Nawigacja główna">
-        <a href="#oferta">Oferta</a>
-        <a href="#cennik">Cennik</a>
-        <a href="#faq">FAQ</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
+      <div class="site-header__inner">
+        <a class="site-header__brand" href="#main">High Five</a>
+
+        <nav class="site-nav" aria-label="Nawigacja główna">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="#oferta">Oferta</a></li>
+            <li><a class="site-nav__link" href="#cennik">Cennik</a></li>
+            <li><a class="site-nav__link" href="#lokalizacja">Lokalizacja</a></li>
+            <li><a class="site-nav__link" href="#faq">FAQ</a></li>
+            <li><a class="site-nav__link" href="#kontakt">Kontakt</a></li>
+          </ul>
+        </nav>
+
+        <a class="cta site-header__cta" href="#kontakt">
+          Zgłoś dziecko
+          <span class="cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </header>
 
     <main id="main">
-      <section id="hero" aria-labelledby="hero-title">
-        <h1 id="hero-title">Angielski po lekcjach. W tej samej szkole.</h1>
-        <p>
-          Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe
-          grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu
-          ósmoklasisty.
-        </p>
-        <p>Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.</p>
-        <a class="cta" href="#kontakt">Zgłoś dziecko do grupy</a>
+      <!-- ============================================================
+           01 HERO / NABÓR — Czy to dla mojego dziecka?
+           ============================================================ -->
+      <section class="section hero" aria-labelledby="hero-title">
+        <div class="container">
+          <!-- Wordmark jest elementem kompozycji, nie nagłówkiem. Rolę semantyczną
+               niesie H1, więc dla czytników ekranu ten napis jest ukryty. -->
+          <p class="u-wordmark hero__wordmark" aria-hidden="true">High Five</p>
+
+          <div class="hero__body">
+            <div class="hero__text">
+              <h1 class="hero__title" id="hero-title">
+                Angielski po lekcjach. W tej samej szkole.
+              </h1>
+
+              <p class="u-lead">
+                Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe
+                grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu
+                ósmoklasisty.
+              </p>
+
+              <div class="hero__status">
+                <p class="hero__price">
+                  55 zł / godz. <span aria-hidden="true">·</span> rodzeństwo 50 zł
+                </p>
+                <p>
+                  Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.
+                </p>
+              </div>
+
+              <div class="hero__actions">
+                <a class="cta cta--large" href="#kontakt">
+                  Zgłoś dziecko do grupy
+                  <span class="cta__arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="u-link" href="#oferta">Zobacz ofertę</a>
+              </div>
+            </div>
+
+            <figure class="media media--hero hero__media">
+              <picture>
+                <source
+                  media="(min-width: 62rem)"
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/hero/hero-classroom-768.avif   768w,
+                    /src/assets/images/hero/hero-classroom-1200.avif 1200w,
+                    /src/assets/images/hero/hero-classroom-1600.avif 1600w
+                  "
+                  sizes="46vw"
+                />
+                <source
+                  media="(min-width: 62rem)"
+                  type="image/webp"
+                  srcset="
+                    /src/assets/images/hero/hero-classroom-768.webp   768w,
+                    /src/assets/images/hero/hero-classroom-1200.webp 1200w,
+                    /src/assets/images/hero/hero-classroom-1600.webp 1600w
+                  "
+                  sizes="46vw"
+                />
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/hero/hero-classroom-portrait-480.avif   480w,
+                    /src/assets/images/hero/hero-classroom-portrait-768.avif   768w,
+                    /src/assets/images/hero/hero-classroom-portrait-1120.avif 1120w
+                  "
+                  sizes="100vw"
+                />
+                <img
+                  src="/src/assets/images/hero/hero-classroom-portrait-768.webp"
+                  srcset="
+                    /src/assets/images/hero/hero-classroom-portrait-480.webp   480w,
+                    /src/assets/images/hero/hero-classroom-portrait-768.webp   768w,
+                    /src/assets/images/hero/hero-classroom-portrait-1120.webp 1120w
+                  "
+                  sizes="(min-width: 62rem) 46vw, 100vw"
+                  alt="Dwoje dzieci przy wspólnym zadaniu w jasnej sali, w trakcie rozmowy"
+                  width="1122"
+                  height="1402"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+          </div>
+        </div>
       </section>
 
-      <section id="oferta" aria-labelledby="oferta-title">
-        <h2 id="oferta-title">Oferta</h2>
-        <p>Klasy 1-7 oraz klasa 8 z przygotowaniem do egzaminu ósmoklasisty.</p>
+      <!-- ============================================================
+           02 PO LEKCJACH — Gdzie i dlaczego wygodnie?
+           ============================================================ -->
+      <section class="section" id="po-lekcjach" aria-labelledby="po-lekcjach-title">
+        <div class="container">
+          <div class="after-school__grid">
+            <div class="after-school__text">
+              <div>
+                <p class="u-label section__label">
+                  <span>02</span>
+                  <span>Po lekcjach</span>
+                </p>
+                <h2 class="u-display after-school__claim" id="po-lekcjach-title">
+                  Mniej logistyki. Znane miejsce. Więcej ciągłości.
+                </h2>
+              </div>
+
+              <div class="after-school__block">
+                <p class="u-lead">
+                  High Five prowadzi zajęcia z angielskiego dla dzieci z klas 1-8 po zakończeniu
+                  lekcji szkolnych, na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej w
+                  Warszawie.
+                </p>
+              </div>
+
+              <div class="after-school__block">
+                <p>
+                  Dla rodzica oznacza to mniej logistycznego chaosu. Dla dziecka — znajome miejsce i
+                  łatwiejsze przejście z dnia szkolnego do pracy w małej grupie.
+                </p>
+              </div>
+
+              <div class="after-school__block">
+                <p>
+                  Dziecko nie musi jechać do kolejnej placówki, a rodzic nie organizuje dodatkowego
+                  dojazdu w środku popołudnia.
+                </p>
+              </div>
+            </div>
+
+            <figure class="media media--4-5 media--sticky after-school__media">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/after-school-corridor-480.avif   480w,
+                    /src/assets/images/sections/after-school-corridor-768.avif   768w,
+                    /src/assets/images/sections/after-school-corridor-1120.avif 1120w
+                  "
+                  sizes="(min-width: 62rem) 40vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/after-school-corridor-768.webp"
+                  srcset="
+                    /src/assets/images/sections/after-school-corridor-480.webp   480w,
+                    /src/assets/images/sections/after-school-corridor-768.webp   768w,
+                    /src/assets/images/sections/after-school-corridor-1120.webp 1120w
+                  "
+                  sizes="(min-width: 62rem) 40vw, 100vw"
+                  alt="Uczennica z plecakiem idzie szkolnym korytarzem po lekcjach"
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+          </div>
+        </div>
       </section>
 
-      <section id="cennik" aria-labelledby="cennik-title">
-        <h2 id="cennik-title">Cena</h2>
-        <p>
-          55 zł za godzinę dla pierwszego dziecka. 50 zł za godzinę dla drugiego i każdego kolejnego
-          dziecka z rodzeństwa.
-        </p>
+      <!-- ============================================================
+           03 CO DZIECKO ZYSKUJE — Po co te zajęcia?
+           Korzyści jako rytm typograficzny. Bez gridu ikon.
+           ============================================================ -->
+      <section
+        class="section benefits"
+        id="korzysci"
+        data-theme="signal"
+        aria-labelledby="korzysci-title"
+      >
+        <div class="container">
+          <p class="u-label section__label">
+            <span>03</span>
+            <span>Co dziecko zyskuje</span>
+          </p>
+          <h2 class="u-sr-only" id="korzysci-title">Co dziecko zyskuje na zajęciach</h2>
+
+          <div class="marquee benefits__marquee" aria-hidden="true">
+            <p class="marquee__row">
+              Mówię <span class="marquee__sep">◆</span> Rozumiem
+              <span class="marquee__sep">◆</span> Próbuję
+            </p>
+            <p class="marquee__row marquee__row--offset marquee__row--outline">
+              Pewność <span class="marquee__sep">◆</span> Ciekawość
+              <span class="marquee__sep">◆</span> Postęp
+            </p>
+          </div>
+
+          <ul class="benefits__list">
+            <li class="benefits__item">
+              <h3>Więcej mówienia</h3>
+              <p>
+                Dziecko regularnie używa języka w praktyce, zamiast tylko rozwiązywać ćwiczenia.
+              </p>
+            </li>
+            <li class="benefits__item">
+              <h3>Lepsze rozumienie</h3>
+              <p>
+                Słownictwo i gramatyka mają pomagać rozumieć i komunikować się, nie być celem samym
+                w sobie.
+              </p>
+            </li>
+            <li class="benefits__item">
+              <h3>Więcej pewności</h3>
+              <p>
+                Regularny kontakt z językiem ułatwia pracę na lekcjach szkolnych i przygotowanie do
+                ważnych sprawdzianów.
+              </p>
+            </li>
+          </ul>
+        </div>
       </section>
 
-      <section id="faq" aria-labelledby="faq-title">
-        <h2 id="faq-title">Pytania i odpowiedzi</h2>
-        <p>Zajęcia odbywają się na terenie SP 402 po zakończeniu lekcji szkolnych.</p>
+      <!-- ============================================================
+           04 KURSY — Która oferta?
+           Dwa pełnowymiarowe moduły. Drugi w motywie BLUE.
+           ============================================================ -->
+      <section class="section section--tight" id="oferta" aria-labelledby="oferta-title">
+        <div class="container">
+          <div class="section__head">
+            <p class="u-label section__label">
+              <span>04</span>
+              <span>Oferta</span>
+            </p>
+            <h2 class="u-display" id="oferta-title">Dwie ścieżki. Zero chaosu.</h2>
+          </div>
+        </div>
+
+        <div class="courses__grid">
+          <article class="course">
+            <div class="course__head">
+              <p class="u-label">Klasy 1-7</p>
+              <p class="course__index" aria-hidden="true">01</p>
+            </div>
+
+            <figure class="media media--4-5 course__media">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/courses/course-kids-480.avif   480w,
+                    /src/assets/images/courses/course-kids-768.avif   768w,
+                    /src/assets/images/courses/course-kids-1120.avif 1120w
+                  "
+                  sizes="(min-width: 62rem) 44vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/courses/course-kids-768.webp"
+                  srcset="
+                    /src/assets/images/courses/course-kids-480.webp   480w,
+                    /src/assets/images/courses/course-kids-768.webp   768w,
+                    /src/assets/images/courses/course-kids-1120.webp 1120w
+                  "
+                  sizes="(min-width: 62rem) 44vw, 100vw"
+                  alt="Uczennica młodszych klas mówi i gestykuluje podczas zajęć"
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+
+            <h3 class="u-h2 course__title">Angielski dla dzieci</h3>
+
+            <div class="course__body">
+              <p>
+                Regularne zajęcia dopasowane do wieku i poziomu grupy. Rozwijamy słownictwo,
+                rozumienie, gramatykę potrzebną w praktyce oraz przede wszystkim swobodę używania
+                języka.
+              </p>
+              <p>
+                W młodszych klasach tempo i zadania są krótsze i bardziej aktywne. W starszych coraz
+                więcej miejsca zajmuje precyzja, dłuższa wypowiedź, czytanie i praca nad językiem
+                potrzebnym w szkole.
+              </p>
+            </div>
+
+            <dl class="course__facts">
+              <div class="course__fact">
+                <dt>Format</dt>
+                <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
+              </div>
+              <div class="course__fact">
+                <dt>Minimum</dt>
+                <dd>5 dzieci w grupie</dd>
+              </div>
+              <div class="course__fact">
+                <dt>Cena</dt>
+                <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="course" data-theme="blue">
+            <div class="course__head">
+              <p class="u-label">Klasa 8</p>
+              <p class="course__index" aria-hidden="true">02</p>
+            </div>
+
+            <figure class="media media--4-5 course__media">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/courses/course-exam-480.avif   480w,
+                    /src/assets/images/courses/course-exam-768.avif   768w,
+                    /src/assets/images/courses/course-exam-1120.avif 1120w
+                  "
+                  sizes="(min-width: 62rem) 44vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/courses/course-exam-768.webp"
+                  srcset="
+                    /src/assets/images/courses/course-exam-480.webp   480w,
+                    /src/assets/images/courses/course-exam-768.webp   768w,
+                    /src/assets/images/courses/course-exam-1120.webp 1120w
+                  "
+                  sizes="(min-width: 62rem) 44vw, 100vw"
+                  alt="Starszy uczeń pracuje nad zadaniem, notując w zeszycie"
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+
+            <h3 class="u-h2 course__title">Przygotowanie do egzaminu ósmoklasisty</h3>
+
+            <div class="course__body">
+              <p>
+                Program dla ósmoklasistów, którzy chcą uporządkować materiał, poznać logikę zadań
+                egzaminacyjnych i regularnie ćwiczyć w warunkach zbliżonych do egzaminu.
+              </p>
+              <p>
+                Pracujemy nad rozumieniem ze słuchu i tekstu, środkami językowymi, funkcjami
+                językowymi oraz wypowiedzią pisemną. Ważnym elementem jest plan pracy, kontrola
+                czasu i analiza błędów.
+              </p>
+              <p>
+                <strong>Nie obiecujemy wyniku.</strong> Dajemy regularny trening i sposób pracy,
+                który pomaga wejść na egzamin przygotowanym.
+              </p>
+            </div>
+
+            <dl class="course__facts">
+              <div class="course__fact">
+                <dt>Format</dt>
+                <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
+              </div>
+              <div class="course__fact">
+                <dt>Minimum</dt>
+                <dd>5 dzieci w grupie</dd>
+              </div>
+              <div class="course__fact">
+                <dt>Cena</dt>
+                <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
       </section>
 
-      <section id="kontakt" aria-labelledby="kontakt-title">
-        <h2 id="kontakt-title">Kontakt</h2>
-        <p>Zgłoś dziecko do grupy — odezwiemy się w sprawie klasy, poziomu i terminu.</p>
-        <ul>
-          <li><a href="tel:+48789789789">+48&nbsp;789&nbsp;789&nbsp;789</a></li>
-          <li><a href="mailto:janek.gitara@onet.pl">janek.gitara@onet.pl</a></li>
-        </ul>
+      <!-- ============================================================
+           05 JAK UCZYMY — Jak wyglądają zajęcia?
+           Czarny ekran, cztery czasowniki. Świadoma przerwa od fotografii.
+           ============================================================ -->
+      <section class="section method" id="metoda" data-theme="ink" aria-labelledby="metoda-title">
+        <div class="container">
+          <p class="u-label section__label">
+            <span>05</span>
+            <span>Jak uczymy</span>
+          </p>
+          <h2 class="u-sr-only" id="metoda-title">Jak wyglądają zajęcia</h2>
+
+          <div class="method__grid">
+            <ul class="method__verbs">
+              <li class="method__verb">Mówij.</li>
+              <li class="method__verb">Próbuj.</li>
+              <li class="method__verb">Poprawiaj.</li>
+              <li class="method__verb">Używaj.</li>
+            </ul>
+
+            <div class="method__text">
+              <p class="u-lead">
+                Zajęcia mają być miejscem aktywnego używania języka, nie kolejną godziną siedzenia
+                nad ćwiczeniami.
+              </p>
+
+              <ol class="method__steps">
+                <li class="method__step">Krótkie wejście w temat</li>
+                <li class="method__step">Model języka</li>
+                <li class="method__step">Ćwiczenie w parach lub małej grupie</li>
+                <li class="method__step">Zastosowanie w zadaniu komunikacyjnym</li>
+                <li class="method__step">Konkretna informacja zwrotna</li>
+              </ol>
+            </div>
+          </div>
+        </div>
       </section>
+
+      <!-- ============================================================
+           06 CENA — Ile?
+           Liczby jako dominująca typografia. Bez pricing cards.
+           ============================================================ -->
+      <section class="section" id="cennik" aria-labelledby="cennik-title">
+        <div class="container">
+          <div class="section__head">
+            <p class="u-label section__label">
+              <span>06</span>
+              <span>Cennik</span>
+            </p>
+            <h2 class="u-display" id="cennik-title">Prosta cena. Bez ukrywania.</h2>
+          </div>
+
+          <div class="pricing__grid">
+            <div class="price price--primary">
+              <p class="price__figure">
+                <span class="price__amount">55</span>
+                <span class="price__unit">zł<br />/ godzina</span>
+              </p>
+              <p class="price__who">Pierwsze dziecko</p>
+            </div>
+
+            <div class="price price--secondary">
+              <p class="price__figure">
+                <span class="price__amount">50</span>
+                <span class="price__unit">zł<br />/ godzina</span>
+              </p>
+              <p class="price__who">Drugie i każde kolejne dziecko z rodzeństwa</p>
+            </div>
+
+            <p class="pricing__note">
+              Cena za godzinę zajęć. Grupa rozpoczyna pracę po zebraniu minimum 5 dzieci.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           07 NABÓR / START — Kiedy rusza grupa?
+           Bez fikcyjnego licznika zapisanych dzieci.
+           ============================================================ -->
+      <section class="section" id="nabor" data-theme="ink" aria-labelledby="nabor-title">
+        <div class="container">
+          <div class="section__head">
+            <p class="u-label section__label">
+              <span>07</span>
+              <span>Nabór</span>
+            </p>
+            <h2 class="u-display" id="nabor-title">Kiedy rusza grupa</h2>
+          </div>
+
+          <div class="enrollment__grid">
+            <div class="enrollment__fact">
+              <p class="enrollment__figure">5</p>
+              <p class="enrollment__caption">
+                Tyle dzieci musi zebrać się w grupie, żeby zajęcia wystartowały.
+              </p>
+            </div>
+
+            <div class="enrollment__fact enrollment__fact--date">
+              <p class="enrollment__figure">01.10</p>
+              <p class="enrollment__caption">Planowany start zajęć.</p>
+            </div>
+
+            <div class="enrollment__status">
+              <p class="enrollment__badge">Zbieramy grupy</p>
+              <p class="u-lead">
+                Każda grupa rozpocznie zajęcia po zebraniu minimum 5 dzieci. Po zgłoszeniu
+                skontaktujemy się w sprawie klasy, poziomu, terminu oraz aktualnego statusu grupy.
+              </p>
+              <a class="cta" href="#kontakt">
+                Zgłoś dziecko do grupy
+                <span class="cta__arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           08 LOKALIZACJA — Czy to wygodne?
+           ============================================================ -->
+      <section class="section" id="lokalizacja" aria-labelledby="lokalizacja-title">
+        <div class="container">
+          <div class="location__grid">
+            <div class="location__text">
+              <p class="u-label section__label">
+                <span>08</span>
+                <span>Lokalizacja</span>
+              </p>
+
+              <h2 class="location__place" id="lokalizacja-title">SP 402<br />Po lekcjach.</h2>
+
+              <address class="location__address">
+                Szkoła Podstawowa nr 402<br />
+                im. Haliny Konopackiej<br />
+                ul. Jana Nowaka-Jeziorańskiego 22<br />
+                03-982 Warszawa
+              </address>
+
+              <a
+                class="cta cta--ghost"
+                href="https://www.google.com/maps/dir/?api=1&amp;destination=ul.+Jana+Nowaka-Jezioranskiego+22%2C+03-982+Warszawa"
+                target="_blank"
+                rel="noopener"
+              >
+                Wyznacz trasę
+                <span class="cta__arrow" aria-hidden="true">↗</span>
+              </a>
+
+              <p class="location__disclaimer">
+                Zajęcia High Five odbywają się na terenie SP 402 po zakończeniu lekcji szkolnych.
+                High Five nie jest oficjalnym serwisem szkoły, a szkoła nie odpowiada za ofertę
+                komercyjną.
+              </p>
+            </div>
+
+            <figure class="media media--3-2 location__media">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/location-warsaw-768.avif   768w,
+                    /src/assets/images/sections/location-warsaw-1200.avif 1200w,
+                    /src/assets/images/sections/location-warsaw-1536.avif 1536w
+                  "
+                  sizes="(min-width: 62rem) 50vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/location-warsaw-1200.webp"
+                  srcset="
+                    /src/assets/images/sections/location-warsaw-768.webp   768w,
+                    /src/assets/images/sections/location-warsaw-1200.webp 1200w,
+                    /src/assets/images/sections/location-warsaw-1536.webp 1536w
+                  "
+                  sizes="(min-width: 62rem) 50vw, 100vw"
+                  alt="Budynek szkoły i chodnik wśród drzew w warszawskiej okolicy mieszkaniowej"
+                  width="1536"
+                  height="1024"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           09 FAQ + FINAL CTA — Co dalej?
+           ============================================================ -->
+      <section class="section" id="faq" aria-labelledby="faq-title">
+        <div class="container">
+          <div class="faq-section__grid">
+            <div class="faq-section__head">
+              <p class="u-label section__label">
+                <span>09</span>
+                <span>Pytania</span>
+              </p>
+              <h2 class="u-display" id="faq-title">FAQ. Krótko.</h2>
+            </div>
+
+            <div class="faq-section__list">
+              <div class="faq">
+                <details class="faq__item">
+                  <summary class="faq__question">
+                    Dla jakich klas są zajęcia?
+                    <span class="faq__sign" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq__answer">
+                    <p>
+                      Dla uczniów klas 1-8 szkoły podstawowej. Dla klasy 8 dostępne jest również
+                      przygotowanie do egzaminu ósmoklasisty z języka angielskiego.
+                    </p>
+                  </div>
+                </details>
+
+                <details class="faq__item">
+                  <summary class="faq__question">
+                    Gdzie odbywają się zajęcia?
+                    <span class="faq__sign" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq__answer">
+                    <p>
+                      Na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej przy ul. Jana
+                      Nowaka-Jeziorańskiego 22 w Warszawie, po zakończeniu lekcji szkolnych.
+                    </p>
+                  </div>
+                </details>
+
+                <details class="faq__item">
+                  <summary class="faq__question">
+                    Kiedy startują zajęcia?
+                    <span class="faq__sign" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq__answer">
+                    <p>
+                      Planowany start to 1 października. Konkretna grupa rusza po zebraniu minimum 5
+                      dzieci.
+                    </p>
+                  </div>
+                </details>
+
+                <details class="faq__item">
+                  <summary class="faq__question">
+                    Ile kosztują zajęcia?
+                    <span class="faq__sign" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq__answer">
+                    <p>
+                      55 zł za godzinę dla pierwszego dziecka. Drugie i każde kolejne dziecko z
+                      rodzeństwa: 50 zł za godzinę.
+                    </p>
+                  </div>
+                </details>
+
+                <details class="faq__item">
+                  <summary class="faq__question">
+                    Jak zgłosić dziecko?
+                    <span class="faq__sign" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq__answer">
+                    <p>
+                      Zadzwoń albo napisz e-mail. Skontaktujemy się w sprawie klasy, poziomu,
+                      dostępnego terminu i statusu grupy.
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--airy" id="kontakt" aria-labelledby="kontakt-title">
+        <div class="container">
+          <div class="contact__grid">
+            <h2 class="u-display contact__claim" id="kontakt-title">Gotowi na High Five?</h2>
+
+            <div class="contact__body">
+              <p class="u-lead">
+                Zgłoś dziecko do grupy. Odezwiemy się z informacją o poziomie, terminie i statusie
+                naboru.
+              </p>
+
+              <ul class="contact__channels">
+                <li class="contact__channel">
+                  <a class="contact__link" href="tel:+48789789789">
+                    <span class="contact__value">+48&nbsp;789&nbsp;789&nbsp;789</span>
+                    <span class="u-label">Telefon</span>
+                  </a>
+                </li>
+                <li class="contact__channel">
+                  <a class="contact__link" href="mailto:janek.gitara@onet.pl">
+                    <span class="contact__value">janek.gitara@onet.pl</span>
+                    <span class="u-label">E-mail</span>
+                  </a>
+                </li>
+              </ul>
+
+              <a
+                class="cta cta--large"
+                href="mailto:janek.gitara@onet.pl?subject=Zg%C5%82oszenie%20dziecka%20do%20grupy%20High%20Five&amp;body=Imi%C4%99%20rodzica%2Fopiekuna%3A%0AKlasa%20dziecka%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0AUwagi%3A%0A"
+              >
+                Napisz zgłoszenie
+                <span class="cta__arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <figure class="media media--3-2 bleed contact__media">
+          <picture>
+            <source
+              type="image/avif"
+              srcset="
+                /src/assets/images/backgrounds/detail-desk-768.avif   768w,
+                /src/assets/images/backgrounds/detail-desk-1200.avif 1200w,
+                /src/assets/images/backgrounds/detail-desk-1536.avif 1536w
+              "
+              sizes="100vw"
+            />
+            <img
+              src="/src/assets/images/backgrounds/detail-desk-1200.webp"
+              srcset="
+                /src/assets/images/backgrounds/detail-desk-768.webp   768w,
+                /src/assets/images/backgrounds/detail-desk-1200.webp 1200w,
+                /src/assets/images/backgrounds/detail-desk-1536.webp 1536w
+              "
+              sizes="100vw"
+              alt="Otwarty zeszyt, piórnik z kredkami i plecak na biurku"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </figure>
+      </section>
+
+      <div class="u-dock-space" aria-hidden="true"></div>
     </main>
 
-    <footer>
-      <p>
-        Zajęcia High Five odbywają się na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej,
-        ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa, po lekcjach szkolnych.
-      </p>
+    <footer class="site-footer">
+      <div class="container site-footer__grid">
+        <p class="site-footer__brand">High Five</p>
+
+        <div class="site-footer__col">
+          <p class="u-label">Kontakt</p>
+          <a class="u-link" href="tel:+48789789789">+48&nbsp;789&nbsp;789&nbsp;789</a>
+          <a class="u-link" href="mailto:janek.gitara@onet.pl">janek.gitara@onet.pl</a>
+        </div>
+
+        <div class="site-footer__col">
+          <p class="u-label">Miejsce zajęć</p>
+          <p>
+            SP 402 im. Haliny Konopackiej<br />
+            ul. Jana Nowaka-Jeziorańskiego 22<br />
+            03-982 Warszawa
+          </p>
+        </div>
+
+        <p class="site-footer__note">
+          Zajęcia High Five odbywają się na terenie SP 402 po lekcjach szkolnych. High Five nie jest
+          oficjalnym serwisem Szkoły Podstawowej nr 402. Zdjęcia mają charakter ilustracyjny i nie
+          przedstawiają uczniów tej szkoły.
+        </p>
+      </div>
     </footer>
+
+    <!-- Sticky CTA na mobile, gdzie nie ma nawigacji. -->
+    <div class="cta-dock">
+      <a class="cta" href="#kontakt">
+        Zgłoś dziecko do grupy
+        <span class="cta__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
 
     <script type="module" src="/src/js/main.js"></script>
   </body>

@@ -1,4 +1,4 @@
-/* Reset minimalny. Bez normalize - tylko to, co projekt faktycznie potrzebuje. */
+/* Reset minimalny. Tylko to, co projekt faktycznie potrzebuje. */
 
 *,
 *::before,
@@ -7,6 +7,7 @@
 }
 
 html {
+  text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
 
@@ -14,19 +15,58 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
 img,
 picture,
-video {
+video,
+svg {
   display: block;
   max-width: 100%;
 }
 
-/* Kotwice musza uwzgledniac wysokosc sticky headera (spec 6.3). */
-:target {
-  scroll-margin-block-start: var(--space-16);
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
 
-/* Reduced motion jest obowiazkowe (spec 7.4). */
+/*
+ * Kotwice musza uwzgledniac wysokosc sticky headera (spec 6.3),
+ * inaczej naglowek sekcji chowa sie pod nawigacja po skoku z menu.
+ */
+:target {
+  scroll-margin-block-start: calc(var(--header-h, 4rem) + var(--space-8));
+}
+
+section[id] {
+  scroll-margin-block-start: calc(var(--header-h, 4rem) + var(--space-4));
+}
+
+/*
+ * Reduced motion jest obowiazkowe (spec 7.4, 19.2).
+ * Nie usuwamy przejsc calkowicie - skracamy je do niepostrzegalnych,
+ * zeby stany focus i hover nadal dzialaly przewidywalnie.
+ */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

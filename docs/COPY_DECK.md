@@ -1,0 +1,184 @@
+# Copy deck
+
+Teksty zatwierdzone w briefie v3. **Nie przerabiać na generyczny marketing** — to nie
+propozycja, a zatwierdzona treść (master prompt §10).
+
+Wszystkie teksty żyją w `index.html`. Ten plik jest mapą: gdzie leży co i czego nie wolno
+zmienić. Procedura zmiany treści: `docs/CONTENT.md`.
+
+## Fundament
+
+| Element            | Treść                                                                                                                                             | Miejsce                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| `title`            | `High Five - angielski dla dzieci w SP 402 Warszawa`                                                                                              | `<head>`                  |
+| `meta description` | `Zajęcia z angielskiego dla klas 1-8 po lekcjach w SP 402 w Warszawie. Przygotowanie do egzaminu ósmoklasisty. Nabór trwa, start 1 października.` | `<head>`                  |
+| **H1**             | `Angielski po lekcjach. W tej samej szkole.`                                                                                                      | `#hero-title`             |
+| **Primary CTA**    | `Zgłoś dziecko do grupy`                                                                                                                          | hero, nabór, dock mobilny |
+| Wordmark           | `High Five`                                                                                                                                       | `.hero__wordmark`, stopka |
+
+Title, description i H1 są **cytatami dosłownymi** z briefu. Test w `tests/smoke/page.spec.js`
+sprawdza je co do znaku.
+
+## 01 Hero
+
+**Lead:**
+
+> Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy,
+> dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
+
+**Status naboru:**
+
+> Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.
+
+**Ticker** (potwierdzone fakty przed pierwszym scrollem): Nabór trwa · Start 1 października ·
+SP 402, Warszawa · 55 zł/godz. · Rodzeństwo 50 zł/godz. · Minimum 5 dzieci
+
+## 02 Po lekcjach — `#po-lekcjach`
+
+**Claim:** `Mniej logistyki. Znane miejsce. Więcej ciągłości.`
+
+> High Five prowadzi zajęcia z angielskiego dla dzieci z klas 1-8 po zakończeniu lekcji
+> szkolnych, na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej w Warszawie.
+
+> Dla rodzica oznacza to mniej logistycznego chaosu. Dla dziecka — znajome miejsce
+> i łatwiejsze przejście z dnia szkolnego do pracy w małej grupie.
+
+> Dziecko nie musi jechać do kolejnej placówki, a rodzic nie organizuje dodatkowego dojazdu
+> w środku popołudnia.
+
+## 03 Co dziecko zyskuje — `#korzysci`
+
+**Pasy typograficzne:** Mówię · Rozumiem · Próbuję / Pewność · Ciekawość · Postęp
+
+Pasy są `aria-hidden` — są rytmem wizualnym, nie nośnikiem treści. Semantyczna wersja
+komunikatu to trzy bloki poniżej. Sekcja ma ukryty nagłówek dla czytników ekranu.
+
+- **Więcej mówienia.** Dziecko regularnie używa języka w praktyce, zamiast tylko rozwiązywać ćwiczenia.
+- **Lepsze rozumienie.** Słownictwo i gramatyka mają pomagać rozumieć i komunikować się, nie być celem samym w sobie.
+- **Więcej pewności.** Regularny kontakt z językiem ułatwia pracę na lekcjach szkolnych i przygotowanie do ważnych sprawdzianów.
+
+## 04 Kursy — `#oferta`
+
+**Nagłówek sekcji:** `Dwie ścieżki. Zero chaosu.`
+
+### Moduł 01 — Klasy 1-7: „Angielski dla dzieci"
+
+> Regularne zajęcia dopasowane do wieku i poziomu grupy. Rozwijamy słownictwo, rozumienie,
+> gramatykę potrzebną w praktyce oraz przede wszystkim swobodę używania języka.
+
+> W młodszych klasach tempo i zadania są krótsze i bardziej aktywne. W starszych coraz więcej
+> miejsca zajmuje precyzja, dłuższa wypowiedź, czytanie i praca nad językiem potrzebnym w szkole.
+
+### Moduł 02 — Klasa 8: „Przygotowanie do egzaminu ósmoklasisty"
+
+> Program dla ósmoklasistów, którzy chcą uporządkować materiał, poznać logikę zadań
+> egzaminacyjnych i regularnie ćwiczyć w warunkach zbliżonych do egzaminu.
+
+> Pracujemy nad rozumieniem ze słuchu i tekstu, środkami językowymi, funkcjami językowymi
+> oraz wypowiedzią pisemną. Ważnym elementem jest plan pracy, kontrola czasu i analiza błędów.
+
+> **Nie obiecujemy wyniku.** Dajemy regularny trening i sposób pracy, który pomaga wejść
+> na egzamin przygotowanym.
+
+Zdanie o braku obietnicy wyniku jest **obowiązkowe** i testowane automatycznie. Master prompt
+§8 zabrania obiecywania wyniku egzaminu.
+
+**Fakty operacyjne w obu modułach:** format (zajęcia grupowe po lekcjach w SP 402),
+minimum (5 dzieci w grupie), cena (55 zł/godz., rodzeństwo 50 zł/godz.).
+
+## 05 Jak uczymy — `#metoda`
+
+**Scena typograficzna:** `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.`
+
+> Zajęcia mają być miejscem aktywnego używania języka, nie kolejną godziną siedzenia
+> nad ćwiczeniami.
+
+**Proces, pięć kroków:** krótkie wejście w temat → model języka → ćwiczenie w parach lub
+małej grupie → zastosowanie w zadaniu komunikacyjnym → konkretna informacja zwrotna.
+
+Zakaz dopisywania nazw metod, certyfikatów i obietnic pedagogicznych bez źródła.
+
+## 06 Cena — `#cennik`
+
+**Nagłówek:** `Prosta cena. Bez ukrywania.`
+
+- **55 zł / godzina** — pierwsze dziecko
+- **50 zł / godzina** — drugie i każde kolejne dziecko z rodzeństwa
+
+> Cena za godzinę zajęć. Grupa rozpoczyna pracę po zebraniu minimum 5 dzieci.
+
+Brief zabrania nazywania niższej stawki „pakietem rodzinnym", jeśli formalnie jest to po
+prostu niższa cena za kolejne dziecko.
+
+## 07 Nabór — `#nabor`
+
+**Nagłówek:** `Kiedy rusza grupa`
+
+- **5** — Tyle dzieci musi zebrać się w grupie, żeby zajęcia wystartowały.
+- **01.10** — Planowany start zajęć.
+- **Status:** `Zbieramy grupy`
+
+> Każda grupa rozpocznie zajęcia po zebraniu minimum 5 dzieci. Po zgłoszeniu skontaktujemy się
+> w sprawie klasy, poziomu, terminu oraz aktualnego statusu grupy.
+
+**Status grupy aktualizuje się ręcznie tekstem** — dopuszczalne warianty z briefu:
+„zbieramy grupę", „grupa potwierdzona", „ostatnie miejsca". Zakaz licznika zapisanych dzieci,
+testowany automatycznie.
+
+## 08 Lokalizacja — `#lokalizacja`
+
+**Nagłówek:** `SP 402 / Po lekcjach.`
+
+> Szkoła Podstawowa nr 402 im. Haliny Konopackiej
+> ul. Jana Nowaka-Jeziorańskiego 22
+> 03-982 Warszawa
+
+**Akcja pomocnicza:** `Wyznacz trasę` — nie może konkurować z głównym CTA, dlatego wariant
+obrysowany.
+
+**Zastrzeżenie, obowiązkowe:**
+
+> Zajęcia High Five odbywają się na terenie SP 402 po zakończeniu lekcji szkolnych. High Five
+> nie jest oficjalnym serwisem szkoły, a szkoła nie odpowiada za ofertę komercyjną.
+
+## 09 FAQ — `#faq`
+
+Pięć pytań. **Tylko te, na które brief pozwala odpowiedzieć.**
+
+1. **Dla jakich klas są zajęcia?** — Dla uczniów klas 1-8 szkoły podstawowej. Dla klasy 8 dostępne jest również przygotowanie do egzaminu ósmoklasisty z języka angielskiego.
+2. **Gdzie odbywają się zajęcia?** — Na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej przy ul. Jana Nowaka-Jeziorańskiego 22 w Warszawie, po zakończeniu lekcji szkolnych.
+3. **Kiedy startują zajęcia?** — Planowany start to 1 października. Konkretna grupa rusza po zebraniu minimum 5 dzieci.
+4. **Ile kosztują zajęcia?** — 55 zł za godzinę dla pierwszego dziecka. Drugie i każde kolejne dziecko z rodzeństwa: 50 zł za godzinę.
+5. **Jak zgłosić dziecko?** — Zadzwoń albo napisz e-mail. Skontaktujemy się w sprawie klasy, poziomu, dostępnego terminu i statusu grupy.
+
+**Nie publikujemy** (patrz `docs/CONTENT_GAPS.md`): zasad dołączenia po starcie, polityki
+nieobecności i odrabiania, informacji o materiałach w cenie, zasad rezygnacji, lekcji próbnej.
+
+## Final CTA — `#kontakt`
+
+**Nagłówek:** `Gotowi na High Five?`
+
+> Zgłoś dziecko do grupy. Odezwiemy się z informacją o poziomie, terminie i statusie naboru.
+
+Kanały: telefon i e-mail, oba jako duże klikalne wiersze. Dodatkowo `mailto:` z gotowym
+tematem i szkieletem treści (imię rodzica, klasa dziecka, kontakt, uwagi) — to przenosi
+wartość utraconego formularza bez żadnego backendu.
+
+## Odstępstwo od briefu
+
+**Jedno**, wymuszone decyzją D2 o braku formularza.
+
+Brief odpowiada na pytanie „Jak zapisać dziecko?" słowami „Wypełnij krótki formularz".
+Formularza nie ma, więc pytanie brzmi **„Jak zgłosić dziecko?"** i odpowiada **„Zadzwoń albo
+napisz e-mail"**. Druga część zdania pozostaje dosłownie z briefu.
+
+Gdy formularz wróci, przywrócić brzmienie oryginalne.
+
+## Frazy zabronione
+
+Master prompt §4 i §9. Testowane automatycznie w `tests/smoke/page.spec.js`:
+
+`nowoczesne metody` · `najwyższa jakość` · `doświadczeni lektorzy` · `przyjazna atmosfera` ·
+`gwarantujemy wynik` · `lekcja próbna` · `odrabianie` · `materiały w cenie` · `Sprawdź poziom`
+
+Najpierw konkret lokalny, dopiero potem korzyść edukacyjna.

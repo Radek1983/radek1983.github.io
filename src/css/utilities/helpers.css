@@ -1,21 +1,59 @@
-/* Skip link - widoczny dopiero po otrzymaniu focusu (spec 19.2). */
+/* Male klasy pomocnicze. Tylko te faktycznie uzywane. */
 
+/* Skip link - widoczny dopiero po otrzymaniu focusu (spec 19.2). */
 .skip-link {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
-  padding: var(--space-2) var(--space-4);
+  z-index: var(--z-skip);
+  padding: var(--space-3) var(--space-4);
   background-color: var(--color-ink);
   color: var(--color-paper);
-  transform: translateY(-100%);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transform: translateY(-110%);
+  transition: transform var(--dur-micro) var(--ease-standard);
 }
 
 .skip-link:focus-visible {
   transform: translateY(0);
 }
 
-/* Widoczny focus w calym serwisie. Nie usuwac bez zamiennika. */
+/*
+ * Widoczny focus w calym serwisie. Nie usuwac bez zamiennika (spec 19.2).
+ * Dwa kolory obrysu, zeby kontur byl widoczny zarowno na papierze, jak i na czerni.
+ */
 :focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+[data-theme='signal'] :focus-visible {
+  outline-color: var(--color-ink);
+}
+
+/* Tresc dla czytnikow ekranu, niewidoczna wizualnie. */
+.u-sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Odstep na sticky CTA, zeby dock nie zaslanial konca strony na mobile. */
+.u-dock-space {
+  block-size: 4.5rem;
+}
+
+@media (width >= 32rem) {
+  .u-dock-space {
+    display: none;
+  }
 }

@@ -1,0 +1,56 @@
+/*
+ * Geometria sekcji. Kazda sekcja niesie swoj motyw kolorystyczny,
+ * a rytm pionowy jest ZMIENNY - sekcje nie maja jednakowej wysokosci (spec 29.1).
+ */
+
+.section {
+  position: relative;
+  padding-block: var(--space-section);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  /* Typografia display ma prawo wychodzic poza krawedz; sekcja to obcina,
+     zeby nie powstal poziomy scroll na body. */
+  overflow-x: clip;
+}
+
+/* Sekcja gesta - mniej powietrza, gdy tresc jest krotka. */
+.section--tight {
+  padding-block: clamp(2.5rem, 5vw, 5rem);
+}
+
+/* Sekcja przestronna - moment narracyjny, ktory ma dostac ciszy. */
+.section--airy {
+  padding-block: clamp(5rem, 12vw, 12rem);
+}
+
+/* Sekcja bez dolnego odstepu - gdy media dochodza do granicy z nastepna. */
+.section--flush-end {
+  padding-block-end: 0;
+}
+
+/*
+ * Naglowek sekcji: etykieta z numerem aktu + tytul.
+ * Numer jest elementem kompozycji, nie ozdoba - buduje poczucie sekwencji.
+ */
+.section__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-block-end: var(--space-12);
+}
+
+.section__label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+/* Cienka linia 1 px jako jedyny separator. Bez ramek, bez kart. */
+.rule {
+  border: 0;
+  border-block-start: 1px solid var(--color-rule);
+  margin: 0;
+}
