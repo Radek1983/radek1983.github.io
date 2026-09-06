@@ -11,6 +11,18 @@
 }
 
 /*
+ * Odleglosc od krawedzi tresci kontenera do krawedzi ekranu.
+ *
+ * Potrzebna, bo popularny wzor `calc(50% - 50vw)` dziala tylko dla elementu,
+ * ktorego blokiem zawierajacym jest caly kontener. Dla elementu siatki `50%`
+ * odnosi sie do jego wlasnego obszaru, wiec 6-kolumnowe media wychodzilo
+ * ponad trzykrotnie za daleko.
+ */
+:root {
+  --bleed-inline: calc(var(--grid-margin) + max(0px, (100vw - var(--container-max)) / 2));
+}
+
+/*
  * Siatka. `grid-template-columns` z repeat() na zmiennej pozwala tej samej
  * regule obsluzyc mobile i desktop - liczba kolumn jest tokenem.
  */

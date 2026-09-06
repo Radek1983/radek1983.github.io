@@ -8,7 +8,7 @@
 .enrollment__grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-  gap: var(--space-12) var(--grid-gutter);
+  gap: var(--space-8) var(--grid-gutter);
   align-items: start;
 }
 
@@ -21,14 +21,14 @@
 
 .enrollment__figure {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 16vw, 13rem);
+  font-size: clamp(4rem, 11vw, 8.5rem);
   font-weight: 800;
   line-height: 0.78;
   letter-spacing: -0.05em;
 }
 
 .enrollment__fact--date .enrollment__figure {
-  font-size: clamp(3.5rem, 11vw, 9rem);
+  font-size: clamp(2.75rem, 8vw, 6rem);
   letter-spacing: -0.04em;
 }
 

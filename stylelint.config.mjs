@@ -9,7 +9,7 @@ export default {
      * Sufiks jest opcjonalny, bo tokeny jak --measure wystepuja bez niego.
      */
     'custom-property-pattern':
-      '^(hf|color|space|font|step|dur|ease|z|grid|tracking|leading|measure|container|header)(-[a-z0-9-]+)?$',
+      '^(hf|color|space|font|step|dur|ease|z|grid|tracking|leading|measure|container|header|bleed|reveal)(-[a-z0-9-]+)?$',
 
     // .komponent, .komponent__element, .komponent--wariant, .is-stan (spec 7.2)
     'selector-class-pattern':

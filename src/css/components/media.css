@@ -39,17 +39,29 @@
 }
 
 /*
- * Hero: art-directed crop zalezny od breakpointu. Na waskim ekranie kadr pionowy,
- * na desktopie wysoki prostokat wchodzacy w typografie. To nie to samo zdjecie
- * przyciete inaczej - to dwa osobne kadry (spec 31.1).
+ * Hero: art-directed crop zalezny od breakpointu (spec 31.1). Trzy sytuacje:
+ *
+ * - mobile: kadr pionowy 4:5 pod tekstem,
+ * - tablet: kadr szeroki 16:9, bo media stoi na pelnej szerokosci i pionowy
+ *   zepchnalby CTA daleko pod krawedz ekranu,
+ * - desktop: kolumna po lewej bez wlasnej proporcji - rozciaga sie do wysokosci
+ *   tekstu, wiec pod nia nie powstaje pustka.
  */
 .media--hero {
   aspect-ratio: 4 / 5;
 }
 
+@media (width >= 48rem) and (width < 62rem) {
+  .media--hero {
+    aspect-ratio: 16 / 9;
+  }
+}
+
 @media (width >= 62rem) {
   .media--hero {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: auto;
+    block-size: 100%;
+    min-block-size: 26rem;
   }
 }
 

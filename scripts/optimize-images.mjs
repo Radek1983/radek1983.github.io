@@ -35,6 +35,9 @@ const FORMATS = [
   { ext: 'webp', options: { quality: 78, effort: 5 } },
 ]
 
+/** Formaty zrodlowe. PNG jest preferowany (bezstratny), JPG dopuszczalny. */
+const SOURCE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg'])
+
 function classify(width, height) {
   const ratio = width / height
   if (ratio < 1) return 'portrait'
@@ -52,7 +55,8 @@ async function collectSources(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const path = join(dir, entry.name)
     if (entry.isDirectory()) out.push(...(await collectSources(path)))
-    else if (entry.isFile() && extname(entry.name).toLowerCase() === '.png') out.push(path)
+    else if (entry.isFile() && SOURCE_EXTENSIONS.has(extname(entry.name).toLowerCase()))
+      out.push(path)
   }
   return out
 }
@@ -60,7 +64,7 @@ async function collectSources(dir) {
 const sources = (await collectSources(IMAGES_ROOT)).sort()
 
 if (sources.length === 0) {
-  console.error('Nie znaleziono zadnego pliku PNG w src/assets/images/')
+  console.error('Nie znaleziono zadnego pliku zrodlowego w src/assets/images/')
   process.exit(1)
 }
 

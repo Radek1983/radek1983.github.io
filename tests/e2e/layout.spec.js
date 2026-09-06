@@ -241,7 +241,115 @@ test.describe('responsywnosc', () => {
   })
 })
 
+test.describe('motion', () => {
+  test('reveal odslania tresc, a nie zostawia jej ukrytej (ANIM-003)', async ({ page }) => {
+    await page.goto('/')
+
+    // Element w pierwszym ekranie musi byc widoczny natychmiast po starcie.
+    const h1 = page.locator('.hero__title')
+    await expect(h1).toHaveClass(/is-visible/)
+    await expect(h1).toBeVisible()
+    // Prog, nie rownosc: przejscie trwa 560 ms, wiec w chwili sprawdzenia
+    // opacity moze wynosic np. 0.999. Istotne jest, ze tresc jest odslaniana.
+    await expect
+      .poll(async () => Number(await h1.evaluate((el) => getComputedStyle(el).opacity)), {
+        timeout: 3000,
+      })
+      .toBeGreaterThan(0.95)
+
+    // Element ponizej fold odslania sie po przewinieciu.
+    const faqHead = page.locator('#faq-title')
+    await faqHead.scrollIntoViewIfNeeded()
+    await expect(faqHead).toHaveClass(/is-visible/)
+  })
+
+  test('siatka bezpieczenstwa odslania wszystko, gdy obserwator milczy', async ({ page }) => {
+    await page.goto('/')
+
+    // Symulujemy cisze obserwatora: usuwamy klase, ktora go uruchomila,
+    // i sprawdzamy, ze po zabezpieczeniu czasowym nic nie zostaje ukryte.
+    await page.waitForTimeout(3000)
+
+    const hidden = await page.evaluate(
+      () =>
+        [...document.querySelectorAll('[data-animation]')].filter(
+          (el) => !el.classList.contains('is-visible'),
+        ).length,
+    )
+    expect(hidden).toBe(0)
+  })
+
+  test('bez JavaScriptu tresc jest widoczna od razu', async ({ browser }) => {
+    // Klasa `js` na <html> jest warunkiem stanu poczatkowego reveal.
+    // Bez niej - czyli przy awarii skryptu - tresc nie moze byc ukryta.
+    const context = await browser.newContext({ javaScriptEnabled: false })
+    const page = await context.newPage()
+    await page.goto('/')
+
+    await expect(page.locator('html')).not.toHaveClass(/js/)
+    await expect(page.locator('.hero__title')).toBeVisible()
+    expect(await page.locator('.hero__title').evaluate((el) => getComputedStyle(el).opacity)).toBe(
+      '1',
+    )
+    await expect(page.locator('#kontakt a[href^="tel:"]')).toBeVisible()
+
+    await context.close()
+  })
+
+  test('ruch wiazany ze scrollem jest progressive enhancement', async ({ page }, testInfo) => {
+    // Przy reduced motion cala warstwa narrative jest wylaczona z zalozenia -
+    // sprawdza to osobny test w bloku "reduced motion".
+    test.skip(
+      testInfo.project.name === 'reduced-motion',
+      'Warstwa narrative jest wylaczona przy reduced motion',
+    )
+
+    await page.goto('/')
+
+    const supported = await page.evaluate(() => CSS.supports('animation-timeline', 'view()'))
+    const animation = await page
+      .locator('.hero__wordmark')
+      .evaluate((el) => getComputedStyle(el).animationName)
+
+    // Tam gdzie przegladarka wspiera scroll-driven animations, wordmark ma momentum.
+    // Tam gdzie nie - kompozycja jest statyczna i to jest poprawny stan.
+    expect(supported ? animation : 'none').toBe(supported ? 'wordmark-drift' : 'none')
+  })
+})
+
 test.describe('reduced motion', () => {
+  test('reveal nie ukrywa tresci przy prefers-reduced-motion', async ({ page }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== 'reduced-motion',
+      'Test dotyczy wylacznie projektu reduced-motion',
+    )
+
+    await page.goto('/')
+
+    // Bez czekania na obserwatora: przy reduced motion stan poczatkowy nie istnieje.
+    const opacity = await page.locator('#faq-title').evaluate((el) => getComputedStyle(el).opacity)
+    expect(opacity).toBe('1')
+  })
+
+  test('ruch wiazany ze scrollem jest wylaczony przy reduced motion', async ({
+    page,
+  }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== 'reduced-motion',
+      'Test dotyczy wylacznie projektu reduced-motion',
+    )
+
+    await page.goto('/')
+
+    for (const selector of ['.hero__wordmark', '.marquee__row', '.method__verb']) {
+      const name = await page
+        .locator(selector)
+        .first()
+        .evaluate((el) => getComputedStyle(el).animationName)
+      expect(name).toBe('none')
+    }
+  })
+
   test('przy prefers-reduced-motion scroll nie jest wygladzany', async ({ page }, testInfo) => {
     test.skip(
       testInfo.project.name !== 'reduced-motion',

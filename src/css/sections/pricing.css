@@ -30,7 +30,7 @@
 }
 
 .price__amount {
-  font-size: clamp(6rem, 22vw, 17rem);
+  font-size: clamp(4.5rem, 15vw, 11rem);
 }
 
 .price__unit {
@@ -65,6 +65,6 @@
   }
 
   .price--secondary {
-    padding-block-start: clamp(3rem, 7vw, 7rem);
+    padding-block-start: clamp(1.5rem, 3vw, 3rem);
   }
 }

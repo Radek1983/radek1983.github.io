@@ -16,12 +16,12 @@
 
 /* Sekcja gesta - mniej powietrza, gdy tresc jest krotka. */
 .section--tight {
-  padding-block: clamp(2.5rem, 5vw, 5rem);
+  padding-block: clamp(2rem, 3.5vw, 3.5rem);
 }
 
 /* Sekcja przestronna - moment narracyjny, ktory ma dostac ciszy. */
 .section--airy {
-  padding-block: clamp(5rem, 12vw, 12rem);
+  padding-block: clamp(3.5rem, 7vw, 7rem);
 }
 
 /* Sekcja bez dolnego odstepu - gdy media dochodza do granicy z nastepna. */

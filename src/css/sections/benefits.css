@@ -6,11 +6,11 @@
  */
 
 .benefits {
-  padding-block: clamp(4rem, 10vw, 10rem);
+  padding-block: clamp(3rem, 6vw, 6rem);
 }
 
 .benefits__marquee {
-  margin-block-end: clamp(2.5rem, 6vw, 6rem);
+  margin-block-end: clamp(1.75rem, 3.5vw, 3.5rem);
 }
 
 .benefits__list {

@@ -1,0 +1,186 @@
+/*
+ * Warstwa NARRATIVE - ruch wiazany ze scrollem.
+ *
+ * Realizowana natywnymi animacjami scroll-driven (`animation-timeline`),
+ * bez ani jednej linii JavaScriptu i bez biblioteki. Nie ma tu przechwytywania
+ * kolka ani dotyku: przegladarka odtwarza animacje proporcjonalnie do pozycji
+ * elementu, a scroll pozostaje w pelni natywny (spec 9.2, 9.3).
+ *
+ * Cala warstwa jest progressive enhancement:
+ * - przegladarki bez `animation-timeline` dostaja statyczna kompozycje,
+ * - `prefers-reduced-motion: reduce` wyklucza ja calkowicie.
+ *
+ * Amplitudy pochodza z briefu, sekcja "Motion language":
+ * - parallax mediow 3-8% wysokosci sekcji,
+ * - momentum typografii 6-16vw na sekcje,
+ * - zadnego parallaxu tekstu i CTA jednoczesnie.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* --- Momentum wordmarku. Regula 3: typografia ma momentum. --- */
+    .hero__wordmark {
+      animation: wordmark-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+      will-change: translate;
+    }
+
+    @keyframes wordmark-drift {
+      from {
+        translate: 0 0;
+      }
+
+      to {
+        translate: -7vw 0;
+      }
+    }
+
+    /*
+     * --- Fotografia hero: scale 1.06 -> 1.00 z briefu. ---
+     * Animujemy obraz wewnatrz maski, nie kontener, wiec kompozycja
+     * sekcji nie drga i nie powstaje CLS.
+     */
+    .hero__media img {
+      animation: photo-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+      will-change: scale;
+    }
+
+    @keyframes photo-settle {
+      from {
+        scale: 1.06;
+      }
+
+      to {
+        scale: 1;
+      }
+    }
+
+    /* --- Parallax mediow sekcyjnych. Regula 2: parallax tylko w mediach. --- */
+    .after-school__media img,
+    .location__media img,
+    .contact__media img {
+      animation: media-parallax linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      will-change: translate;
+    }
+
+    @keyframes media-parallax {
+      from {
+        translate: 0 -4%;
+        scale: 1.08;
+      }
+
+      to {
+        translate: 0 4%;
+        scale: 1.08;
+      }
+    }
+
+    /*
+     * --- Pasy typograficzne. ---
+     * Przeciwbiezny dryf wiazany ze scrollem. Brief zabrania autoplay
+     * w spoczynku: gdy uzytkownik nie przewija, pasy stoja.
+     */
+    .marquee__row {
+      animation: marquee-drift-start linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      will-change: translate;
+    }
+
+    .marquee__row--offset {
+      animation-name: marquee-drift-end;
+    }
+
+    @keyframes marquee-drift-start {
+      from {
+        translate: 6vw 0;
+      }
+
+      to {
+        translate: -10vw 0;
+      }
+    }
+
+    @keyframes marquee-drift-end {
+      from {
+        translate: -12vw 0;
+      }
+
+      to {
+        translate: 4vw 0;
+      }
+    }
+
+    /*
+     * --- Czasowniki metody. ---
+     * Kazda linia wchodzi spod maski od dolu, ale poprzednia NIE znika -
+     * dokladnie jak opisuje brief scene 05.
+     */
+    .method__verb {
+      animation: verb-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 90%;
+    }
+
+    @keyframes verb-rise {
+      from {
+        clip-path: inset(100% 0 0 0);
+        translate: 0 0.4em;
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+        translate: 0 0;
+      }
+    }
+
+    /*
+     * --- Liczby ceny i naboru. ---
+     * Delikatne wejscie skala, bez karuzeli i bez flip-animation.
+     */
+    .price__amount,
+    .enrollment__figure {
+      animation: figure-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 85%;
+    }
+
+    @keyframes figure-settle {
+      from {
+        opacity: 0;
+        scale: 0.94;
+      }
+
+      to {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+
+    /*
+     * --- Pasek informacyjny. ---
+     * Ticker przesuwa sie wraz z pierwszym scrollem, zamiast jechac
+     * w petli w spoczynku.
+     */
+    .ticker__track {
+      animation: ticker-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0% 100%;
+    }
+
+    @keyframes ticker-drift {
+      from {
+        translate: 0 0;
+      }
+
+      to {
+        translate: -18vw 0;
+      }
+    }
+  }
+}
