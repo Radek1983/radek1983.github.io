@@ -49,17 +49,28 @@
         "email": "janek.gitara@onet.pl",
         "telephone": "+48789789789",
         "areaServed": "Warszawa",
-        "location": {
-          "@type": "Place",
-          "name": "Szkoła Podstawowa nr 402 im. Haliny Konopackiej",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 22",
-            "postalCode": "03-982",
-            "addressLocality": "Warszawa",
-            "addressCountry": "PL"
+        "location": [
+          {
+            "@type": "Place",
+            "name": "Szkoła Podstawowa nr 402 im. Haliny Konopackiej",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 22",
+              "postalCode": "03-982",
+              "addressLocality": "Warszawa",
+              "addressCountry": "PL"
+            }
+          },
+          {
+            "@type": "Place",
+            "name": "Terminal Kultury Gocław",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Warszawa",
+              "addressCountry": "PL"
+            }
           }
-        }
+        ]
       }
     </script>
   </head>
@@ -71,12 +82,12 @@
          Bez autoplay - pasek jest statyczny, na mobile przewijalny palcem. -->
     <div class="ticker">
       <p class="ticker__track">
-        <span class="ticker__item">Nabór trwa</span>
-        <span class="ticker__item">Start 1 października</span>
+        <span class="ticker__item">Angielski dla klas 1-8</span>
         <span class="ticker__item">SP 402, Warszawa</span>
+        <span class="ticker__item">Zajęcia po lekcjach</span>
         <span class="ticker__item">55 zł/godz.</span>
         <span class="ticker__item">Rodzeństwo 50 zł/godz.</span>
-        <span class="ticker__item">Minimum 5 dzieci</span>
+        <span class="ticker__item">Minimum 5 dzieci w grupie</span>
       </p>
     </div>
 
@@ -89,6 +100,7 @@
             <li><a class="site-nav__link" href="#oferta">Oferta</a></li>
             <li><a class="site-nav__link" href="#cennik">Cennik</a></li>
             <li><a class="site-nav__link" href="#lokalizacja">Lokalizacja</a></li>
+            <li><a class="site-nav__link" href="#seniorzy">Seniorzy</a></li>
             <li><a class="site-nav__link" href="#faq">FAQ</a></li>
             <li><a class="site-nav__link" href="#kontakt">Kontakt</a></li>
           </ul>
@@ -100,6 +112,19 @@
         </a>
       </div>
     </header>
+
+    <!-- ==========================================================================
+         BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA
+         Pełna procedura usunięcia: docs/CONTENT.md, sekcja „Blok czasowy: nabór".
+         ========================================================================== -->
+    <aside class="notice" data-temporary="nabor-2026" aria-label="Aktualny nabór">
+      <p class="notice__text">
+        <strong>Nabór trwa.</strong> Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5
+        dzieci.
+      </p>
+      <a class="notice__link u-link" href="#kontakt">Zgłoś dziecko do grupy</a>
+    </aside>
+    <!-- ===================== KONIEC BLOKU CZASOWEGO ============================= -->
 
     <main id="main">
       <!-- ============================================================
@@ -113,7 +138,7 @@
 
           <div class="hero__body">
             <div class="hero__text">
-              <h1 class="hero__title" id="hero-title">
+              <h1 class="hero__title" id="hero-title" data-animation="reveal">
                 Angielski po lekcjach. W tej samej szkole.
               </h1>
 
@@ -128,7 +153,8 @@
                   55 zł / godz. <span aria-hidden="true">·</span> rodzeństwo 50 zł
                 </p>
                 <p>
-                  Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.
+                  Zajęcia grupowe po lekcjach na terenie szkoły. Grupa rusza po zebraniu minimum 5
+                  dzieci.
                 </p>
               </div>
 
@@ -141,27 +167,27 @@
               </div>
             </div>
 
-            <figure class="media media--hero hero__media">
+            <figure class="media media--hero hero__media" data-animation="mask-up">
               <picture>
                 <source
-                  media="(min-width: 62rem)"
+                  media="(min-width: 48rem) and (max-width: 61.999rem)"
                   type="image/avif"
                   srcset="
                     /src/assets/images/hero/hero-classroom-768.avif   768w,
                     /src/assets/images/hero/hero-classroom-1200.avif 1200w,
                     /src/assets/images/hero/hero-classroom-1600.avif 1600w
                   "
-                  sizes="46vw"
+                  sizes="100vw"
                 />
                 <source
-                  media="(min-width: 62rem)"
+                  media="(min-width: 48rem) and (max-width: 61.999rem)"
                   type="image/webp"
                   srcset="
                     /src/assets/images/hero/hero-classroom-768.webp   768w,
                     /src/assets/images/hero/hero-classroom-1200.webp 1200w,
                     /src/assets/images/hero/hero-classroom-1600.webp 1600w
                   "
-                  sizes="46vw"
+                  sizes="100vw"
                 />
                 <source
                   type="image/avif"
@@ -170,7 +196,7 @@
                     /src/assets/images/hero/hero-classroom-portrait-768.avif   768w,
                     /src/assets/images/hero/hero-classroom-portrait-1120.avif 1120w
                   "
-                  sizes="100vw"
+                  sizes="(min-width: 62rem) 48vw, 100vw"
                 />
                 <img
                   src="/src/assets/images/hero/hero-classroom-portrait-768.webp"
@@ -179,7 +205,7 @@
                     /src/assets/images/hero/hero-classroom-portrait-768.webp   768w,
                     /src/assets/images/hero/hero-classroom-portrait-1120.webp 1120w
                   "
-                  sizes="(min-width: 62rem) 46vw, 100vw"
+                  sizes="(min-width: 62rem) 48vw, 100vw"
                   alt="Dwoje dzieci przy wspólnym zadaniu w jasnej sali, w trakcie rozmowy"
                   width="1122"
                   height="1402"
@@ -204,12 +230,16 @@
                   <span>02</span>
                   <span>Po lekcjach</span>
                 </p>
-                <h2 class="u-display after-school__claim" id="po-lekcjach-title">
+                <h2
+                  class="u-display after-school__claim"
+                  id="po-lekcjach-title"
+                  data-animation="reveal"
+                >
                   Mniej logistyki. Znane miejsce. Więcej ciągłości.
                 </h2>
               </div>
 
-              <div class="after-school__block">
+              <div class="after-school__block" data-animation="fade-up">
                 <p class="u-lead">
                   High Five prowadzi zajęcia z angielskiego dla dzieci z klas 1-8 po zakończeniu
                   lekcji szkolnych, na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej w
@@ -217,14 +247,14 @@
                 </p>
               </div>
 
-              <div class="after-school__block">
+              <div class="after-school__block" data-animation="fade-up">
                 <p>
                   Dla rodzica oznacza to mniej logistycznego chaosu. Dla dziecka — znajome miejsce i
                   łatwiejsze przejście z dnia szkolnego do pracy w małej grupie.
                 </p>
               </div>
 
-              <div class="after-school__block">
+              <div class="after-school__block" data-animation="fade-up">
                 <p>
                   Dziecko nie musi jechać do kolejnej placówki, a rodzic nie organizuje dodatkowego
                   dojazdu w środku popołudnia.
@@ -232,7 +262,10 @@
               </div>
             </div>
 
-            <figure class="media media--4-5 media--sticky after-school__media">
+            <figure
+              class="media media--4-5 media--sticky after-school__media"
+              data-animation="mask-up"
+            >
               <picture>
                 <source
                   type="image/avif"
@@ -292,20 +325,20 @@
           </div>
 
           <ul class="benefits__list">
-            <li class="benefits__item">
+            <li class="benefits__item" data-animation="reveal">
               <h3>Więcej mówienia</h3>
               <p>
                 Dziecko regularnie używa języka w praktyce, zamiast tylko rozwiązywać ćwiczenia.
               </p>
             </li>
-            <li class="benefits__item">
+            <li class="benefits__item" data-animation="reveal">
               <h3>Lepsze rozumienie</h3>
               <p>
                 Słownictwo i gramatyka mają pomagać rozumieć i komunikować się, nie być celem samym
                 w sobie.
               </p>
             </li>
-            <li class="benefits__item">
+            <li class="benefits__item" data-animation="reveal">
               <h3>Więcej pewności</h3>
               <p>
                 Regularny kontakt z językiem ułatwia pracę na lekcjach szkolnych i przygotowanie do
@@ -327,7 +360,9 @@
               <span>04</span>
               <span>Oferta</span>
             </p>
-            <h2 class="u-display" id="oferta-title">Dwie ścieżki. Zero chaosu.</h2>
+            <h2 class="u-display" id="oferta-title" data-animation="reveal">
+              Dwie ścieżki. Zero chaosu.
+            </h2>
           </div>
         </div>
 
@@ -338,7 +373,7 @@
               <p class="course__index" aria-hidden="true">01</p>
             </div>
 
-            <figure class="media media--4-5 course__media">
+            <figure class="media media--4-5 course__media" data-animation="mask-up">
               <picture>
                 <source
                   type="image/avif"
@@ -366,7 +401,7 @@
               </picture>
             </figure>
 
-            <h3 class="u-h2 course__title">Angielski dla dzieci</h3>
+            <h3 class="u-h2 course__title" data-animation="reveal">Angielski dla dzieci</h3>
 
             <div class="course__body">
               <p>
@@ -403,7 +438,7 @@
               <p class="course__index" aria-hidden="true">02</p>
             </div>
 
-            <figure class="media media--4-5 course__media">
+            <figure class="media media--4-5 course__media" data-animation="mask-up">
               <picture>
                 <source
                   type="image/avif"
@@ -431,7 +466,9 @@
               </picture>
             </figure>
 
-            <h3 class="u-h2 course__title">Przygotowanie do egzaminu ósmoklasisty</h3>
+            <h3 class="u-h2 course__title" data-animation="reveal">
+              Przygotowanie do egzaminu ósmoklasisty
+            </h3>
 
             <div class="course__body">
               <p>
@@ -516,7 +553,9 @@
               <span>06</span>
               <span>Cennik</span>
             </p>
-            <h2 class="u-display" id="cennik-title">Prosta cena. Bez ukrywania.</h2>
+            <h2 class="u-display" id="cennik-title" data-animation="reveal">
+              Prosta cena. Bez ukrywania.
+            </h2>
           </div>
 
           <div class="pricing__grid">
@@ -552,9 +591,11 @@
           <div class="section__head">
             <p class="u-label section__label">
               <span>07</span>
-              <span>Nabór</span>
+              <span>Jak rusza grupa</span>
             </p>
-            <h2 class="u-display" id="nabor-title">Kiedy rusza grupa</h2>
+            <h2 class="u-display" id="nabor-title" data-animation="reveal">
+              Grupa rusza od piątego dziecka.
+            </h2>
           </div>
 
           <div class="enrollment__grid">
@@ -565,15 +606,19 @@
               </p>
             </div>
 
-            <div class="enrollment__fact enrollment__fact--date">
+            <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
+            <div class="enrollment__fact enrollment__fact--date" data-temporary="nabor-2026">
               <p class="enrollment__figure">01.10</p>
-              <p class="enrollment__caption">Planowany start zajęć.</p>
+              <p class="enrollment__caption">Planowany start zajęć w tym roku.</p>
             </div>
+            <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
 
             <div class="enrollment__status">
-              <p class="enrollment__badge">Zbieramy grupy</p>
+              <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
+              <p class="enrollment__badge" data-temporary="nabor-2026">Zbieramy grupy</p>
+              <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
               <p class="u-lead">
-                Każda grupa rozpocznie zajęcia po zebraniu minimum 5 dzieci. Po zgłoszeniu
+                Każda grupa rozpoczyna zajęcia po zebraniu minimum 5 dzieci. Po zgłoszeniu
                 skontaktujemy się w sprawie klasy, poziomu, terminu oraz aktualnego statusu grupy.
               </p>
               <a class="cta" href="#kontakt">
@@ -597,7 +642,9 @@
                 <span>Lokalizacja</span>
               </p>
 
-              <h2 class="location__place" id="lokalizacja-title">SP 402<br />Po lekcjach.</h2>
+              <h2 class="location__place" id="lokalizacja-title" data-animation="reveal">
+                SP 402<br />Po lekcjach.
+              </h2>
 
               <address class="location__address">
                 Szkoła Podstawowa nr 402<br />
@@ -623,28 +670,134 @@
               </p>
             </div>
 
-            <figure class="media media--3-2 location__media">
+            <figure class="media media--16-9 location__media" data-animation="mask-start">
               <picture>
                 <source
                   type="image/avif"
                   srcset="
-                    /src/assets/images/sections/location-warsaw-768.avif   768w,
-                    /src/assets/images/sections/location-warsaw-1200.avif 1200w,
-                    /src/assets/images/sections/location-warsaw-1536.avif 1536w
+                    /src/assets/images/sections/sp402-building-768.avif   768w,
+                    /src/assets/images/sections/sp402-building-1200.avif 1200w,
+                    /src/assets/images/sections/sp402-building-1536.avif 1536w
                   "
                   sizes="(min-width: 62rem) 50vw, 100vw"
                 />
                 <img
-                  src="/src/assets/images/sections/location-warsaw-1200.webp"
+                  src="/src/assets/images/sections/sp402-building-1200.webp"
                   srcset="
-                    /src/assets/images/sections/location-warsaw-768.webp   768w,
-                    /src/assets/images/sections/location-warsaw-1200.webp 1200w,
-                    /src/assets/images/sections/location-warsaw-1536.webp 1536w
+                    /src/assets/images/sections/sp402-building-768.webp   768w,
+                    /src/assets/images/sections/sp402-building-1200.webp 1200w,
+                    /src/assets/images/sections/sp402-building-1536.webp 1536w
                   "
                   sizes="(min-width: 62rem) 50vw, 100vw"
-                  alt="Budynek szkoły i chodnik wśród drzew w warszawskiej okolicy mieszkaniowej"
+                  alt="Wejście do budynku Szkoły Podstawowej nr 402 w Warszawie"
                   width="1536"
-                  height="1024"
+                  height="833"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           DODATKOWO — Angielski dla seniorów, Terminal Kultury Gocław
+           Osobny odbiorca, osobne miejsce, osobny model rozliczenia.
+           Poza dziewięcioma aktami lejka dla rodziców — patrz
+           docs/ADR/0005-trzecia-sciezka-oferty-seniorzy.md
+           ============================================================ -->
+      <section class="section" id="seniorzy" data-theme="blue" aria-labelledby="seniorzy-title">
+        <div class="container">
+          <div class="seniors__grid">
+            <div class="seniors__text">
+              <p class="u-label section__label">
+                <span>Dodatkowo</span>
+                <span>Terminal Kultury Gocław</span>
+              </p>
+
+              <h2 class="u-h2 seniors__title" id="seniorzy-title" data-animation="reveal">
+                Angielski dla seniorów. Grupa początkująca.
+              </h2>
+
+              <p class="u-lead">
+                Zajęcia dla osób, które dopiero zaczynają naukę angielskiego. Spokojne tempo,
+                atmosfera wsparcia i język potrzebny w codziennych sytuacjach — bez presji.
+              </p>
+
+              <ul class="seniors__points">
+                <li class="seniors__point" data-animation="fade-up">
+                  <strong>Słownictwo i zwroty na co dzień</strong>
+                  <span>Przywitanie, przedstawianie się, zakupy, pytanie o drogę.</span>
+                </li>
+                <li class="seniors__point" data-animation="fade-up">
+                  <strong>Mówienie i słuchanie od początku</strong>
+                  <span>
+                    Rozmowy, gry językowe i ćwiczenia, które pomagają przełamać barierę.
+                  </span>
+                </li>
+                <li class="seniors__point" data-animation="fade-up">
+                  <strong>Praktyczne sytuacje</strong>
+                  <span>Sklep, wizyta u lekarza, rozmowa w podróży.</span>
+                </li>
+              </ul>
+
+              <dl class="seniors__facts">
+                <div class="seniors__fact">
+                  <dt>Miejsce</dt>
+                  <dd>Terminal Kultury Gocław</dd>
+                </div>
+                <div class="seniors__fact">
+                  <dt>Prowadzi</dt>
+                  <dd>Magda Germel</dd>
+                </div>
+                <div class="seniors__fact">
+                  <dt>Poziom</dt>
+                  <dd>Grupa początkująca</dd>
+                </div>
+                <div class="seniors__fact">
+                  <dt>Koszt</dt>
+                  <dd>45 zł za zajęcia, rozliczenie miesięczne</dd>
+                </div>
+              </dl>
+
+              <p class="seniors__note">
+                Odpłatność miesięczna zależy od liczby dni zajęć w danym miesiącu, zgodnie z
+                harmonogramem. Nie ma możliwości wykupienia pojedynczych zajęć — obowiązuje
+                abonament miesięczny.
+              </p>
+
+              <a
+                class="cta cta--ghost"
+                href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+                target="_blank"
+                rel="noopener"
+              >
+                Szczegóły i zapisy w Terminalu Kultury
+                <span class="cta__arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <figure class="media media--4-3 seniors__media" data-animation="mask-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/terminal-kultury-detail-768.avif 768w,
+                    /src/assets/images/sections/terminal-kultury-detail-960.avif 960w
+                  "
+                  sizes="(min-width: 62rem) 42vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/terminal-kultury-detail-768.webp"
+                  srcset="
+                    /src/assets/images/sections/terminal-kultury-detail-768.webp 768w,
+                    /src/assets/images/sections/terminal-kultury-detail-960.webp 960w
+                  "
+                  sizes="(min-width: 62rem) 42vw, 100vw"
+                  alt="Budynek Terminalu Kultury Gocław z szyldem na dachu"
+                  width="960"
+                  height="720"
                   loading="lazy"
                   decoding="async"
                 />
@@ -665,7 +818,7 @@
                 <span>09</span>
                 <span>Pytania</span>
               </p>
-              <h2 class="u-display" id="faq-title">FAQ. Krótko.</h2>
+              <h2 class="u-display" id="faq-title" data-animation="reveal">FAQ. Krótko.</h2>
             </div>
 
             <div class="faq-section__list">
@@ -696,7 +849,8 @@
                   </div>
                 </details>
 
-                <details class="faq__item">
+                <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
+                <details class="faq__item" data-temporary="nabor-2026">
                   <summary class="faq__question">
                     Kiedy startują zajęcia?
                     <span class="faq__sign" aria-hidden="true"></span>
@@ -708,6 +862,7 @@
                     </p>
                   </div>
                 </details>
+                <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
 
                 <details class="faq__item">
                   <summary class="faq__question">
@@ -743,7 +898,9 @@
       <section class="section section--airy" id="kontakt" aria-labelledby="kontakt-title">
         <div class="container">
           <div class="contact__grid">
-            <h2 class="u-display contact__claim" id="kontakt-title">Gotowi na High Five?</h2>
+            <h2 class="u-display contact__claim" id="kontakt-title" data-animation="reveal">
+              Gotowi na High Five?
+            </h2>
 
             <div class="contact__body">
               <p class="u-lead">
@@ -777,7 +934,7 @@
           </div>
         </div>
 
-        <figure class="media media--3-2 bleed contact__media">
+        <figure class="media media--3-2 bleed contact__media" data-animation="mask-up">
           <picture>
             <source
               type="image/avif"

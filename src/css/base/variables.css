@@ -65,7 +65,7 @@
   --space-32: 8rem;
 
   /* Odstep pionowy sekcji. Rytm jest zmienny - sekcje NIE maja jednakowej wysokosci. */
-  --space-section: clamp(4rem, 9vw, 9rem);
+  --space-section: clamp(2.5rem, 5vw, 5.5rem);
 
   /* --- Siatka: desktop 12 kolumn, mobile 4. Margines i gutter z briefu. --- */
   --grid-columns: 4;

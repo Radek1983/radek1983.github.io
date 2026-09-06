@@ -45,7 +45,10 @@ test.describe('tresc i SEO', () => {
 
     // Adres SP 402 moze wystapic WYLACZNIE pod `location`, nigdy jako `address`
     // organizacji - to wymog briefu i master promptu.
-    expect(data.location.address.streetAddress).toContain('Nowaka-Jeziorańskiego')
+    // Od dodania oferty senioralnej `location` jest tablica dwoch miejsc zajec.
+    const places = Array.isArray(data.location) ? data.location : [data.location]
+    const sp402 = places.find((place) => place.name.includes('402'))
+    expect(sp402.address.streetAddress).toContain('Nowaka-Jeziorańskiego')
     expect(data.address).toBeUndefined()
 
     // Zakaz wymyslonych ocen i opinii.
@@ -114,6 +117,23 @@ test.describe('tresc i SEO', () => {
       const href = await links.nth(i).getAttribute('href')
       await expect(page.locator(href)).toHaveCount(1)
     }
+  })
+
+  test('nabor jest informacja czasowa, a nie tematem przewodnim', async ({ page }) => {
+    // Wlasciciel ustalil, ze nabor po 1 pazdziernika ma zniknac, wiec cala tresc
+    // czasowa musi byc oznaczona i dac sie usunac w trzech miejscach.
+    // Cztery elementy w trzech miejscach: pasek pod naglowkiem, data i plakietka
+    // w sekcji 07 oraz jedno pytanie FAQ.
+    const temporary = page.locator('[data-temporary="nabor-2026"]')
+    await expect(temporary).toHaveCount(4)
+
+    // Pasek informacyjny na gorze niesie wylacznie fakty stale.
+    const ticker = await page.locator('.ticker').innerText()
+    expect(ticker.toLowerCase()).not.toContain('nabór')
+    expect(ticker.toLowerCase()).not.toContain('października')
+
+    // Naglowek sekcji 07 opisuje warunek stały, nie date.
+    await expect(page.locator('#nabor-title')).toContainText(/piątego dziecka/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

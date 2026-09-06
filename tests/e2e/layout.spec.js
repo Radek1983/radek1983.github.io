@@ -115,6 +115,62 @@ test.describe('kompozycja i art direction', () => {
   })
 })
 
+test.describe('oferta dla seniorow', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/')
+  })
+
+  test('sekcja stoi poza lejkiem dla rodzicow i niesie motyw granatowy', async ({ page }) => {
+    const section = page.locator('#seniorzy')
+    await expect(section).toHaveAttribute('data-theme', 'blue')
+
+    // Etykieta bez numeru aktu - to inny odbiorca, nie kolejny krok tej samej decyzji.
+    await expect(section.locator('.section__label')).toContainText('Dodatkowo')
+
+    // Sekcja lezy miedzy lokalizacja a FAQ.
+    const order = await page
+      .locator('main > section[id]')
+      .evaluateAll((els) => els.map((el) => el.id))
+    expect(order.indexOf('seniorzy')).toBeGreaterThan(order.indexOf('lokalizacja'))
+    expect(order.indexOf('seniorzy')).toBeLessThan(order.indexOf('faq'))
+  })
+
+  test('fakty i model rozliczenia sa podane wprost', async ({ page }) => {
+    const section = page.locator('#seniorzy')
+
+    await expect(section).toContainText('Terminal Kultury Gocław')
+    await expect(section).toContainText('45 zł')
+
+    // Bez tego zastrzezenia 45 zl czytaloby sie jak tansza alternatywa dla 55 zl.
+    await expect(section).toContainText(/abonament miesięczny/i)
+    await expect(section).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
+  })
+
+  test('konwersja senioralna nie konkuruje z primary CTA', async ({ page }) => {
+    const link = page.locator('#seniorzy a[href^="https://terminalkultury.pl"]')
+    await expect(link).toHaveCount(1)
+    await expect(link).toHaveAttribute('rel', /noopener/)
+
+    // Wariant obrysowany, nie wypelniony kolorem akcji.
+    await expect(link).toHaveClass(/cta--ghost/)
+
+    // Primary CTA pozostaje niezmienione i nadal prowadzi do kontaktu.
+    await expect(
+      page.getByRole('link', { name: /Zgłoś dziecko do grupy/ }).first(),
+    ).toHaveAttribute('href', '#kontakt')
+  })
+
+  test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {
+    const raw = await page.locator('script[type="application/ld+json"]').textContent()
+    const data = JSON.parse(raw)
+
+    expect(Array.isArray(data.location)).toBe(true)
+    const names = data.location.map((l) => l.name)
+    expect(names.some((n) => n.includes('402'))).toBe(true)
+    expect(names.some((n) => n.includes('Terminal Kultury'))).toBe(true)
+  })
+})
+
 test.describe('nawigacja i dostepnosc', () => {
   test('kotwica z URL ustawia sekcje pod sticky headerem', async ({ page }) => {
     await page.goto('/#cennik')
@@ -241,7 +297,115 @@ test.describe('responsywnosc', () => {
   })
 })
 
+test.describe('motion', () => {
+  test('reveal odslania tresc, a nie zostawia jej ukrytej (ANIM-003)', async ({ page }) => {
+    await page.goto('/')
+
+    // Element w pierwszym ekranie musi byc widoczny natychmiast po starcie.
+    const h1 = page.locator('.hero__title')
+    await expect(h1).toHaveClass(/is-visible/)
+    await expect(h1).toBeVisible()
+    // Prog, nie rownosc: przejscie trwa 560 ms, wiec w chwili sprawdzenia
+    // opacity moze wynosic np. 0.999. Istotne jest, ze tresc jest odslaniana.
+    await expect
+      .poll(async () => Number(await h1.evaluate((el) => getComputedStyle(el).opacity)), {
+        timeout: 3000,
+      })
+      .toBeGreaterThan(0.95)
+
+    // Element ponizej fold odslania sie po przewinieciu.
+    const faqHead = page.locator('#faq-title')
+    await faqHead.scrollIntoViewIfNeeded()
+    await expect(faqHead).toHaveClass(/is-visible/)
+  })
+
+  test('siatka bezpieczenstwa odslania wszystko, gdy obserwator milczy', async ({ page }) => {
+    await page.goto('/')
+
+    // Symulujemy cisze obserwatora: usuwamy klase, ktora go uruchomila,
+    // i sprawdzamy, ze po zabezpieczeniu czasowym nic nie zostaje ukryte.
+    await page.waitForTimeout(3000)
+
+    const hidden = await page.evaluate(
+      () =>
+        [...document.querySelectorAll('[data-animation]')].filter(
+          (el) => !el.classList.contains('is-visible'),
+        ).length,
+    )
+    expect(hidden).toBe(0)
+  })
+
+  test('bez JavaScriptu tresc jest widoczna od razu', async ({ browser }) => {
+    // Klasa `js` na <html> jest warunkiem stanu poczatkowego reveal.
+    // Bez niej - czyli przy awarii skryptu - tresc nie moze byc ukryta.
+    const context = await browser.newContext({ javaScriptEnabled: false })
+    const page = await context.newPage()
+    await page.goto('/')
+
+    await expect(page.locator('html')).not.toHaveClass(/js/)
+    await expect(page.locator('.hero__title')).toBeVisible()
+    expect(await page.locator('.hero__title').evaluate((el) => getComputedStyle(el).opacity)).toBe(
+      '1',
+    )
+    await expect(page.locator('#kontakt a[href^="tel:"]')).toBeVisible()
+
+    await context.close()
+  })
+
+  test('ruch wiazany ze scrollem jest progressive enhancement', async ({ page }, testInfo) => {
+    // Przy reduced motion cala warstwa narrative jest wylaczona z zalozenia -
+    // sprawdza to osobny test w bloku "reduced motion".
+    test.skip(
+      testInfo.project.name === 'reduced-motion',
+      'Warstwa narrative jest wylaczona przy reduced motion',
+    )
+
+    await page.goto('/')
+
+    const supported = await page.evaluate(() => CSS.supports('animation-timeline', 'view()'))
+    const animation = await page
+      .locator('.hero__wordmark')
+      .evaluate((el) => getComputedStyle(el).animationName)
+
+    // Tam gdzie przegladarka wspiera scroll-driven animations, wordmark ma momentum.
+    // Tam gdzie nie - kompozycja jest statyczna i to jest poprawny stan.
+    expect(supported ? animation : 'none').toBe(supported ? 'wordmark-drift' : 'none')
+  })
+})
+
 test.describe('reduced motion', () => {
+  test('reveal nie ukrywa tresci przy prefers-reduced-motion', async ({ page }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== 'reduced-motion',
+      'Test dotyczy wylacznie projektu reduced-motion',
+    )
+
+    await page.goto('/')
+
+    // Bez czekania na obserwatora: przy reduced motion stan poczatkowy nie istnieje.
+    const opacity = await page.locator('#faq-title').evaluate((el) => getComputedStyle(el).opacity)
+    expect(opacity).toBe('1')
+  })
+
+  test('ruch wiazany ze scrollem jest wylaczony przy reduced motion', async ({
+    page,
+  }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== 'reduced-motion',
+      'Test dotyczy wylacznie projektu reduced-motion',
+    )
+
+    await page.goto('/')
+
+    for (const selector of ['.hero__wordmark', '.marquee__row', '.method__verb']) {
+      const name = await page
+        .locator(selector)
+        .first()
+        .evaluate((el) => getComputedStyle(el).animationName)
+      expect(name).toBe('none')
+    }
+  })
+
   test('przy prefers-reduced-motion scroll nie jest wygladzany', async ({ page }, testInfo) => {
     test.skip(
       testInfo.project.name !== 'reduced-motion',

@@ -12,6 +12,7 @@
 @import './components/media.css';
 @import './components/marquee.css';
 @import './components/faq.css';
+@import './components/notice.css';
 @import './sections/hero.css';
 @import './sections/after-school.css';
 @import './sections/benefits.css';
@@ -20,5 +21,8 @@
 @import './sections/pricing.css';
 @import './sections/enrollment.css';
 @import './sections/location.css';
+@import './sections/seniors.css';
 @import './sections/contact.css';
+@import './animations/reveal.css';
+@import './animations/editorial.css';
 @import './utilities/helpers.css';

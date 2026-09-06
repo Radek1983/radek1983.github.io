@@ -7,7 +7,7 @@
  */
 
 .hero {
-  padding-block: clamp(2rem, 5vw, 4rem) 0;
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) 0;
 }
 
 .hero__wordmark {
@@ -43,7 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding-block-end: var(--space-12);
+  padding-block-end: var(--space-8);
 }
 
 .hero__title {
@@ -78,21 +78,40 @@
   align-items: center;
 }
 
-/* Media: na mobile pelna szerokosc pod tekstem, na desktopie po prawej,
-   wychodzace poza krawedz ekranu. */
+/* Media: na mobile pelna szerokosc pod tekstem. */
 .hero__media {
   grid-column: 1 / -1;
   margin-inline: calc(50% - 50vw);
 }
 
 @media (width >= 62rem) {
-  .hero__text {
-    grid-column: 1 / span 6;
-    padding-block-end: var(--space-24);
+  /*
+   * Desktop: fotografia po LEWEJ, wychodzaca poza lewa krawedz ekranu,
+   * tekst po prawej. Kolejnosc w DOM pozostaje tekst-najpierw - obraz jest
+   * ilustracja, wiec czytnik ekranu i klawiatura dostaja najpierw tresc.
+   */
+  .hero__body {
+    align-items: stretch;
   }
 
-  .hero__media {
+  .hero__text {
+    /* grid-row jawnie, bo automatyczne rozmieszczanie nie cofa sie do
+       wczesniejszych kolumn - media z kolumn 1-6 wyladowalyby w drugim wierszu. */
+    grid-row: 1;
     grid-column: 8 / -1;
-    margin-inline: 0 calc(50% - 50vw);
+    padding-block: var(--space-2) var(--space-8);
+  }
+
+  /*
+   * Kluczowe: media NIE ma wlasnej proporcji na desktopie, tylko rozciaga sie
+   * do wysokosci wiersza wyznaczonej przez kolumne tekstu. Wczesniej proporcja
+   * 3:4 na szerokiej kolumnie dawala 1328 px wysokosci przy 785 px tekstu,
+   * czyli 543 px pustki - czytalo sie to jak pusta strona.
+   */
+  .hero__media {
+    grid-row: 1;
+    grid-column: 1 / span 6;
+    margin-inline: calc(-1 * var(--bleed-inline)) 0;
+    align-self: stretch;
   }
 }

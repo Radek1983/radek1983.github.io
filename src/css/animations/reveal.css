@@ -1,0 +1,79 @@
+/*
+ * Warstwa REVEAL - wejscie tresci do narracji.
+ *
+ * Regula 1 z briefu: "reveal, nie fly-in". Tresc wylania sie z wlasnej linii
+ * przez maske, a nie leci z 200 px. Ruch jest kierunkowy i krotki.
+ *
+ * Stan poczatkowy obowiazuje WYLACZNIE gdy <html> ma klase `js`, dodawana
+ * przez modul accessibility po starcie skryptu. Bez JavaScriptu tresc jest
+ * od razu widoczna - awaria skryptu nie moze niczego trwale ukryc (spec 19.3).
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-animation] {
+    opacity: 0;
+    transition:
+      opacity var(--dur-reveal) var(--ease-out-expo),
+      translate var(--dur-reveal) var(--ease-out-expo),
+      clip-path var(--dur-reveal) var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* Domyslnie: wylonienie sie z wlasnej linii od dolu. */
+  .js [data-animation='reveal'] {
+    clip-path: inset(0 0 100% 0);
+    translate: 0 1.25rem;
+  }
+
+  /* Maska pozioma - dla mediow i pasow pelnej szerokosci. */
+  .js [data-animation='mask-up'] {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .js [data-animation='mask-start'] {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  /* Sam fade z drobnym przesunieciem - dla elementow, ktore maska by rozbila
+     (np. tekst obok sticky mediow, gdzie maska ciagle wchodzilaby w kadr). */
+  .js [data-animation='fade-up'] {
+    translate: 0 1.5rem;
+  }
+
+  .js [data-animation].is-visible {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    translate: none;
+  }
+}
+
+/*
+ * Stagger realizowany przez nth-child, nie przez atrybut style w HTML.
+ * Styl inline lamalby regule no-inline-style, ktora jest tu wlaczona jako
+ * tania kontrola tego, ze CSP nie potrzebuje unsafe-inline.
+ *
+ * Krok jest maly: przy trzech elementach caly ciag konczy sie 140 ms
+ * po pierwszym, wiec nie powstaje wrazenie doladowywania strony.
+ */
+.js .benefits__item:nth-child(2),
+.js .course:nth-child(2) .course__media,
+.js .after-school__block:nth-child(3) {
+  --reveal-delay: 70ms;
+}
+
+.js .benefits__item:nth-child(3),
+.js .after-school__block:nth-child(4) {
+  --reveal-delay: 140ms;
+}
+
+/*
+ * Reduced motion: tresc jest po prostu widoczna. Zadnych przejsc, zadnych
+ * masek, zadnego stanu poczatkowego (spec 30, brief regula o reduced motion).
+ */
+@media (prefers-reduced-motion: reduce) {
+  .js [data-animation] {
+    opacity: 1;
+    clip-path: none;
+    translate: none;
+  }
+}
