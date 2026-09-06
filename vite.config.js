@@ -3,7 +3,50 @@ import { defineConfig } from 'vite'
 
 const root = import.meta.dirname
 
+/**
+ * GitHub Pages nie pozwala ustawiac naglowkow HTTP, wiec CSP dostarczamy znacznikiem meta.
+ * Osiagalny podzbior polityki - patrz docs/ADR/0003-naglowki-bezpieczenstwa-na-github-pages.md.
+ * `frame-ancestors` jest w meta ignorowane (spec W3C CSP) i celowo go tu nie ma.
+ */
+const CSP = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "script-src 'self'",
+  "style-src 'self'",
+  "img-src 'self'",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "form-action 'self'",
+  'upgrade-insecure-requests',
+].join('; ')
+
+/**
+ * Wstrzykuje CSP wylacznie do builda. Tryb dev korzysta ze skryptow inline i WebSocketu
+ * dla HMR, ktore scisla polityka by zablokowala.
+ */
+function cspPlugin() {
+  return {
+    name: 'high-five-csp',
+    apply: 'build',
+    transformIndexHtml(html) {
+      return {
+        html,
+        tags: [
+          {
+            tag: 'meta',
+            attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP },
+            injectTo: 'head-prepend',
+          },
+        ],
+      }
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => ({
+  plugins: [cspPlugin()],
+
   // User site GitHub Pages (radek1983.github.io) serwuje z korzenia domeny.
   // NIGDY '/radek1983.github.io/' - to wzorzec dla project site i zepsulby wszystkie assety.
   base: process.env.VITE_BASE ?? '/',
