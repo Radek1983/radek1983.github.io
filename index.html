@@ -117,12 +117,22 @@
          BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA
          Pełna procedura usunięcia: docs/CONTENT.md, sekcja „Blok czasowy: nabór".
          ========================================================================== -->
-    <aside class="notice" data-temporary="nabor-2026" aria-label="Aktualny nabór">
-      <p class="notice__text">
-        <strong>Nabór trwa.</strong> Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5
-        dzieci.
-      </p>
-      <a class="notice__link u-link" href="#kontakt">Zgłoś dziecko do grupy</a>
+    <aside
+      class="notice"
+      data-theme="signal"
+      data-temporary="nabor-2026"
+      aria-label="Aktualny nabór"
+    >
+      <div class="notice__inner">
+        <p class="notice__text">
+          <strong>Nabór trwa</strong> — start zajęć 1 października. Grupa rusza po zebraniu minimum
+          5 dzieci.
+        </p>
+        <a class="cta" href="#kontakt">
+          Zgłoś dziecko do grupy
+          <span class="cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </aside>
     <!-- ===================== KONIEC BLOKU CZASOWEGO ============================= -->
 
@@ -131,32 +141,75 @@
            01 HERO / NABÓR — Czy to dla mojego dziecka?
            ============================================================ -->
       <section class="section hero" aria-labelledby="hero-title">
-        <div class="container">
-          <!-- Wordmark jest elementem kompozycji, nie nagłówkiem. Rolę semantyczną
-               niesie H1, więc dla czytników ekranu ten napis jest ukryty. -->
+        <!--
+          Pas fotografii na pelna szerokosc. Wordmark lezy na pustej scianie
+          w lewej czesci kadru - typografia nachodzi na zdjecie, co brief
+          wprost dopuszcza. Rola semantyczna nalezy do H1, wiec napis jest
+          ukryty przed czytnikami ekranu.
+        -->
+        <div class="hero__stage">
+          <figure class="media hero__media">
+            <picture>
+              <source
+                media="(min-width: 48rem)"
+                type="image/avif"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-band-1200.avif 1200w,
+                  /src/assets/images/hero/hero-classroom-band-1600.avif 1600w
+                "
+                sizes="100vw"
+              />
+              <source
+                media="(min-width: 48rem)"
+                type="image/webp"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-band-1200.webp 1200w,
+                  /src/assets/images/hero/hero-classroom-band-1600.webp 1600w
+                "
+                sizes="100vw"
+              />
+              <source
+                type="image/avif"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-portrait-480.avif   480w,
+                  /src/assets/images/hero/hero-classroom-portrait-768.avif   768w,
+                  /src/assets/images/hero/hero-classroom-portrait-1120.avif 1120w
+                "
+                sizes="100vw"
+              />
+              <img
+                src="/src/assets/images/hero/hero-classroom-portrait-768.webp"
+                srcset="
+                  /src/assets/images/hero/hero-classroom-portrait-480.webp   480w,
+                  /src/assets/images/hero/hero-classroom-portrait-768.webp   768w,
+                  /src/assets/images/hero/hero-classroom-portrait-1120.webp 1120w
+                "
+                sizes="100vw"
+                alt="Dwoje dzieci przy wspólnym zadaniu w jasnej sali, w trakcie rozmowy"
+                width="1672"
+                height="941"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+          </figure>
+
           <p class="u-wordmark hero__wordmark" aria-hidden="true">High Five</p>
+        </div>
 
+        <div class="container">
           <div class="hero__body">
-            <div class="hero__text">
-              <h1 class="hero__title" id="hero-title" data-animation="reveal">
-                Angielski po lekcjach. W tej samej szkole.
-              </h1>
+            <h1 class="hero__title" id="hero-title">Angielski po lekcjach. W tej samej szkole.</h1>
 
+            <div class="hero__aside">
               <p class="u-lead">
                 Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe
-                grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu
-                ósmoklasisty.
+                grupy i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
               </p>
 
-              <div class="hero__status">
-                <p class="hero__price">
-                  55 zł / godz. <span aria-hidden="true">·</span> rodzeństwo 50 zł
-                </p>
-                <p>
-                  Zajęcia grupowe po lekcjach na terenie szkoły. Grupa rusza po zebraniu minimum 5
-                  dzieci.
-                </p>
-              </div>
+              <p class="hero__price">
+                55 zł / godz. <span aria-hidden="true">·</span> rodzeństwo 50 zł
+              </p>
 
               <div class="hero__actions">
                 <a class="cta cta--large" href="#kontakt">
@@ -166,54 +219,6 @@
                 <a class="u-link" href="#oferta">Zobacz ofertę</a>
               </div>
             </div>
-
-            <figure class="media media--hero hero__media" data-animation="mask-up">
-              <picture>
-                <source
-                  media="(min-width: 48rem) and (max-width: 61.999rem)"
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-768.avif   768w,
-                    /src/assets/images/hero/hero-classroom-1200.avif 1200w,
-                    /src/assets/images/hero/hero-classroom-1600.avif 1600w
-                  "
-                  sizes="100vw"
-                />
-                <source
-                  media="(min-width: 48rem) and (max-width: 61.999rem)"
-                  type="image/webp"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-768.webp   768w,
-                    /src/assets/images/hero/hero-classroom-1200.webp 1200w,
-                    /src/assets/images/hero/hero-classroom-1600.webp 1600w
-                  "
-                  sizes="100vw"
-                />
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-portrait-480.avif   480w,
-                    /src/assets/images/hero/hero-classroom-portrait-768.avif   768w,
-                    /src/assets/images/hero/hero-classroom-portrait-1120.avif 1120w
-                  "
-                  sizes="(min-width: 62rem) 48vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/hero/hero-classroom-portrait-768.webp"
-                  srcset="
-                    /src/assets/images/hero/hero-classroom-portrait-480.webp   480w,
-                    /src/assets/images/hero/hero-classroom-portrait-768.webp   768w,
-                    /src/assets/images/hero/hero-classroom-portrait-1120.webp 1120w
-                  "
-                  sizes="(min-width: 62rem) 48vw, 100vw"
-                  alt="Dwoje dzieci przy wspólnym zadaniu w jasnej sali, w trakcie rozmowy"
-                  width="1122"
-                  height="1402"
-                  fetchpriority="high"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
           </div>
         </div>
       </section>

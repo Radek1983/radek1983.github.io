@@ -1,41 +1,40 @@
 /*
- * Pasek ogloszenia czasowego.
+ * Baner ogloszenia czasowego.
  *
- * Nosi informacje o naborze, ktora ma zniknac po 1 pazdziernika.
- * Swiadomie NIE jest sticky i nie jest tematem przewodnim strony - przewija sie
- * i ustepuje miejsca stalej narracji marki.
+ * Czerwien sygnalowa na pelna szerokosc, przycisk w kontrastowej czerni.
+ * Motyw data-theme="signal" podmienia role kolorow, wiec .cta automatycznie
+ * dostaje czarne tlo i biala czcionke - nie trzeba nadpisywac komponentu.
  *
- * Procedura usuniecia: docs/CONTENT.md, sekcja "Blok czasowy: nabor".
+ * Swiadomie NIE jest sticky: przewija sie i ustepuje miejsca stalej narracji
+ * marki. Procedura usuniecia: docs/COPY_DECK.md, sekcja "Blok czasowy: nabor".
  */
 
 .notice {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.notice__inner {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-2) var(--space-6);
-  padding: var(--space-3) var(--grid-margin);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
   max-inline-size: var(--container-max);
   margin-inline: auto;
-  border-block-end: 1px solid var(--color-rule);
-  font-size: 0.9375rem;
+  padding: var(--space-2) var(--grid-margin);
 }
 
 .notice__text {
-  max-inline-size: 62ch;
   margin: 0;
-}
-
-/* Kropka sygnalowa - jedyny akcent. Bez badge, bez licznika, bez ikony. */
-.notice__text::before {
-  content: '';
-  display: inline-block;
-  inline-size: 7px;
-  block-size: 7px;
-  margin-inline-end: var(--space-3);
-  background-color: var(--color-signal);
-  translate: 0 -0.15em;
-}
-
-.notice__link {
+  max-inline-size: 70ch;
+  font-size: 0.9375rem;
   font-weight: 500;
+}
+
+.notice__text strong {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }

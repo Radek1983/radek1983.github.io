@@ -1,70 +1,86 @@
 /*
  * 01 HERO / NABOR
  *
- * Kompozycja: gigantyczny wordmark na pelna szerokosc, pod nim H1 i lead po lewej,
- * fotografia wychodzaca poza prawa krawedz. Zadnego wysrodkowanego naglowka
- * na zdjeciu z gradientem - to anty-wzorzec z briefu.
+ * Kompozycja: pas fotografii na pelna szerokosc z wordmarkiem lezacym na pustej
+ * scianie w lewej czesci kadru, pod nim H1 obok leadu, ceny i CTA.
+ *
+ * Wysokosc jest twardym ograniczeniem: cala sekcja musi zmiescic sie na jednym
+ * ekranie laptopa razem z paskiem faktow, naglowkiem i banerem naboru.
+ * Dlatego pas zdjecia jest wyrazony w svh, a nie proporcja - proporcja przy
+ * pelnej szerokosci dawala 810 px i wypychala tekst pod krawedz ekranu.
  */
 
 .hero {
-  padding-block: clamp(1.5rem, 3vw, 2.5rem) 0;
+  padding-block: 0 clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+/* --- Scena: zdjecie + wordmark --- */
+
+.hero__stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__media {
+  aspect-ratio: 4 / 5;
+}
+
+.hero__media img {
+  /*
+   * Wysrodkowanie wystarcza, bo na desktopie zrodlem jest juz gotowy pas
+   * przyciety na etapie budowania (patrz DERIVED_CROPS w scripts/optimize-images.mjs).
+   * Proporcja pliku pokrywa sie z proporcja kontenera, wiec praktycznie nie ma
+   * co przycinac. Wczesniej probowalismy dobrac kadr samym object-position -
+   * przy pasie 4.6:1 z kadru 16:9 zawsze wychodzily czubki glow zamiast twarzy.
+   */
+  object-position: center;
 }
 
 .hero__wordmark {
-  /* Wordmark to element kompozycji, nie naglowek. Rola semantyczna
-     nalezy do H1, wiec tutaj aria-hidden po stronie HTML. */
-  margin-block-end: clamp(1rem, 2.5vw, 2rem);
-  white-space: nowrap;
+  position: absolute;
+  inset-block-start: clamp(0.5rem, 2vw, 1.75rem);
+  inset-inline-start: var(--grid-margin);
+  z-index: 1;
+  margin: 0;
+  font-size: min(26vw, 5.5rem);
+  line-height: 0.82;
+  max-inline-size: 4.5em;
+  white-space: normal;
+
+  /* Napis lezy na jasnej scianie w kadrze, wiec kolor tekstu daje pelny kontrast.
+     Zadnego przycieniania ani gradientu pod spodem - brief tego zabrania. */
+  color: var(--color-ink);
 }
 
-/*
- * Mobile nie jest pomniejszonym desktopem. Na jednej linii wordmark zeszedlby
- * do 72 px i stracil obecnosc; zamiast tego lamie sie na dwie linie i rosnie.
- * Makieta mobilna z briefu pokazuje dokladnie taki uklad.
- */
-@media (width < 48rem) {
-  .hero__wordmark {
-    font-size: min(30vw, 7rem);
-    white-space: normal;
-    max-inline-size: 4.5em;
-    line-height: 0.82;
-  }
-}
+/* --- Tekst --- */
 
 .hero__body {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-  gap: var(--grid-gutter);
+  gap: var(--space-6) var(--grid-gutter);
+  padding-block-start: clamp(1.25rem, 2.5vw, 2rem);
   align-items: start;
 }
 
-.hero__text {
+.hero__title {
+  grid-column: 1 / -1;
+  max-inline-size: 24ch;
+}
+
+.hero__aside {
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding-block-end: var(--space-8);
-}
-
-.hero__title {
-  max-inline-size: 22ch;
-}
-
-.hero__status {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-rule);
-  max-inline-size: var(--measure-narrow);
+  gap: var(--space-4);
+  align-items: flex-start;
 }
 
 .hero__price {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-size: clamp(1.25rem, 1.9vw, 1.75rem);
   font-weight: 800;
-  letter-spacing: var(--tracking-heading);
   line-height: 1.1;
+  letter-spacing: var(--tracking-heading);
 }
 
 .hero__price span {
@@ -78,40 +94,41 @@
   align-items: center;
 }
 
-/* Media: na mobile pelna szerokosc pod tekstem. */
-.hero__media {
-  grid-column: 1 / -1;
-  margin-inline: calc(50% - 50vw);
+/* --- Tablet i desktop: pas zdjecia zamiast kadru pionowego --- */
+
+@media (width >= 48rem) {
+  .hero__media {
+    /* Zamiast proporcji: wysokosc wyrazona w svh. Rosnie z ekranem, ale nigdy
+       nie przekracza polowy jego wysokosci. */
+    aspect-ratio: auto;
+    block-size: clamp(220px, 48svh, 460px);
+  }
+
+  .hero__wordmark {
+    font-size: min(7.5vw, 8rem);
+    max-inline-size: none;
+    white-space: nowrap;
+    line-height: 0.86;
+  }
+
+  /* H1 i kolumna z leadem staja obok siebie - to skraca sekcje o wysokosc
+     jednego z tych blokow. */
+  .hero__title {
+    grid-column: 1 / span 6;
+    font-size: clamp(1.75rem, 3.2vw, 3.25rem);
+  }
+
+  .hero__aside {
+    grid-column: 8 / -1;
+  }
 }
 
 @media (width >= 62rem) {
-  /*
-   * Desktop: fotografia po LEWEJ, wychodzaca poza lewa krawedz ekranu,
-   * tekst po prawej. Kolejnosc w DOM pozostaje tekst-najpierw - obraz jest
-   * ilustracja, wiec czytnik ekranu i klawiatura dostaja najpierw tresc.
-   */
-  .hero__body {
-    align-items: stretch;
-  }
-
-  .hero__text {
-    /* grid-row jawnie, bo automatyczne rozmieszczanie nie cofa sie do
-       wczesniejszych kolumn - media z kolumn 1-6 wyladowalyby w drugim wierszu. */
-    grid-row: 1;
-    grid-column: 8 / -1;
-    padding-block: var(--space-2) var(--space-8);
-  }
-
-  /*
-   * Kluczowe: media NIE ma wlasnej proporcji na desktopie, tylko rozciaga sie
-   * do wysokosci wiersza wyznaczonej przez kolumne tekstu. Wczesniej proporcja
-   * 3:4 na szerokiej kolumnie dawala 1328 px wysokosci przy 785 px tekstu,
-   * czyli 543 px pustki - czytalo sie to jak pusta strona.
-   */
-  .hero__media {
-    grid-row: 1;
+  .hero__title {
     grid-column: 1 / span 6;
-    margin-inline: calc(-1 * var(--bleed-inline)) 0;
-    align-self: stretch;
+  }
+
+  .hero__aside {
+    grid-column: 8 / -1;
   }
 }

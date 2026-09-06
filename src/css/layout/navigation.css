@@ -16,7 +16,7 @@
 .ticker__track {
   display: flex;
   gap: var(--space-8);
-  padding-block: var(--space-2);
+  padding-block: var(--space-1);
   padding-inline: var(--grid-margin);
   white-space: nowrap;
   font-size: var(--step-label);
