@@ -54,7 +54,13 @@ export function initAnimations() {
 
       if (remaining <= 0) clearTimeout(safety)
     },
-    { threshold: 0.18, rootMargin: '0px 0px -8% 0px' },
+    /*
+     * Prog musi byc niski, bo obserwujemy takze cale sekcje. Przy 18% wysokosc
+     * wymagana do odslonienia sekcji przekraczalaby viewport i reveal nie
+     * odpalilby nigdy. Dolny rootMargin cofa moment odslonienia tak, zeby
+     * element wchodzil w kadr, a nie ledwo go dotykal.
+     */
+    { threshold: 0.05, rootMargin: '0px 0px -12% 0px' },
   )
 
   for (const item of items) observer.observe(item)

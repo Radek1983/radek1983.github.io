@@ -27,6 +27,14 @@
 
 .hero__media img {
   /*
+   * Odbicie lustrzane. Pusta sciana z kadru trafia na prawa strone, gdzie stoi
+   * teraz wordmark - dzieki temu nie lezy pod znakiem marki w naglowku, ktory
+   * zostal po lewej. Uzywamy wlasciwosci transform, nie scale, bo scale nalezy
+   * do animacji osiadania fotografii; obie maja sie zlozyc, nie nadpisac.
+   */
+  transform: scaleX(-1);
+
+  /*
    * Wysrodkowanie wystarcza, bo na desktopie zrodlem jest juz gotowy pas
    * przyciety na etapie budowania (patrz DERIVED_CROPS w scripts/optimize-images.mjs).
    * Proporcja pliku pokrywa sie z proporcja kontenera, wiec praktycznie nie ma
@@ -39,7 +47,11 @@
 .hero__wordmark {
   position: absolute;
   inset-block-start: clamp(0.5rem, 2vw, 1.75rem);
-  inset-inline-start: var(--grid-margin);
+
+  /* Po prawej, bo znak marki w naglowku stoi po lewej. Dwa razy HIGH FIVE
+     jeden pod drugim czytalo sie jak blad skladu. */
+  inset-inline-end: var(--grid-margin);
+  text-align: right;
   z-index: 1;
   margin: 0;
   font-size: min(26vw, 5.5rem);

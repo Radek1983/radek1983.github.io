@@ -19,6 +19,23 @@
     transition-delay: var(--reveal-delay, 0ms);
   }
 
+  /*
+   * Wejscie CALEJ sekcji - wolne, spokojne pojawienie sie.
+   *
+   * Wzorzec z nor.ma wskazanej przez wlasciciela: sekcja przy pierwszym wejsciu
+   * w kadr pojawia sie w okolo 1.2 s zamiast wskakiwac. Sam fade, bez maski
+   * i bez przesuniecia - kazdy dodatkowy ruch na tak duzym elemencie czyta sie
+   * jak przeskok layoutu.
+   *
+   * Raz na sesje: obserwator odlacza element po odslonieciu, wiec przy powrocie
+   * scrollem w gore sekcja juz nie migoce.
+   */
+  .js [data-animation='section'] {
+    transition-property: opacity;
+    transition-duration: 1200ms;
+    transition-timing-function: ease-out;
+  }
+
   /* Domyslnie: wylonienie sie z wlasnej linii od dolu. */
   .js [data-animation='reveal'] {
     clip-path: inset(0 0 100% 0);

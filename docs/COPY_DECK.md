@@ -222,19 +222,24 @@ Najpierw konkret lokalny, dopiero potem korzyść edukacyjna.
 ## Blok czasowy: nabór
 
 Właściciel ustalił, że **nabór nie może być tematem przewodnim strony** — to informacja,
-która po 1 października ma zniknąć.
+która po 1 października ma zniknąć. Czerwony baner został usunięty, a treść przeniesiona
+do czarnego paska faktów na górze.
 
-Cała treść czasowa żyje w **trzech miejscach** (cztery elementy), każdy oznaczony atrybutem
+Cała treść czasowa żyje w **czterech miejscach** (pięć elementów), każdy oznaczony atrybutem
 `data-temporary="nabor-2026"` oraz komentarzami granicznymi w HTML:
 
-| Miejsce              | Co usunąć                                           |
-| -------------------- | --------------------------------------------------- |
-| Pasek pod nagłówkiem | Cały element `<aside class="notice">`               |
-| Sekcja `#nabor`      | Blok z datą `01.10` oraz plakietka `Zbieramy grupy` |
-| FAQ                  | Pytanie „Kiedy startują zajęcia?"                   |
+| Miejsce               | Co usunąć                                                          |
+| --------------------- | ------------------------------------------------------------------ |
+| Pasek faktów na górze | Pozycje `Nabór trwa` i `Start 1 października 2026` — dwa elementy  |
+| Sekcja `#nabor`       | Blok z datą `01.10` oraz plakietka `Zbieramy grupy` — dwa elementy |
+| FAQ                   | Pytanie „Kiedy startują zajęcia?"                                  |
 
 Po usunięciu zaktualizować także `meta description`, które zawiera frazę
 „Nabór trwa, start 1 października".
 
-**Pasek informacyjny na górze niesie wyłącznie fakty stałe** — klasy 1-8, SP 402, zajęcia
-po lekcjach, ceny, minimum 5 dzieci. Nie dopisywać tam treści czasowych.
+**Reszta paska faktów niesie wyłącznie treść stałą** — klasy 1-8, SP 402, zajęcia po lekcjach,
+ceny, minimum 5 dzieci. Nie dopisywać tam nowych treści czasowych bez oznaczenia.
+
+Test w `tests/smoke/page.spec.js` pilnuje, żeby **żadna datowana wzmianka nie została
+nieoznaczona** — inaczej przetrwałaby usunięcie bloku. Sformułowanie „status naboru"
+w finalnym CTA jest świadomie stałe: opisuje proces, nie termin.
