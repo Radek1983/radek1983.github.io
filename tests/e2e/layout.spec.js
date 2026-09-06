@@ -115,6 +115,62 @@ test.describe('kompozycja i art direction', () => {
   })
 })
 
+test.describe('oferta dla seniorow', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/')
+  })
+
+  test('sekcja stoi poza lejkiem dla rodzicow i niesie motyw granatowy', async ({ page }) => {
+    const section = page.locator('#seniorzy')
+    await expect(section).toHaveAttribute('data-theme', 'blue')
+
+    // Etykieta bez numeru aktu - to inny odbiorca, nie kolejny krok tej samej decyzji.
+    await expect(section.locator('.section__label')).toContainText('Dodatkowo')
+
+    // Sekcja lezy miedzy lokalizacja a FAQ.
+    const order = await page
+      .locator('main > section[id]')
+      .evaluateAll((els) => els.map((el) => el.id))
+    expect(order.indexOf('seniorzy')).toBeGreaterThan(order.indexOf('lokalizacja'))
+    expect(order.indexOf('seniorzy')).toBeLessThan(order.indexOf('faq'))
+  })
+
+  test('fakty i model rozliczenia sa podane wprost', async ({ page }) => {
+    const section = page.locator('#seniorzy')
+
+    await expect(section).toContainText('Terminal Kultury Gocław')
+    await expect(section).toContainText('45 zł')
+
+    // Bez tego zastrzezenia 45 zl czytaloby sie jak tansza alternatywa dla 55 zl.
+    await expect(section).toContainText(/abonament miesięczny/i)
+    await expect(section).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
+  })
+
+  test('konwersja senioralna nie konkuruje z primary CTA', async ({ page }) => {
+    const link = page.locator('#seniorzy a[href^="https://terminalkultury.pl"]')
+    await expect(link).toHaveCount(1)
+    await expect(link).toHaveAttribute('rel', /noopener/)
+
+    // Wariant obrysowany, nie wypelniony kolorem akcji.
+    await expect(link).toHaveClass(/cta--ghost/)
+
+    // Primary CTA pozostaje niezmienione i nadal prowadzi do kontaktu.
+    await expect(
+      page.getByRole('link', { name: /Zgłoś dziecko do grupy/ }).first(),
+    ).toHaveAttribute('href', '#kontakt')
+  })
+
+  test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {
+    const raw = await page.locator('script[type="application/ld+json"]').textContent()
+    const data = JSON.parse(raw)
+
+    expect(Array.isArray(data.location)).toBe(true)
+    const names = data.location.map((l) => l.name)
+    expect(names.some((n) => n.includes('402'))).toBe(true)
+    expect(names.some((n) => n.includes('Terminal Kultury'))).toBe(true)
+  })
+})
+
 test.describe('nawigacja i dostepnosc', () => {
   test('kotwica z URL ustawia sekcje pod sticky headerem', async ({ page }) => {
     await page.goto('/#cennik')

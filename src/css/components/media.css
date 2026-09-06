@@ -32,6 +32,10 @@
   aspect-ratio: 3 / 2;
 }
 
+.media--4-3 {
+  aspect-ratio: 4 / 3;
+}
+
 /* Kadr, ktory ma wypelnic dostepna wysokosc zamiast trzymac proporcje. */
 .media--fill {
   block-size: 100%;

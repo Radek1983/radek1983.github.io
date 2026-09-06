@@ -49,17 +49,28 @@
         "email": "janek.gitara@onet.pl",
         "telephone": "+48789789789",
         "areaServed": "Warszawa",
-        "location": {
-          "@type": "Place",
-          "name": "Szkoła Podstawowa nr 402 im. Haliny Konopackiej",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 22",
-            "postalCode": "03-982",
-            "addressLocality": "Warszawa",
-            "addressCountry": "PL"
+        "location": [
+          {
+            "@type": "Place",
+            "name": "Szkoła Podstawowa nr 402 im. Haliny Konopackiej",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 22",
+              "postalCode": "03-982",
+              "addressLocality": "Warszawa",
+              "addressCountry": "PL"
+            }
+          },
+          {
+            "@type": "Place",
+            "name": "Terminal Kultury Gocław",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Warszawa",
+              "addressCountry": "PL"
+            }
           }
-        }
+        ]
       }
     </script>
   </head>
@@ -89,6 +100,7 @@
             <li><a class="site-nav__link" href="#oferta">Oferta</a></li>
             <li><a class="site-nav__link" href="#cennik">Cennik</a></li>
             <li><a class="site-nav__link" href="#lokalizacja">Lokalizacja</a></li>
+            <li><a class="site-nav__link" href="#seniorzy">Seniorzy</a></li>
             <li><a class="site-nav__link" href="#faq">FAQ</a></li>
             <li><a class="site-nav__link" href="#kontakt">Kontakt</a></li>
           </ul>
@@ -680,6 +692,112 @@
                   alt="Wejście do budynku Szkoły Podstawowej nr 402 w Warszawie"
                   width="1536"
                   height="833"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           DODATKOWO — Angielski dla seniorów, Terminal Kultury Gocław
+           Osobny odbiorca, osobne miejsce, osobny model rozliczenia.
+           Poza dziewięcioma aktami lejka dla rodziców — patrz
+           docs/ADR/0005-trzecia-sciezka-oferty-seniorzy.md
+           ============================================================ -->
+      <section class="section" id="seniorzy" data-theme="blue" aria-labelledby="seniorzy-title">
+        <div class="container">
+          <div class="seniors__grid">
+            <div class="seniors__text">
+              <p class="u-label section__label">
+                <span>Dodatkowo</span>
+                <span>Terminal Kultury Gocław</span>
+              </p>
+
+              <h2 class="u-h2 seniors__title" id="seniorzy-title" data-animation="reveal">
+                Angielski dla seniorów. Grupa początkująca.
+              </h2>
+
+              <p class="u-lead">
+                Zajęcia dla osób, które dopiero zaczynają naukę angielskiego. Spokojne tempo,
+                atmosfera wsparcia i język potrzebny w codziennych sytuacjach — bez presji.
+              </p>
+
+              <ul class="seniors__points">
+                <li class="seniors__point" data-animation="fade-up">
+                  <strong>Słownictwo i zwroty na co dzień</strong>
+                  <span>Przywitanie, przedstawianie się, zakupy, pytanie o drogę.</span>
+                </li>
+                <li class="seniors__point" data-animation="fade-up">
+                  <strong>Mówienie i słuchanie od początku</strong>
+                  <span>
+                    Rozmowy, gry językowe i ćwiczenia, które pomagają przełamać barierę.
+                  </span>
+                </li>
+                <li class="seniors__point" data-animation="fade-up">
+                  <strong>Praktyczne sytuacje</strong>
+                  <span>Sklep, wizyta u lekarza, rozmowa w podróży.</span>
+                </li>
+              </ul>
+
+              <dl class="seniors__facts">
+                <div class="seniors__fact">
+                  <dt>Miejsce</dt>
+                  <dd>Terminal Kultury Gocław</dd>
+                </div>
+                <div class="seniors__fact">
+                  <dt>Prowadzi</dt>
+                  <dd>Magda Germel</dd>
+                </div>
+                <div class="seniors__fact">
+                  <dt>Poziom</dt>
+                  <dd>Grupa początkująca</dd>
+                </div>
+                <div class="seniors__fact">
+                  <dt>Koszt</dt>
+                  <dd>45 zł za zajęcia, rozliczenie miesięczne</dd>
+                </div>
+              </dl>
+
+              <p class="seniors__note">
+                Odpłatność miesięczna zależy od liczby dni zajęć w danym miesiącu, zgodnie z
+                harmonogramem. Nie ma możliwości wykupienia pojedynczych zajęć — obowiązuje
+                abonament miesięczny.
+              </p>
+
+              <a
+                class="cta cta--ghost"
+                href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+                target="_blank"
+                rel="noopener"
+              >
+                Szczegóły i zapisy w Terminalu Kultury
+                <span class="cta__arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <figure class="media media--4-3 seniors__media" data-animation="mask-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/terminal-kultury-detail-768.avif 768w,
+                    /src/assets/images/sections/terminal-kultury-detail-960.avif 960w
+                  "
+                  sizes="(min-width: 62rem) 42vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/terminal-kultury-detail-768.webp"
+                  srcset="
+                    /src/assets/images/sections/terminal-kultury-detail-768.webp 768w,
+                    /src/assets/images/sections/terminal-kultury-detail-960.webp 960w
+                  "
+                  sizes="(min-width: 62rem) 42vw, 100vw"
+                  alt="Budynek Terminalu Kultury Gocław z szyldem na dachu"
+                  width="960"
+                  height="720"
                   loading="lazy"
                   decoding="async"
                 />

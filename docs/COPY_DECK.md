@@ -110,9 +110,12 @@ Zakaz dopisywania nazw metod, certyfikatów i obietnic pedagogicznych bez źród
 Brief zabrania nazywania niższej stawki „pakietem rodzinnym", jeśli formalnie jest to po
 prostu niższa cena za kolejne dziecko.
 
-## 07 Nabór — `#nabor`
+## 07 Jak rusza grupa — `#nabor`
 
-**Nagłówek:** `Kiedy rusza grupa`
+**Nagłówek:** `Grupa rusza od piątego dziecka.`
+
+Sekcja jest **stała**. Warunek minimum 5 dzieci obowiązuje bezterminowo; data startu jest
+informacją czasową i żyje w oznaczonym bloku — patrz sekcja „Blok czasowy: nabór" niżej.
 
 - **5** — Tyle dzieci musi zebrać się w grupie, żeby zajęcia wystartowały.
 - **01.10** — Planowany start zajęć.
@@ -154,6 +157,39 @@ Pięć pytań. **Tylko te, na które brief pozwala odpowiedzieć.**
 **Nie publikujemy** (patrz `docs/CONTENT_GAPS.md`): zasad dołączenia po starcie, polityki
 nieobecności i odrabiania, informacji o materiałach w cenie, zasad rezygnacji, lekcji próbnej.
 
+## Dodatkowo — Angielski dla seniorów — `#seniorzy`
+
+Oferta **poza** dziewięcioma aktami lejka dla rodziców. Uzasadnienie struktury: ADR 0005.
+Fakty pochodzą od właściciela i ze strony kursu w Terminalu Kultury.
+
+**Nagłówek:** `Angielski dla seniorów. Grupa początkująca.`
+
+> Zajęcia dla osób, które dopiero zaczynają naukę angielskiego. Spokojne tempo, atmosfera
+> wsparcia i język potrzebny w codziennych sytuacjach — bez presji.
+
+**Trzy filary** (skrót z sześciu punktów opisu kursu):
+
+- **Słownictwo i zwroty na co dzień** — przywitanie, przedstawianie się, zakupy, pytanie o drogę.
+- **Mówienie i słuchanie od początku** — rozmowy, gry językowe i ćwiczenia, które pomagają przełamać barierę.
+- **Praktyczne sytuacje** — sklep, wizyta u lekarza, rozmowa w podróży.
+
+**Fakty:** Terminal Kultury Gocław · prowadzi Magda Germel · grupa początkująca ·
+45 zł za zajęcia, rozliczenie miesięczne.
+
+**Zastrzeżenie, obowiązkowe:**
+
+> Odpłatność miesięczna zależy od liczby dni zajęć w danym miesiącu, zgodnie z harmonogramem.
+> Nie ma możliwości wykupienia pojedynczych zajęć — obowiązuje abonament miesięczny.
+
+To zdanie **musi zostać**. Bez niego „45 zł" czytałoby się jak tańsza alternatywa dla „55 zł",
+a to inna usługa, inne miejsce i inne zasady rozliczenia.
+
+**Konwersja:** `Szczegóły i zapisy w Terminalu Kultury` — link zewnętrzny, wariant obrysowany.
+Zapisy prowadzi tamta instytucja, więc kierowanie seniorów na `#kontakt` wprowadzałoby w błąd.
+
+**Nie publikujemy** kwalifikacji ani doświadczenia osoby prowadzącej — samo imię i nazwisko
+przekazał właściciel i widnieje publicznie na stronie Terminalu Kultury.
+
 ## Final CTA — `#kontakt`
 
 **Nagłówek:** `Gotowi na High Five?`
@@ -182,3 +218,23 @@ Master prompt §4 i §9. Testowane automatycznie w `tests/smoke/page.spec.js`:
 `gwarantujemy wynik` · `lekcja próbna` · `odrabianie` · `materiały w cenie` · `Sprawdź poziom`
 
 Najpierw konkret lokalny, dopiero potem korzyść edukacyjna.
+
+## Blok czasowy: nabór
+
+Właściciel ustalił, że **nabór nie może być tematem przewodnim strony** — to informacja,
+która po 1 października ma zniknąć.
+
+Cała treść czasowa żyje w **trzech miejscach** (cztery elementy), każdy oznaczony atrybutem
+`data-temporary="nabor-2026"` oraz komentarzami granicznymi w HTML:
+
+| Miejsce              | Co usunąć                                           |
+| -------------------- | --------------------------------------------------- |
+| Pasek pod nagłówkiem | Cały element `<aside class="notice">`               |
+| Sekcja `#nabor`      | Blok z datą `01.10` oraz plakietka `Zbieramy grupy` |
+| FAQ                  | Pytanie „Kiedy startują zajęcia?"                   |
+
+Po usunięciu zaktualizować także `meta description`, które zawiera frazę
+„Nabór trwa, start 1 października".
+
+**Pasek informacyjny na górze niesie wyłącznie fakty stałe** — klasy 1-8, SP 402, zajęcia
+po lekcjach, ceny, minimum 5 dzieci. Nie dopisywać tam treści czasowych.
