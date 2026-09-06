@@ -31,14 +31,14 @@ Materiały źródłowe leżą w `instructions/` — folder jest **lokalny i wpis
 trafia do publicznego repozytorium. Nie commituj go i nie kopiuj jego zawartości do `docs/`
 w całości.
 
-| Priorytet | Dokument | Zakres rozstrzygający |
-|---|---|---|
-| 1 | `instructions/master_prompt_claude_high_five_v1.2.md` | **Wyrocznia projektu.** Rola, fakty, copy, IA, art direction, build order, kryteria BIZ |
-| 2 | `instructions/ERRATA-zalacznik-techniczny-v1.1.md` | **Ma pierwszeństwo przed PDF-em v1.1** w zakresie, który opisuje: wersje narzędzi (E-01), dane kontaktowe (E-02) |
-| 3 | `instructions/zalacznik_techniczny_specyfikacja_repozytorium_www_v1.1.pdf` | Wszystko techniczne: stos, repo, CSS/JS, motion, CI/CD, hosting, SEO, a11y, performance, security, odbiór |
-| 4 | `instructions/High_Five_brief_webmaster_NEWGROUND_STYLE_v3 (1).pdf` | Fakty biznesowe, gotowe copy, design system, 9 scen, motion spec |
-| 5 | `docs/ADR/` | Decyzje podjęte w trakcie realizacji |
-| 6 | ten plik | Skrót ustaleń i decyzje D1–D6 |
+| Priorytet | Dokument                                                                   | Zakres rozstrzygający                                                                                            |
+| --------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 1         | `instructions/master_prompt_claude_high_five_v1.2.md`                      | **Wyrocznia projektu.** Rola, fakty, copy, IA, art direction, build order, kryteria BIZ                          |
+| 2         | `instructions/ERRATA-zalacznik-techniczny-v1.1.md`                         | **Ma pierwszeństwo przed PDF-em v1.1** w zakresie, który opisuje: wersje narzędzi (E-01), dane kontaktowe (E-02) |
+| 3         | `instructions/zalacznik_techniczny_specyfikacja_repozytorium_www_v1.1.pdf` | Wszystko techniczne: stos, repo, CSS/JS, motion, CI/CD, hosting, SEO, a11y, performance, security, odbiór        |
+| 4         | `instructions/High_Five_brief_webmaster_NEWGROUND_STYLE_v3 (1).pdf`        | Fakty biznesowe, gotowe copy, design system, 9 scen, motion spec                                                 |
+| 5         | `docs/ADR/`                                                                | Decyzje podjęte w trakcie realizacji                                                                             |
+| 6         | ten plik                                                                   | Skrót ustaleń i decyzje D1–D6                                                                                    |
 
 Reguły rozstrzygania:
 
@@ -119,17 +119,17 @@ potem korzyść edukacyjna.
 
 ## 6. Architektura treści: 9 aktów, jeden scroll
 
-| # | Akt | Pytanie rodzica | Dominująca forma | Kotwica |
-|---|---|---|---|---|
-| 01 | Hero / nabór | Czy to dla mojego dziecka? | Gigantyczny wordmark + full-bleed fotografia | — (top) |
-| 02 | Po lekcjach | Gdzie i dlaczego wygodnie? | Tekst + sticky fotografia | `#po-lekcjach` |
-| 03 | Co dziecko zyskuje | Po co te zajęcia? | Marquee typograficzny. **Bez gridu ikon** | `#korzysci` |
-| 04 | Kursy | Która oferta? | Dwa duże moduły 50/50 | `#oferta` |
-| 05 | Jak uczymy | Jak wyglądają zajęcia? | Czarny ekran + 4 ogromne czasowniki | `#metoda` |
-| 06 | Cena | Ile? | 55 zł / 50 zł jako dominująca typografia. **Bez pricing cards** | `#cennik` |
-| 07 | Nabór / start | Kiedy rusza grupa? | „5” + „01.10”. **Bez fałszywego licznika** | `#nabor` |
-| 08 | Lokalizacja | Czy to wygodne? | Adres SP 402 + `Wyznacz trasę` | `#lokalizacja` |
-| 09 | FAQ + final CTA | Co dalej? | Krótki FAQ + kontakt | `#faq`, `#kontakt` |
+| #   | Akt                | Pytanie rodzica            | Dominująca forma                                                | Kotwica            |
+| --- | ------------------ | -------------------------- | --------------------------------------------------------------- | ------------------ |
+| 01  | Hero / nabór       | Czy to dla mojego dziecka? | Gigantyczny wordmark + full-bleed fotografia                    | — (top)            |
+| 02  | Po lekcjach        | Gdzie i dlaczego wygodnie? | Tekst + sticky fotografia                                       | `#po-lekcjach`     |
+| 03  | Co dziecko zyskuje | Po co te zajęcia?          | Marquee typograficzny. **Bez gridu ikon**                       | `#korzysci`        |
+| 04  | Kursy              | Która oferta?              | Dwa duże moduły 50/50                                           | `#oferta`          |
+| 05  | Jak uczymy         | Jak wyglądają zajęcia?     | Czarny ekran + 4 ogromne czasowniki                             | `#metoda`          |
+| 06  | Cena               | Ile?                       | 55 zł / 50 zł jako dominująca typografia. **Bez pricing cards** | `#cennik`          |
+| 07  | Nabór / start      | Kiedy rusza grupa?         | „5” + „01.10”. **Bez fałszywego licznika**                      | `#nabor`           |
+| 08  | Lokalizacja        | Czy to wygodne?            | Adres SP 402 + `Wyznacz trasę`                                  | `#lokalizacja`     |
+| 09  | FAQ + final CTA    | Co dalej?                  | Krótki FAQ + kontakt                                            | `#faq`, `#kontakt` |
 
 Kotwice `#oferta`, `#cennik`, `#faq`, `#kontakt` są obowiązkowe. Każda kotwica musi być trwała
 i działać po wejściu bezpośrednio z URL, z uwzględnieniem wysokości sticky headera.
@@ -147,12 +147,12 @@ rezygnacji, lekcji próbnej.
 
 ## 7. Design system
 
-| Token | Wartość | Rola |
-|---|---|---|
-| PAPER | `#F2EFE8` | Tło dominujące |
-| INK | `#0A0A0A` | Tekst i akt czarny |
-| SIGNAL RED | `#F23B2F` | Akcja / sygnał |
-| HF BLUE | `#123B8C` | Drugi akt marki / sekcja egzaminacyjna |
+| Token      | Wartość   | Rola                                   |
+| ---------- | --------- | -------------------------------------- |
+| PAPER      | `#F2EFE8` | Tło dominujące                         |
+| INK        | `#0A0A0A` | Tekst i akt czarny                     |
+| SIGNAL RED | `#F23B2F` | Akcja / sygnał                         |
+| HF BLUE    | `#123B8C` | Drugi akt marki / sekcja egzaminacyjna |
 
 PAPER + INK dominują na ekranie. RED to kolor akcji. BLUE jest drugim aktem, nie tłem całej
 strony. **Brak gradientów.**
@@ -345,8 +345,8 @@ decyzji biznesowej; integracja izolowana w osobnym module i zgodna z mechanizmem
 ## 14. Build order — kolejność bezwzględna
 
 1. Source audit → 2. Business extraction → 3. **Static composition** → 4. Responsive →
-5. Motion → 6. SEO + a11y + performance → 7. Testy → 8. Content audit →
-9. Business acceptance → 10. Technical acceptance.
+2. Motion → 6. SEO + a11y + performance → 7. Testy → 8. Content audit →
+3. Business acceptance → 10. Technical acceptance.
 
 **Nie zaczynaj od GSAP.** Najpierw kompletna strona bez animacji, już zgodna z art direction.
 Przed ukończeniem wszystkich sekcji sprawdź hero, jedną sekcję tekst+media i jedną narracyjną
@@ -359,14 +359,14 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| # | Temat | Decyzja |
-|---|---|---|
-| **D1** | Środowisko lokalne | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR |
-| **D2** | Konwersja | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem |
-| **D3** | Adres | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą |
-| **D4** | Fotografia | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików |
-| **D5** | Wersje narzędzi | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie |
-| **D6** | Dane kontaktowe | **Tymczasowo:** e-mail `janek.gitara@onet.pl`, telefon `+48 789 789 789`. Do podmiany na dane HIGH FIVE. Errata E-02 |
+| #      | Temat              | Decyzja                                                                                                                                                                               |
+| ------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1** | Środowisko lokalne | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                   |
+| **D2** | Konwersja          | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                          |
+| **D3** | Adres              | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                           |
+| **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                 |
+| **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie |
+| **D6** | Dane kontaktowe    | **Tymczasowo:** e-mail `janek.gitara@onet.pl`, telefon `+48 789 789 789`. Do podmiany na dane HIGH FIVE. Errata E-02                                                                    |
 
 ### D5 — konsekwencje
 
@@ -410,17 +410,17 @@ weryfikacji `instructions/` (§0) potwierdź, że decyzja nadal obowiązuje.
 
 ## 16. Odstępstwa od specyfikacji — do zapisania jako ADR
 
-| Temat | Rozstrzygnięcie |
-|---|---|
-| Repo prywatne na czas realizacji (§3.1) | Odstępstwo: user site GitHub Pages musi być publiczne. `instructions/` w `.gitignore`, zero danych wrażliwych w historii |
-| Nagłówki bezpieczeństwa (§20.1, A.5) | GitHub Pages nie pozwala ustawić żadnego nagłówka. W `<meta>` działają `default-src`, `script-src`, `style-src`, `img-src`, `font-src`, `connect-src`, `base-uri`, `form-action`. **Ignorowane w meta:** `frame-ancestors`, `report-uri`, `sandbox`. **Bez odpowiednika w meta:** `X-Content-Type-Options`, `Permissions-Policy`. `Referrer-Policy` przez `<meta name="referrer">`. Docelowa polityka w `ops/headers.example.conf` + macierz zgodności w `docs/HOSTING.md` |
-| Cache i HSTS (§15.2) | Pages daje sztywne `max-age=600` dla wszystkiego; `immutable` dla hashowanych assetów i HSTS nieosiągalne. Łagodzenie: „Enforce HTTPS” + `upgrade-insecure-requests`. **Domena + Cloudflare przed Pages usuwa to odstępstwo w całości** — argument za wcześniejszym zakupem domeny |
-| Preview/staging (§14) | Ochrona dostępu do Pages wymaga GitHub Enterprise Cloud — niedostępna. Rozstrzygnięcie w ADR. Preview musi mieć `noindex, nofollow`, własny `robots.txt` z `Disallow: /`, bez `sitemap.xml` i bez canonical na preview |
-| Ochrona `main` (§3.2) | Rulesets działają na publicznym repo w planie Free. Required approvals = 0 — GitHub nie pozwala zatwierdzić własnego PR. PR + zielone checks pozostają obowiązkowe |
-| Wersje narzędzi (A.1, B.1) | **Rozstrzygnięte — patrz D5 i errata E-01.** Vite 8 bez zmian; ESLint 10, Stylelint 17, html-validate 11. Node zawężony do `>=24.8.0`. ADR wyłącznie dla jawności przy odbiorze |
-| Inter Display (§18 briefu) | Inter v4 na licencji SIL OFL zawiera Inter Display. Self-host WOFF2 z oficjalnego wydania, licencja odnotowana w `docs/DESIGN_SYSTEM.md`. Nie pobieraj webfontów z witryn referencyjnych |
-| Kadry AI jako mock (D4) | Placeholdery wyraźnie oznaczone, docelowe proporcje 4:5 / 3:2 / 16:9, minimum 6 spójnych kadrów. **Nie udawaj, że placeholder pokazuje rzeczywistych uczniów SP 402.** Wymagania w `docs/ART_DIRECTION.md` i `docs/CONTENT_GAPS.md` |
-| Brak formularza (D2) | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15 |
+| Temat                                   | Rozstrzygnięcie                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repo prywatne na czas realizacji (§3.1) | Odstępstwo: user site GitHub Pages musi być publiczne. `instructions/` w `.gitignore`, zero danych wrażliwych w historii                                                                                                                                                                                                                                                                                                                                                   |
+| Nagłówki bezpieczeństwa (§20.1, A.5)    | GitHub Pages nie pozwala ustawić żadnego nagłówka. W `<meta>` działają `default-src`, `script-src`, `style-src`, `img-src`, `font-src`, `connect-src`, `base-uri`, `form-action`. **Ignorowane w meta:** `frame-ancestors`, `report-uri`, `sandbox`. **Bez odpowiednika w meta:** `X-Content-Type-Options`, `Permissions-Policy`. `Referrer-Policy` przez `<meta name="referrer">`. Docelowa polityka w `ops/headers.example.conf` + macierz zgodności w `docs/HOSTING.md` |
+| Cache i HSTS (§15.2)                    | Pages daje sztywne `max-age=600` dla wszystkiego; `immutable` dla hashowanych assetów i HSTS nieosiągalne. Łagodzenie: „Enforce HTTPS” + `upgrade-insecure-requests`. **Domena + Cloudflare przed Pages usuwa to odstępstwo w całości** — argument za wcześniejszym zakupem domeny                                                                                                                                                                                         |
+| Preview/staging (§14)                   | Ochrona dostępu do Pages wymaga GitHub Enterprise Cloud — niedostępna. Rozstrzygnięcie w ADR. Preview musi mieć `noindex, nofollow`, własny `robots.txt` z `Disallow: /`, bez `sitemap.xml` i bez canonical na preview                                                                                                                                                                                                                                                     |
+| Ochrona `main` (§3.2)                   | Rulesets działają na publicznym repo w planie Free. Required approvals = 0 — GitHub nie pozwala zatwierdzić własnego PR. PR + zielone checks pozostają obowiązkowe                                                                                                                                                                                                                                                                                                         |
+| Wersje narzędzi (A.1, B.1)              | **Rozstrzygnięte — patrz D5 i errata E-01.** Vite 8 bez zmian; ESLint 10, Stylelint 17, html-validate 11. Node zawężony do `>=24.8.0`. ADR wyłącznie dla jawności przy odbiorze                                                                                                                                                                                                                                                                                            |
+| Inter Display (§18 briefu)              | Inter v4 na licencji SIL OFL zawiera Inter Display. Self-host WOFF2 z oficjalnego wydania, licencja odnotowana w `docs/DESIGN_SYSTEM.md`. Nie pobieraj webfontów z witryn referencyjnych                                                                                                                                                                                                                                                                                   |
+| Kadry AI jako mock (D4)                 | Placeholdery wyraźnie oznaczone, docelowe proporcje 4:5 / 3:2 / 16:9, minimum 6 spójnych kadrów. **Nie udawaj, że placeholder pokazuje rzeczywistych uczniów SP 402.** Wymagania w `docs/ART_DIRECTION.md` i `docs/CONTENT_GAPS.md`                                                                                                                                                                                                                                        |
+| Brak formularza (D2)                    | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15                                                                                                                                                                                                                                                                                                                                                                                     |
 
 ## 17. Kryteria odbioru
 

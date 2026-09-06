@@ -1,0 +1,34 @@
+{
+  "name": "highfive-www",
+  "private": true,
+  "version": "0.1.0",
+  "description": "HIGH FIVE - angielski dla dzieci w SP 402 Warszawa. Statyczny one-page.",
+  "type": "module",
+  "engines": {
+    "node": ">=24.8.0 <25",
+    "npm": ">=11"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/write-version.mjs",
+    "preview": "vite preview",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"src/css/**/*.css\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:html": "html-validate index.html 404.html",
+    "test:e2e": "playwright test",
+    "check": "npm run format:check && npm run lint:js && npm run lint:css && npm run validate:html && npm run test:e2e && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10",
+    "@playwright/test": "^1",
+    "eslint": "^10",
+    "globals": "^17",
+    "html-validate": "^11",
+    "prettier": "^3",
+    "stylelint": "^17",
+    "stylelint-config-standard": "^40",
+    "vite": "^8"
+  }
+}

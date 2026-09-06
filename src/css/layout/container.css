@@ -1,0 +1,16 @@
+/* Kontenery i geometria sekcji. Rytm sekcji wynika z tresci, nie ze sztywnego 100vh. */
+
+.site-header,
+main > section,
+footer {
+  padding-inline: var(--space-margin);
+}
+
+main > section {
+  padding-block: var(--space-16);
+}
+
+footer {
+  padding-block: var(--space-8);
+  border-block-start: 1px solid currentcolor;
+}

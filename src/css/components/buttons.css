@@ -1,0 +1,18 @@
+/* CTA. Jedyny element, ktory moze byc kapsula - moduly maja corner radius 0. */
+
+.cta {
+  display: inline-block;
+  padding: var(--space-4) var(--space-8);
+  min-block-size: 44px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background-color: var(--color-ink);
+}

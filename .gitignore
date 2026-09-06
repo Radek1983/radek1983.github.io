@@ -1,2 +1,26 @@
 # Lokalne pliki robocze (nie trafiają do repozytorium)
 instructions/
+
+# Zależności i artefakty builda
+node_modules/
+dist/
+
+# Zmienne środowiskowe — nigdy sekrety w repo
+.env
+.env.*
+!.env.example
+
+# Raporty testów
+coverage/
+playwright-report/
+test-results/
+
+# Systemowe i IDE
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Logi
+*.log
+npm-debug.log*

@@ -1,0 +1,21 @@
+/* Skip link - widoczny dopiero po otrzymaniu focusu (spec 19.2). */
+
+.skip-link {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  transform: translateY(-100%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Widoczny focus w calym serwisie. Nie usuwac bez zamiennika. */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
