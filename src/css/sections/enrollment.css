@@ -1,0 +1,78 @@
+/*
+ * 07 NABOR / START
+ *
+ * Dwie liczby jako os decyzji: minimum 5 dzieci i data 01.10.
+ * Bez licznika zapisanych dzieci - brief zabrania fikcyjnego progress bara.
+ */
+
+.enrollment__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-12) var(--grid-gutter);
+  align-items: start;
+}
+
+.enrollment__fact {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.enrollment__figure {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 16vw, 13rem);
+  font-weight: 800;
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+}
+
+.enrollment__fact--date .enrollment__figure {
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  letter-spacing: -0.04em;
+}
+
+.enrollment__caption {
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+  max-inline-size: 24ch;
+}
+
+.enrollment__status {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+/* Status grupy aktualizowany recznie tekstem - patrz docs/CONTENT.md. */
+.enrollment__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-rule);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.enrollment__badge::before {
+  content: '';
+  inline-size: 8px;
+  block-size: 8px;
+  background-color: var(--color-signal);
+}
+
+@media (width >= 62rem) {
+  .enrollment__fact {
+    grid-column: span 4;
+  }
+
+  .enrollment__status {
+    grid-column: 9 / -1;
+    padding-block-start: var(--space-8);
+  }
+}

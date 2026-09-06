@@ -1,0 +1,60 @@
+/*
+ * 08 LOKALIZACJA
+ *
+ * Adres jako tresc, nie osadzona mapa. Ciezka mapa zewnetrzna to dodatkowy
+ * tracker i koszt LCP - brief odradza ja przed uzyskaniem zgody uzytkownika.
+ * Zamiast tego link do zewnetrznej nawigacji.
+ */
+
+.location__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-12) var(--grid-gutter);
+  align-items: start;
+}
+
+.location__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+.location__place {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.location__address {
+  font-style: normal;
+  font-size: var(--step-lead);
+  line-height: 1.45;
+}
+
+.location__disclaimer {
+  max-inline-size: var(--measure);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+  font-size: 0.9375rem;
+  opacity: 0.75;
+}
+
+.location__media {
+  grid-column: 1 / -1;
+}
+
+@media (width >= 62rem) {
+  .location__text {
+    grid-column: 1 / span 5;
+  }
+
+  .location__media {
+    grid-column: 7 / -1;
+    margin-inline-end: calc(50% - 50vw);
+  }
+}

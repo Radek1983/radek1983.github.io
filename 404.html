@@ -5,15 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nie znaleziono strony - High Five</title>
     <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f2efe8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/src/css/main.css" />
   </head>
 
   <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__brand" href="/">High Five</a>
+      </div>
+    </header>
+
     <main id="main">
-      <section aria-labelledby="error-title">
-        <h1 id="error-title">Nie znaleziono strony</h1>
-        <p>Adres, którego szukasz, nie istnieje albo został zmieniony.</p>
-        <a class="cta" href="/">Wróć na stronę główną</a>
+      <section class="section section--airy" aria-labelledby="error-title">
+        <div class="container">
+          <p class="u-label section__label">Błąd 404</p>
+          <h1 class="u-display" id="error-title">Nie ma tu nic.</h1>
+          <p class="u-lead">Adres, którego szukasz, nie istnieje albo został zmieniony.</p>
+          <p>
+            <a class="cta cta--large" href="/">
+              Wróć na stronę główną
+              <span class="cta__arrow" aria-hidden="true">→</span>
+            </a>
+          </p>
+        </div>
       </section>
     </main>
   </body>

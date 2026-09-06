@@ -1,0 +1,51 @@
+/*
+ * Pasy typograficzne. Korzysci sa rytmem wizualnym, nie gridem szesciu ikonek.
+ *
+ * BEZ autoplay w spoczynku - wymog briefu i rozdz. 30.2 specyfikacji.
+ * W tym kroku pasy sa statyczne i przesuniete wzgledem siebie kompozycyjnie;
+ * powiazanie ich ruchu ze scrollem nalezy do warstwy motion.
+ */
+
+.marquee {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 1vw, 1rem);
+
+  /* Pasy celowo wychodza poza krawedz - to kadrowanie typografii, nie blad. */
+  overflow: hidden;
+}
+
+.marquee__row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: var(--step-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+/* Drugi pas przesuniety w przeciwna strone - buduje przeciwbiezny rytm
+   widoczny nawet na statycznym screenshocie. */
+.marquee__row--offset {
+  margin-inline-start: -8vw;
+}
+
+.marquee__row--outline {
+  color: transparent;
+  -webkit-text-stroke: 1px currentcolor;
+}
+
+.marquee__row--outline .marquee__sep {
+  color: var(--color-text);
+  -webkit-text-stroke: 0;
+}
+
+.marquee__sep {
+  flex: none;
+  font-size: 0.45em;
+  transform: translateY(-0.22em);
+}

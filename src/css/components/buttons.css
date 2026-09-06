@@ -1,18 +1,104 @@
-/* CTA. Jedyny element, ktory moze byc kapsula - moduly maja corner radius 0. */
+/*
+ * CTA. Jedyny element w projekcie, ktory moze byc kapsula - moduly maja radius 0.
+ * Strzalka przesuwa sie 3-5 px w hover; nic wiecej, zadnych magnetic buttons.
+ */
 
 .cta {
-  display: inline-block;
-  padding: var(--space-4) var(--space-8);
-  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-block-size: 48px; /* > 44 px wymagane dla targetow dotykowych (spec 19.2) */
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid transparent;
   border-radius: 999px;
-  background-color: var(--color-accent);
-  color: var(--color-paper);
-  font-weight: 700;
+  background-color: var(--color-cta-bg);
+  color: var(--color-cta-text);
+  font-family: var(--font-body);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   text-decoration: none;
-  transition: background-color var(--dur-fast) var(--ease-standard);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-micro) var(--ease-standard),
+    color var(--dur-micro) var(--ease-standard);
+}
+
+.cta__arrow {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease-standard);
+}
+
+.cta:hover .cta__arrow,
+.cta:focus-visible .cta__arrow {
+  transform: translateX(4px);
 }
 
 .cta:hover,
 .cta:focus-visible {
-  background-color: var(--color-ink);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* Wariant duzy - final CTA i hero. */
+.cta--large {
+  min-block-size: 60px;
+  padding: var(--space-4) var(--space-8);
+  font-size: 0.9375rem;
+}
+
+/* Wariant obrysowany - akcja pomocnicza, np. "Wyznacz trase".
+   Nie moze konkurowac z glowna konwersja. */
+.cta--ghost {
+  background-color: transparent;
+  border-color: var(--color-rule);
+  color: var(--color-text);
+}
+
+.cta--ghost:hover,
+.cta--ghost:focus-visible {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+
+/*
+ * Sticky CTA na mobile, po hero. Brief dopuszcza to jako opcje;
+ * na waskim ekranie zastepuje nawigacje, ktorej tam nie ma.
+ */
+.cta-dock {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: var(--z-header);
+  display: flex;
+  padding: var(--space-3) var(--grid-margin);
+  background-color: var(--color-paper);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.cta-dock .cta {
+  flex: 1;
+  justify-content: center;
+}
+
+@media (width >= 32rem) {
+  .cta-dock {
+    display: none;
+  }
+}
+
+/* Przycisk ikonowy - FAQ. Accessible name idzie z tresci naglowka. */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  flex: none;
+  border: 1px solid var(--color-rule);
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
 }

@@ -1,16 +1,68 @@
-/* Kontenery i geometria sekcji. Rytm sekcji wynika z tresci, nie ze sztywnego 100vh. */
+/*
+ * Kontener i siatka. Jeden mechanizm dla calej strony: 12 kolumn na desktopie,
+ * 4 na mobile. Elementy deklaruja, ile kolumn zajmuja, nie wlasne szerokosci.
+ */
 
-.site-header,
-main > section,
-footer {
-  padding-inline: var(--space-margin);
+.container {
+  width: 100%;
+  max-inline-size: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
 }
 
-main > section {
-  padding-block: var(--space-16);
+/*
+ * Siatka. `grid-template-columns` z repeat() na zmiennej pozwala tej samej
+ * regule obsluzyc mobile i desktop - liczba kolumn jest tokenem.
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
 }
 
-footer {
-  padding-block: var(--space-8);
-  border-block-start: 1px solid currentcolor;
+/*
+ * Wyjscie poza kontener az do krawedzi ekranu.
+ * Uzywane dla mediow full-bleed i pasow typograficznych.
+ */
+.bleed {
+  width: 100vw;
+  max-inline-size: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* Kontrolowane wyjscie tylko w jedna strone - kompozycja asymetryczna. */
+.bleed-inline-end {
+  margin-inline-end: calc(50% - 50vw);
+}
+
+/* --- Pomocnicze przypisania kolumn --- */
+
+.col-full {
+  grid-column: 1 / -1;
+}
+
+@media (width >= 48rem) {
+  .col-half-start {
+    grid-column: 1 / span 6;
+  }
+
+  .col-half-end {
+    grid-column: 7 / span 6;
+  }
+
+  .col-text {
+    grid-column: 1 / span 6;
+  }
+
+  .col-text-wide {
+    grid-column: 1 / span 8;
+  }
+
+  .col-text-offset {
+    grid-column: 4 / span 6;
+  }
+
+  .col-media {
+    grid-column: 8 / span 5;
+  }
 }

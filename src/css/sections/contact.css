@@ -1,0 +1,98 @@
+/*
+ * 09 FAQ + FINAL CTA
+ *
+ * Brak formularza w v1 (decyzja D2). Dane kontaktowe stoja w DOM
+ * od pierwszego renderu - awaria JS nie moze ukryc jedynej drogi zgloszenia.
+ */
+
+.faq-section__grid,
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-12) var(--grid-gutter);
+  align-items: start;
+}
+
+.faq-section__head {
+  grid-column: 1 / -1;
+}
+
+.faq-section__list {
+  grid-column: 1 / -1;
+}
+
+.contact__claim {
+  grid-column: 1 / -1;
+  max-inline-size: 14ch;
+}
+
+.contact__body {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  align-items: flex-start;
+}
+
+/* Kanaly kontaktu: kazdy jako duzy, klikalny wiersz. Na telefonie
+   caly wiersz jest targetem dotykowym, nie sam numer. */
+.contact__channels {
+  display: grid;
+  gap: 0;
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.contact__channel {
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.contact__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  min-block-size: 48px;
+  text-decoration: none;
+  transition: opacity var(--dur-micro) var(--ease-standard);
+}
+
+.contact__link:hover,
+.contact__link:focus-visible {
+  opacity: 0.6;
+}
+
+/* Detal na pelna szerokosc jako wizualne domkniecie strony przed stopka. */
+.contact__media {
+  margin-block-start: clamp(3rem, 8vw, 8rem);
+}
+
+.contact__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-heading);
+  overflow-wrap: anywhere;
+}
+
+@media (width >= 62rem) {
+  .faq-section__head {
+    grid-column: 1 / span 4;
+  }
+
+  .faq-section__list {
+    grid-column: 6 / -1;
+  }
+
+  .contact__claim {
+    grid-column: 1 / span 5;
+  }
+
+  .contact__body {
+    grid-column: 7 / -1;
+  }
+}

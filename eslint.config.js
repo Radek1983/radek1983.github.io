@@ -35,7 +35,12 @@ export default [
     languageOptions: {
       ecmaVersion: 2024,
       sourceType: 'module',
-      globals: globals.node,
+      /*
+       * Specyfikacje Playwright mieszaja dwa konteksty: kod testu dziala w Node,
+       * ale cialo page.evaluate() jest serializowane i wykonywane w przegladarce.
+       * Oba zestawy globali sa wiec poprawne w tym samym pliku.
+       */
+      globals: { ...globals.node, ...globals.browser },
     },
   },
 ]

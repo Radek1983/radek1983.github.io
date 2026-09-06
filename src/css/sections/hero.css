@@ -1,0 +1,98 @@
+/*
+ * 01 HERO / NABOR
+ *
+ * Kompozycja: gigantyczny wordmark na pelna szerokosc, pod nim H1 i lead po lewej,
+ * fotografia wychodzaca poza prawa krawedz. Zadnego wysrodkowanego naglowka
+ * na zdjeciu z gradientem - to anty-wzorzec z briefu.
+ */
+
+.hero {
+  padding-block: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.hero__wordmark {
+  /* Wordmark to element kompozycji, nie naglowek. Rola semantyczna
+     nalezy do H1, wiec tutaj aria-hidden po stronie HTML. */
+  margin-block-end: clamp(1rem, 2.5vw, 2rem);
+  white-space: nowrap;
+}
+
+/*
+ * Mobile nie jest pomniejszonym desktopem. Na jednej linii wordmark zeszedlby
+ * do 72 px i stracil obecnosc; zamiast tego lamie sie na dwie linie i rosnie.
+ * Makieta mobilna z briefu pokazuje dokladnie taki uklad.
+ */
+@media (width < 48rem) {
+  .hero__wordmark {
+    font-size: min(30vw, 7rem);
+    white-space: normal;
+    max-inline-size: 4.5em;
+    line-height: 0.82;
+  }
+}
+
+.hero__body {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  align-items: start;
+}
+
+.hero__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block-end: var(--space-12);
+}
+
+.hero__title {
+  max-inline-size: 22ch;
+}
+
+.hero__status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+  max-inline-size: var(--measure-narrow);
+}
+
+.hero__price {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-heading);
+  line-height: 1.1;
+}
+
+.hero__price span {
+  color: var(--color-signal);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+/* Media: na mobile pelna szerokosc pod tekstem, na desktopie po prawej,
+   wychodzace poza krawedz ekranu. */
+.hero__media {
+  grid-column: 1 / -1;
+  margin-inline: calc(50% - 50vw);
+}
+
+@media (width >= 62rem) {
+  .hero__text {
+    grid-column: 1 / span 6;
+    padding-block-end: var(--space-24);
+  }
+
+  .hero__media {
+    grid-column: 8 / -1;
+    margin-inline: 0 calc(50% - 50vw);
+  }
+}

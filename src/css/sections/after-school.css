@@ -1,0 +1,55 @@
+/*
+ * 02 PO LEKCJACH
+ *
+ * Split: tekst w krotkich blokach po lewej, sticky fotografia po prawej.
+ * Najpierw konkret lokalny, dopiero potem korzysc edukacyjna (brief, sekcja 11).
+ */
+
+.after-school__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  align-items: start;
+}
+
+.after-school__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.after-school__media {
+  grid-column: 1 / -1;
+  margin-block-start: var(--space-12);
+}
+
+/*
+ * Wlasna skala zamiast .u-display: przy 10vw ten naglowek zajmowal 83% wysokosci
+ * ekranu, a brief dopuszcza 30-70%. 6.5vw daje ok. 45% przy 1440 px.
+ */
+.after-school__claim {
+  font-size: clamp(2.25rem, 6.5vw, 5.5rem);
+  max-inline-size: 16ch;
+}
+
+/* Kolejne bloki tekstowe rozdzielone linia, nie kartami. */
+.after-school__block {
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+@media (width >= 62rem) {
+  .after-school__text {
+    grid-column: 1 / span 6;
+
+    /* Wysokosc wieksza od media daje sticky obrazowi dystans do "stania". */
+    padding-block: var(--space-8) var(--space-32);
+    gap: var(--space-16);
+  }
+
+  .after-school__media {
+    grid-column: 8 / -1;
+    margin-block-start: 0;
+  }
+}

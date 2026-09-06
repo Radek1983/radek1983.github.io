@@ -1,0 +1,162 @@
+/*
+ * Pasek informacyjny + nawigacja. Minimalna: wordmark, cztery pozycje, jedno CTA.
+ * Zadnego dashboardu, zadnych ikon poza uzytkowymi.
+ */
+
+/* --- Ticker: potwierdzone fakty widoczne przed pierwszym scrollem --- */
+
+.ticker {
+  position: relative;
+  z-index: var(--z-ticker);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  overflow: hidden;
+}
+
+.ticker__track {
+  display: flex;
+  gap: var(--space-8);
+  padding-block: var(--space-2);
+  padding-inline: var(--grid-margin);
+  white-space: nowrap;
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Bez autoplay w spoczynku - wymog briefu. Warstwa ruchu powstaje osobno. */
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.ticker__item::after {
+  content: '';
+  inline-size: 5px;
+  block-size: 5px;
+  background-color: var(--color-signal);
+}
+
+.ticker__item:last-child::after {
+  display: none;
+}
+
+@media (width < 48rem) {
+  /* Na waskim ekranie pasek przewija sie poziomo palcem, nie zawija. */
+  .ticker__track {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ticker__track::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* --- Header --- */
+
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  background-color: var(--color-paper);
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+
+  /*
+   * Wysokosc STALA, nie odczytana z --header-h.
+   * --header-h jest wyliczane z faktycznej wysokosci tego elementu i sluzy
+   * wylacznie do scroll-margin kotwic. Uzycie go tutaj tworzy sprzezenie
+   * zwrotne: border 1 px powieksza header, ResizeObserver mierzy ponownie,
+   * header rosnie dalej.
+   */
+  min-block-size: 4rem;
+  padding-inline: var(--grid-margin);
+  max-inline-size: var(--container-max);
+  margin-inline: auto;
+}
+
+.site-header__brand {
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: none;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__link {
+  position: relative;
+  display: inline-block;
+  padding-block: var(--space-2);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Wskaznik aktywnej sekcji: kreska pod pozycja, nie tlo ani pigulka. */
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 2px;
+  background-color: var(--color-signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-micro) var(--ease-standard);
+}
+
+.site-nav__link:hover::after,
+.site-nav__link:focus-visible::after,
+.site-nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+@media (width >= 62rem) {
+  .site-nav {
+    display: block;
+  }
+}
+
+/* Na mobile nawigacja znika, a jej role przejmuje sticky CTA na dole ekranu.
+   Cztery kotwice nie uzasadniaja menu hamburgerowego z focus trapem. */
+
+/*
+ * Selektor zlozony jest konieczny: element nosi rowniez klase .cta,
+ * a components/buttons.css jest importowany PO layout/navigation.css.
+ * Przy rownej specyficznosci wygrywalby `display: inline-flex` z .cta
+ * i na telefonie widoczne bylyby dwa CTA naraz.
+ */
+.site-header .site-header__cta {
+  display: none;
+}
+
+@media (width >= 32rem) {
+  .site-header .site-header__cta {
+    display: inline-flex;
+  }
+}

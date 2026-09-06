@@ -1,0 +1,79 @@
+/*
+ * FAQ na natywnych <details>. Dostepne z klawiatury bez ani jednej linii JS,
+ * a tresc odpowiedzi jest w DOM nawet gdy element jest zwiniety -
+ * wyszukiwarka ja widzi (spec 17.1).
+ */
+
+.faq {
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.faq__item {
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--step-h3);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  list-style: none;
+}
+
+/* Usuniecie domyslnego trojkata - znak plus/minus rysujemy sami. */
+.faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq__question::marker {
+  content: '';
+}
+
+/*
+ * Znak plus zbudowany z dwoch kresek. Przy otwarciu pionowa znika,
+ * co daje minus. Ikona uzytkowa, dozwolona przez brief.
+ */
+.faq__sign {
+  position: relative;
+  flex: none;
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.faq__sign::before,
+.faq__sign::after {
+  content: '';
+  position: absolute;
+  background-color: currentcolor;
+  transition: transform var(--dur-micro) var(--ease-standard);
+}
+
+.faq__sign::before {
+  inset-block-start: 50%;
+  inset-inline: 0;
+  block-size: 2px;
+  transform: translateY(-50%);
+}
+
+.faq__sign::after {
+  inset-inline-start: 50%;
+  inset-block: 0;
+  inline-size: 2px;
+  transform: translateX(-50%) scaleY(1);
+}
+
+.faq__item[open] .faq__sign::after {
+  transform: translateX(-50%) scaleY(0);
+}
+
+.faq__answer {
+  padding-block-end: var(--space-6);
+  max-width: var(--measure);
+}
