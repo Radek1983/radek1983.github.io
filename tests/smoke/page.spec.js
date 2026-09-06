@@ -155,17 +155,27 @@ test.describe('tresc i SEO', () => {
     await expect(page.locator('.notice')).toHaveCount(0)
   })
 
-  test('glowne CTA nie powtarza sie nadmiarowo w pierwszym ekranie', async ({ page }) => {
-    // Wlasciciel zglosil trzy przyciski w jednym widoku. Po usunieciu banera
-    // zostaja dwa: staly w naglowku i jeden w hero.
-    const widoczne = await page.evaluate(
-      () =>
-        [...document.querySelectorAll('a.cta')].filter((el) => {
+  test('w pierwszym ekranie jest dokladnie jedno CTA zgloszeniowe', async ({ page }) => {
+    /*
+     * Wlasciciel zglosil trzy przyciski zgloszeniowe w jednym widoku. Docelowo
+     * ma byc DOKLADNIE JEDEN - w pasku na gorze. Przycisk "Zobacz ofertę"
+     * nie jest tu liczony: to akcja pomocnicza o innym celu i w innym kolorze.
+     */
+    const zgloszeniowe = await page.evaluate(() =>
+      [...document.querySelectorAll('a.cta')]
+        .filter((el) => /zg[lł]o[sś] dziecko/i.test(el.textContent))
+        .filter((el) => {
           const r = el.getBoundingClientRect()
           return r.top < window.innerHeight && r.bottom > 0 && el.offsetParent !== null
-        }).length,
+        })
+        .map((el) => el.textContent.trim().replace(/\s+/g, ' ')),
     )
-    expect(widoczne).toBeLessThanOrEqual(2)
+    expect(zgloszeniowe).toHaveLength(1)
+
+    // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
+    const hero = await page.locator('.hero').innerText()
+    expect(hero).not.toMatch(/55 z[lł]/)
+    expect(hero).not.toMatch(/zg[lł]o[sś] dziecko/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

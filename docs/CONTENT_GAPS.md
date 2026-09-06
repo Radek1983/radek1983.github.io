@@ -38,6 +38,18 @@ nie zatrzymuje pracy.
 | Copy deck                        | **Dostarczony** w briefie v3, przeniesiony do `docs/COPY_DECK.md`                                                              |
 | Fonty                            | **Dostarczone.** Inter 4.1, SIL OFL 1.1, samohostowane                                                                         |
 
+## Fakty przekazane poza briefem
+
+Dane, które **nie występują w briefie ani w master prompcie**, a zostały przekazane
+bezpośrednio przez właściciela. Wolno je publikować, bo pochodzą od źródła — ale muszą tu być
+odnotowane, żeby przy odbiorze było jasne, skąd się wzięły.
+
+| Fakt                                                        | Gdzie użyty           | Uwagi                                                                                                                                                                                    |
+| ----------------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Małe grupy 5-8 dzieci** — górna granica liczebności grupy | Pasek faktów na górze | Brief podaje wyłącznie **minimum 5 dzieci**, bez maksimum. Wartości nie są sprzeczne: 5 to warunek startu, 8 to górny limit. Reszta strony nadal mówi „minimum 5 dzieci" i tak pozostaje |
+| **Start październik 2026** — rok                            | Pasek faktów          | Brief podaje „1 października" bez roku. Rok wynika z kontekstu i został potwierdzony przez właściciela                                                                                   |
+| **Oferta dla seniorów** w Terminalu Kultury                 | Sekcja `#seniorzy`    | Pełne uzasadnienie i lista faktów: ADR 0005                                                                                                                                              |
+
 ## Zastrzeżenia do materiałów istniejących
 
 **Zdjęcia nie przedstawiają rzeczywistych uczniów SP 402.** Zastrzeżenie jest publikowane

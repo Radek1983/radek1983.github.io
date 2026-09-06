@@ -26,12 +26,37 @@ sprawdza je co do znaku.
 > Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy,
 > dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
 
-**Status naboru:**
+Cały tekst hero leży **na fotografii**, na pustej ścianie w lewej części kadru: wordmark,
+H1 i lead. Ściana jest niemal biała, więc tekst w kolorze INK ma pełny kontrast i nie wymaga
+ani przycienienia, ani gradientu — jednego i drugiego brief zabrania.
 
-> Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.
+**Akcja pomocnicza:** `Zobacz ofertę` — czarny przycisk, prowadzi do `#oferta`.
 
-**Ticker** (potwierdzone fakty przed pierwszym scrollem): Nabór trwa · Start 1 października ·
-SP 402, Warszawa · 55 zł/godz. · Rodzeństwo 50 zł/godz. · Minimum 5 dzieci
+**W hero NIE MA:**
+
+- ceny — żyje w pasku faktów i w sekcji `#cennik`;
+- głównego CTA `Zgłoś dziecko do grupy` — zostaje w pasku na górze oraz w sekcjach
+  decyzyjnych `#nabor` i `#kontakt`.
+
+Decyzja właściciela: w pierwszym ekranie ma być **dokładnie jedno** wezwanie zgłoszeniowe.
+Test w `tests/smoke/page.spec.js` tego pilnuje.
+
+**Pasek faktów** (widoczny przed pierwszym scrollem), kolejność ustalona przez właściciela:
+
+1. **Nabór trwa** — czasowe, w kolorze sygnałowym
+2. Angielski dla klas 1-8
+3. **Start październik 2026** — czasowe
+4. SP 402, Warszawa
+5. Zajęcia po lekcjach
+6. Małe grupy 5-8 dzieci
+
+Ceny **nie ma** w pasku — żyje w sekcji `#cennik` oraz w faktach obu modułów oferty.
+Wymóg briefu, żeby cena była widoczna przed sekcją kontaktu, pozostaje spełniony: akt 06
+stoi przed aktem 09.
+
+**Uwaga do faktu „Małe grupy 5-8 dzieci":** górna granica 8 nie występuje w briefie.
+Przekazał ją właściciel — patrz `docs/CONTENT_GAPS.md`. Nie jest sprzeczna z warunkiem
+„minimum 5 dzieci", który obowiązuje w sekcji `#nabor` i w FAQ.
 
 ## 02 Po lekcjach — `#po-lekcjach`
 

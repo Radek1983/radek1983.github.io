@@ -41,24 +41,18 @@ const SOURCE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg'])
 /*
  * Kadry pochodne: art-directed wyciecie z istniejacego zrodla.
  *
- * Potrzebne, bo `object-position` nie zastapi swiadomego kadru. Pas hero na
- * desktopie ma proporcje ok. 4.6:1, a wyciecie srodka szerokiego zdjecia
- * pokazywalo czubki glow zamiast twarzy. Ten kadr jest wybrany recznie:
- * pionowo od 35% do 74% wysokosci zrodla - obie twarze w kadrze, a sciana
- * po lewej pozostaje wolna na wordmark.
+ * Mechanizm zostaje, bo `object-position` nie zastapi swiadomego kadru, gdy
+ * kontener ma skrajna proporcje. Lista jest dzis pusta: hero uzywa pelnego
+ * kadru 16:9, w ktorym pusta sciana zajmuje lewa czesc obrazu na calej
+ * wysokosci - dokladnie tam, gdzie lezy tekst.
  *
- * Wartosci sa udzialem wysokosci zrodla, nie pikselami, wiec podmiana zdjecia
- * na wieksze nie wymaga zmiany tej konfiguracji.
+ * Format wpisu:
+ *   { source: 'hero/plik.png', name: 'nazwa-kadru', top: 0.35, height: 0.39,
+ *     widths: [1200, 1600] }
+ * Wartosci `top` i `height` to udzial wysokosci zrodla, nie piksele, wiec
+ * podmiana zdjecia na wieksze nie wymaga zmiany konfiguracji.
  */
-const DERIVED_CROPS = [
-  {
-    source: 'hero/hero-classroom-1600.png',
-    name: 'hero-classroom-band',
-    top: 0.35,
-    height: 0.39,
-    widths: [1200, 1600, 1900],
-  },
-]
+const DERIVED_CROPS = []
 
 function classify(width, height) {
   const ratio = width / height

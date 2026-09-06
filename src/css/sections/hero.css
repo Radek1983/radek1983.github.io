@@ -1,146 +1,104 @@
 /*
  * 01 HERO / NABOR
  *
- * Kompozycja: pas fotografii na pelna szerokosc z wordmarkiem lezacym na pustej
- * scianie w lewej czesci kadru, pod nim H1 obok leadu, ceny i CTA.
+ * Fotografia wypelnia sekcje, a caly tekst lezy na pustej scianie w lewej czesci
+ * kadru: wordmark, H1, lead i jeden pomocniczy przycisk.
  *
- * Wysokosc jest twardym ograniczeniem: cala sekcja musi zmiescic sie na jednym
- * ekranie laptopa razem z paskiem faktow, naglowkiem i banerem naboru.
- * Dlatego pas zdjecia jest wyrazony w svh, a nie proporcja - proporcja przy
- * pelnej szerokosci dawala 810 px i wypychala tekst pod krawedz ekranu.
+ * Kadr NIE jest odbijany lustrzanie - sciana jest w oryginale po lewej i tam
+ * zostaje. Wczesniejsze odbicie przenosilo ja na prawo, ale wlasciciel wybral
+ * uklad z tekstem po lewej.
+ *
+ * Glowne CTA "Zgloś dziecko do grupy" nie wystepuje w hero. Zostaje wylacznie
+ * w naglowku i w dalszych sekcjach decyzyjnych - w pierwszym ekranie jest wiec
+ * dokladnie jedno wezwanie do dzialania.
+ *
+ * Wysokosc jest twardym ograniczeniem: sekcja musi zmiescic sie na jednym ekranie
+ * razem z paskiem faktow i naglowkiem.
  */
 
 .hero {
-  padding-block: 0 clamp(1.25rem, 2.5vw, 2.25rem);
+  padding-block: 0;
 }
-
-/* --- Scena: zdjecie + wordmark --- */
 
 .hero__stage {
   position: relative;
-  overflow: hidden;
 }
+
+/* --- Tekst --- */
+
+.hero__overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  padding-inline: var(--grid-margin);
+}
+
+.hero__wordmark {
+  margin: 0;
+  font-size: min(26vw, 5.5rem);
+  line-height: 0.82;
+  max-inline-size: 4.5em;
+}
+
+.hero__title {
+  max-inline-size: 22ch;
+}
+
+.hero__lead {
+  max-inline-size: 46ch;
+}
+
+/* --- Fotografia --- */
 
 .hero__media {
   aspect-ratio: 4 / 5;
 }
 
-.hero__media img {
-  /*
-   * Odbicie lustrzane. Pusta sciana z kadru trafia na prawa strone, gdzie stoi
-   * teraz wordmark - dzieki temu nie lezy pod znakiem marki w naglowku, ktory
-   * zostal po lewej. Uzywamy wlasciwosci transform, nie scale, bo scale nalezy
-   * do animacji osiadania fotografii; obie maja sie zlozyc, nie nadpisac.
-   */
-  transform: scaleX(-1);
+/* --- Tablet i desktop: tekst nad kadrem --- */
 
-  /*
-   * Wysrodkowanie wystarcza, bo na desktopie zrodlem jest juz gotowy pas
-   * przyciety na etapie budowania (patrz DERIVED_CROPS w scripts/optimize-images.mjs).
-   * Proporcja pliku pokrywa sie z proporcja kontenera, wiec praktycznie nie ma
-   * co przycinac. Wczesniej probowalismy dobrac kadr samym object-position -
-   * przy pasie 4.6:1 z kadru 16:9 zawsze wychodzily czubki glow zamiast twarzy.
-   */
-  object-position: center;
-}
-
-.hero__wordmark {
-  position: absolute;
-  inset-block-start: clamp(0.5rem, 2vw, 1.75rem);
-
-  /* Po prawej, bo znak marki w naglowku stoi po lewej. Dwa razy HIGH FIVE
-     jeden pod drugim czytalo sie jak blad skladu. */
-  inset-inline-end: var(--grid-margin);
-  text-align: right;
-  z-index: 1;
-  margin: 0;
-  font-size: min(26vw, 5.5rem);
-  line-height: 0.82;
-  max-inline-size: 4.5em;
-  white-space: normal;
-
-  /* Napis lezy na jasnej scianie w kadrze, wiec kolor tekstu daje pelny kontrast.
-     Zadnego przycieniania ani gradientu pod spodem - brief tego zabrania. */
-  color: var(--color-ink);
-}
-
-/* --- Tekst --- */
-
-.hero__body {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-  gap: var(--space-6) var(--grid-gutter);
-  padding-block-start: clamp(1.25rem, 2.5vw, 2rem);
-  align-items: start;
-}
-
-.hero__title {
-  grid-column: 1 / -1;
-  max-inline-size: 24ch;
-}
-
-.hero__aside {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  align-items: flex-start;
-}
-
-.hero__price {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.9vw, 1.75rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: var(--tracking-heading);
-}
-
-.hero__price span {
-  color: var(--color-signal);
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  align-items: center;
-}
-
-/* --- Tablet i desktop: pas zdjecia zamiast kadru pionowego --- */
-
-@media (width >= 48rem) {
+@media (width >= 62rem) {
   .hero__media {
-    /* Zamiast proporcji: wysokosc wyrazona w svh. Rosnie z ekranem, ale nigdy
-       nie przekracza polowy jego wysokosci. */
+    /*
+     * Kadr wypelnia to, co zostalo z ekranu po pasku faktow i naglowku.
+     * Wyrazony w svh, a nie proporcja: proporcja przy pelnej szerokosci
+     * dawalaby ponad 1000 px i wypchnelaby sekcje pod krawedz ekranu.
+     */
     aspect-ratio: auto;
-    block-size: clamp(220px, 48svh, 460px);
+    block-size: clamp(24rem, calc(100svh - 7rem), 48rem);
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+
+    /*
+     * Szerokosc dopasowana do pustej sciany w kadrze - ok. 40% obrazu.
+     * Tekst nie moze wejsc na postacie, bo tam kontrast przestaje dzialac.
+     */
+    inline-size: min(42vw, 38rem);
+    justify-content: center;
+    gap: var(--space-6);
+    padding-inline: max(var(--grid-margin), calc(50vw - var(--container-max) / 2));
   }
 
   .hero__wordmark {
-    font-size: min(7.5vw, 8rem);
+    font-size: min(9vw, 8.5rem);
     max-inline-size: none;
     white-space: nowrap;
     line-height: 0.86;
   }
 
-  /* H1 i kolumna z leadem staja obok siebie - to skraca sekcje o wysokosc
-     jednego z tych blokow. */
   .hero__title {
-    grid-column: 1 / span 6;
-    font-size: clamp(1.75rem, 3.2vw, 3.25rem);
+    font-size: clamp(1.625rem, 2.6vw, 2.75rem);
+    max-inline-size: 24ch;
   }
 
-  .hero__aside {
-    grid-column: 8 / -1;
-  }
-}
-
-@media (width >= 62rem) {
-  .hero__title {
-    grid-column: 1 / span 6;
-  }
-
-  .hero__aside {
-    grid-column: 8 / -1;
+  .hero__lead {
+    font-size: clamp(1rem, 1.05vw, 1.1875rem);
+    max-inline-size: 44ch;
   }
 }
