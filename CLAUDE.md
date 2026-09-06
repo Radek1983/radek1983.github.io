@@ -366,7 +366,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | **D3** | Adres              | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                           |
 | **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                 |
 | **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie |
-| **D6** | Dane kontaktowe    | **Tymczasowo:** e-mail `janek.gitara@onet.pl`, telefon `+48 789 789 789`. Do podmiany na dane HIGH FIVE. Errata E-02                                                                    |
+| **D6** | Dane kontaktowe    | **Tymczasowo:** e-mail `janek.gitara@onet.pl`, telefon `+48 789 789 789`. Do podmiany na dane HIGH FIVE. Errata E-02                                                                  |
 
 ### D5 — konsekwencje
 
