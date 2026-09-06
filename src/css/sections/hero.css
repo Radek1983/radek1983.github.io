@@ -76,13 +76,24 @@
     z-index: 1;
 
     /*
-     * Szerokosc dopasowana do pustej sciany w kadrze - ok. 40% obrazu.
-     * Tekst nie moze wejsc na postacie, bo tam kontrast przestaje dzialac.
+     * Szerokosc dopasowana do pustej sciany w kadrze. Tekst nie moze wejsc
+     * na postacie, bo tam kontrast przestaje dzialac.
+     *
+     * Pole musi pomiescic "Angielski po lekcjach." w jednej linii przy
+     * niezmienionym stopniu pisma - stad 52rem, a nie 38rem.
      */
-    inline-size: min(42vw, 38rem);
+    inline-size: min(52vw, 52rem);
     justify-content: center;
     gap: var(--space-6);
-    padding-inline: max(var(--grid-margin), calc(50vw - var(--container-max) / 2));
+
+    /*
+     * Wyrownanie do krawedzi tresci kontenera - ale WYLACZNIE z lewej strony.
+     * Wczesniej ten sam margines szedl na oba boki i przy 1900 px zjadal
+     * po 182 px z kazdej strony, zostawiajac 244 px na tekst. Naglowek lamal
+     * sie wtedy na szesc linii.
+     */
+    padding-inline: calc(var(--grid-margin) + max(0px, (100vw - var(--container-max)) / 2))
+      var(--space-6);
   }
 
   .hero__wordmark {
@@ -92,13 +103,21 @@
     line-height: 0.86;
   }
 
+  /*
+   * Bez wlasnej miary: szerokosc wyznacza pole tekstowe, wiec H1 i lead stoja
+   * w kolumnie o jednakowej szerokosci. Wlasne max-inline-size zwezalo je
+   * niezaleznie od pola i to wlasnie lamalo naglowek.
+   */
+  .hero__title,
+  .hero__lead {
+    max-inline-size: none;
+  }
+
   .hero__title {
     font-size: clamp(1.625rem, 2.6vw, 2.75rem);
-    max-inline-size: 24ch;
   }
 
   .hero__lead {
     font-size: clamp(1rem, 1.05vw, 1.1875rem);
-    max-inline-size: 44ch;
   }
 }
