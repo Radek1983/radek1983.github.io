@@ -1,0 +1,21 @@
+# Normalizacja koncow linii.
+# Praca lokalna na Windows, CI na Linuksie. Bez tego `prettier --check`
+# przechodzi lokalnie i wywala sie w CI na roznicach CRLF.
+* text=auto eol=lf
+
+# Pliki binarne - bez zadnej konwersji.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.mp4   binary
+*.webm  binary
+*.zip   binary
