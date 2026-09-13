@@ -85,11 +85,21 @@
 
 /* --- Header --- */
 
+/*
+ * Kolory biora sie z ROL semantycznych, nie z palety.
+ *
+ * Dzieki temu naglowek z atrybutem data-theme dostaje caly komplet barw
+ * naraz - tlo, tekst i kreski - a komponenty w srodku nie musza o tym
+ * wiedziec. Wczesniej stalo tu na sztywno --color-paper i to byla przyczyna
+ * zniknietego mega-menu na stronie kariery: naglowek mial nadpisany kolor
+ * tekstu na kremowy, a panel zachowywal kremowe tlo. Kremowy na kremowym.
+ */
 .site-header {
   position: sticky;
   inset-block-start: 0;
   z-index: var(--z-header);
-  background-color: var(--color-paper);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   border-block-end: 1px solid var(--color-rule);
 }
 
@@ -357,22 +367,23 @@
   transform: scaleX(1);
 }
 
-/* --- Ciemny naglowek strony kariery --- */
-
 /*
- * Ciemny naglowek na stronie kariery. Nie jest to druga nawigacja - ten sam
- * markup, ten sam uklad, wylacznie inny motyw kolorystyczny, tak jak sekcje
- * strony glownej zmieniaja akt przez [data-theme].
+ * --- Ciemny naglowek strony kariery ---
+ *
+ * Nie ma tu juz zadnej reguly. Motyw niesie atrybut data-theme="ink"
+ * na samym naglowku, podstawiany przy budowaniu przez htmlPartials
+ * (vite.config.js). Wartosci bierze [data-theme='ink'] w base/variables.css,
+ * czyli dokladnie ta sama definicja, ktorej uzywaja czarne sekcje strony
+ * glownej - jedna warstwa motywu zamiast dwoch.
+ *
+ * Poprzednia wersja nadpisywala kolor tekstu na calym naglowku i zostawiala
+ * panelowi mega-menu kremowe tlo. Numery pozostawaly czytelne, bo licza
+ * swoj kolor z --color-text, ale etykiety i opisy dziedziczyly kremowy
+ * z naglowka i znikaly na kremowym tle.
+ *
+ * Regula dla .ticker takze zniknela: kariera nie ma paska faktow, wiec
+ * selektor od poczatku nie trafial w zaden element.
  */
-[data-section='kariera'] .site-header {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
-  border-block-end-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
-}
-
-[data-section='kariera'] .ticker {
-  background-color: var(--color-ink);
-}
 
 /* --- Mega-menu oferty --- */
 
@@ -415,7 +426,7 @@
   inset-inline: 0;
   inset-block-start: 100%;
   z-index: var(--z-header);
-  background-color: var(--color-paper);
+  background-color: var(--color-bg);
   border-block-end: 1px solid var(--color-rule);
 }
 

@@ -111,6 +111,18 @@ function htmlPartials() {
     (o) => `      <a class="u-link" href="${o.url}">${o.etykietaStopki}</a>`,
   ).join('\n')
 
+  /*
+   * Motyw kolorystyczny naglowka - wariant wspolnego komponentu, nie druga
+   * jego kopia.
+   *
+   * Kariera mowi do innego odbiorcy i ma ciemny akt, wiec naglowek dostaje
+   * tam `data-theme="ink"`. Wartosci bierze [data-theme='ink'] z
+   * base/variables.css - ta sama definicja, ktorej uzywaja czarne sekcje
+   * strony glownej. Markup, uklad, odstepy i animacje zostaja identyczne;
+   * zmieniaja sie WYLACZNIE role kolorow.
+   */
+  const MOTYW_NAGLOWKA = { 'kariera/index.html': ' data-theme="ink"' }
+
   return {
     name: 'high-five-html-partials',
 
@@ -140,6 +152,7 @@ function htmlPartials() {
         const cta = CTA[klucz] ?? CTA_DOMYSLNE
 
         return wynik
+          .replaceAll('{{MOTYW_NAGLOWKA}}', MOTYW_NAGLOWKA[klucz] ?? '')
           .replaceAll('{{MEGA_MENU}}', megaMenu(`/${klucz.replace(/index\.html$/, '')}`))
           .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
           .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
