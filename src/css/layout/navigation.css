@@ -115,7 +115,12 @@
 
 .site-nav__list {
   display: flex;
-  gap: var(--space-6);
+
+  /*
+   * Odstep mniejszy niz --space-6. Menu ma osiem pozycji plus wordmark
+   * i przycisk; przy 1.5rem caly wiersz nie miescil sie ponizej 1440 px.
+   */
+  gap: clamp(0.875rem, 1.6vw, 1.5rem);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -151,7 +156,12 @@
   transform: scaleX(1);
 }
 
-@media (width >= 62rem) {
+/*
+ * Prog podniesiony z 62rem na 75rem. Osiem pozycji + CTA potrzebuje wiecej
+ * miejsca niz wczesniejsze cztery; ponizej tej szerokosci menu zawijalo sie
+ * do drugiego wiersza i rozpychalo naglowek.
+ */
+@media (width >= 75rem) {
   .site-nav {
     display: block;
   }
@@ -170,8 +180,204 @@
   display: none;
 }
 
-@media (width >= 32rem) {
+@media (width >= 75rem) {
   .site-header .site-header__cta {
     display: inline-flex;
   }
+}
+
+/* --- Przelacznik szuflady --- */
+
+/*
+ * Widoczny dokladnie tam, gdzie znika menu poziome. Wczesniej nawigacja
+ * na telefonie po prostu nie istniala - przy czterech kotwicach dalo sie to
+ * obronic, przy osmiu pozycjach i trzech podstronach juz nie.
+ */
+.site-header__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  padding-inline: var(--space-2);
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@media (width >= 75rem) {
+  .site-header__toggle {
+    display: none;
+  }
+}
+
+/* Trzy kreski bez pliku graficznego - ikona uzytkowa, nie dekoracja. */
+.site-header__burger {
+  position: relative;
+  display: block;
+  inline-size: 20px;
+  block-size: 2px;
+  background-color: currentcolor;
+}
+
+.site-header__burger::before,
+.site-header__burger::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  block-size: 2px;
+  background-color: currentcolor;
+}
+
+.site-header__burger::before {
+  inset-block-start: -6px;
+}
+
+.site-header__burger::after {
+  inset-block-start: 6px;
+}
+
+/* --- Szuflada --- */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  background-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
+.drawer__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  block-size: 100%;
+  max-inline-size: 22rem;
+  margin-inline-start: auto;
+  padding: var(--space-6) var(--grid-margin) var(--space-8);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  overflow-y: auto;
+}
+
+.drawer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.drawer__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Duza typografia zamiast listy odnosnikow. Cel dotykowy ma pelne 44 px
+ * wysokosci nawet przy krotkiej etykiecie.
+ */
+.drawer__link {
+  display: block;
+  padding-block: var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-heading);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.drawer__link[aria-current='page'] {
+  color: var(--color-signal);
+}
+
+.drawer__cta {
+  align-self: stretch;
+  justify-content: center;
+  margin-block-start: auto;
+}
+
+/*
+ * Pozycja odpowiadajaca biezacej stronie. Stan bierze sie z atrybutu
+ * data-page na <body>, wiec nie potrzebuje JavaScriptu ani osobnej wersji
+ * naglowka dla kazdej podstrony.
+ */
+[data-page='seniorzy'] .site-nav__link[data-nav='seniorzy'],
+[data-page='online'] .site-nav__link[data-nav='online'],
+[data-page='kariera'] .site-nav__link[data-nav='kariera'] {
+  color: var(--color-signal);
+}
+
+[data-page='seniorzy'] .site-nav__link[data-nav='seniorzy']::after,
+[data-page='online'] .site-nav__link[data-nav='online']::after,
+[data-page='kariera'] .site-nav__link[data-nav='kariera']::after {
+  transform: scaleX(1);
+}
+
+/* --- Wariant kariery --- */
+
+/*
+ * Domyslnie ukryte. Pokazujemy wylacznie na /kariera, gdzie jednoczesnie
+ * chowamy wezwanie sprzedazowe - inaczej w naglowku stalyby dwa CTA naraz.
+ */
+
+/*
+ * Selektor musi byc zlozony: reguly pokazujace przycisk w naglowku celuja
+ * w dwie klasy naraz, wiec pojedyncza klasa modyfikatora przegrywala
+ * z nimi specyficznoscia i oba wezwania byly widoczne jednoczesnie.
+ */
+.site-header .site-header__cta--kariera,
+.drawer .drawer__cta--kariera {
+  display: none;
+}
+
+[data-page='kariera'] .site-header .site-header__cta:not(.site-header__cta--kariera),
+[data-page='kariera'] .drawer__cta:not(.drawer__cta--kariera) {
+  display: none;
+}
+
+[data-page='kariera'] .drawer .drawer__cta--kariera {
+  display: inline-flex;
+}
+
+@media (width >= 75rem) {
+  [data-page='kariera'] .site-header .site-header__cta--kariera {
+    display: inline-flex;
+  }
+}
+
+/*
+ * Ciemny naglowek na stronie kariery. Nie jest to druga nawigacja - ten sam
+ * markup, ten sam uklad, wylacznie inny motyw kolorystyczny, tak jak sekcje
+ * strony glownej zmieniaja akt przez [data-theme].
+ */
+[data-page='kariera'] .site-header {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  border-block-end-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+}
+
+[data-page='kariera'] .ticker {
+  background-color: var(--color-ink);
 }

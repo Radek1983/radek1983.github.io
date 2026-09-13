@@ -1,0 +1,293 @@
+/*
+ * Wspoldzielone bloki podstron.
+ *
+ * Trzy podstrony - seniorzy, online i kariera - korzystaja z tego samego
+ * zestawu: hero ze zdjeciem, duza deklaracja typograficzna, trzy kolumny,
+ * ponumerowane kroki, split ze zdjeciem i pas koncowy.
+ *
+ * Kolor NIE jest tu wariantem klasy. Sekcje uzywaja istniejacego atrybutu
+ * [data-theme] ze strony glownej, wiec papier, czern, czerwien i granat
+ * zachowuja sie identycznie na kazdej stronie serwisu.
+ *
+ * Celowo NIE powstaje z tego generyczny page builder: to szesc blokow
+ * o ustalonym zachowaniu, a nie system do skladania dowolnego layoutu.
+ */
+
+/* --- Hero podstrony: tekst + duzy kadr --- */
+
+.page-hero {
+  padding-block: 0;
+}
+
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  align-items: center;
+}
+
+.page-hero__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+.page-hero__title {
+  font-size: clamp(2.25rem, 6vw, 4.75rem);
+  line-height: 0.94;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  max-inline-size: 14ch;
+}
+
+.page-hero__lead {
+  max-inline-size: 42ch;
+}
+
+.page-hero__media {
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 3;
+}
+
+@media (width >= 62rem) {
+  .page-hero__text {
+    grid-column: 1 / span 6;
+    padding-block: clamp(3rem, 7vh, 6rem);
+  }
+
+  /*
+   * Kadr dochodzi do prawej krawedzi okna, tak jak fotografia hero na stronie
+   * glownej. Obie strony maja tworzyc ta sama pionowa linie.
+   */
+  .page-hero__media {
+    grid-column: 7 / -1;
+    margin-inline-end: calc(var(--bleed-inline) * -1);
+    aspect-ratio: auto;
+    block-size: min(82svh, 46rem);
+  }
+}
+
+/* --- Deklaracja typograficzna --- */
+
+.statement__claim {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 7vw, 6.5rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+/*
+ * Wyroznione slowo deklaracji. Kolor, nie inny krój - brief dopuszcza
+ * jeden akcent na sekcje, a zmiana kroju rozbilaby rytm.
+ */
+.statement__accent {
+  color: var(--color-accent);
+}
+
+.statement__cols {
+  margin-block-start: clamp(2.5rem, 7vw, 6rem);
+}
+
+/* --- Trzy kolumny z kreska nad kazda --- */
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-8) var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cols__item {
+  grid-column: 1 / -1;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.cols__item h3 {
+  margin-block-end: var(--space-3);
+  font-size: clamp(1.25rem, 1.7vw, 1.625rem);
+  line-height: 1.15;
+}
+
+.cols__item p {
+  max-inline-size: 34ch;
+}
+
+@media (width >= 48rem) {
+  .cols__item {
+    grid-column: span 4;
+  }
+}
+
+/* --- Ponumerowane kroki --- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-8) var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps__item {
+  grid-column: 1 / -1;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Numer jest elementem kompozycji, nie trescia - czytnik ekranu dostaje
+ * kolejnosc z listy uporzadkowanej, wiec odczytywanie "zero jeden" byloby
+ * powtorzeniem.
+ */
+.steps__number {
+  display: block;
+  margin-block-end: var(--space-3);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+.steps__item h3 {
+  margin-block-end: var(--space-2);
+}
+
+.steps__item p {
+  max-inline-size: 32ch;
+}
+
+@media (width >= 48rem) {
+  .steps__item {
+    grid-column: span 4;
+  }
+}
+
+/* --- Split: tekst i kadr obok siebie --- */
+
+.split__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  align-items: center;
+}
+
+.split__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.split__media {
+  grid-column: 1 / -1;
+  aspect-ratio: 3 / 2;
+  margin-block-start: var(--space-8);
+}
+
+.split__list {
+  margin: 0;
+  padding-inline-start: 1.1em;
+}
+
+.split__list li {
+  margin-block-end: var(--space-2);
+}
+
+@media (width >= 62rem) {
+  .split__text {
+    grid-column: 1 / span 5;
+  }
+
+  .split__media {
+    grid-column: 7 / -1;
+    margin-block-start: 0;
+    margin-inline-end: calc(var(--bleed-inline) * -1);
+    aspect-ratio: auto;
+    block-size: min(70svh, 34rem);
+  }
+
+  /* Wariant odwrocony - kadr po lewej, dochodzi do lewej krawedzi okna. */
+  .split--reverse .split__text {
+    grid-column: 7 / -1;
+  }
+
+  .split--reverse .split__media {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+    margin-inline: calc(var(--bleed-inline) * -1) 0;
+  }
+}
+
+/* --- Pas koncowy --- */
+
+.closing__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.closing__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.closing__lead {
+  margin-block-start: var(--space-4);
+  max-inline-size: 40ch;
+}
+
+/*
+ * --- Brakujaca fotografia ---
+ *
+ * Widoczny, celowo nieatrakcyjny blok z opisem potrzebnego kadru. NIE jest to
+ * przypadkowe zdjecie ze stocka ani obraz z zewnetrznego adresu: CLAUDE.md
+ * par. 4 zabrania udawania, ze placeholder pokazuje rzeczywiste zajecia,
+ * a CSP i tak nie wpuscilaby obcego hosta.
+ *
+ * Blok trzyma docelowa proporcje, wiec podmiana na prawdziwy kadr nie zmieni
+ * geometrii strony i nie wywola przesuniecia layoutu.
+ */
+.photo-todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background-color: color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
+  border: 1px dashed var(--color-rule);
+  color: var(--color-text);
+}
+
+.photo-todo__label {
+  font-size: var(--step-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.photo-todo__brief {
+  margin: 0;
+  max-inline-size: 40ch;
+  font-size: var(--step-label);
+  line-height: 1.5;
+}

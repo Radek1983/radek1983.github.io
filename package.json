@@ -17,9 +17,9 @@
     "lint:css": "stylelint \"src/css/**/*.css\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate:html": "html-validate index.html 404.html",
+    "validate:html": "html-validate dist/index.html dist/404.html dist/dla-seniorow/index.html dist/online/index.html dist/kariera/index.html",
     "test:e2e": "playwright test",
-    "check": "npm run format:check && npm run lint:js && npm run lint:css && npm run validate:html && npm run test:e2e && npm run build"
+    "check": "npm run format:check && npm run lint:js && npm run lint:css && npm run build && npm run validate:html && npm run test:e2e"
   },
   "devDependencies": {
     "@eslint/js": "^10",

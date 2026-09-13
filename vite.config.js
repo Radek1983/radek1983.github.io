@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
@@ -36,6 +37,40 @@ const CSP = [
 ].join('; ')
 
 /**
+ * Wspoldzielone fragmenty HTML.
+ *
+ * Strona jest statycznym MPA bez silnika szablonow, a naglowek i stopka sa
+ * identyczne na czterech stronach. Bez tego mechanizmu kazda zmiana pozycji
+ * w menu wymagalaby czterech identycznych edycji - i predzej czy pozniej
+ * strony rozjechalyby sie miedzy soba.
+ *
+ * Skladnia: <!--#include partials/header.html -->
+ *
+ * Swiadomie NIE dodajemy tu zaleznosci: to dwadziescia linii, a kazda nowa
+ * paczka wymaga uzasadnienia i wpisu w docs/ARCHITECTURE.md (CLAUDE.md par. 10).
+ */
+function htmlPartials() {
+  const WZORZEC = /<!--#include\s+([\w./-]+)\s*-->/g
+
+  return {
+    name: 'high-five-html-partials',
+    enforce: 'pre',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        return html.replace(WZORZEC, (_, sciezka) => {
+          const plik = resolve(root, sciezka)
+          if (!plik.startsWith(root)) {
+            throw new Error(`Fragment poza katalogiem projektu: ${sciezka}`)
+          }
+          return readFileSync(plik, 'utf8').trimEnd()
+        })
+      },
+    },
+  }
+}
+
+/**
  * Wstrzykuje CSP wylacznie do builda. Tryb dev korzysta ze skryptow inline i WebSocketu
  * dla HMR, ktore scisla polityka by zablokowala.
  */
@@ -59,7 +94,7 @@ function cspPlugin() {
 }
 
 export default defineConfig(({ mode }) => ({
-  plugins: [cspPlugin()],
+  plugins: [htmlPartials(), cspPlugin()],
 
   // User site GitHub Pages (radek1983.github.io) serwuje z korzenia domeny.
   // NIGDY '/radek1983.github.io/' - to wzorzec dla project site i zepsulby wszystkie assety.
@@ -88,6 +123,14 @@ export default defineConfig(({ mode }) => ({
       input: {
         main: resolve(root, 'index.html'),
         notFound: resolve(root, '404.html'),
+
+        /*
+         * Kazda podstrona to wlasny katalog z index.html, wiec GitHub Pages
+         * serwuje ja pod czystym adresem /dla-seniorow/ bez przepisywania URL.
+         */
+        seniorzy: resolve(root, 'dla-seniorow/index.html'),
+        online: resolve(root, 'online/index.html'),
+        kariera: resolve(root, 'kariera/index.html'),
       },
     },
   },

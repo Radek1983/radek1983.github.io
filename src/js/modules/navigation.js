@@ -67,6 +67,16 @@ export function initNavigation() {
   const header = document.querySelector('.site-header')
   if (header) trackHeaderHeight(header)
 
-  const links = document.querySelectorAll('.site-nav__link[href^="#"]')
+  /*
+   * Od czasu dodania podstron kotwice w menu sa BEZWZGLEDNE ("/#oferta"),
+   * bo to samo menu stoi na czterech stronach. Wskaznik aktywnej sekcji
+   * dotyczy wylacznie linkow prowadzacych w glab biezacego dokumentu -
+   * linki do innych stron ("/online/") nie maja tu czego sledzic.
+   */
+  const links = [...document.querySelectorAll('.site-nav__link[href*="#"]')].filter((link) => {
+    const cel = new URL(link.href, window.location.href)
+    return cel.hash !== '' && cel.pathname === window.location.pathname
+  })
+
   if (links.length > 0) trackActiveSection(links)
 }

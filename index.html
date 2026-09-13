@@ -75,7 +75,7 @@
     </script>
   </head>
 
-  <body>
+  <body data-page="home">
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
     <!-- Potwierdzone fakty widoczne przed pierwszym scrollem.
@@ -97,27 +97,7 @@
       </p>
     </div>
 
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="site-header__brand" href="#main">High Five</a>
-
-        <nav class="site-nav" aria-label="Nawigacja główna">
-          <ul class="site-nav__list">
-            <li><a class="site-nav__link" href="#oferta">Oferta</a></li>
-            <li><a class="site-nav__link" href="#cennik">Cennik</a></li>
-            <li><a class="site-nav__link" href="#lokalizacja">Lokalizacja</a></li>
-            <li><a class="site-nav__link" href="#seniorzy">Dla seniorów</a></li>
-            <li><a class="site-nav__link" href="#faq">FAQ</a></li>
-            <li><a class="site-nav__link" href="#kontakt">Kontakt</a></li>
-          </ul>
-        </nav>
-
-        <a class="cta site-header__cta" href="#kontakt">
-          Zapisz się
-          <span class="cta__arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-    </header>
+    <!--#include partials/header.html -->
 
     <main id="main">
       <!-- ============================================================
@@ -1039,32 +1019,7 @@
       <div class="u-dock-space" aria-hidden="true"></div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container site-footer__grid">
-        <p class="site-footer__brand">High Five</p>
-
-        <div class="site-footer__col">
-          <p class="u-label">Kontakt</p>
-          <a class="u-link" href="tel:+48789789789">+48&nbsp;789&nbsp;789&nbsp;789</a>
-          <a class="u-link" href="mailto:janek.gitara@onet.pl">janek.gitara@onet.pl</a>
-        </div>
-
-        <div class="site-footer__col">
-          <p class="u-label">Miejsce zajęć</p>
-          <p>
-            SP 402 im. Haliny Konopackiej<br />
-            ul. Jana Nowaka-Jeziorańskiego 22<br />
-            03-982 Warszawa
-          </p>
-        </div>
-
-        <p class="site-footer__note">
-          Zajęcia High Five odbywają się na terenie SP 402 po lekcjach szkolnych. High Five nie jest
-          oficjalnym serwisem Szkoły Podstawowej nr 402. Zdjęcia mają charakter ilustracyjny i nie
-          przedstawiają uczniów tej szkoły.
-        </p>
-      </div>
-    </footer>
+    <!--#include partials/footer.html -->
 
     <!-- Sticky CTA na mobile, gdzie nie ma nawigacji. -->
     <div class="cta-dock">

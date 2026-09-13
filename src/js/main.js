@@ -6,6 +6,7 @@
 
 import { initAnimations } from './modules/animations.js'
 import { initNavigation } from './modules/navigation.js'
+import { initMenu } from './modules/menu.js'
 import { initAccessibility } from './modules/accessibility.js'
 
 function safeInit(name, fn) {
@@ -19,6 +20,7 @@ function safeInit(name, fn) {
 function bootstrap() {
   safeInit('accessibility', initAccessibility)
   safeInit('navigation', initNavigation)
+  safeInit('menu', initMenu)
   safeInit('animations', initAnimations)
 }
 

@@ -1,0 +1,107 @@
+<!--
+  Naglowek wspolny dla wszystkich stron. Jedno zrodlo prawdy - patrz plugin
+  htmlPartials w vite.config.js.
+
+  Adresy sa BEZWZGLEDNE (/#oferta, nie #oferta), bo to samo menu stoi na
+  stronie glownej i na trzech podstronach. Na stronie glownej "/#oferta" to
+  nadal skok w obrebie dokumentu, wiec nic sie nie przeladowuje.
+
+  Stan aktywny bierze sie z atrybutu data-page na <body> i data-nav na linku -
+  bez JavaScriptu i bez czterech wariantow tego pliku.
+-->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="/">High Five</a>
+
+    <nav class="site-nav" aria-label="Nawigacja główna">
+      <ul class="site-nav__list">
+        <li><a class="site-nav__link" data-nav="oferta" href="/#oferta">Oferta</a></li>
+        <li><a class="site-nav__link" data-nav="cennik" href="/#cennik">Cennik</a></li>
+        <li>
+          <a class="site-nav__link" data-nav="lokalizacja" href="/#lokalizacja">Lokalizacja</a>
+        </li>
+        <li>
+          <a class="site-nav__link" data-nav="seniorzy" href="/dla-seniorow/">Dla seniorów</a>
+        </li>
+        <li><a class="site-nav__link" data-nav="online" href="/online/">Online 1:1</a></li>
+        <li><a class="site-nav__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
+        <li><a class="site-nav__link" data-nav="faq" href="/#faq">FAQ</a></li>
+        <li><a class="site-nav__link" data-nav="kontakt" href="/#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <a class="cta site-header__cta" href="/#kontakt">
+      Zapisz dziecko
+      <span class="cta__arrow" aria-hidden="true">→</span>
+    </a>
+
+    <!--
+      Na stronie kariery wezwanie sprzedazowe bylo by pomylka: kandydat nie
+      zapisuje dziecka. Oba przyciski stoja w partialu, a CSS pokazuje ten
+      wlasciwy dla biezacej strony - bez drugiej wersji naglowka.
+    -->
+    <a class="cta site-header__cta site-header__cta--kariera" href="#aplikacja">
+      Aplikuj
+      <span class="cta__arrow" aria-hidden="true">→</span>
+    </a>
+
+    <!--
+      Przelacznik szuflady. Do osmiu pozycji menu nie da sie juz zmiescic
+      w jednym wierszu na telefonie - wczesniej nawigacja po prostu znikala,
+      bo cztery kotwice nie uzasadnialy hamburgera.
+
+      Jest <button>, nie <a>: to akcja, nie nawigacja. aria-expanded niesie
+      stan, a etykieta jest tekstowa, wiec przycisk ma nazwe dostepna nawet
+      gdy widac same kreski.
+    -->
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-mobilne"
+    >
+      <span class="site-header__toggle-label">Menu</span>
+      <span class="site-header__burger" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<!--
+  Szuflada mobilna. Stoi w DOM od pierwszego renderu i jest ukrywana
+  atrybutem `hidden`, wiec bez JavaScriptu nie zaslania tresci, a jej linki
+  pozostaja osiagalne dla czytnikow po usunieciu atrybutu.
+-->
+<div class="drawer" id="menu-mobilne" hidden>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__top">
+      <span class="site-header__brand">High Five</span>
+      <button class="drawer__close" type="button">
+        <span class="u-sr-only">Zamknij menu</span>
+        <span aria-hidden="true">✕</span>
+      </button>
+    </div>
+
+    <nav class="drawer__nav" aria-label="Nawigacja mobilna">
+      <ul class="drawer__list">
+        <li><a class="drawer__link" data-nav="oferta" href="/#oferta">Oferta</a></li>
+        <li><a class="drawer__link" data-nav="cennik" href="/#cennik">Cennik</a></li>
+        <li><a class="drawer__link" data-nav="lokalizacja" href="/#lokalizacja">Lokalizacja</a></li>
+        <li><a class="drawer__link" data-nav="seniorzy" href="/dla-seniorow/">Dla seniorów</a></li>
+        <li><a class="drawer__link" data-nav="online" href="/online/">Online 1:1</a></li>
+        <li><a class="drawer__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
+        <li><a class="drawer__link" data-nav="faq" href="/#faq">FAQ</a></li>
+        <li><a class="drawer__link" data-nav="kontakt" href="/#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <a class="cta drawer__cta" href="/#kontakt">
+      Zapisz dziecko
+      <span class="cta__arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="cta drawer__cta drawer__cta--kariera" href="#aplikacja">
+      Aplikuj
+      <span class="cta__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</div>

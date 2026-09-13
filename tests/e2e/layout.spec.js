@@ -833,10 +833,20 @@ test.describe('responsywnosc', () => {
     await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/')
 
-    // Nawigacja ustepuje miejsca jednemu sticky CTA - brief wymaga jednej akcji.
+    /*
+     * Poziome menu ustepuje miejsca szufladzie i jednemu sticky CTA.
+     * Przycisk w naglowku wystepuje w dwoch wariantach - sprzedazowym
+     * i rekrutacyjnym - wiec sprawdzamy wszystkie wystapienia.
+     */
     await expect(page.locator('.site-nav')).toBeHidden()
     await expect(page.locator('.cta-dock')).toBeVisible()
-    await expect(page.locator('.site-header__cta')).toBeHidden()
+    for (const cta of await page.locator('.site-header__cta').all()) {
+      await expect(cta).toBeHidden()
+    }
+
+    // Nawigacja nie znika bez sladu: jej role przejmuje przelacznik szuflady.
+    await expect(page.locator('.site-header__toggle')).toBeVisible()
+    await expect(page.locator('.drawer')).toBeHidden()
 
     // Wordmark nie moze skurczyc sie do napisu - lamie sie i rosnie.
     const { size, lines } = await page.locator('.hero__wordmark').evaluate((el) => {

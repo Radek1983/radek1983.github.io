@@ -78,3 +78,54 @@ napisz e-mail". Reszta zdania — o kontakcie w sprawie klasy, poziomu, terminu 
 — pozostaje dosłownie z briefu.
 
 Zapisane również w `docs/COPY_DECK.md`.
+
+## Braki wprowadzone przez trzy nowe podstrony
+
+Rozszerzenie zakresu opisuje ADR 0007. Podstrony są kompletne pod względem układu i treści,
+ale wchodzą do serwisu z brakami, których **nie wolno uzupełnić zgadywaniem** (§4).
+
+### Fotografie — pięć brakujących kadrów, status: nieblokujący
+
+W miejscu każdego brakującego zdjęcia stoi widoczny blok `.photo-todo` z opisem potrzebnego
+kadru. **To nie jest zdjęcie ze stocka ani obraz z zewnętrznego adresu** — blok trzyma docelową
+proporcję, więc podmiana nie zmieni geometrii strony i nie wywoła przesunięcia layoutu. Test
+w `tests/e2e/pages.spec.js` pilnuje, że żaden obraz nie pochodzi z obcego hosta.
+
+| Strona           | Miejsce            | Potrzebny kadr                                                                      | Proporcja |
+| ---------------- | ------------------ | ----------------------------------------------------------------------------------- | --------- |
+| `/dla-seniorow/` | hero               | Troje seniorów 65-75 lat na zajęciach, sala szkoleniowa, nikt nie patrzy w obiektyw | 4:3       |
+| `/online/`       | hero               | Osoba prowadząca 25-35 lat, słuchawki, laptop, neutralne wnętrze                    | 4:3       |
+| `/online/`       | sekcja „Dla kogo?" | Dziecko 9-13 lat w słuchawkach, na ekranie osoba prowadząca                         | 3:2       |
+| `/kariera/`      | hero               | Rozmowa rekrutacyjna w kawiarni, kandydat 21-26 lat i osoba rekrutująca             | 4:3       |
+| `/kariera/`      | sekcja granatowa   | Osoba prowadząca zajęcia z trójką lub czwórką dzieci z klas 1-7                     | 3:2       |
+
+Wymagania wspólne, powtórzone za właścicielem: bez plakatów i kubków z angielskimi hasłami,
+bez symboli brytyjskich, bez dekoracji udających szkołę, nikt nie pozuje do zdjęcia.
+
+Po dostarczeniu plików: wrzucić źródła do `src/assets/images/sections/`, uruchomić
+`npm run images`, podmienić bloki `.photo-todo` na `<figure class="media">` z `<picture>`.
+
+### Dane, których brakuje
+
+| Brak                               | Gdzie potrzebne      | Blokujący | Uwagi                                                                                                                                              |
+| ---------------------------------- | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cena zajęć dla seniorów**        | `/dla-seniorow/`     | nie       | ADR 0005 podaje 45 zł za zajęcia i abonament miesięczny, ale zapisy prowadzi Terminal Kultury. Strona celowo nie podaje ceny — kieruje do kontaktu |
+| **Cena lekcji online 1:1**         | `/online/`           | nie       | Nie ma potwierdzonej stawki. Strona nie podaje żadnej kwoty                                                                                        |
+| **Terminy i harmonogram**          | obie strony ofertowe | nie       | Żadna podstrona nie podaje dni ani godzin                                                                                                          |
+| **Osobna skrzynka rekrutacyjna**   | `/kariera/`          | nie       | Zgłoszenia idą tymczasowo na ten sam adres co kontakt ogólny (D6), z tematem „Rekrutacja"                                                          |
+| **Forma przyjmowania CV**          | `/kariera/`          | nie       | Dziś: załącznik do wiadomości. Formularza z uploadem nie da się zrobić bez warstwy serwerowej (D2)                                                 |
+| **Dokładny zakres zaświadczenia**  | `/kariera/`          | nie       | Strona mówi ogólnie „zgodnie z obowiązującymi wymaganiami". Doprecyzowanie wymaga decyzji właściciela                                              |
+| **`og:image` dla trzech podstron** | wszystkie            | nie       | Wspólny brak z G-03 — żadna strona serwisu nie ma jeszcze obrazka Open Graph                                                                       |
+
+### Fakty przekazane przez właściciela przy tej zmianie
+
+Publikujemy je, bo pochodzą wprost od właściciela — tak jak dane Terminalu Kultury w ADR 0005:
+
+- **Adres Terminalu Kultury Gocław: ul. Jana Nowaka-Jeziorańskiego 24 w Warszawie.** Zamyka to
+  brak odnotowany przy ADR 0005. Uwaga: SP 402 stoi pod numerem 22, Terminal pod 24 — to dwa
+  różne budynki przy tej samej ulicy.
+- **Około 20-letnie doświadczenie właścicielki i lektorki High Five.** Publikowane wyłącznie
+  na stronie kariery, bez nazwiska i bez wyliczania kwalifikacji — §4 zabrania tego drugiego
+  bez potwierdzenia.
+- **Lekcje indywidualne online jako linia usług**, dla dzieci, młodzieży i dorosłych.
+- **Grupy rekrutacyjne:** studenci i absolwenci anglistyki, lingwistyki, amerykanistyki.

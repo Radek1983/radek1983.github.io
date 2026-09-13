@@ -114,14 +114,29 @@ test.describe('tresc i SEO', () => {
     await expect(page.locator('#kontakt a[href^="mailto:"]').first()).toBeVisible()
   })
 
-  test('kazdy link nawigacji prowadzi do istniejacej sekcji', async ({ page }) => {
-    const links = page.locator('.site-nav__link[href^="#"]')
-    const count = await links.count()
-    expect(count).toBeGreaterThan(0)
+  test('kazdy link nawigacji prowadzi do istniejacej sekcji lub podstrony', async ({
+    page,
+    request,
+  }) => {
+    /*
+     * Od dodania podstron menu ma dwa rodzaje pozycji: kotwice w glab strony
+     * glownej ("/#oferta") i adresy podstron ("/online/"). Adresy sa
+     * bezwzgledne, bo to samo menu stoi na czterech stronach.
+     */
+    const href = await page
+      .locator('.site-nav__link')
+      .evaluateAll((els) => els.map((el) => el.getAttribute('href')))
+    expect(href.length).toBe(8)
 
-    for (let i = 0; i < count; i += 1) {
-      const href = await links.nth(i).getAttribute('href')
-      await expect(page.locator(href)).toHaveCount(1)
+    for (const adres of href) {
+      if (adres.includes('#')) {
+        const kotwica = '#' + adres.split('#')[1]
+        await expect(page.locator(kotwica), adres).toHaveCount(1)
+      } else {
+        // Podstrona musi istniec pod swoim adresem, nie tylko w menu.
+        const odpowiedz = await request.get(adres)
+        expect(odpowiedz.status(), adres).toBe(200)
+      }
     }
   })
 
@@ -169,7 +184,7 @@ test.describe('tresc i SEO', () => {
      */
     const zgloszeniowe = await page.evaluate(() =>
       [...document.querySelectorAll('a.cta')]
-        .filter((el) => /zapisz si[eę]/i.test(el.textContent))
+        .filter((el) => /zapisz (si[eę]|dziecko)/i.test(el.textContent))
         .filter((el) => {
           const r = el.getBoundingClientRect()
           return r.top < window.innerHeight && r.bottom > 0 && el.offsetParent !== null
@@ -181,7 +196,7 @@ test.describe('tresc i SEO', () => {
     // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
     const hero = await page.locator('.hero').innerText()
     expect(hero).not.toMatch(/55 z[lł]/)
-    expect(hero).not.toMatch(/zapisz si[eę]/i)
+    expect(hero).not.toMatch(/zapisz (si[eę]|dziecko)/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {
