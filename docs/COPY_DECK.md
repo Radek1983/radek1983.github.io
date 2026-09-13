@@ -23,18 +23,27 @@ sprawdza je co do znaku.
 
 **Lead:**
 
-> Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy,
-> dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
+> Zajęcia dla uczniów klas 1-8, prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy,
+> dużo praktycznego angielskiego i osobny program przygotowujący do egzaminu ósmoklasisty.
+
+Brzmienie zmienione przez właściciela. Brief podawał tu „Zajęcia dla dzieci z klas 1-8 na
+terenie Szkoły Podstawowej nr 402…" — te same fakty, inny rejestr: „uczniów" zamiast „dzieci",
+„po lekcjach" wprost w pierwszym zdaniu, „osobny program" zamiast „osobna ścieżka".
 
 Cały tekst hero leży **na fotografii**, na pustej ścianie w lewej części kadru: wordmark,
 H1 i lead. Ściana jest niemal biała, więc tekst w kolorze INK ma pełny kontrast i nie wymaga
 ani przycienienia, ani gradientu — jednego i drugiego brief zabrania.
 
-**Akcja pomocnicza:** `Zobacz ofertę` — czarny przycisk, prowadzi do `#oferta`.
+**Akcja pomocnicza:** `Sprawdź grupy i ceny` — czarny przycisk, prowadzi do `#oferta`.
+Wcześniej `Zobacz ofertę`; właściciel nazwał wprost to, co rodzic znajdzie po kliknięciu.
+
+**Linia cenowa pod przyciskiem:** `55 zł / 45 min · rodzeństwo 50 zł / 45 min` — jedna linia,
+bez ramki, tła i ikony. Pełny cennik zostaje w sekcji `#cennik`.
 
 **W hero NIE MA:**
 
-- ceny — żyje w pasku faktów i w sekcji `#cennik`;
+- ~~ceny~~ — **decyzja cofnięta przez właściciela.** Cena wróciła do hero jako jedna linia
+  pod przyciskiem pomocniczym. Nadal nie ma jej w pasku faktów ani w formie plakietki;
 - głównego CTA `Zapisz się na zajęcia` — zostaje w nagłówku oraz w sekcjach
   decyzyjnych `#nabor` i `#kontakt`.
 

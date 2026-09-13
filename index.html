@@ -106,7 +106,7 @@
             <li><a class="site-nav__link" href="#oferta">Oferta</a></li>
             <li><a class="site-nav__link" href="#cennik">Cennik</a></li>
             <li><a class="site-nav__link" href="#lokalizacja">Lokalizacja</a></li>
-            <li><a class="site-nav__link" href="#seniorzy">Seniorzy</a></li>
+            <li><a class="site-nav__link" href="#seniorzy">Dla seniorów</a></li>
             <li><a class="site-nav__link" href="#faq">FAQ</a></li>
             <li><a class="site-nav__link" href="#kontakt">Kontakt</a></li>
           </ul>
@@ -148,14 +148,24 @@
             </h1>
 
             <p class="u-lead hero__lead">
-              Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe
-              grupy i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
+              Zajęcia dla uczniów klas 1-8, prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy,
+              dużo praktycznego angielskiego i osobny program przygotowujący do egzaminu
+              ósmoklasisty.
             </p>
 
-            <a class="cta cta--ink" href="#oferta">
-              Zobacz ofertę
-              <span class="cta__arrow" aria-hidden="true">→</span>
-            </a>
+            <!--
+              CTA i cena stoja we wspolnym bloku, zeby zachowac miedzy nimi ciasny
+              odstep. Overlay ma wlasny, duzy gap miedzy wordmarkiem, naglowkiem
+              i leadem - bez tego opakowania cena odplynelaby od przycisku.
+            -->
+            <div class="hero__action">
+              <a class="cta cta--ink" href="#oferta">
+                Sprawdź grupy i ceny
+                <span class="cta__arrow" aria-hidden="true">→</span>
+              </a>
+
+              <p class="hero__price">55 zł / 45 min · rodzeństwo 50 zł / 45 min</p>
+            </div>
           </div>
 
           <figure class="media hero__media">

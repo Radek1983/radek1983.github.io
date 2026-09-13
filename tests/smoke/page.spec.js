@@ -164,7 +164,7 @@ test.describe('tresc i SEO', () => {
   test('w pierwszym ekranie jest dokladnie jedno CTA zgloszeniowe', async ({ page }) => {
     /*
      * Wlasciciel zglosil trzy przyciski zgloszeniowe w jednym widoku. Docelowo
-     * ma byc DOKLADNIE JEDEN - w pasku na gorze. Przycisk "Zobacz ofertę"
+     * ma byc DOKLADNIE JEDEN - w pasku na gorze. Przycisk "Sprawdź grupy i ceny"
      * nie jest tu liczony: to akcja pomocnicza o innym celu i w innym kolorze.
      */
     const zgloszeniowe = await page.evaluate(() =>
@@ -178,10 +178,18 @@ test.describe('tresc i SEO', () => {
     )
     expect(zgloszeniowe).toHaveLength(1)
 
-    // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
+    /*
+     * Hero nie zawiera CTA zgloszeniowego - ono zyje w naglowku i dalej na stronie.
+     *
+     * Cena wrocila do hero na polecenie wlasciciela, ale jako jedna linia pod
+     * przyciskiem pomocniczym, bez ramki i bez plakietki. Test pilnuje, ze jest
+     * to nadal tekst, a nie drugie wezwanie do dzialania.
+     */
     const hero = await page.locator('.hero').innerText()
-    expect(hero).not.toMatch(/55 z[lł]/)
     expect(hero).not.toMatch(/zapisz si[eę]/i)
+    expect(hero).toMatch(/55 z[lł] \/ 45 min/)
+    await expect(page.locator('.hero__price')).toHaveCount(1)
+    await expect(page.locator('.hero__price a, .hero__price button')).toHaveCount(0)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

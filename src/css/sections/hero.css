@@ -63,6 +63,33 @@
   max-inline-size: 46ch;
 }
 
+/* --- CTA i cena --- */
+
+/*
+ * Wlasny kontener, bo .hero__overlay rozdziela swoje dzieci duzym gapem.
+ * Cena ma trzymac sie przycisku, a nie plywac w polowie drogi do zdjecia.
+ */
+.hero__action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/*
+ * Jedna linia, bez ramki, tla i ikony - brief zabrania plakietek i kart,
+ * a cena ma tu byc doprecyzowaniem przycisku, nie drugim wezwaniem.
+ *
+ * Pelny cennik zyje w sekcji 06, gdzie liczby sa dominujaca typografia.
+ */
+.hero__price {
+  margin: 0;
+  max-inline-size: none;
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+}
+
 /* --- Fotografia --- */
 
 .hero__media {
