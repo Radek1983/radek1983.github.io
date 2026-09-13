@@ -1064,10 +1064,62 @@ test.describe('05 o high five', () => {
      * rozbite miedzy dwie linie HTML.
      */
     await expect(sekcja).toContainText(/od\s+ponad\s+20\s+lat/i)
-    await expect(sekcja).toContainText(/zaświadczenie\s+o\s+niekaralności/i)
+    await expect(sekcja).toContainText(/w\s+szkole\s+podstawowej/i)
+    await expect(sekcja).toContainText(/nauczycielką\s+dyplomowaną/i)
+    await expect(sekcja).toContainText(/Okręgowej\s+Komisji\s+Egzaminacyjnej/i)
+
+    /*
+     * "Male grupy" zeszlo z paska faktow, bo miejsce dostaly mocniejsze
+     * kwalifikacje - ale NIE moze zniknac z komunikacji. Zostaje wprost
+     * w trzecim akapicie.
+     */
+    await expect(sekcja).toContainText(/małe\s+grupy/i)
 
     const wyrozniki = await sekcja.locator('.about__mark strong').allTextContents()
-    expect(wyrozniki.map((t) => t.trim())).toEqual(['20+', 'UW + SWPS', 'Małe'])
+    expect(wyrozniki.map((t) => t.trim())).toEqual(['20+', 'UW + SWPS', 'Dyplomowana', 'OKE'])
+  })
+
+  test('pasek faktow nie przycina najdluzszego hasla', async ({ page }) => {
+    await page.goto('/')
+
+    /*
+     * "Dyplomowana" to jedenascie znakow bez miejsca na zlamanie. Przy zbyt
+     * duzym stopniu pisma wychodzila poza swoja kolumne i byla przycinana -
+     * test porownuje szerokosc tresci z szerokoscia pola.
+     */
+    const przepelnione = await page.evaluate(() =>
+      [...document.querySelectorAll('.about__mark strong')]
+        .filter((el) => el.scrollWidth > el.clientWidth + 1)
+        .map((el) => el.textContent.trim()),
+    )
+    expect(przepelnione).toEqual([])
+  })
+
+  test('portret trzyma te sama prawa os co pozostale duze zdjecia', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    /*
+     * Hero, kadr sekcji 02 i kadr senioralny koncza sie na krawedzi okna.
+     * Portret konczyl sie 147 px wczesniej i prawa strona strony nie miala
+     * wspolnej linii.
+     */
+    for (const width of [1024, 1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const m = await page.evaluate(() => ({
+        portret: Math.round(document.querySelector('.about__media').getBoundingClientRect().right),
+        hero: Math.round(document.querySelector('.hero__media').getBoundingClientRect().right),
+        udzial:
+          document.querySelector('.about__media').getBoundingClientRect().width / window.innerWidth,
+      }))
+
+      expect(m.portret, width + ' px').toBe(m.hero)
+
+      // Kadr ma zajmowac okolo 40-43% szerokosci sekcji.
+      expect(m.udzial, width + ' px').toBeGreaterThan(0.38)
+      expect(m.udzial, width + ' px').toBeLessThan(0.45)
+    }
   })
 
   test('portret jest prawdziwym zdjeciem, nie zastepnikiem', async ({ page }) => {
@@ -1127,7 +1179,7 @@ test.describe('05 o high five', () => {
       }
     })
 
-    expect(m.marks).toBe(3)
+    expect(m.marks).toBe(4)
     expect(m.overflow).toBeLessThanOrEqual(1)
   })
 })

@@ -210,3 +210,19 @@ nazwisk i kwalifikacji osób uczących:
 Ostatnie dwa zdania to deklaracje o zespole, a nie o jednej osobie. Jeśli skład się zmieni,
 trzeba je zweryfikować — test w `tests/e2e/layout.spec.js` pilnuje ich obecności, ale nie
 prawdziwości.
+
+### Uzupełnienie faktów o osobie prowadzącej
+
+Właściciel przekazał trzy dodatkowe kwalifikacje, których wcześniej nie było:
+
+- **Nauczanie w szkole podstawowej** — część z ponad 20 lat praktyki.
+- **Nauczycielka dyplomowana** — najwyższy stopień awansu zawodowego nauczyciela.
+- **Egzaminatorka Okręgowej Komisji Egzaminacyjnej** — bezpośrednio wiarygodna przy kursie
+  przygotowującym do egzaminu ósmoklasisty.
+
+Wszystkie trzy stoją zarówno w treści sekcji, jak i w pasku faktów. §4 zabrania publikowania
+kwalifikacji bez potwierdzenia — tutaj potwierdzeniem jest przekazanie ich przez właściciela.
+
+**Zdanie o zaświadczeniu o niekaralności zeszło z sekcji „O High Five".** Nie zniknęło
+z serwisu — stoi na `/kariera/`, gdzie jest wymogiem wobec kandydatów, a nie deklaracją
+marketingową na stronie głównej.

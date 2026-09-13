@@ -4,9 +4,8 @@
  * Krotka sekcja o marce. Powstala, bo pozycja menu "O High Five" prowadzila
  * wczesniej do sekcji "Jak uczymy" - a to opis metody, nie szkoly.
  *
- * Celowo krotka: jeden ekran, trzy wyroznika, zdjecie. Szkola ma male grupy
- * i jedna osobe prowadzaca, wiec rozbudowana opowiesc "o nas" bylaby
- * dopisywaniem tresci, ktorej nie ma.
+ * Trzy akapity, cztery fakty i portret. Sekcja buduje wiarygodnosc, wiec
+ * NIE ma tu wlasnego CTA - wezwanie stoi w naglowku i w sekcji kontaktu.
  */
 
 .about__grid {
@@ -38,18 +37,18 @@
 }
 
 /*
- * Trzy wyrozniki jako typografia, nie plakietki. Kreska u gory zamiast
- * ramki - ten sam jezyk co kolumny korzysci i kroki na podstronach.
+ * Cztery fakty jako typografia, nie plakietki. Kreska u gory zamiast ramki -
+ * ten sam jezyk co kolumny korzysci i kroki na podstronach.
  */
 .about__marks {
   display: grid;
 
   /*
-   * auto-fit z minimum, nie sztywne trzy kolumny: etykiety maja rozna
-   * dlugosc ("20+" obok "UW + SWPS"), a przy waskim ekranie trzy rowne
-   * kolumny lamalyby je na pojedyncze litery.
+   * auto-fit, nie sztywne cztery kolumny. Przy szerokiej kolumnie tekstu
+   * fakty staja w jednym rzedzie, przy wezszej same schodza do ukladu 2x2,
+   * a na telefonie do jednego slupka - bez zmniejszania stopnia pisma.
    */
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
   gap: var(--space-6) var(--grid-gutter);
   margin-block-start: var(--space-4);
   padding: 0;
@@ -57,6 +56,12 @@
 }
 
 .about__mark {
+  /*
+   * min-inline-size: 0 jest konieczne. Domyslna wartosc auto na elemencie
+   * siatki nie pozwala mu zwezic sie ponizej najdluzszego slowa, wiec
+   * "Dyplomowana" wychodzila poza swoja kolumne i byla przycinana.
+   */
+  min-inline-size: 0;
   padding-block-start: var(--space-3);
   border-block-start: 1px solid var(--color-rule);
 }
@@ -64,11 +69,21 @@
 .about__mark strong {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(1.125rem, 1.9vw, 1.625rem);
+
+  /*
+   * Gorny limit wyznacza NAJDLUZSZE haslo, a nie najkrotsze. "Dyplomowana"
+   * to jedenascie znakow bez miejsca na zlamanie; przy 1.625rem nie miescila
+   * sie w kolumnie. Przy 1.375rem zostaje wyrazna hierarchia wobec opisu
+   * w 13 px, a zadne haslo nie wychodzi poza swoje pole.
+   */
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: var(--tracking-heading);
   text-transform: uppercase;
+
+  /* Zabezpieczenie: lepiej zlamac slowo niz je przyciac. */
+  overflow-wrap: anywhere;
 }
 
 .about__mark span {
@@ -86,21 +101,65 @@
 }
 
 @media (width >= 62rem) {
+  .about__grid {
+    /*
+     * Wyrownanie do gory, nie do srodka. Po rozbiciu opisu na trzy akapity
+     * i dolozeniu czwartego faktu kolumna tekstowa urosla - centrowanie
+     * zostawialoby nierowna pustke raz nad tekstem, raz nad kadrem.
+     */
+    align-items: start;
+  }
+
+  /*
+   * Siedem kolumn, nie szesc. Przy szesciu na jeden fakt przypadalo 165 px,
+   * a "Dyplomowana" w stopniu display potrzebuje okolo 187 px i wychodzila
+   * na sasiednia kolumne. Poszerzenie kolumny bylo tu wlasciwa odpowiedzia -
+   * zmniejszenie pisma zabraloby paskowi faktow cala hierarchie.
+   *
+   * Akapity i tak zatrzymuja sie na 46ch, wiec tekst nie rozlewa sie
+   * na cala szerokosc - rosnie wylacznie pole dla paska faktow.
+   */
   .about__text {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 7;
   }
 
   .about__media {
-    grid-column: 7 / -1;
+    /*
+     * Prawa krawedz w JEDNEJ OSI z pozostalymi duzymi zdjeciami strony.
+     *
+     * Hero, kadr sekcji 02 i kadr senioralny koncza sie na krawedzi okna.
+     * Portret konczyl sie 147 px wczesniej, wiec prawa strona strony nie
+     * miala wspolnej linii. To nie jest ujemny margines jako hack - to ten
+     * sam token --bleed-inline, ktorego uzywaja tamte trzy kadry.
+     */
+    grid-column: 8 / -1;
     margin-block-start: 0;
+    margin-inline-end: calc(var(--bleed-inline) * -1);
 
     /*
      * Pelna proporcja zrodla, bez przycinania. Kwadratowy kadr obcinal dolna
      * czesc zdjecia razem z biurkiem i notatnikiem, czyli z tym, co nadaje
      * portretowi kontekst pracy zamiast studyjnego popiersia.
+     *
+     * Limit wysokosci podniesiony, bo to ON, a nie siatka, decydowal
+     * o szerokosci kadru: przy 44rem portret zatrzymywal sie na 563 px
+     * mimo szerszej kolumny.
      */
     aspect-ratio: 4 / 5;
     block-size: auto;
-    max-block-size: min(80svh, 44rem);
+
+    /*
+     * Limit WYLACZNIE w rem, bez czlonu svh.
+     *
+     * Kazda wersja z svh wiazala szerokosc kadru z wysokoscia okna: przy
+     * 1920x900 portret konczyl sie 121 px przed krawedzia, a przy 1920x1080
+     * juz w niej trafial. Ta sama strona wygladala inaczej na dwoch monitorach
+     * o tej samej szerokosci.
+     *
+     * Cena jest swiadoma: przy szerokim oknie kadr bywa wyzszy niz viewport
+     * i sekcja rosnie. Wlasciciel wprost wybral czytelnosc i wspolna os
+     * ponad zmieszczenie sekcji na jednym ekranie.
+     */
+    max-block-size: 66rem;
   }
 }
