@@ -81,15 +81,33 @@
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: rozmowa rekrutacyjna w zwykłej, współczesnej warszawskiej kawiarni.
-                Kandydatka lub kandydat w wieku 21-26 lat i osoba rekrutująca. Kawa, notes,
-                naturalna rozmowa, nikt nie patrzy w obiektyw. Bez sali lekcyjnej, bez angielskich
-                haseł na ścianach. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media page-hero__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/career-interview-768.avif   768w,
+                    /src/assets/images/sections/career-interview-1200.avif 1200w,
+                    /src/assets/images/sections/career-interview-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/career-interview-768.webp"
+                  srcset="
+                    /src/assets/images/sections/career-interview-768.webp   768w,
+                    /src/assets/images/sections/career-interview-1200.webp 1200w,
+                    /src/assets/images/sections/career-interview-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Rozmowa rekrutacyjna przy stole w kawiarni, kandydatka i osoba rekrutująca"
+                  width="1448"
+                  height="1086"
+                  loading="eager"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
@@ -209,14 +227,31 @@
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media split__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: młoda osoba prowadząca zajęcia z trójką lub czwórką dzieci z klas
-                1-7. Naturalna sala, dzieci wykonują zadanie lub rozmawiają przy stole. Nikt nie
-                pozuje. Bez plakatów z angielskimi hasłami. Proporcja 3:2, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media split__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/career-teaching-768.avif   768w,
+                    /src/assets/images/sections/career-teaching-1200.avif 1200w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/career-teaching-768.webp"
+                  srcset="
+                    /src/assets/images/sections/career-teaching-768.webp   768w,
+                    /src/assets/images/sections/career-teaching-1200.webp 1200w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Osoba prowadząca zajęcia z czwórką dzieci pracujących przy wspólnym stole"
+                  width="1292"
+                  height="1218"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>

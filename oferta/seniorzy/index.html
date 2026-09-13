@@ -75,14 +75,33 @@
               CLAUDE.md par. 4 zabrania udawania, ze widac tu rzeczywiste
               zajecia. Wymaganie zapisane w docs/CONTENT_GAPS.md.
             -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: troje seniorów w wieku 65-75 lat podczas zajęć w sali szkoleniowej.
-                Dwie kobiety i mężczyzna, zwykłe ubrania, rozmowa lub ćwiczenie przy stole. Nikt nie
-                patrzy w obiektyw. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media page-hero__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/seniors-class-768.avif   768w,
+                    /src/assets/images/sections/seniors-class-1200.avif 1200w,
+                    /src/assets/images/sections/seniors-class-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/seniors-class-768.webp"
+                  srcset="
+                    /src/assets/images/sections/seniors-class-768.webp   768w,
+                    /src/assets/images/sections/seniors-class-1200.webp 1200w,
+                    /src/assets/images/sections/seniors-class-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Czworo starszych osób przy stołach w jasnej sali, z zeszytami i długopisami"
+                  width="1448"
+                  height="1086"
+                  loading="eager"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>

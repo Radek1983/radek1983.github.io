@@ -9,6 +9,20 @@
   background-color: color-mix(in srgb, var(--color-ink) 8%, var(--color-paper));
 }
 
+/*
+ * <picture> jest domyslnie elementem liniowym o wysokosci zaleznej od tresci,
+ * wiec `block-size: 100%` na obrazie nie mialo sie do czego odniesc i cicho
+ * wracalo do wysokosci naturalnej.
+ *
+ * Bylo to niewidoczne, dopoki wszystkie kadry w slotach o zadanej wysokosci
+ * byly PIONOWE: takie i tak przerastaly slot, a nadmiar scinal overflow.
+ * Pierwszy kadr poziomy w tym samym slocie zostawil pod soba pas tla.
+ */
+.media picture {
+  display: block;
+  block-size: 100%;
+}
+
 .media img {
   inline-size: 100%;
   block-size: 100%;

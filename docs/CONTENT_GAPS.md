@@ -281,3 +281,43 @@ dostawcy poczty. Po zakupie domeny (decyzja D3) warto przejść na `kontakt@<dom
 Nieblokujące. **Domeny nie wymyślamy.**
 
 **Dane rejestrowe firmy (G-09)** nadal nieprzekazane — bez zmian.
+
+## Pięć brakujących kadrów — brak zamknięty
+
+Właściciel dostarczył wszystkie pięć zdjęć, których brakowało od czasu ADR 0007.
+Bloki `.photo-todo` zniknęły z serwisu w całości.
+
+| Plik źródłowy                        | Strona              | Miejsce            | Kadr                                                    |
+| ------------------------------------ | ------------------- | ------------------ | ------------------------------------------------------- |
+| `sections/career-interview-1448.png` | `/kariera/`         | hero               | Rozmowa rekrutacyjna przy stole w kawiarni              |
+| `sections/career-teaching-1292.png`  | `/kariera/`         | sekcja granatowa   | Osoba prowadząca z czwórką dzieci przy wspólnym stole   |
+| `sections/seniors-class-1448.png`    | `/oferta/seniorzy/` | hero               | Czworo starszych osób przy stołach, zeszyty i długopisy |
+| `sections/online-lesson-1448.png`    | `/oferta/online/`   | hero               | Lektorka i uczeń w słuchawkach przed laptopami          |
+| `sections/online-student-1448.png`   | `/oferta/online/`   | sekcja „Dla kogo?" | Uczeń w słuchawkach przy laptopie w czasie lekcji       |
+
+Warianty AVIF i WebP wygenerowane przez `npm run images` w szerokościach 768 / 1200 / 1448
+(dla `career-teaching` 768 / 1200 — źródło ma 1292 px, a skrypt nie skaluje w górę).
+
+### Trzy zastrzeżenia do tych kadrów
+
+**Kadr `career-teaching` zawiera napisy i godło państwowe.** Na tablicy widnieje „Razem możemy
+więcej", na tablicy korkowej „Dobrze, że jesteś!", na ścianie mapa Polski i **godło**.
+§7 briefu mówi wprost: „Bez napisów, logo i znaków wodnych w obrazie", a §4 zabrania
+sugerowania oficjalnej relacji z placówką publiczną. Godło na ścianie może tę relację
+sugerować. **Do decyzji właściciela:** zostawić, wykadrować prawą część bez tablicy,
+czy podmienić kadr.
+
+**Dwa kadry online są bardzo podobne.** Oba to ten sam podział ekranu (lektorka po lewej,
+uczeń po prawej), różnią się głównie gestem. Stoją na jednej stronie, jeden pod drugim.
+Działa, ale czyta się jak dwa ujęcia z tej samej sesji, a nie jak dwie różne sytuacje.
+
+**Kadry są generowane przez AI (D4).** Zastrzeżenie ze stopki — „Zdjęcia mają charakter
+ilustracyjny i nie przedstawiają uczniów tej szkoły" — obejmuje również te pięć.
+
+### Co zostaje otwarte
+
+| #    | Brak                                 | Blokuje release                              |
+| ---- | ------------------------------------ | -------------------------------------------- |
+| G-02 | **`og:image`** (1200 × 630)          | **Nie** — psuje tylko podgląd linku          |
+| G-03 | **Logo / znak graficzny w SVG**      | **Nie** — wordmark realizowany typografią    |
+| G-17 | **Własna domena i skrzynka firmowa** | **Nie** — argument biznesowy, nie techniczny |

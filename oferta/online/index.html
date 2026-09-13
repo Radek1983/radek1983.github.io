@@ -71,14 +71,33 @@
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: osoba prowadząca zajęcia, 25-35 lat, w słuchawkach przed laptopem
-                podczas lekcji online. Neutralne, proste wnętrze. Bez plakatów i kubków z
-                angielskimi hasłami, bez symboli brytyjskich. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media page-hero__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/online-lesson-768.avif   768w,
+                    /src/assets/images/sections/online-lesson-1200.avif 1200w,
+                    /src/assets/images/sections/online-lesson-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/online-lesson-768.webp"
+                  srcset="
+                    /src/assets/images/sections/online-lesson-768.webp   768w,
+                    /src/assets/images/sections/online-lesson-1200.webp 1200w,
+                    /src/assets/images/sections/online-lesson-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Lektorka i uczeń w słuchawkach przed laptopami podczas lekcji online"
+                  width="1448"
+                  height="1086"
+                  loading="eager"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
@@ -180,14 +199,33 @@
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media split__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: dziecko w wieku 9-13 lat w słuchawkach przed laptopem, na ekranie
-                widoczna osoba prowadząca lekcję. Dziecko nie patrzy w obiektyw. Zwykłe, polskie
-                wnętrze. Proporcja 3:2, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media split__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/online-student-768.avif   768w,
+                    /src/assets/images/sections/online-student-1200.avif 1200w,
+                    /src/assets/images/sections/online-student-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/online-student-768.webp"
+                  srcset="
+                    /src/assets/images/sections/online-student-768.webp   768w,
+                    /src/assets/images/sections/online-student-1200.webp 1200w,
+                    /src/assets/images/sections/online-student-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Uczeń w słuchawkach przy laptopie w czasie lekcji z lektorką"
+                  width="1448"
+                  height="1086"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>

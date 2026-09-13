@@ -316,11 +316,32 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
     await expect(page.locator('body')).toContainText(/nie obiecujemy wyniku/i)
   })
 
-  test('brakujace zdjecia sa oznaczone, a nie udawane', async ({ page }) => {
+  /*
+   * Pieciu brakujacych kadrow juz nie ma - wlasciciel dostarczyl zdjecia
+   * i sloty .photo-todo zostaly zastapione prawdziwymi <picture>.
+   *
+   * Test odwrocil sie o 180 stopni, ale pilnuje tej samej rzeczy co
+   * przedtem: zadne miejsce na zdjecie nie moze byc UDAWANE. Wczesniej
+   * znaczylo to "brak ma byc oznaczony", teraz "braku juz nie ma".
+   */
+  test('kazde miejsce na zdjecie ma prawdziwy kadr', async ({ page }) => {
     for (const url of ['/oferta/seniorzy/', '/oferta/online/', '/kariera/']) {
       await page.goto(url)
-      const braki = page.locator('.photo-todo')
-      expect(await braki.count(), url).toBeGreaterThan(0)
+      await expect(page.locator('.photo-todo'), url).toHaveCount(0)
+
+      const media = page.locator('main .media picture img')
+      expect(await media.count(), url).toBeGreaterThan(0)
+
+      // Kazdy kadr ma alt, wymiary i nowoczesny format w srcset.
+      for (const img of await media.all()) {
+        await expect(img).toHaveAttribute('alt', /.{10,}/)
+        await expect(img).toHaveAttribute('width', /\d+/)
+        await expect(img).toHaveAttribute('height', /\d+/)
+      }
+      await expect(page.locator('main .media source[type="image/avif"]').first()).toHaveAttribute(
+        'srcset',
+        /\.avif/,
+      )
     }
 
     // Zaden obraz nie moze pochodzic z obcego hosta - CSP i tak by go odrzucila.
