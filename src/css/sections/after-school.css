@@ -1,9 +1,29 @@
 /*
  * 02 PO LEKCJACH
  *
- * Split: tekst w krotkich blokach po lewej, sticky fotografia po prawej.
- * Najpierw konkret lokalny, dopiero potem korzysc edukacyjna (brief, sekcja 11).
+ * Scrollytelling na sticky fotografii. Kadr wchodzi do sekcji normalnym
+ * scrollem, zatrzymuje sie pod naglowkiem strony, stoi przez czas czytania
+ * kolejnych blokow i odjezdza razem z koncem sekcji.
+ *
+ * Wysokosc sekcji NIE jest wymuszona zadnym min-height. Bierze sie wylacznie
+ * z odstepow miedzy blokami, wiec rosnie i maleje razem z trescia. Sztuczne
+ * rozciaganie ekranu do 300vh jest wprost zabronione (CLAUDE.md par. 9)
+ * i przy krotszej tresci zostawialoby pustke pod ostatnim akapitem.
  */
+
+.after-school {
+  /* Wejscie sekcji jest tu wyraznie spokojniejsze niz reszta strony. */
+  --dur-after-school: 1100ms;
+
+  /*
+   * Hero konczy sie pelnowymiarowa fotografia dochodzaca do obu krawedzi
+   * ekranu. Pelny odstep sekcyjny czytal sie po niej jak dziura miedzy
+   * dwoma osobnymi ekranami, wiec gorne powietrze jest tu o polowe mniejsze
+   * niz --space-section. Dolne zostaje bez zmian - tam przejscie idzie
+   * w czerwony akt i potrzebuje ciszy.
+   */
+  padding-block-start: clamp(1.25rem, 2.5vw, 2.75rem);
+}
 
 .after-school__grid {
   display: grid;
@@ -12,16 +32,68 @@
   align-items: start;
 }
 
+.after-school__intro,
+.after-school__media,
 .after-school__text {
   grid-column: 1 / -1;
+}
+
+.after-school__intro {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-3);
 }
 
 .after-school__media {
-  grid-column: 1 / -1;
-  margin-block-start: var(--space-12);
+  margin-block: var(--space-6);
+}
+
+/*
+ * Kadr jest w zrodle dokladnie 4:5, wiec przy pelnej proporcji nic nie jest
+ * przycinane. Gdy ograniczenie wysokosci zaczyna dzialac, crop ma schodzic
+ * z DOLU - stad gorne kotwiczenie. Centrowanie scinalo wlosy dziewczynki.
+ */
+.after-school__media img {
+  object-position: center top;
+}
+
+/*
+ * Lokalne obejscie maski zostalo USUNIETE.
+ *
+ * Kadr mial tu wlasna maske na <picture>, bo clip-path na obserwowanym
+ * elemencie zerowal prostokat przeciecia i zdjecie nie odslanialo sie
+ * nigdy. Cala warstwa reveal uzywa teraz maski CSS zamiast clip-path,
+ * wiec obejscie przestalo byc potrzebne - patrz animations/reveal.css.
+ */
+
+/*
+ * --- Wejscie sekcji: startuje natychmiast, trwa dluzej ---
+ *
+ * Rozdzielenie, o ktore prosil wlasciciel: opoznienia sa male (0-280 ms),
+ * a wydluzony jest sam czas trwania - 1100 ms zamiast globalnych 560 ms.
+ * Latwo pomylic "wolniej" z "pozniej"; tutaj ruch rusza od razu po wejsciu
+ * w kadr i po prostu plynie dluzej.
+ *
+ * Easing to --ease-standard, nie --ease-out-expo: expo hamuje bardzo ostro
+ * i przy dlugim czasie trwania caly ruch zbija sie w pierwsze 200 ms,
+ * czyli daje dokladnie to "migniecie", ktore mielismy usunac.
+ */
+.js .after-school [data-animation] {
+  transition-duration: var(--dur-after-school);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* Kadr rusza pierwszy, naglowek wchodzi na jego tle, tekst zamyka sekwencje. */
+.js .after-school__media {
+  --reveal-delay: 0ms;
+}
+
+.js .after-school__claim {
+  --reveal-delay: 120ms;
+}
+
+.js .after-school__block:first-child {
+  --reveal-delay: 280ms;
 }
 
 /*
@@ -33,23 +105,118 @@
   max-inline-size: 16ch;
 }
 
+.after-school__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
 /* Kolejne bloki tekstowe rozdzielone linia, nie kartami. */
 .after-school__block {
   padding-block-start: var(--space-6);
   border-block-start: 1px solid var(--color-rule);
 }
 
-@media (width >= 62rem) {
-  .after-school__text {
-    grid-column: 1 / span 6;
+/* --- Puenta sekcji --- */
 
-    /* Wysokosc wieksza od media daje sticky obrazowi dystans do "stania". */
-    padding-block: var(--space-4) var(--space-16);
-    gap: var(--space-8);
+/*
+ * Pierwsze zdanie puenty jest wypowiedzia, nie akapitem: stopien pisma bliski
+ * H3, kroj display i ciasna interlinia. Nie jest naglowkiem semantycznym -
+ * hierarchia h2 -> h3 opisywalaby tu strukture, ktorej nie ma, a par. 10
+ * zabrania skokow naglowkow dla samego wygladu.
+ */
+.after-school__punch {
+  margin-block-end: var(--space-4);
+  max-inline-size: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: var(--tracking-heading);
+}
+
+/*
+ * Miara szersza niz --measure jest tu celowa: przy 34rem ostatni wyraz
+ * spadal do trzeciej linii. Zdanie ma sie zmiescic w dwoch.
+ */
+.after-school__coda {
+  max-inline-size: 38rem;
+  font-size: clamp(1.125rem, 1.45vw, 1.5rem);
+  line-height: 1.45;
+}
+
+@media (width >= 62rem) {
+  .after-school__intro {
+    grid-column: 1 / span 6;
+    grid-row: 1;
   }
 
+  /*
+   * Zdjecie zajmuje OBA wiersze lewej kolumny. To jego obszar siatki jest
+   * torem, po ktorym moze jechac position: sticky - gdyby stalo tylko
+   * w wierszu 1, odklejaloby sie zaraz po naglowku.
+   *
+   * align-self: start jest tu warunkiem dzialania sticky, a nie kosmetyka:
+   * domyslne stretch rozciagneloby element na cala wysokosc obszaru i nie
+   * zostaloby ani piksela, w ktorym moglby sie przesuwac.
+   */
   .after-school__media {
+    grid-row: 1 / span 2;
     grid-column: 8 / -1;
-    margin-block-start: 0;
+    align-self: start;
+
+    /*
+     * Kadr startuje nizej niz naglowek. Dzieki temu po wejsciu w sekcje
+     * jedzie jeszcze kawalek normalnym scrollem, zanim dojdzie do swojej
+     * pozycji i sie zatrzyma - zamiast stac przyklejony od pierwszej chwili.
+     */
+    margin-block: clamp(2rem, 7vh, 5rem) 0;
+
+    /*
+     * Prawa krawedz w JEDNEJ OSI z kadrem hero.
+     *
+     * Hero jest full-bleed i dochodzi do krawedzi ekranu, wiec zeby obie
+     * fotografie tworzyly wspolna pionowa linie, ta musi wyjsc poza siatke
+     * dokladnie o odleglosc od tresci kontenera do krawedzi okna.
+     * --bleed-inline trzyma te wartosc w jednym miejscu i uwzglednia
+     * zarowno margines siatki, jak i centrowanie kontenera na szerokich
+     * ekranach.
+     */
+    margin-inline-end: calc(var(--bleed-inline) * -1);
+
+    /*
+     * Wysokosc sterowana wprost, proporcja wylaczona.
+     *
+     * Przy 4:5 i ograniczeniu max-block-size to WYSOKOSC wygrywala i sciagala
+     * szerokosc: na 1920 px kadr konczyl sie 101 px przed krawedzia ekranu
+     * i nie trafial w os kadru hero. Tu szerokosc wyznacza siatka razem
+     * z wyjsciem poza nia, a wysokosc jest podana osobno; roznice przejmuje
+     * object-fit: cover, kotwiczony do gory.
+     *
+     * Jawna wysokosc rezerwuje miejsce przed zaladowaniem obrazu, wiec nie
+     * powstaje przesuniecie layoutu.
+     */
+    aspect-ratio: auto;
+    block-size: 84svh;
+  }
+
+  .after-school__text {
+    grid-row: 2;
+    grid-column: 1 / span 6;
+    padding-block-end: var(--space-16);
+
+    /*
+     * Ten odstep steruje dlugoscia calego efektu. To on, a nie min-height,
+     * decyduje jak dlugo zdjecie stoi.
+     */
+    gap: clamp(3rem, 13vh, 7.5rem);
+  }
+
+  /*
+   * Puenta dostaje dodatkowy odstep ponad zwykly rytm blokow, zeby wjechala
+   * w kadr dopiero w koncowce sekcji i miala wlasny moment.
+   */
+  .after-school__block--punch {
+    margin-block-start: clamp(1.5rem, 6vh, 3.5rem);
   }
 }

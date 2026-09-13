@@ -23,14 +23,19 @@ sprawdza je co do znaku.
 
 **Lead:**
 
-> Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy,
-> dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.
+> Zajęcia dla uczniów klas 1-8, prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy,
+> dużo praktycznego angielskiego i osobny program przygotowujący do egzaminu ósmoklasisty.
+
+Brzmienie zmienione przez właściciela. Brief podawał tu „Zajęcia dla dzieci z klas 1-8 na
+terenie Szkoły Podstawowej nr 402…" — te same fakty, inny rejestr: „uczniów" zamiast „dzieci",
+„po lekcjach" wprost w pierwszym zdaniu, „osobny program" zamiast „osobna ścieżka".
 
 Cały tekst hero leży **na fotografii**, na pustej ścianie w lewej części kadru: wordmark,
 H1 i lead. Ściana jest niemal biała, więc tekst w kolorze INK ma pełny kontrast i nie wymaga
 ani przycienienia, ani gradientu — jednego i drugiego brief zabrania.
 
-**Akcja pomocnicza:** `Zobacz ofertę` — czarny przycisk, prowadzi do `#oferta`.
+**Akcja pomocnicza:** `Sprawdź grupy i ceny` — czarny przycisk, prowadzi do `#oferta`.
+Wcześniej `Zobacz ofertę`; właściciel nazwał wprost to, co rodzic znajdzie po kliknięciu.
 
 **W hero NIE MA:**
 
@@ -71,16 +76,35 @@ Przekazał ją właściciel — patrz `docs/CONTENT_GAPS.md`. Nie jest sprzeczna
 > Dziecko nie musi jechać do kolejnej placówki, a rodzic nie organizuje dodatkowego dojazdu
 > w środku popołudnia.
 
+**Puenta sekcji** — pierwsze zdanie znacznie mocniejsze typograficznie od pozostałych akapitów,
+drugie mniejsze. Dopisane przez właściciela przy przebudowie sekcji na scrollytelling.
+
+> Mniej wożenia, mniej pośpiechu, więcej spokojnego popołudnia.
+
+> Angielski staje się naturalnym ciągiem dnia dziecka – a nie kolejnym punktem, do którego
+> trzeba zdążyć.
+
+Sekcja jest zbudowana na sticky fotografii: zdjęcie stoi po prawej, a cztery bloki przewijają
+się obok niego. Puenta ma wjeżdżać w kadr dopiero w końcówce, żeby dostała własny moment —
+pilnuje tego test w `tests/e2e/layout.spec.js`.
+
 ## 03 Co dziecko zyskuje — `#korzysci`
 
-**Pasy typograficzne:** Mówię · Rozumiem · Próbuję / Pewność · Ciekawość · Postęp
+**Pas typograficzny:** MÓWIĘ ◆ ROZUMIEM ◆
 
-Pasy są `aria-hidden` — są rytmem wizualnym, nie nośnikiem treści. Semantyczna wersja
+Jeden pas, nie dwa. Drugi — „Pewność ◆ Ciekawość ◆ Postęp" — został usunięty na polecenie
+właściciela: był odsunięty w lewo i przy przewijaniu zostawał z niego w kadrze pojedynczy romb
+wiszący w pustce, co czytało się jak błąd, a nie kompozycja.
+
+Pas jest `aria-hidden` — jest rytmem wizualnym, nie nośnikiem treści. Semantyczna wersja
 komunikatu to trzy bloki poniżej. Sekcja ma ukryty nagłówek dla czytników ekranu.
 
-- **Więcej mówienia.** Dziecko regularnie używa języka w praktyce, zamiast tylko rozwiązywać ćwiczenia.
-- **Lepsze rozumienie.** Słownictwo i gramatyka mają pomagać rozumieć i komunikować się, nie być celem samym w sobie.
-- **Więcej pewności.** Regularny kontakt z językiem ułatwia pracę na lekcjach szkolnych i przygotowanie do ważnych sprawdzianów.
+Nagłówki kolumn przepisane przez właściciela na pierwszą osobę, tak by odpowiadały pasowi
+(„Mówię", „Rozumiem"). Fakty bez zmian.
+
+- **Mówię więcej.** Dziecko regularnie używa angielskiego w praktyce, zamiast tylko rozwiązywać ćwiczenia.
+- **Rozumiem więcej.** Słownictwo i gramatyka pomagają dziecku rozumieć i komunikować się – nie są celem samym w sobie.
+- **Czuję się pewniej.** Regularny kontakt z językiem ułatwia pracę na lekcjach i przygotowanie do ważnych sprawdzianów.
 
 ## 04 Kursy — `#oferta`
 

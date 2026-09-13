@@ -15,7 +15,7 @@
     transition:
       opacity var(--dur-reveal) var(--ease-out-expo),
       translate var(--dur-reveal) var(--ease-out-expo),
-      clip-path var(--dur-reveal) var(--ease-out-expo);
+      mask-size var(--dur-reveal) var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -36,19 +36,50 @@
     transition-timing-function: ease-out;
   }
 
-  /* Domyslnie: wylonienie sie z wlasnej linii od dolu. */
+  /*
+   * --- Maski wejscia: mask-size zamiast clip-path ---
+   *
+   * To NIE jest zmiana jezyka ruchu. Efekt jest ten sam: tresc wylania sie
+   * spod krawedzi. Zmienil sie mechanizm, bo clip-path mial powazna wade
+   * ukryta przed okiem.
+   *
+   * IntersectionObserver liczy przeciecie na prostokacie PRZYCIETYM przez
+   * clip-path. Element z `inset(100%)` ma zerowa powierzchnie, wiec zglaszal
+   * isIntersecting: false i nie odslanial sie NIGDY - ratowala go dopiero
+   * siatka bezpieczenstwa 2,5 s po zaladowaniu strony. Skutek byl widoczny
+   * wprost: pelnoszerokie zdjecie nad stopka przez ponad dwie sekundy
+   * zostawialo jasny, pusty pas.
+   *
+   * Maska CSS nie wplywa na pomiar przeciecia. Zmierzone na tej samej
+   * stronie: ratio 1.0 z maska, 0.0 z clip-path.
+   *
+   * Mechanizm: jednolita maska kotwiczona do krawedzi, ktorej rozmiar rosnie
+   * od zera do pelnego. Kierunek wynika z mask-position.
+   */
+  .js [data-animation='reveal'],
+  .js [data-animation='mask-up'],
+  .js [data-animation='mask-start'] {
+    mask-image: linear-gradient(#000, #000);
+    mask-repeat: no-repeat;
+  }
+
+  /* Wylonienie sie z wlasnej linii, od gory w dol. */
   .js [data-animation='reveal'] {
-    clip-path: inset(0 0 100% 0);
+    mask-position: 0 0;
+    mask-size: 100% 0%;
     translate: 0 1.25rem;
   }
 
-  /* Maska pozioma - dla mediow i pasow pelnej szerokosci. */
+  /* Maska pozioma od dolu - dla mediow i pasow pelnej szerokosci. */
   .js [data-animation='mask-up'] {
-    clip-path: inset(100% 0 0 0);
+    mask-position: 0 100%;
+    mask-size: 100% 0%;
   }
 
+  /* Maska pionowa od lewej krawedzi. */
   .js [data-animation='mask-start'] {
-    clip-path: inset(0 100% 0 0);
+    mask-position: 0 0;
+    mask-size: 0% 100%;
   }
 
   /* Sam fade z drobnym przesunieciem - dla elementow, ktore maska by rozbila
@@ -59,7 +90,7 @@
 
   .js [data-animation].is-visible {
     opacity: 1;
-    clip-path: inset(0 0 0 0);
+    mask-size: 100% 100%;
     translate: none;
   }
 }
@@ -72,16 +103,84 @@
  * Krok jest maly: przy trzech elementach caly ciag konczy sie 140 ms
  * po pierwszym, wiec nie powstaje wrazenie doladowywania strony.
  */
-.js .benefits__item:nth-child(2),
-.js .course:nth-child(2) .course__media,
-.js .after-school__block:nth-child(3) {
-  --reveal-delay: 70ms;
+
+/*
+ * Stagger kursow zniknal razem z sekcja. Po przebudowie architektury strona
+ * glowna pokazuje skrot czterech sciezek, a szczegoly obu kursow zyja na
+ * wlasnych podstronach.
+ */
+
+.js .benefits__item:nth-child(2) {
+  --reveal-delay: 120ms;
 }
 
-.js .benefits__item:nth-child(3),
-.js .after-school__block:nth-child(4) {
-  --reveal-delay: 140ms;
+.js .benefits__item:nth-child(3) {
+  --reveal-delay: 240ms;
 }
+
+/*
+ * Kolumny korzysci zaczynaja z 0.4, a nie z zera.
+ *
+ * Trzy krotkie zdania obok siebie, ktore gasna do konca i wracaja, czytaja sie
+ * jak doladowywanie strony. Wyjscie z polowy przezroczystosci daje ten sam
+ * rytm wejscia, ale tekst ani przez chwile nie znika.
+ */
+.js .benefits__item[data-animation] {
+  opacity: 0.4;
+}
+
+.js .benefits__item[data-animation].is-visible {
+  opacity: 1;
+}
+
+/*
+ * --- Cztery fakty w sekcji 05, jeden po drugim od lewej ---
+ *
+ * Uzywamy istniejacego mechanizmu: obserwator dodaje `is-visible`, a przesuniecie
+ * w czasie robi --reveal-delay. Zadnej nowej biblioteki ani osobnego modulu.
+ *
+ * Ruch jest mniejszy niz domyslny fade-up: 1rem zamiast 1.5rem. Pasek stoi
+ * w jednym rzedzie, wiec cztery elementy jadace po 24 px czytalyby sie jak
+ * skok layoutu, a nie jak spokojne wejscie.
+ *
+ * Obserwator odlacza element po odslonieciu, wiec fakty pokazuja sie RAZ
+ * i nie migocza przy przewijaniu w gore i w dol.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js .about__mark[data-animation] {
+    translate: 0 1rem;
+    transition-duration: 700ms;
+  }
+
+  .js .about__mark:nth-child(2) {
+    --reveal-delay: 140ms;
+  }
+
+  .js .about__mark:nth-child(3) {
+    --reveal-delay: 280ms;
+  }
+
+  .js .about__mark:nth-child(4) {
+    --reveal-delay: 420ms;
+  }
+}
+
+/*
+ * Na telefonie fakty stoja jeden pod drugim albo 2x2, wiec ten sam ruch
+ * czyta sie mocniej. Amplituda w dol, zgodnie z regula o mniejszym ruchu
+ * na malych ekranach.
+ */
+@media (prefers-reduced-motion: no-preference) and (width < 48rem) {
+  .js .about__mark[data-animation] {
+    translate: 0 0.625rem;
+  }
+}
+
+/*
+ * Bloki sekcji 02 nie maja juz stagger: po przebudowie na scrollytelling
+ * dziela je cale ekrany przewijania, wiec nigdy nie wchodza w kadr razem.
+ * Opozniony start bylby wtedy tylko zwloka przed pojawieniem sie tekstu.
+ */
 
 /*
  * Reduced motion: tresc jest po prostu widoczna. Zadnych przejsc, zadnych
@@ -90,7 +189,7 @@
 @media (prefers-reduced-motion: reduce) {
   .js [data-animation] {
     opacity: 1;
-    clip-path: none;
+    mask-image: none;
     translate: none;
   }
 }

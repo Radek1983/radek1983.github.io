@@ -1,0 +1,52 @@
+<!--
+  Stopka wspolna dla wszystkich stron. Lista oferty jest podstawiana przy
+  budowaniu z src/data/offers.mjs.
+
+  UWAGA: nie wypisuj tu nazwy znacznika doslownie. Podstawienie jest zwyklym
+  zastapieniem tekstu i trafiloby rowniez w ten komentarz - lista wchodzila
+  wtedy do dokumentu dwa razy.
+
+  Stopka moze miec wiecej linkow niz naglowek: to ona jest pelna mapa
+  serwisu i jedyna nawigacja dzialajaca bez JavaScriptu.
+
+  Dane kontaktowe sa TYMCZASOWE (decyzja D6 w CLAUDE.md) i stoja tu
+  w jednym miejscu, wiec podmiana to jedna zmiana w jednym pliku.
+-->
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <p class="site-footer__brand">High Five</p>
+
+    <nav class="site-footer__col" aria-label="Oferta">
+      <p class="u-label">Oferta</p>
+      {{STOPKA_OFERTA}}
+      <a class="u-link" href="/oferta/">Cała oferta</a>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="Informacje">
+      <p class="u-label">Informacje</p>
+      <a class="u-link" href="/cennik/">Cennik</a>
+      <a class="u-link" href="/lokalizacje/">Lokalizacje</a>
+      <a class="u-link" href="/#faq">FAQ</a>
+      <a class="u-link" href="/#kontakt">Kontakt</a>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="High Five">
+      <p class="u-label">High Five</p>
+      <a class="u-link" href="/#o-nas">O High Five</a>
+      <a class="u-link" href="/kariera/">Kariera</a>
+    </nav>
+
+    <div class="site-footer__col">
+      <p class="u-label">Kontakt</p>
+      <a class="u-link" href="tel:{{TEL_HREF}}">{{TEL}}</a>
+      <a class="u-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+    </div>
+
+    <p class="site-footer__note">
+      Zajęcia High Five dla uczniów klas 1-7 oraz kursy przygotowujące do egzaminu ósmoklasisty
+      odbywają się na terenie SP 402 po lekcjach szkolnych. High Five nie jest oficjalnym serwisem
+      Szkoły Podstawowej nr 402, a szkoła nie odpowiada za ofertę komercyjną. Zdjęcia mają charakter
+      ilustracyjny i nie przedstawiają uczniów tej szkoły.
+    </p>
+  </div>
+</footer>

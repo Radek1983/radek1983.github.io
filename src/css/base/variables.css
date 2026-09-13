@@ -82,6 +82,9 @@
   /* --- Warstwy --- */
   --z-ticker: 20;
   --z-header: 30;
+
+  /* Szuflada przykrywa naglowek - inaczej sticky header przebijalby panel. */
+  --z-drawer: 40;
   --z-skip: 40;
 }
 

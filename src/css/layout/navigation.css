@@ -51,8 +51,21 @@
 }
 
 @media (width >= 48rem) {
+  /*
+   * "safe center", nie samo "center".
+   *
+   * Pasek ma szesc pozycji i miedzy 768 a okolo 1900 px jest szerszy od okna.
+   * Zwykle centrowanie rozklada wtedy nadmiar ROWNO na obie strony i ucina
+   * poczatek listy - zamiast "Nabor trwa" widac "trwa". Zmierzone: pierwsza
+   * pozycja zaczynala sie na -440 px przy 768 i -104 px przy 1440.
+   *
+   * Slowo kluczowe "safe" znaczy dokladnie: wysrodkuj, ale gdy tresc sie nie
+   * miesci, wyrownaj do poczatku zamiast obcinac. Przegladarka bez wsparcia
+   * dla tego slowa zignoruje cala deklaracje i zostanie przy wyrownaniu
+   * do lewej, czyli przy bezpieczniejszym z dwoch zachowan.
+   */
   .ticker__track {
-    justify-content: center;
+    justify-content: safe center;
   }
 }
 
@@ -115,7 +128,12 @@
 
 .site-nav__list {
   display: flex;
-  gap: var(--space-6);
+
+  /*
+   * Odstep mniejszy niz --space-6. Menu ma osiem pozycji plus wordmark
+   * i przycisk; przy 1.5rem caly wiersz nie miescil sie ponizej 1440 px.
+   */
+  gap: clamp(0.875rem, 1.6vw, 1.5rem);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -151,7 +169,12 @@
   transform: scaleX(1);
 }
 
-@media (width >= 62rem) {
+/*
+ * Prog podniesiony z 62rem na 75rem. Osiem pozycji + CTA potrzebuje wiecej
+ * miejsca niz wczesniejsze cztery; ponizej tej szerokosci menu zawijalo sie
+ * do drugiego wiersza i rozpychalo naglowek.
+ */
+@media (width >= 75rem) {
   .site-nav {
     display: block;
   }
@@ -170,8 +193,444 @@
   display: none;
 }
 
-@media (width >= 32rem) {
+@media (width >= 75rem) {
   .site-header .site-header__cta {
     display: inline-flex;
+  }
+}
+
+/* --- Przelacznik szuflady --- */
+
+/*
+ * Widoczny dokladnie tam, gdzie znika menu poziome. Wczesniej nawigacja
+ * na telefonie po prostu nie istniala - przy czterech kotwicach dalo sie to
+ * obronic, przy osmiu pozycjach i trzech podstronach juz nie.
+ */
+.site-header__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  padding-inline: var(--space-2);
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@media (width >= 75rem) {
+  .site-header__toggle {
+    display: none;
+  }
+}
+
+/* Trzy kreski bez pliku graficznego - ikona uzytkowa, nie dekoracja. */
+.site-header__burger {
+  position: relative;
+  display: block;
+  inline-size: 20px;
+  block-size: 2px;
+  background-color: currentcolor;
+}
+
+.site-header__burger::before,
+.site-header__burger::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  block-size: 2px;
+  background-color: currentcolor;
+}
+
+.site-header__burger::before {
+  inset-block-start: -6px;
+}
+
+.site-header__burger::after {
+  inset-block-start: 6px;
+}
+
+/* --- Szuflada --- */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  background-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
+.drawer__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  block-size: 100%;
+  max-inline-size: 22rem;
+  margin-inline-start: auto;
+  padding: var(--space-6) var(--grid-margin) var(--space-8);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  overflow-y: auto;
+}
+
+.drawer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.drawer__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Duza typografia zamiast listy odnosnikow. Cel dotykowy ma pelne 44 px
+ * wysokosci nawet przy krotkiej etykiecie.
+ */
+.drawer__link {
+  display: block;
+  padding-block: var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-heading);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.drawer__link[aria-current='page'] {
+  color: var(--color-signal);
+}
+
+.drawer__cta {
+  align-self: stretch;
+  justify-content: center;
+  margin-block-start: auto;
+}
+
+/*
+ * Pozycja odpowiadajaca biezacej stronie. Stan bierze sie z atrybutu
+ * data-page na <body>, wiec nie potrzebuje JavaScriptu ani osobnej wersji
+ * naglowka dla kazdej podstrony.
+ */
+
+/*
+ * Stan aktywny bierze sie z atrybutu data-section na <body>.
+ *
+ * Wczesniej kazda podstrona potrzebowala wlasnej pary regul. Teraz strona
+ * deklaruje, do ktorej GALEZI serwisu nalezy - wszystkie cztery podstrony
+ * oferty ustawiaja "oferta", wiec pozycja menu podswietla sie tak samo
+ * na /oferta i na /oferta/dzieci, bez mnozenia selektorow.
+ */
+[data-section='oferta'] .site-nav__trigger[data-nav='oferta'],
+[data-section='lokalizacje'] .site-nav__link[data-nav='lokalizacje'],
+[data-section='kariera'] .site-nav__link[data-nav='kariera'] {
+  color: var(--color-signal);
+}
+
+[data-section='oferta'] .site-nav__trigger[data-nav='oferta']::after,
+[data-section='lokalizacje'] .site-nav__link[data-nav='lokalizacje']::after,
+[data-section='kariera'] .site-nav__link[data-nav='kariera']::after {
+  transform: scaleX(1);
+}
+
+/* --- Ciemny naglowek strony kariery --- */
+
+/*
+ * Ciemny naglowek na stronie kariery. Nie jest to druga nawigacja - ten sam
+ * markup, ten sam uklad, wylacznie inny motyw kolorystyczny, tak jak sekcje
+ * strony glownej zmieniaja akt przez [data-theme].
+ */
+[data-section='kariera'] .site-header {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  border-block-end-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+}
+
+[data-section='kariera'] .ticker {
+  background-color: var(--color-ink);
+}
+
+/* --- Mega-menu oferty --- */
+
+/*
+ * Panel na calej szerokosci okna, nie maly dropdown. Cztery produkty
+ * z numerami, opisem i wlasnym wezwaniem - to jest wybor sciezki, a nie
+ * lista odnosnikow.
+ */
+.site-nav__item--mega {
+  position: static;
+}
+
+.site-nav__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.site-nav__chevron {
+  font-size: 0.75em;
+  transition: rotate var(--dur-micro) var(--ease-standard);
+}
+
+.site-nav__trigger[aria-expanded='true'] .site-nav__chevron {
+  rotate: 180deg;
+}
+
+/*
+ * Panel wisi pod naglowkiem na calej szerokosci okna. Pozycjonowanie
+ * bezwzgledne wzgledem <header>, a nie pozycji menu - stad `position: static`
+ * na elemencie listy powyzej.
+ */
+.mega {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: var(--z-header);
+  background-color: var(--color-paper);
+  border-block-end: 1px solid var(--color-rule);
+}
+
+/*
+ * Panel byl odrobine za wysoki. Sciete zostalo WYLACZNIE powietrze w pionie -
+ * gorny i dolny padding oraz odstepy wokol etykiety i dolnych odnosnikow,
+ * okolo 18 procent. Same kolumny zachowuja swoj rytm.
+ */
+.mega__inner {
+  padding-block: clamp(1.25rem, 2.4vw, 2.5rem);
+}
+
+.mega__eyebrow {
+  margin-block-end: var(--space-4);
+}
+
+.mega__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mega__item {
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Caly moduł jest jednym linkiem - cel dotykowy obejmuje numer, etykiete
+ * i opis, a nie samo slowo na koncu.
+ */
+.mega__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-4) var(--space-6);
+  text-decoration: none;
+  color: inherit;
+}
+
+.mega__number {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+.mega__label {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+}
+
+.mega__desc {
+  font-size: var(--step-label);
+  line-height: 1.4;
+}
+
+/* Druga linia opisu: kto i gdzie. Ciszej niz sam opis. */
+.mega__meta {
+  font-size: var(--step-label);
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+
+.mega__cta {
+  margin-block-start: var(--space-2);
+  font-size: var(--step-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/*
+ * Strzalka jest osobnym spanem, zeby dalo sie ja przesunac bez ruszania
+ * tekstu wezwania. Ruch wylacznie przez translate - zadnego scale, cienia
+ * ani unoszenia calego modulu.
+ */
+.mega__arrow {
+  display: inline-block;
+  transition: translate var(--dur-micro) var(--ease-standard);
+}
+
+/*
+ * Stan aktywny calej kolumny. Focus klawiatury wyglada DOKLADNIE tak samo
+ * jak najechanie myszka - poza wlasnym obrysem focus-visible - wiec nikt
+ * nie dostaje slabszej informacji zwrotnej.
+ */
+.mega__link:hover .mega__number,
+.mega__link:focus-visible .mega__number {
+  color: var(--color-accent);
+}
+
+.mega__link:hover .mega__arrow,
+.mega__link:focus-visible .mega__arrow {
+  translate: 6px 0;
+}
+
+.mega__link:hover .mega__cta,
+.mega__link:focus-visible .mega__cta {
+  text-decoration: underline;
+}
+
+/* Kreska nad kolumna lekko ciemnieje - subtelne podkreslenie wyboru. */
+.mega__item:has(.mega__link:hover),
+.mega__item:has(.mega__link:focus-visible) {
+  border-block-start-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
+.mega__number,
+.mega__item {
+  transition:
+    color var(--dur-micro) var(--ease-standard),
+    border-color var(--dur-micro) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega__arrow,
+  .mega__number,
+  .mega__item {
+    transition: none;
+  }
+}
+
+.mega__more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/* --- Oferta w szufladzie mobilnej --- */
+
+/*
+ * <details> zamiast wlasnego przelacznika: rozwijanie, semantyka i obsluga
+ * klawiatury dziala bez JavaScriptu, tak samo jak w FAQ na stronie glownej.
+ */
+.drawer__group {
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.drawer__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  cursor: pointer;
+  list-style: none;
+}
+
+.drawer__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Plus zmieniajacy sie w minus - jedyna ikona w szufladzie, uzytkowa. */
+.drawer__plus {
+  position: relative;
+  flex: none;
+  inline-size: 16px;
+  block-size: 2px;
+  background-color: currentcolor;
+}
+
+.drawer__plus::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentcolor;
+  rotate: 90deg;
+  transition: opacity var(--dur-micro) var(--ease-standard);
+}
+
+.drawer__group[open] .drawer__plus::after {
+  opacity: 0;
+}
+
+.drawer__sublist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0 0 var(--space-4) var(--space-4);
+  list-style: none;
+}
+
+.drawer__sublink {
+  display: block;
+  padding-block: var(--space-2);
+  text-decoration: none;
+}
+
+.drawer__sublink strong {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.drawer__sublink span {
+  display: block;
+  font-size: var(--step-label);
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__chevron,
+  .drawer__plus::after {
+    transition: none;
   }
 }

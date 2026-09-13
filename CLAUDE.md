@@ -78,7 +78,11 @@ To jedyne dane, które wolno publikować:
 - Zajęcia po lekcjach na terenie SP 402 w Warszawie.
 - Nabór trwa. Planowany start: 1 października.
 - Grupa rusza po zebraniu minimum 5 dzieci.
-- Pierwsze dziecko: **55 zł/godz.** Drugie i każde kolejne dziecko z rodzeństwa: **50 zł/godz.**
+- Pierwsze dziecko: **55 zł / 45 min.** Drugie i każde kolejne dziecko z rodzeństwa:
+  **50 zł / 45 min.** Brief pisał „zł/godz.”; właściciel potwierdził, że lekcja trwa **45 minut**,
+  więc jednostka godzinowa obiecywała rodzicowi 15 minut więcej, niż trwają zajęcia.
+- **Płacisz za zajęcia, które są w kalendarzu.** Brak stałej opłaty miesięcznej niezależnej od
+  liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
@@ -107,7 +111,8 @@ Sekcje briefu oznaczone jako gotowe copy to zatwierdzony copy deck. Przenieś je
 `docs/COPY_DECK.md` i mapuj na fragmenty kodu. **Nie przerabiaj ich na generyczny marketing.**
 
 - **H1:** `Angielski po lekcjach. W tej samej szkole.`
-- **Hero lead:** `Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.`
+- **Hero lead:** `Zajęcia dla uczniów klas 1-7, prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy, dużo praktycznego angielskiego i osobny program przygotowujący do egzaminu ósmoklasisty.`
+  Brzmienie zmienione przez właściciela wraz z rozbiciem oferty na cztery produkty (ADR 0008).
 - **Nabór:** `Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.`
 - **Primary CTA:** `Zapisz się na zajęcia`, w nagłówku skrócone do `Zapisz się`.
   Wcześniej brief żądał `Zgłoś dziecko do grupy`. Zmianę polecił właściciel: „zgłoś dziecko” czyta się jak zgłoszenie na policję. Cel, kolor i rola CTA bez zmian — **ADR 0006**
@@ -211,7 +216,8 @@ brak parallaxu, marquee statyczne, reveal minimalny lub natychmiastowy. Kopia ma
 do zapętlenia dostaje `aria-hidden="true"`; jedna semantyczna wersja tekstu pozostaje dostępna.
 
 Mobile: amplituda ruchu mniejsza o 40–60%, animacje 200–500 ms, brak poziomego tracka jeśli nie
-działa idealnie, brak długiego sticky. Zachowaj duży crop typografii, pełne zdjęcia, kontrast,
+działa idealnie, brak długiego sticky. Nawigację poniżej `75rem` przejmuje szuflada z pułapką
+focusu (ADR 0007) - przy ośmiu pozycjach menu nie da się już pominąć. Zachowaj duży crop typografii, pełne zdjęcia, kontrast,
 jedno CTA i kolejność narracji.
 
 Sticky storytelling musi degradować się do układu statycznego na małych ekranach i przy reduced
@@ -327,14 +333,28 @@ inicjalizacji albo przez klasę `js` na `<html>`.
 **SEO.** Na start jeden kompletny one-page.
 
 - `title`: `High Five - angielski dla dzieci w SP 402 Warszawa`
-- `meta description`: `Zajęcia z angielskiego dla klas 1-8 po lekcjach w SP 402 w Warszawie. Przygotowanie do egzaminu ósmoklasisty. Nabór trwa, start 1 października.`
+- `meta description`: `Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października.`
+  `1-8` zamienione na `1-7 + osobny kurs`, bo tak brzmi menu i treść stron po ADR 0008.
+  Sam `title` pozostaje dosłownym cytatem z briefu.
 - `h1`: `Angielski po lekcjach. W tej samej szkole.`
 - Wymagane: canonical, Open Graph, favicon, `sitemap.xml`, `robots.txt`, poprawny `lang`,
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.
 - JSON-LD `EducationalOrganization`/`LocalBusiness` **tylko z prawdziwymi danymi**. Bez ratingów.
   Adres SP 402 jako miejsce zajęć, nie adres rejestrowy firmy.
-- Przyszłe podstrony (`/angielski-dla-dzieci-warszawa/`, `/egzamin-osmoklasisty-angielski/`,
-  `/cennik/`) tylko opisz w `docs/SEO.md`. **Nie rozszerzaj pierwszego zakresu bez zlecenia.**
+- **Serwis ma dziewięć adresów** (ADR 0007, 0008). Hierarchia: `/` (one-page), `/oferta`
+  jako hub czterech produktów (`/oferta/dzieci`, `/oferta/egzamin-osmoklasisty`,
+  `/oferta/seniorzy`, `/oferta/online`), `/lokalizacje`, `/cennik` oraz `/kariera` jako osobna
+  ścieżka dla innego odbiorcy. Każdy adres to katalog z `index.html` i wejście w konfiguracji
+  Vite - bez routera po stronie klienta.
+- **Cena należy do produktu.** `/cennik` jest stroną porównawczą osiągalną z mega-menu
+  i ze stopki, ale **nie** z pierwszego poziomu menu.
+- **Jedno źródło danych oferty:** `src/data/offers.mjs` zasila mega-menu, szufladę, stopkę
+  i kontekstowe CTA. Dodanie kursu to jedna zmiana w jednym pliku. Stron `/oferta` i `/cennik`
+  **nie** generujemy z tych danych - to byłby page builder.
+- **Stare adresy** `/dla-seniorow/` i `/online/` zostają jako strony przekierowujące.
+  GitHub Pages nie umie 301 - szczegóły i droga do prawdziwego przekierowania: ADR 0008.
+- Podstrony SEO-owe (`/angielski-dla-dzieci-warszawa/`, `/egzamin-osmoklasisty-angielski/`,
+  `/cennik/`) nadal tylko opisz w `docs/SEO.md`. **Nie rozszerzaj zakresu bez zlecenia.**
 
 **Analityka.** Taksonomia w `docs/ANALYTICS.md`: `cta_apply_click`, `contact_email_click`,
 `contact_phone_click`, `route_click`, `faq_open`. Zero PII w zdarzeniach. Żadnych trackerów bez
@@ -426,6 +446,8 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Brak formularza (D2)                            | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15                                                                                                                                                                                                                                                                                                                                                                                     |
 | Hosting i `base` — ADR 0001                     | GitHub Pages user site, `base` = `/`, źródło „GitHub Actions” ustawiane ręcznie w Settings → Pages                                                                                                                                                                                                                                                                                                                                                                         |
 | Brzmienie primary CTA — ADR 0006                | Odstępstwo polecone przez właściciela: `Zapisz się na zajęcia` zamiast `Zgłoś dziecko do grupy` z master promptu §7. Czasownik „zgłosić” niosł skojarzenie ze zgłoszeniem na policję. Funkcja, cel `#kontakt` i kolor sygnałowy bez zmian, więc zakaz miękkich CTA nadal obowiązuje. **BIZ-007 formalnie naruszone** — w raporcie odbioru jako odstępstwo, nie PASS                                                                                                        |
+| Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                          |
+| Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                           |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 
 ## 17. Kryteria odbioru
@@ -456,7 +478,7 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
-- **Nie twórz podstron** poza zakresem pierwszego one-page bez zlecenia.
+- **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR
   i zatwierdzenia.
 - **Nie edytuj produkcji ręcznie** jako standardowego workflow.

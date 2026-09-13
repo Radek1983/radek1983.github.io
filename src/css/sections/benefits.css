@@ -9,8 +9,18 @@
   padding-block: clamp(3rem, 6vw, 6rem);
 }
 
+/*
+ * Duza cisza miedzy pasem a kolumnami. Ta pustka jest trescia sekcji -
+ * brief zabrania wypelniania jej ikonami, plakietkami czy dodatkowym
+ * symbolem. Wczesniej bylo tu 3.5rem i sekcja czytala sie jak zbity blok.
+ */
 .benefits__marquee {
-  margin-block-end: clamp(1.75rem, 3.5vw, 3.5rem);
+  /*
+   * Odstep gorny jest konieczny, nie kosmetyczny: przy line-height 0.9
+   * wersaliki wychodza ponad swoj wiersz i bez tego napis wchodzil na
+   * etykiete "03 Co dziecko zyskuje".
+   */
+  margin-block: clamp(1rem, 2.5vw, 2.5rem) clamp(3.5rem, 11vw, 10rem);
 }
 
 .benefits__list {
@@ -28,12 +38,17 @@
   border-block-start: 1px solid var(--color-rule);
 }
 
+/* Naglowek kolumny mocniejszy niz domyslne h3 - to puenta, nie etykieta. */
 .benefits__item h3 {
-  margin-block-end: var(--space-2);
+  margin-block-end: var(--space-3);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1.1;
 }
 
 .benefits__item p {
   max-inline-size: 30ch;
+  font-size: clamp(1.0625rem, 1.2vw, 1.3125rem);
+  line-height: 1.5;
 }
 
 @media (width >= 48rem) {

@@ -17,9 +17,9 @@
     "lint:css": "stylelint \"src/css/**/*.css\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate:html": "html-validate index.html 404.html",
+    "validate:html": "html-validate dist/index.html dist/404.html dist/oferta/index.html dist/oferta/dzieci/index.html dist/oferta/egzamin-osmoklasisty/index.html dist/oferta/seniorzy/index.html dist/oferta/online/index.html dist/lokalizacje/index.html dist/cennik/index.html dist/kariera/index.html",
     "test:e2e": "playwright test",
-    "check": "npm run format:check && npm run lint:js && npm run lint:css && npm run validate:html && npm run test:e2e && npm run build"
+    "check": "npm run format:check && npm run lint:js && npm run lint:css && npm run build && npm run validate:html && npm run test:e2e"
   },
   "devDependencies": {
     "@eslint/js": "^10",

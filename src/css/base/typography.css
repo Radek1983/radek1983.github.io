@@ -132,3 +132,21 @@ a {
 .u-link:focus-visible::after {
   transform: scaleX(0);
 }
+
+/*
+ * --- Display w waskiej kolumnie ---
+ *
+ * --step-display jest skalowany do SZEROKOSCI OKNA, nie do szerokosci pola,
+ * w ktorym naglowek faktycznie stoi. Przy 1440 px daje 144 px, a "Krotko."
+ * potrzebuje wtedy 587 px w kolumnie szerokiej na 443 px. Naglowek wychodzil
+ * poza swoj obszar i byl scinany przez overflow-x: clip na sekcji - widac
+ * bylo "FAQ. KROTK" zamiast "FAQ. KROTKO." i "GOTOWI NA HIGH" bez "FIVE?".
+ *
+ * Wlasna skala liczona od szerokosci okna, ale z limitem dobranym do pola:
+ * najdluzsze slowo obu naglowkow miesci sie w piecu kolumnach siatki.
+ * Zawijanie nie pomoglo by - to sa pojedyncze slowa bez miejsca na zlamanie.
+ */
+.u-display.faq__title,
+.u-display.contact__claim {
+  font-size: clamp(2.5rem, 7vw, 6.25rem);
+}

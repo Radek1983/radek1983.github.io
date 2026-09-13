@@ -1,0 +1,150 @@
+<!--
+  Naglowek wspolny dla wszystkich stron. Jedno zrodlo prawdy - patrz plugin
+  htmlPartials w vite.config.js.
+
+  Trzy rzeczy sa podstawiane przy budowaniu z src/data/offers.mjs: lista
+  oferty w mega-menu, ta sama lista w szufladzie oraz etykieta i adres
+  przycisku. Dzieki temu dodanie piatego kursu albo zmiana wezwania
+  na jednej podstronie nie wymaga dotykania dziewieciu plikow HTML.
+
+  UWAGA: nie wypisuj tu nazw znacznikow doslownie. Podstawienie jest zwyklym
+  zastapieniem tekstu i trafiloby rowniez w ten komentarz - lista oferty
+  wchodzila wtedy do dokumentu dwa razy.
+
+  Adresy sa BEZWZGLEDNE (/#faq, nie #faq), bo to samo menu stoi na dziewieciu
+  stronach. Na stronie glownej "/#faq" to nadal skok w obrebie dokumentu.
+-->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="/">High Five</a>
+
+    <nav class="site-nav" aria-label="Nawigacja główna">
+      <ul class="site-nav__list">
+        <li class="site-nav__item site-nav__item--mega">
+          <!--
+            Przycisk, nie link: rozwija panel, a nie prowadzi pod adres.
+            Sama strona oferty jest osiagalna z dolu panelu - inaczej
+            uzytkownik klawiatury nie mialby jak do niej dojsc.
+          -->
+          <button
+            class="site-nav__link site-nav__trigger"
+            type="button"
+            data-nav="oferta"
+            aria-expanded="false"
+            aria-controls="mega-oferta"
+          >
+            Oferta
+            <span class="site-nav__chevron" aria-hidden="true">↓</span>
+          </button>
+
+          <div class="mega" id="mega-oferta" hidden>
+            <div class="mega__inner container">
+              <p class="u-label mega__eyebrow">Oferta High Five</p>
+
+              <ul class="mega__list">
+                {{MEGA_MENU}}
+              </ul>
+
+              <!--
+                Etykieta drugiego odnosnika zalezy od kompletnosci cen
+                w src/data/offers.mjs. "Porownaj ceny" obiecuje zestawienie
+                czterech kwot obok siebie - przy trzech brakujacych stawkach
+                takiego zestawienia po prostu nie ma.
+              -->
+              <p class="mega__more">
+                <a class="u-link" href="/oferta/">Zobacz całą ofertę →</a>
+                <a class="u-link" href="/cennik/">{{LINK_CENNIK}} →</a>
+              </p>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <a class="site-nav__link" data-nav="lokalizacje" href="/lokalizacje/">Lokalizacje</a>
+        </li>
+        <li><a class="site-nav__link" data-nav="o-nas" href="/#o-nas">O High Five</a></li>
+        <li><a class="site-nav__link" data-nav="faq" href="/#faq">FAQ</a></li>
+        <li><a class="site-nav__link" data-nav="kontakt" href="/#kontakt">Kontakt</a></li>
+        <li><a class="site-nav__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
+      </ul>
+    </nav>
+
+    <a class="cta site-header__cta" href="{{CTA_HREF}}">
+      {{CTA_LABEL}}
+      <span class="cta__arrow" aria-hidden="true">→</span>
+    </a>
+
+    <!--
+      Przelacznik szuflady. Jest <button>, nie <a>: to akcja, nie nawigacja.
+      aria-expanded niesie stan, a etykieta jest tekstowa, wiec przycisk ma
+      nazwe dostepna nawet gdy widac same kreski.
+    -->
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-mobilne"
+    >
+      <span class="site-header__toggle-label">Menu</span>
+      <span class="site-header__burger" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<!--
+  Szuflada mobilna. Stoi w DOM od pierwszego renderu i jest ukrywana
+  atrybutem `hidden`, wiec bez JavaScriptu nie zaslania tresci, a jej linki
+  pozostaja osiagalne dla czytnikow po usunieciu atrybutu.
+-->
+<div class="drawer" id="menu-mobilne" hidden>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__top">
+      <span class="site-header__brand">High Five</span>
+      <button class="drawer__close" type="button">
+        <span class="u-sr-only">Zamknij menu</span>
+        <span aria-hidden="true">✕</span>
+      </button>
+    </div>
+
+    <nav class="drawer__nav" aria-label="Nawigacja mobilna">
+      <ul class="drawer__list">
+        <li>
+          <!--
+            Rozwijana grupa oferty. <details> daje dzialajace rozwijanie bez
+            ani jednej linii JavaScriptu, wlasciwa semantyke i obsluge
+            klawiatury z pudelka - tak samo jak FAQ na stronie glownej.
+          -->
+          <details class="drawer__group">
+            <summary class="drawer__link drawer__summary">
+              Oferta
+              <span class="drawer__plus" aria-hidden="true"></span>
+            </summary>
+
+            <ul class="drawer__sublist">
+              {{MENU_MOBILNE_OFERTA}}
+              <li>
+                <a class="drawer__sublink" href="/oferta/"><strong>Cała oferta</strong></a>
+              </li>
+              <li>
+                <a class="drawer__sublink" href="/cennik/"><strong>{{LINK_CENNIK}}</strong></a>
+              </li>
+            </ul>
+          </details>
+        </li>
+
+        <li>
+          <a class="drawer__link" data-nav="lokalizacje" href="/lokalizacje/">Lokalizacje</a>
+        </li>
+        <li><a class="drawer__link" data-nav="o-nas" href="/#o-nas">O High Five</a></li>
+        <li><a class="drawer__link" data-nav="faq" href="/#faq">FAQ</a></li>
+        <li><a class="drawer__link" data-nav="kontakt" href="/#kontakt">Kontakt</a></li>
+        <li><a class="drawer__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
+      </ul>
+    </nav>
+
+    <a class="cta drawer__cta" href="{{CTA_HREF}}">
+      {{CTA_LABEL}}
+      <span class="cta__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</div>

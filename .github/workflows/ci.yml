@@ -31,8 +31,17 @@ jobs:
       - run: npm run format:check
       - run: npm run lint:js
       - run: npm run lint:css
-      - run: npm run validate:html
+
+      # Kolejnosc jest ISTOTNA: html-validate sprawdza dist/, a nie zrodla.
+      # Dokument w repozytorium nie jest jeszcze kompletnym HTML-em - naglowek,
+      # stopka i dane kontaktowe wchodza do niego dopiero przy budowaniu
+      # (plugin high-five-html-partials w vite.config.js). Walidacja przed
+      # buildem nie ma czego czytac.
+      #
+      # Ta sama kolejnosc co w skrypcie `check`, ktory uruchamiamy lokalnie
+      # przed PR - inaczej CI i maszyna dewelopera sprawdzaja co innego.
       - run: npm run build
+      - run: npm run validate:html
 
   test:
     name: e2e

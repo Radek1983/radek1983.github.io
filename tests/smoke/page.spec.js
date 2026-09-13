@@ -30,7 +30,7 @@ test.describe('tresc i SEO', () => {
     )
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',
-      /klas 1-8 po lekcjach w SP 402/,
+      /klas 1-7 po lekcjach w SP 402/,
     )
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
     await expect(page.locator('html')).toHaveAttribute('lang', 'pl')
@@ -59,7 +59,12 @@ test.describe('tresc i SEO', () => {
   test('wszystkie potwierdzone fakty sa w DOM, nie doczytywane przez JS', async ({ page }) => {
     const body = page.locator('body')
 
-    await expect(body).toContainText('klas 1-8')
+    /*
+     * "Klasy 1-7" plus osobny kurs dla klasy 8 zamiast zbiorczego "1-8".
+     * Brief opisuje DWIE sciezki, a jedna etykieta je zacierala.
+     */
+    await expect(body).toContainText('klas 1-7')
+    await expect(body).toContainText(/egzamin/i)
     await expect(body).toContainText('SP 402')
     await expect(body).toContainText('1 października')
     await expect(body).toContainText('minimum 5 dzieci')
@@ -99,8 +104,12 @@ test.describe('tresc i SEO', () => {
       expect(text).not.toContain(forbidden)
     }
 
-    // Klasa 8 musi miec jawne zastrzezenie o braku obietnicy wyniku.
-    expect(text).toContain('nie obiecujemy wyniku')
+    /*
+     * Zastrzezenie o braku obietnicy wyniku przenioslo sie na podstrone
+     * kursu egzaminacyjnego - tam, gdzie stoi jego opis. Strona glowna
+     * pokazuje juz tylko skrot czterech sciezek. Pilnuje go test
+     * w tests/e2e/pages.spec.js.
+     */
   })
 
   test('relacja ze SP 402 jest opisana bez sugerowania oficjalnego partnerstwa', async ({
@@ -114,14 +123,32 @@ test.describe('tresc i SEO', () => {
     await expect(page.locator('#kontakt a[href^="mailto:"]').first()).toBeVisible()
   })
 
-  test('kazdy link nawigacji prowadzi do istniejacej sekcji', async ({ page }) => {
-    const links = page.locator('.site-nav__link[href^="#"]')
-    const count = await links.count()
-    expect(count).toBeGreaterThan(0)
+  test('kazdy link nawigacji prowadzi do istniejacej sekcji lub podstrony', async ({
+    page,
+    request,
+  }) => {
+    /*
+     * Menu ma trzy rodzaje pozycji: przycisk rozwijajacy ofere (bez adresu),
+     * kotwice w glab strony glownej ("/#faq") i adresy podstron
+     * ("/lokalizacje/"). Adresy sa bezwzgledne, bo to samo menu stoi
+     * na dziewieciu stronach.
+     *
+     * Pozycje oferty sprawdza osobny zestaw w tests/e2e/pages.spec.js.
+     */
+    const href = await page
+      .locator('.site-nav__link[href]')
+      .evaluateAll((els) => els.map((el) => el.getAttribute('href')))
+    expect(href.length).toBe(5)
 
-    for (let i = 0; i < count; i += 1) {
-      const href = await links.nth(i).getAttribute('href')
-      await expect(page.locator(href)).toHaveCount(1)
+    for (const adres of href) {
+      if (adres.includes('#')) {
+        const kotwica = '#' + adres.split('#')[1]
+        await expect(page.locator(kotwica), adres).toHaveCount(1)
+      } else {
+        // Podstrona musi istniec pod swoim adresem, nie tylko w menu.
+        const odpowiedz = await request.get(adres)
+        expect(odpowiedz.status(), adres).toBe(200)
+      }
     }
   })
 
@@ -164,12 +191,12 @@ test.describe('tresc i SEO', () => {
   test('w pierwszym ekranie jest dokladnie jedno CTA zgloszeniowe', async ({ page }) => {
     /*
      * Wlasciciel zglosil trzy przyciski zgloszeniowe w jednym widoku. Docelowo
-     * ma byc DOKLADNIE JEDEN - w pasku na gorze. Przycisk "Zobacz ofertę"
+     * ma byc DOKLADNIE JEDEN - w pasku na gorze. Przycisk "Sprawdź grupy i ceny"
      * nie jest tu liczony: to akcja pomocnicza o innym celu i w innym kolorze.
      */
     const zgloszeniowe = await page.evaluate(() =>
       [...document.querySelectorAll('a.cta')]
-        .filter((el) => /zapisz si[eę]/i.test(el.textContent))
+        .filter((el) => /zapisz (si[eę]|dziecko)|zapytaj o zaj/i.test(el.textContent))
         .filter((el) => {
           const r = el.getBoundingClientRect()
           return r.top < window.innerHeight && r.bottom > 0 && el.offsetParent !== null
@@ -181,7 +208,7 @@ test.describe('tresc i SEO', () => {
     // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
     const hero = await page.locator('.hero').innerText()
     expect(hero).not.toMatch(/55 z[lł]/)
-    expect(hero).not.toMatch(/zapisz si[eę]/i)
+    expect(hero).not.toMatch(/zapisz (si[eę]|dziecko)|zapytaj o zaj/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

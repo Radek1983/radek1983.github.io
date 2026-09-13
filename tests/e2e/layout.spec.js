@@ -40,8 +40,12 @@ test.describe('kompozycja i art direction', () => {
     expect(await bg('#cennik')).toBe(PAPER)
     expect(await bg('.site-footer')).toBe(INK)
 
-    // Sciezka egzaminacyjna niesie granat jako drugi akt marki.
-    expect(await bg('.course[data-theme="blue"]')).toBe(HF_BLUE)
+    /*
+     * Granat jako drugi akt marki. Wczesniej niosla go sekcja kursow;
+     * po przebudowie architektury szczegoly kursow zyja na podstronach,
+     * a na stronie glownej granat zostal przy ofercie senioralnej.
+     */
+    expect(await bg('#seniorzy')).toBe(HF_BLUE)
   })
 
   test('hierarchia typograficzna ma wyrazisty poziom display skalowany clamp (VIZ-002)', async ({
@@ -102,7 +106,7 @@ test.describe('kompozycja i art direction', () => {
     await expect(hero).toHaveAttribute('fetchpriority', 'high')
     expect(await hero.getAttribute('loading')).toBeNull()
 
-    const belowFold = page.locator('.course__media img').first()
+    const belowFold = page.locator('.after-school__media img').first()
     await expect(belowFold).toHaveAttribute('loading', 'lazy')
   })
 
@@ -136,29 +140,37 @@ test.describe('oferta dla seniorow', () => {
   })
 
   test('fakty i model rozliczenia sa podane wprost', async ({ page }) => {
-    const section = page.locator('#seniorzy')
+    /*
+     * Szczegoly przenioslу sie na podstrone razem ze skroceniem sekcji
+     * na stronie glownej. Zajawka ma zapraszac, a nie powtarzac cala oferte.
+     *
+     * Model rozliczenia MUSI byc podany wprost: bez tego zastrzezenia
+     * "45 zl" czytaloby sie jak tansza alternatywa dla "55 zl", a to inna
+     * usluga, inne miejsce i inne zasady (docs/ADR/0005).
+     */
+    await page.goto('/oferta/seniorzy/')
+    const tresc = page.locator('main')
 
-    await expect(section).toContainText('Terminal Kultury Gocław')
-    await expect(section).toContainText('45 zł')
-
-    // Bez tego zastrzezenia 45 zl czytaloby sie jak tansza alternatywa dla 55 zl.
-    await expect(section).toContainText(/abonament miesięczny/i)
-    await expect(section).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
+    await expect(tresc).toContainText('Terminal Kultury Gocław')
+    await expect(tresc).toContainText('45 zł')
+    await expect(tresc).toContainText(/rozliczenie jest .{0,20}miesięczne/i)
+    await expect(tresc).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
   })
 
   test('konwersja senioralna nie konkuruje z primary CTA', async ({ page }) => {
-    const link = page.locator('#seniorzy a[href^="https://terminalkultury.pl"]')
-    await expect(link).toHaveCount(1)
-    await expect(link).toHaveAttribute('rel', /noopener/)
+    /*
+     * Zapisy dla seniorow prowadzi Terminal Kultury, wiec odnosnik wychodzi
+     * poza serwis. Na stronie glownej zajawka prowadzi juz tylko na podstrone -
+     * link zewnetrzny zyje tam, gdzie stoi pelna oferta.
+     */
+    const zajawka = page.locator('#seniorzy a[href="/oferta/seniorzy/"]')
+    await expect(zajawka).toHaveCount(1)
+    await expect(zajawka).toHaveClass(/cta--ghost/)
 
-    // Wariant obrysowany, nie wypelniony kolorem akcji.
-    await expect(link).toHaveClass(/cta--ghost/)
-
-    // Primary CTA nadal prowadzi do kontaktu.
-    await expect(page.getByRole('link', { name: /Zapisz si/ }).first()).toHaveAttribute(
-      'href',
-      '#kontakt',
-    )
+    await page.goto('/oferta/seniorzy/')
+    const zewnetrzny = page.locator('main a[href^="https://terminalkultury.pl"]')
+    await expect(zewnetrzny).toHaveCount(1)
+    await expect(zewnetrzny).toHaveAttribute('rel', /noopener/)
   })
 
   test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {
@@ -169,6 +181,528 @@ test.describe('oferta dla seniorow', () => {
     const names = data.location.map((l) => l.name)
     expect(names.some((n) => n.includes('402'))).toBe(true)
     expect(names.some((n) => n.includes('Terminal Kultury'))).toBe(true)
+  })
+})
+
+test.describe('02 po lekcjach - scrollytelling', () => {
+  const DESKTOP = { width: 1440, height: 900 }
+
+  async function doSekcji(page, offset = 0) {
+    await page.evaluate((dy) => {
+      const y = window.scrollY + document.querySelector('#po-lekcjach').getBoundingClientRect().top
+      window.scrollTo(0, y + dy)
+    }, offset)
+  }
+
+  test('kadr najpierw jedzie, potem stoi, na koncu odjezdza', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+
+    /*
+     * Probkujemy pozycje kadru na calej drodze przez sekcje. Efekt jest
+     * poprawny tylko wtedy, gdy widac wszystkie trzy fazy: kadr wjezdza
+     * normalnym scrollem, zatrzymuje sie na swojej pozycji i dopiero pod
+     * koniec sekcji odjezdza. Sam sticky bez fazy dojazdu czyta sie jak
+     * zdjecie przyklejone od pierwszej chwili.
+     */
+    const start = await page.evaluate(
+      () =>
+        window.scrollY +
+        document.querySelector('#po-lekcjach').getBoundingClientRect().top -
+        window.innerHeight,
+    )
+    const dystans = await page.evaluate(
+      () =>
+        document.querySelector('#po-lekcjach').getBoundingClientRect().height + window.innerHeight,
+    )
+    const stickyTop = await page.evaluate(() =>
+      Math.round(
+        parseFloat(
+          getComputedStyle(document.querySelector('.after-school__media')).insetBlockStart,
+        ),
+      ),
+    )
+
+    const pozycje = []
+    for (let i = 0; i <= 24; i += 1) {
+      await page.evaluate((y) => window.scrollTo(0, y), start + (i / 24) * dystans)
+      await page.waitForTimeout(50)
+      pozycje.push(
+        await page.evaluate(() =>
+          Math.round(document.querySelector('.after-school__media').getBoundingClientRect().top),
+        ),
+      )
+    }
+
+    const przed = pozycje.filter((t) => t > stickyTop).length
+    const stoi = pozycje.filter((t) => t === stickyTop).length
+    const po = pozycje.filter((t) => t < stickyTop).length
+
+    expect(przed, 'faza dojazdu').toBeGreaterThan(2)
+    expect(stoi, 'faza sticky').toBeGreaterThan(2)
+    expect(po, 'faza odjazdu').toBeGreaterThan(2)
+  })
+
+  test('kadr nie wchodzi pod sticky naglowek', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    await doSekcji(page, 600)
+    await page.waitForTimeout(300)
+
+    const m = await page.evaluate(() => {
+      const media = document.querySelector('.after-school__media')
+      return {
+        mediaTop: media.getBoundingClientRect().top,
+        headerBottom: document.querySelector('.site-header').getBoundingClientRect().bottom,
+        mediaVh: media.getBoundingClientRect().height / window.innerHeight,
+        position: getComputedStyle(media).position,
+      }
+    })
+
+    expect(m.position).toBe('sticky')
+    expect(m.mediaTop).toBeGreaterThanOrEqual(m.headerBottom)
+
+    // Kadr ma byc duzy, ale wciaz miescic sie w oknie razem z naglowkiem.
+    expect(m.mediaVh).toBeGreaterThan(0.7)
+    expect(m.mediaVh).toBeLessThanOrEqual(0.88)
+  })
+
+  test('prawa krawedz kadru stoi w jednej osi z kadrem hero', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    /*
+     * Wymog wlasciciela: obie fotografie maja tworzyc jedna pionowa linie.
+     * Hero jest full-bleed, wiec kadr sekcji 02 musi wyjsc poza siatke
+     * o --bleed-inline. Sprawdzamy na kilku szerokosciach, bo ta odleglosc
+     * inaczej wyglada przed i po osiagnieciu maksymalnej szerokosci kontenera.
+     */
+    for (const width of [1280, 1440, 1680, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const m = await page.evaluate(() => ({
+        hero: Math.round(document.querySelector('.hero__media').getBoundingClientRect().right),
+        sekcja: Math.round(
+          document.querySelector('.after-school__media').getBoundingClientRect().right,
+        ),
+      }))
+
+      expect(m.sekcja, `szerokosc ${width} px`).toBe(m.hero)
+    }
+  })
+
+  test('przejscie z hero do sekcji jest zwarte', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+
+    const m = await page.evaluate(() => {
+      const hero = document.querySelector('.hero').getBoundingClientRect()
+      const eyebrow = document
+        .querySelector('.after-school__intro .u-label')
+        .getBoundingClientRect()
+      const pelny = getComputedStyle(document.querySelector('#faq')).paddingBlockStart
+      return { przerwa: eyebrow.top - hero.bottom, pelnyOdstepSekcji: parseFloat(pelny) }
+    })
+
+    /*
+     * Po pelnowymiarowym kadrze hero pelny odstep sekcyjny czytal sie jak
+     * dziura. Ma byc najwyzej polowa tego, co dostaja pozostale sekcje -
+     * ale nie zero, bo sekcje nadal maja oddychac.
+     */
+    expect(m.przerwa).toBeGreaterThan(16)
+    expect(m.przerwa).toBeLessThanOrEqual(m.pelnyOdstepSekcji / 2 + 2)
+  })
+
+  test('sekcja jest dosc dluga, by kadr rzeczywiscie postal', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    const sekcjaVh = await page.evaluate(
+      () =>
+        document.querySelector('#po-lekcjach').getBoundingClientRect().height / window.innerHeight,
+    )
+
+    /*
+     * Widelki po skroceniu odstepow na prosbe wlasciciela. Dolna granica
+     * pilnuje, ze zostalo miejsce na realna faze sticky. Gorna pilnuje
+     * zakazu sztucznego rozciagania sekcji - wysokosc ma wynikac z odstepow
+     * miedzy blokami, nie z min-height.
+     */
+    expect(sekcjaVh).toBeGreaterThan(1.4)
+    expect(sekcjaVh).toBeLessThan(2.2)
+  })
+
+  test('puenta wchodzi w koncowce sekcji, zanim kadr sie odklei', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+
+    const m = await page.evaluate(() => {
+      const sec = document.querySelector('#po-lekcjach')
+      const media = document.querySelector('.after-school__media')
+      const punch = document.querySelector('.after-school__block--punch')
+      const vh = window.innerHeight
+      const top = window.scrollY + sec.getBoundingClientRect().top
+      const skok = sec.getBoundingClientRect().height - vh
+      const punchBox = punch.getBoundingClientRect()
+      const punchTop = window.scrollY + punchBox.top
+      const area = media.parentElement.getBoundingClientRect()
+      const areaBot = window.scrollY + area.top + area.height
+      const stickyTop = parseFloat(getComputedStyle(media).insetBlockStart)
+      const odklejenieNa = areaBot - media.getBoundingClientRect().height - stickyTop
+      return {
+        // Obserwator odslania przy rootMargin -12% od dolu okna.
+        revealProc: ((punchTop - vh * 0.88 - top) / skok) * 100,
+        zapasPrzedOdklejeniem: odklejenieNa - (punchTop + punchBox.height - vh),
+      }
+    })
+
+    // Puenta ma dostac wlasny moment, a nie wjechac tuz za trzecim akapitem.
+    expect(m.revealProc).toBeGreaterThan(50)
+    expect(m.revealProc).toBeLessThan(95)
+
+    // I ma sie skonczyc, zanim kadr zacznie opuszczac stan sticky.
+    expect(m.zapasPrzedOdklejeniem).toBeGreaterThan(0)
+  })
+
+  test('puenta miesci sie w dwoch linijkach', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const linie = await page.evaluate(() => {
+        const el = document.querySelector('.after-school__coda')
+        return Math.round(
+          el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight),
+        )
+      })
+      expect(linie, `szerokosc ${width} px`).toBe(2)
+    }
+  })
+
+  test('wejscie startuje szybko, ale trwa dlugo', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    /*
+     * Najwazniejsze rozroznienie w tej sekcji: opoznienie ma byc male,
+     * a czas trwania duzy. Regresja poszlaby w strone "poczekaj dluzej",
+     * czyli dokladnie odwrotnie niz prosil wlasciciel.
+     *
+     * Osobno pilnujemy, ze reveal nie czeka na siatke bezpieczenstwa
+     * (2500 ms): clip-path na obserwowanym elemencie zerowal prostokat
+     * przeciecia i wlasnie to dawalo kilkusekundowe czekanie.
+     */
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(700)
+
+    await expect(page.locator('.after-school__claim')).toHaveClass(/is-visible/)
+    await expect(page.locator('.after-school__media')).toHaveClass(/is-visible/)
+
+    const czasy = await page.evaluate(() => {
+      const ms = (v) => (v.endsWith('ms') ? parseFloat(v) : parseFloat(v) * 1000)
+      const odczyt = (sel) => {
+        const cs = getComputedStyle(document.querySelector(sel))
+        return {
+          trwanie: ms(cs.transitionDuration.split(',')[0]),
+          opoznienie: ms(cs.transitionDelay.split(',')[0]),
+        }
+      }
+      return {
+        media: odczyt('.after-school__media'),
+        naglowek: odczyt('.after-school__claim'),
+        blok: odczyt('.after-school__block'),
+      }
+    })
+
+    for (const [nazwa, v] of Object.entries(czasy)) {
+      expect(v.trwanie, `${nazwa}: czas trwania`).toBeGreaterThanOrEqual(900)
+      expect(v.opoznienie, `${nazwa}: opoznienie`).toBeLessThanOrEqual(300)
+    }
+
+    // Kolejnosc: kadr, naglowek, tekst.
+    expect(czasy.media.opoznienie).toBeLessThan(czasy.naglowek.opoznienie)
+    expect(czasy.naglowek.opoznienie).toBeLessThan(czasy.blok.opoznienie)
+  })
+
+  test('na telefonie kadr stoi miedzy naglowkiem a tekstem i nie jest sticky', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari', 'uklad mobilny')
+
+    await page.goto('/')
+
+    const m = await page.evaluate(() => {
+      const intro = document.querySelector('.after-school__intro')
+      const media = document.querySelector('.after-school__media')
+      const text = document.querySelector('.after-school__text')
+      const y = (el) => window.scrollY + el.getBoundingClientRect().top
+      return {
+        position: getComputedStyle(media).position,
+        kolejnosc: y(intro) < y(media) && y(media) < y(text),
+        odstepBlokow: parseFloat(getComputedStyle(text).rowGap),
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      }
+    })
+
+    expect(m.position).toBe('static')
+    expect(m.kolejnosc).toBe(true)
+    expect(m.overflow).toBeLessThanOrEqual(1)
+
+    /*
+     * Na telefonie nie odtwarzamy efektu desktopowego kosztem dlugosci strony.
+     * Mierzymy odstep miedzy blokami, a nie wysokosc sekcji: to odstep jest
+     * narzedziem rozciagania, a wysokosc zalezy tu od tresci i od tego, ze
+     * okno telefonu jest niskie.
+     */
+    expect(m.odstepBlokow).toBeLessThanOrEqual(48)
+  })
+
+  test('przy reduced motion caly tekst sekcji jest w pelni widoczny', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'reduced-motion', 'wariant reduced motion')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(500)
+
+    const opacities = await page.evaluate(() =>
+      [...document.querySelectorAll('.after-school__block > *')].map((el) =>
+        Number(getComputedStyle(el).opacity),
+      ),
+    )
+    expect(opacities.length).toBeGreaterThan(0)
+    for (const o of opacities) expect(o).toBe(1)
+
+    // Maska kadru tez znika, a sticky degraduje sie do bloku statycznego.
+    const m = await page.evaluate(() => ({
+      position: getComputedStyle(document.querySelector('.after-school__media')).position,
+      maska: getComputedStyle(document.querySelector('.after-school__media picture')).clipPath,
+    }))
+    expect(m.position).toBe('static')
+
+    /*
+     * Kadr ma byc nieprzyciety. Dwa zapisy znacza tu to samo: 'none' przed
+     * odslonieciem i 'inset(0px)' po nim - zadne nic nie zaslania.
+     */
+    expect(['none', 'inset(0px)']).toContain(m.maska)
+  })
+})
+
+test.describe('03 co dziecko zyskuje - pas typograficzny', () => {
+  async function doSekcji(page) {
+    await page.evaluate(() =>
+      window.scrollTo(
+        0,
+        window.scrollY + document.querySelector('#korzysci').getBoundingClientRect().top,
+      ),
+    )
+  }
+
+  /** Skrajne polozenia pasa na calej drodze przez ekran. */
+  async function skrajneZapasy(page, h) {
+    const top = await page.evaluate(
+      () => window.scrollY + document.querySelector('#korzysci').getBoundingClientRect().top,
+    )
+    const wysokosc = await page.evaluate(
+      () => document.querySelector('#korzysci').getBoundingClientRect().height,
+    )
+
+    let lewy = Infinity
+    let prawy = Infinity
+    for (let i = 0; i <= 16; i += 1) {
+      await page.evaluate((y) => window.scrollTo(0, y), top - h + (i / 16) * (wysokosc + h))
+      await page.waitForTimeout(40)
+      const z = await page.evaluate(() => {
+        const kont = document.querySelector('#korzysci .container')
+        const kb = kont.getBoundingClientRect()
+        const cs = getComputedStyle(kont)
+        const elementy = [...document.querySelectorAll('.marquee__word, .marquee__sep')]
+        if (elementy.length === 0) return null
+        const boxy = elementy.map((e) => e.getBoundingClientRect())
+        return {
+          l: Math.min(...boxy.map((b) => b.left)) - (kb.left + parseFloat(cs.paddingLeft)),
+          p: kb.right - parseFloat(cs.paddingRight) - Math.max(...boxy.map((b) => b.right)),
+        }
+      })
+      if (!z) continue
+      lewy = Math.min(lewy, z.l)
+      prawy = Math.min(prawy, z.p)
+    }
+    return { lewy, prawy }
+  }
+
+  test('napis miesci sie w calosci, takze w skrajnych punktach ruchu', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad poziomy pasa')
+
+    /*
+     * Regresja, ktora ten test lapie: pas jechal od 6vw do -10vw, czyli przy
+     * 1920 px o 192 px w lewo, a .marquee mial overflow: hidden z zalozeniem,
+     * ze przyciete litery to kadrowanie. Pierwsza litera znikala za krawedzia
+     * okna i czytalo sie to jak blad overflow.
+     *
+     * Sprawdzamy nie stan spoczynkowy, tylko NAJGORSZY punkt animacji.
+     */
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      const z = await skrajneZapasy(page, 900)
+
+      expect(z.lewy, `lewy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
+      expect(z.prawy, `prawy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
+    }
+  })
+
+  test('pas to jedna linia z dwoma rombami, bez samotnego symbolu', async ({ page }) => {
+    await page.goto('/')
+
+    /*
+     * Drugi pas byl odsuniety o -8vw i przy dryfie zostawal z niego w kadrze
+     * jeden romb wiszacy w pustce. Pusta przestrzen tej sekcji ma byc czysta -
+     * brief zabrania wypelniania jej dekoracja.
+     */
+    await expect(page.locator('.marquee__row')).toHaveCount(1)
+    await expect(page.locator('.marquee__sep')).toHaveCount(2)
+    await expect(page.locator('.marquee__word')).toHaveCount(2)
+
+    // Pas jest dekoracja; tresc niesie naglowek dostepny dla czytnikow.
+    await expect(page.locator('.marquee')).toHaveAttribute('aria-hidden', 'true')
+    await expect(page.locator('#korzysci-title')).toHaveText('Co dziecko zyskuje na zajęciach')
+  })
+
+  test('kolumny korzysci wchodza po kolei i nigdy nie znikaja', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'stagger liczony na desktopie')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(900)
+
+    const items = page.locator('.benefits__item')
+    await expect(items).toHaveCount(3)
+
+    const stan = await page.evaluate(() =>
+      [...document.querySelectorAll('.benefits__item')].map((el) => {
+        const cs = getComputedStyle(el)
+        const v = cs.transitionDelay.split(',')[0]
+        return {
+          delay: v.endsWith('ms') ? parseFloat(v) : parseFloat(v) * 1000,
+          widoczny: el.classList.contains('is-visible'),
+        }
+      }),
+    )
+
+    // Stagger rosnie, a krok miesci sie w widelkach 80-140 ms na kolumne.
+    expect(stan[0].delay).toBe(0)
+    expect(stan[1].delay - stan[0].delay).toBeGreaterThanOrEqual(80)
+    expect(stan[1].delay - stan[0].delay).toBeLessThanOrEqual(140)
+    expect(stan[2].delay - stan[1].delay).toBeGreaterThanOrEqual(80)
+    expect(stan[2].delay - stan[1].delay).toBeLessThanOrEqual(140)
+
+    for (const s of stan) expect(s.widoczny).toBe(true)
+
+    /*
+     * Stan wyjsciowy to polowa krycia, nie zero: trzy krotkie zdania obok
+     * siebie, ktore gasna do konca, czytaja sie jak doladowywanie strony.
+     */
+    await page.evaluate(() =>
+      document.querySelector('.benefits__item').classList.remove('is-visible'),
+    )
+
+    /*
+     * Odczyt musi poczekac na koniec przejscia. Tuz po zdjeciu klasy
+     * getComputedStyle zwraca jeszcze wartosc w trakcie animacji, czyli 1.
+     */
+    await expect
+      .poll(
+        async () =>
+          Number(
+            await page.evaluate(
+              () => getComputedStyle(document.querySelector('.benefits__item')).opacity,
+            ),
+          ),
+        { timeout: 3000 },
+      )
+      .toBeLessThanOrEqual(0.5)
+
+    const wyjsciowa = Number(
+      await page.evaluate(
+        () => getComputedStyle(document.querySelector('.benefits__item')).opacity,
+      ),
+    )
+    expect(wyjsciowa).toBeGreaterThanOrEqual(0.3)
+  })
+
+  test('na telefonie pas idzie w pion i nie powoduje poziomego scrolla', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari', 'uklad mobilny')
+
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(400)
+
+    const m = await page.evaluate(() => {
+      const row = document.querySelector('.marquee__row')
+      const slowa = [...document.querySelectorAll('.marquee__word')].map((el) =>
+        el.getBoundingClientRect(),
+      )
+      const kont = document.querySelector('#korzysci .container').getBoundingClientRect()
+      return {
+        kierunek: getComputedStyle(row).flexDirection,
+        // Przy ukladzie pionowym dryf w bok wypychalby dolne slowo z kolumny.
+        ruch: getComputedStyle(document.querySelector('.marquee__word--trail')).animationName,
+        najdalejWLewo: Math.min(...slowa.map((b) => b.left)) - kont.left,
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      }
+    })
+
+    expect(m.kierunek).toBe('column')
+    expect(m.ruch).toBe('none')
+    expect(m.najdalejWLewo).toBeGreaterThanOrEqual(0)
+    expect(m.overflow).toBeLessThanOrEqual(1)
+  })
+
+  test('przy reduced motion pas stoi, romby sie nie krecą, tekst jest pelny', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'reduced-motion', 'wariant reduced motion')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(400)
+
+    const m = await page.evaluate(() => ({
+      slowo: getComputedStyle(document.querySelector('.marquee__word--lead')).animationName,
+      romb: getComputedStyle(document.querySelector('.marquee__sep')).animationName,
+      przesuniecie: getComputedStyle(document.querySelector('.marquee__word--lead')).translate,
+      obrot: getComputedStyle(document.querySelector('.marquee__sep')).rotate,
+      krycie: [...document.querySelectorAll('.benefits__item')].map((el) =>
+        Number(getComputedStyle(el).opacity),
+      ),
+    }))
+
+    expect(m.slowo).toBe('none')
+    expect(m.romb).toBe('none')
+    expect(m.przesuniecie).toBe('none')
+    expect(m.obrot).toBe('none')
+    for (const o of m.krycie) expect(o).toBe(1)
   })
 })
 
@@ -214,7 +748,7 @@ test.describe('nawigacja i dostepnosc', () => {
 
   test('odpowiedzi FAQ sa w DOM takze gdy sekcja jest zwinieta', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('.faq__answer').first()).toContainText('klas 1-8')
+    await expect(page.locator('.faq__answer').first()).toContainText('klas 1-7')
   })
 
   test('skip link jest pierwszy w kolejnosci focusu', async ({ page }, testInfo) => {
@@ -311,10 +845,20 @@ test.describe('responsywnosc', () => {
     await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/')
 
-    // Nawigacja ustepuje miejsca jednemu sticky CTA - brief wymaga jednej akcji.
+    /*
+     * Poziome menu ustepuje miejsca szufladzie i jednemu sticky CTA.
+     * Przycisk w naglowku wystepuje w dwoch wariantach - sprzedazowym
+     * i rekrutacyjnym - wiec sprawdzamy wszystkie wystapienia.
+     */
     await expect(page.locator('.site-nav')).toBeHidden()
     await expect(page.locator('.cta-dock')).toBeVisible()
-    await expect(page.locator('.site-header__cta')).toBeHidden()
+    for (const cta of await page.locator('.site-header__cta').all()) {
+      await expect(cta).toBeHidden()
+    }
+
+    // Nawigacja nie znika bez sladu: jej role przejmuje przelacznik szuflady.
+    await expect(page.locator('.site-header__toggle')).toBeVisible()
+    await expect(page.locator('.drawer')).toBeHidden()
 
     // Wordmark nie moze skurczyc sie do napisu - lamie sie i rosnie.
     const { size, lines } = await page.locator('.hero__wordmark').evaluate((el) => {
@@ -464,7 +1008,12 @@ test.describe('reduced motion', () => {
 
     await page.goto('/')
 
-    for (const selector of ['.hero__wordmark', '.marquee__row', '.method__verb']) {
+    for (const selector of [
+      '.hero__wordmark',
+      '.marquee__word--lead',
+      '.marquee__sep',
+      '.method__verb',
+    ]) {
       const name = await page
         .locator(selector)
         .first()
@@ -490,5 +1039,364 @@ test.describe('reduced motion', () => {
       .locator('.media--sticky')
       .evaluate((el) => getComputedStyle(el).position)
     expect(sticky).toBe('static')
+  })
+})
+
+test.describe('05 o high five', () => {
+  test('sekcja niesie fakty przekazane przez wlasciciela', async ({ page }) => {
+    await page.goto('/')
+    const sekcja = page.locator('#o-nas')
+
+    await expect(sekcja.locator('h2')).toHaveText('Lokalna szkoła. Dużo uwagi.')
+
+    /*
+     * Nazwisko, uczelnie i dlugosc doswiadczenia pochodza WPROST od
+     * wlasciciela. Bez tego par. 4 zabranialby publikowania kwalifikacji
+     * osob uczacych.
+     */
+    await expect(sekcja).toContainText('Magdalenę Germel')
+    await expect(sekcja).toContainText('Uniwersytecie Warszawskim')
+    await expect(sekcja).toContainText('SWPS')
+    /*
+     * s+ zamiast spacji: toContainText normalizuje biale znaki tylko dla
+     * lancuchow. Wyrazenie regularne dostaje surowy tekst razem z lamaniem
+     * wierszy ze zrodla, wiec sztywna spacja nie trafialaby w zdanie
+     * rozbite miedzy dwie linie HTML.
+     */
+    await expect(sekcja).toContainText(/od\s+ponad\s+20\s+lat/i)
+    await expect(sekcja).toContainText(/w\s+szkole\s+podstawowej/i)
+    await expect(sekcja).toContainText(/nauczycielką\s+dyplomowaną/i)
+    await expect(sekcja).toContainText(/Okręgowej\s+Komisji\s+Egzaminacyjnej/i)
+
+    /*
+     * "Male grupy" zeszlo z paska faktow, bo miejsce dostaly mocniejsze
+     * kwalifikacje - ale NIE moze zniknac z komunikacji. Zostaje wprost
+     * w trzecim akapicie.
+     */
+    await expect(sekcja).toContainText(/małe\s+grupy/i)
+
+    const wyrozniki = await sekcja.locator('.about__mark strong').allTextContents()
+    expect(wyrozniki.map((t) => t.trim())).toEqual(['20+', 'UW + SWPS', 'Dyplomowana', 'OKE'])
+  })
+
+  test('pasek faktow nie przycina najdluzszego hasla', async ({ page }) => {
+    await page.goto('/')
+
+    /*
+     * "Dyplomowana" to jedenascie znakow bez miejsca na zlamanie. Przy zbyt
+     * duzym stopniu pisma wychodzila poza swoja kolumne i byla przycinana -
+     * test porownuje szerokosc tresci z szerokoscia pola.
+     */
+    const przepelnione = await page.evaluate(() =>
+      [...document.querySelectorAll('.about__mark strong')]
+        .filter((el) => el.scrollWidth > el.clientWidth + 1)
+        .map((el) => el.textContent.trim()),
+    )
+    expect(przepelnione).toEqual([])
+  })
+
+  test('portret trzyma te sama prawa os co pozostale duze zdjecia', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    /*
+     * Hero, kadr sekcji 02 i kadr senioralny koncza sie na krawedzi okna.
+     * Portret konczyl sie 147 px wczesniej i prawa strona strony nie miala
+     * wspolnej linii.
+     */
+    for (const width of [1024, 1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const m = await page.evaluate(() => ({
+        portret: Math.round(document.querySelector('.about__media').getBoundingClientRect().right),
+        hero: Math.round(document.querySelector('.hero__media').getBoundingClientRect().right),
+        udzial:
+          document.querySelector('.about__media').getBoundingClientRect().width / window.innerWidth,
+      }))
+
+      expect(m.portret, width + ' px').toBe(m.hero)
+
+      // Kadr ma zajmowac okolo 40-43% szerokosci sekcji.
+      expect(m.udzial, width + ' px').toBeGreaterThan(0.38)
+      expect(m.udzial, width + ' px').toBeLessThan(0.45)
+    }
+  })
+
+  test('portret jest prawdziwym zdjeciem, nie zastepnikiem', async ({ page }) => {
+    await page.goto('/')
+
+    // Slot na brakujacy kadr zniknal - zdjecie zostalo dostarczone.
+    await expect(page.locator('#o-nas .photo-todo')).toHaveCount(0)
+
+    const img = page.locator('#o-nas img')
+    await expect(img).toHaveAttribute('src', /about-magdalena-germel/)
+    await expect(img).toHaveAttribute('alt', /Magdalena Germel/)
+
+    // Wymiary w atrybutach rezerwuja miejsce, wiec obraz nie przesuwa layoutu.
+    await expect(img).toHaveAttribute('width', '1122')
+    await expect(img).toHaveAttribute('height', '1402')
+    await expect(img).toHaveAttribute('loading', 'lazy')
+
+    // Pelna proporcja zrodla - kwadratowy kadr obcinal biurko i notatnik.
+    const proporcja = await page.evaluate(() => {
+      const box = document.querySelector('#o-nas .about__media').getBoundingClientRect()
+      return +(box.width / box.height).toFixed(2)
+    })
+    expect(proporcja).toBeCloseTo(0.8, 1)
+  })
+
+  test('menu O High Five prowadzi do tej sekcji, nie do metody', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'menu poziome od 75rem')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    const pozycja = page.locator('.site-nav__link[data-nav="o-nas"]')
+    await expect(pozycja).toHaveAttribute('href', '/#o-nas')
+
+    await pozycja.click()
+    await page.waitForTimeout(600)
+
+    // Sekcja stoi pod sticky naglowkiem, a nie pod nim schowana.
+    const m = await page.evaluate(() => ({
+      gora: document.querySelector('#o-nas').getBoundingClientRect().top,
+      dolNaglowka: document.querySelector('.site-header').getBoundingClientRect().bottom,
+    }))
+    expect(m.gora).toBeGreaterThanOrEqual(m.dolNaglowka - 2)
+  })
+
+  test('wyrozniki nie lamia sie na telefonie i nie powoduja scrolla', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari', 'uklad mobilny')
+
+    await page.goto('/')
+    const m = await page.evaluate(() => {
+      const sekcja = document.querySelector('#o-nas')
+      return {
+        marks: sekcja.querySelectorAll('.about__mark').length,
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      }
+    })
+
+    expect(m.marks).toBe(4)
+    expect(m.overflow).toBeLessThanOrEqual(1)
+  })
+})
+
+test.describe('05 o high five - kotwica i wejscie faktow', () => {
+  /** Czeka az plynne przewijanie faktycznie sie zatrzyma. */
+  async function poczekajNaKoniecScrolla(page) {
+    await page.evaluate(
+      () =>
+        new Promise((res) => {
+          let ostatni = -1
+          let stabilne = 0
+          const tik = () => {
+            const y = Math.round(window.scrollY)
+            stabilne = y === ostatni ? stabilne + 1 : 0
+            ostatni = y
+            if (stabilne > 8) res()
+            else requestAnimationFrame(tik)
+          }
+          requestAnimationFrame(tik)
+        }),
+    )
+  }
+
+  async function odstepPodNaglowkiem(page) {
+    return page.evaluate(() => {
+      const eyebrow = document.querySelector('#o-nas .section__label')
+      const naglowek = document.querySelector('.site-header').getBoundingClientRect()
+      return Math.round(eyebrow.getBoundingClientRect().top - naglowek.bottom)
+    })
+  }
+
+  test('klik w menu zatrzymuje etykiete tuz pod naglowkiem', async ({ page }) => {
+    /*
+     * Regresja, ktora ten test lapie: nad etykieta stalo 88 px pustki, bo
+     * skladaly sie na nia DWIE niezalezne wartosci - scroll-margin sekcji
+     * oraz jej wlasny padding-block-start. Teraz scroll-margin odejmuje
+     * padding, wiec suma jest stala niezaleznie od obu.
+     */
+    for (const width of [1024, 1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      await page.waitForTimeout(400)
+
+      await page.evaluate(() => document.querySelector('[data-nav="o-nas"]').click())
+      await poczekajNaKoniecScrolla(page)
+
+      const odstep = await odstepPodNaglowkiem(page)
+      expect(odstep, width + ' px').toBeGreaterThanOrEqual(24)
+      expect(odstep, width + ' px').toBeLessThanOrEqual(40)
+    }
+  })
+
+  test('wejscie bezposrednio z adresem i odswiezenie daja to samo', async ({ page }) => {
+    for (const width of [390, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 844 })
+
+      /*
+       * Kolejnosc jest istotna. Samo goto na ten sam adres z hashem jest
+       * nawigacja W OBREBIE dokumentu - skrypty sie nie wykonuja, a poprzednia
+       * pozycja przewijania zostaje. Dopiero reload daje pelne wczytanie
+       * z hashem, czyli to, co robi uzytkownik wklejajacy adres.
+       */
+      await page.goto('/')
+      await page.goto('/#o-nas')
+      await page.reload()
+      await poczekajNaKoniecScrolla(page)
+      const pierwsze = await odstepPodNaglowkiem(page)
+
+      // Odswiezenie z tym samym hashem - bez drugiego skoku po zaladowaniu.
+      await page.reload()
+      await poczekajNaKoniecScrolla(page)
+      const poOdswiezeniu = await odstepPodNaglowkiem(page)
+
+      expect(pierwsze, width + ' px').toBeGreaterThanOrEqual(24)
+      expect(pierwsze, width + ' px').toBeLessThanOrEqual(40)
+      /*
+       * Tolerancja dwoch pikseli, nie rownosc co do jednego. WebKit zaokragla
+       * pozycje po przeladowaniu inaczej niz Chromium i roznica jednego
+       * piksela nie znaczy tu nic - chodzi o to, ze odswiezenie NIE wykonuje
+       * drugiego skoku i nie ladowalo kilkaset pikseli obok.
+       */
+      expect(Math.abs(poOdswiezeniu - pierwsze), width + ' px po odswiezeniu').toBeLessThanOrEqual(
+        2,
+      )
+    }
+  })
+
+  test('po skoku widac naglowek i caly opis, nie sam tytul', async ({ page }) => {
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/#o-nas')
+      await poczekajNaKoniecScrolla(page)
+      await page.waitForTimeout(1400)
+
+      const m = await page.evaluate(() => {
+        const sek = document.querySelector('#o-nas')
+        const wKadrze = (el) => el.getBoundingClientRect().bottom <= window.innerHeight
+        const akapity = [...sek.querySelectorAll('.about__text > p[data-animation]')]
+        return {
+          h2: wKadrze(sek.querySelector('h2')),
+          akapity: akapity.filter(wKadrze).length,
+          wszystkie: akapity.length,
+        }
+      })
+
+      expect(m.h2, width + ' px').toBe(true)
+      expect(m.akapity, width + ' px: akapity w kadrze').toBe(m.wszystkie)
+    }
+  })
+
+  test('cztery fakty wchodza po kolei, nie naraz', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'reduced-motion', 'wariant bez ruchu ma wlasny test')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/#o-nas')
+    await page.waitForTimeout(2200)
+
+    const m = await page.evaluate(() =>
+      [...document.querySelectorAll('#o-nas .about__mark')].map((el) => {
+        const cs = getComputedStyle(el)
+        const ms = (v) => (v.endsWith('ms') ? parseFloat(v) : parseFloat(v) * 1000)
+        return {
+          opoznienie: ms(cs.transitionDelay.split(',')[0]),
+          czas: ms(cs.transitionDuration.split(',')[0]),
+          odsloniety: el.classList.contains('is-visible'),
+        }
+      }),
+    )
+
+    expect(m).toHaveLength(4)
+
+    // Stagger rosnie, krok miesci sie w widelkach 120-160 ms.
+    for (let i = 1; i < m.length; i += 1) {
+      const krok = m[i].opoznienie - m[i - 1].opoznienie
+      expect(krok, 'krok ' + i).toBeGreaterThanOrEqual(120)
+      expect(krok, 'krok ' + i).toBeLessThanOrEqual(160)
+    }
+
+    // Czas trwania spokojny, w widelkach 650-800 ms.
+    expect(m[0].czas).toBeGreaterThanOrEqual(650)
+    expect(m[0].czas).toBeLessThanOrEqual(800)
+
+    // Po odslonieciu zostaja widoczne - obserwator odlacza element.
+    for (const f of m) expect(f.odsloniety).toBe(true)
+  })
+
+  test('ruch faktow jest maly i bez skalowania', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'reduced-motion', 'wariant bez ruchu ma wlasny test')
+
+    await page.goto('/')
+
+    /*
+     * Stan poczatkowy zyje pod klasa dodawana przez skrypt. Odczyt tuz po
+     * zaladowaniu trafialby czasem przed nia i widzial element bez ruchu.
+     */
+    await page.waitForFunction(() => document.documentElement.classList.contains('js'))
+
+    /*
+     * Stan poczatkowy odtwarzamy jawnie, zamiast liczyc na to, ze element
+     * jeszcze go nie opuscil. Siatka bezpieczenstwa odslania cala strone
+     * po 2500 ms od zaladowania, a na wolniejszym silniku sam start testu
+     * potrafi przekroczyc ten prog - odczyt trafial wtedy w stan koncowy.
+     */
+    await page.evaluate(() =>
+      document.querySelector('#o-nas .about__mark').classList.remove('is-visible'),
+    )
+
+    await expect
+      .poll(
+        async () =>
+          page.evaluate(
+            () => getComputedStyle(document.querySelector('#o-nas .about__mark')).translate,
+          ),
+        { timeout: 3000 },
+      )
+      .not.toBe('none')
+
+    const m = await page.evaluate(() => {
+      const cs = getComputedStyle(document.querySelector('#o-nas .about__mark'))
+      return { translate: cs.translate, scale: cs.scale, rotate: cs.rotate }
+    })
+
+    // Tylko przesuniecie w pionie - bez scale, bez obrotu.
+    expect(m.scale).toBe('none')
+    expect(m.rotate).toBe('none')
+
+    /*
+     * Odczyt przez wyrazenie, nie przez podzial po spacji: WebKit serializuje
+     * `translate` inaczej niz Chromium i przy zerowej skladowej poziomej
+     * potrafi zwrocic sama wartosc pionowa. Bierzemy ostatnia liczbe,
+     * czyli przesuniecie w pionie w obu zapisach.
+     */
+    const liczby = m.translate.match(/-?\d+(?:\.\d+)?/g) ?? []
+    const px = Number(liczby.at(-1) ?? 0)
+
+    expect(px).toBeGreaterThan(0)
+    expect(px).toBeLessThanOrEqual(16)
+  })
+
+  test('przy reduced motion fakty sa widoczne od razu', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'reduced-motion', 'wariant reduced motion')
+
+    await page.goto('/#o-nas')
+    await page.waitForTimeout(400)
+
+    const m = await page.evaluate(() =>
+      [...document.querySelectorAll('#o-nas .about__mark')].map((el) => {
+        const cs = getComputedStyle(el)
+        return { opacity: Number(cs.opacity), translate: cs.translate }
+      }),
+    )
+
+    expect(m).toHaveLength(4)
+    for (const f of m) {
+      expect(f.opacity).toBe(1)
+      expect(f.translate).toBe('none')
+    }
   })
 })
