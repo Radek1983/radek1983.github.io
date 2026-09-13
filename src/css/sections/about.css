@@ -8,6 +8,39 @@
  * NIE ma tu wlasnego CTA - wezwanie stoi w naglowku i w sekcji kontaktu.
  */
 
+/*
+ * --- Odstep gorny i pozycja po skoku z menu ---
+ *
+ * Przed poprawka nad etykieta "05 O High Five" stalo 88 px pustki, bo
+ * skladaly sie na nia DWIE niezalezne rzeczy:
+ *
+ *   1. scroll-margin sekcji: --header-h + --space-4, czyli 80 px, co dawalo
+ *      16 px wolnego miedzy naglowkiem a pudelkiem sekcji,
+ *   2. wlasny padding-block-start sekcji: 72 px.
+ *
+ * Zaden ujemny margines tego nie naprawia - trzeba bylo rozdzielic te dwie
+ * wartosci i powiazac je ze soba.
+ *
+ * Teraz scroll-margin ODEJMUJE wlasny padding sekcji, wiec po skoku z menu
+ * etykieta zatrzymuje sie dokladnie --space-about-anchor pod naglowkiem,
+ * niezaleznie od tego, ile wynosi padding i jak wysoki jest sam naglowek.
+ * --header-h jest realna, mierzona wysokoscia sticky headera, a nie wpisana
+ * na sztywno liczba.
+ *
+ * Selektor jest dwuklasowy celowo: regula ogolna w reset.css celuje
+ * w selektor typu z atrybutem, ktory ma wyzsza specyficznosc niz pojedyncza
+ * klasa.
+ */
+.section.about {
+  --space-about-top: clamp(1.5rem, 3vw, 2.5rem);
+  --space-about-anchor: 2rem;
+
+  padding-block-start: var(--space-about-top);
+  scroll-margin-block-start: calc(
+    var(--header-h, 4rem) + var(--space-about-anchor) - var(--space-about-top)
+  );
+}
+
 .about__grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));

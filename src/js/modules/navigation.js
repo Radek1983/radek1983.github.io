@@ -37,6 +37,49 @@ function trackHeaderHeight(header) {
   }
 }
 
+/**
+ * Poprawia pozycje kotwicy przy wejsciu z adresem zawierajacym hash.
+ *
+ * Przegladarka wykonuje skok do kotwicy ZANIM ustabilizuje sie uklad strony.
+ * Kroje tekstowe laduja sie z `font-display: swap`, wiec sekcje powyzej celu
+ * zmieniaja wysokosc juz po skoku i cel laduje w zlym miejscu. Zmierzone:
+ * przy 1024 px etykieta sekcji "O High Five" stawala 871 px ponizej naglowka
+ * zamiast 32 px.
+ *
+ * Drugi przypadek to odswiezenie strony. Przegladarka przywraca wtedy
+ * zapisana pozycje przewijania, ktora po przeliczeniu ukladu wskazuje juz
+ * inne miejsce niz kotwica. Przy obecnym hashu to hash ma wygrac, wiec
+ * wylaczamy przywracanie - ale TYLKO wtedy, zeby zwykle odswiezenie bez
+ * hasha nadal wracalo tam, gdzie uzytkownik przerwal czytanie.
+ *
+ * `scrollIntoView` respektuje scroll-margin-block-start, wiec cala logika
+ * offsetu zostaje w CSS. Tutaj jest wylacznie powtorzenie skoku.
+ */
+function fixHashOnLoad() {
+  if (!window.location.hash) return
+
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+
+  let cel = null
+  try {
+    cel = document.querySelector(window.location.hash)
+  } catch {
+    // Hash nie jest poprawnym selektorem - nic do zrobienia.
+    return
+  }
+  if (!cel) return
+
+  // `instant` swiadomie omija `scroll-behavior: smooth` - to korekta pozycji,
+  // a nie przejscie, ktore uzytkownik ma ogladac.
+  const przewin = () => cel.scrollIntoView({ behavior: 'instant', block: 'start' })
+
+  przewin()
+  document.fonts?.ready.then(przewin)
+  window.addEventListener('load', przewin, { once: true })
+}
+
 function trackActiveSection(links) {
   const linkBySection = new Map()
 
@@ -66,6 +109,8 @@ function trackActiveSection(links) {
 export function initNavigation() {
   const header = document.querySelector('.site-header')
   if (header) trackHeaderHeight(header)
+
+  fixHashOnLoad()
 
   /*
    * Od czasu dodania podstron kotwice w menu sa BEZWZGLEDNE ("/#oferta"),

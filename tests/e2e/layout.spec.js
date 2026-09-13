@@ -1183,3 +1183,220 @@ test.describe('05 o high five', () => {
     expect(m.overflow).toBeLessThanOrEqual(1)
   })
 })
+
+test.describe('05 o high five - kotwica i wejscie faktow', () => {
+  /** Czeka az plynne przewijanie faktycznie sie zatrzyma. */
+  async function poczekajNaKoniecScrolla(page) {
+    await page.evaluate(
+      () =>
+        new Promise((res) => {
+          let ostatni = -1
+          let stabilne = 0
+          const tik = () => {
+            const y = Math.round(window.scrollY)
+            stabilne = y === ostatni ? stabilne + 1 : 0
+            ostatni = y
+            if (stabilne > 8) res()
+            else requestAnimationFrame(tik)
+          }
+          requestAnimationFrame(tik)
+        }),
+    )
+  }
+
+  async function odstepPodNaglowkiem(page) {
+    return page.evaluate(() => {
+      const eyebrow = document.querySelector('#o-nas .section__label')
+      const naglowek = document.querySelector('.site-header').getBoundingClientRect()
+      return Math.round(eyebrow.getBoundingClientRect().top - naglowek.bottom)
+    })
+  }
+
+  test('klik w menu zatrzymuje etykiete tuz pod naglowkiem', async ({ page }) => {
+    /*
+     * Regresja, ktora ten test lapie: nad etykieta stalo 88 px pustki, bo
+     * skladaly sie na nia DWIE niezalezne wartosci - scroll-margin sekcji
+     * oraz jej wlasny padding-block-start. Teraz scroll-margin odejmuje
+     * padding, wiec suma jest stala niezaleznie od obu.
+     */
+    for (const width of [1024, 1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      await page.waitForTimeout(400)
+
+      await page.evaluate(() => document.querySelector('[data-nav="o-nas"]').click())
+      await poczekajNaKoniecScrolla(page)
+
+      const odstep = await odstepPodNaglowkiem(page)
+      expect(odstep, width + ' px').toBeGreaterThanOrEqual(24)
+      expect(odstep, width + ' px').toBeLessThanOrEqual(40)
+    }
+  })
+
+  test('wejscie bezposrednio z adresem i odswiezenie daja to samo', async ({ page }) => {
+    for (const width of [390, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 844 })
+
+      /*
+       * Kolejnosc jest istotna. Samo goto na ten sam adres z hashem jest
+       * nawigacja W OBREBIE dokumentu - skrypty sie nie wykonuja, a poprzednia
+       * pozycja przewijania zostaje. Dopiero reload daje pelne wczytanie
+       * z hashem, czyli to, co robi uzytkownik wklejajacy adres.
+       */
+      await page.goto('/')
+      await page.goto('/#o-nas')
+      await page.reload()
+      await poczekajNaKoniecScrolla(page)
+      const pierwsze = await odstepPodNaglowkiem(page)
+
+      // Odswiezenie z tym samym hashem - bez drugiego skoku po zaladowaniu.
+      await page.reload()
+      await poczekajNaKoniecScrolla(page)
+      const poOdswiezeniu = await odstepPodNaglowkiem(page)
+
+      expect(pierwsze, width + ' px').toBeGreaterThanOrEqual(24)
+      expect(pierwsze, width + ' px').toBeLessThanOrEqual(40)
+      /*
+       * Tolerancja dwoch pikseli, nie rownosc co do jednego. WebKit zaokragla
+       * pozycje po przeladowaniu inaczej niz Chromium i roznica jednego
+       * piksela nie znaczy tu nic - chodzi o to, ze odswiezenie NIE wykonuje
+       * drugiego skoku i nie ladowalo kilkaset pikseli obok.
+       */
+      expect(Math.abs(poOdswiezeniu - pierwsze), width + ' px po odswiezeniu').toBeLessThanOrEqual(
+        2,
+      )
+    }
+  })
+
+  test('po skoku widac naglowek i caly opis, nie sam tytul', async ({ page }) => {
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/#o-nas')
+      await poczekajNaKoniecScrolla(page)
+      await page.waitForTimeout(1400)
+
+      const m = await page.evaluate(() => {
+        const sek = document.querySelector('#o-nas')
+        const wKadrze = (el) => el.getBoundingClientRect().bottom <= window.innerHeight
+        const akapity = [...sek.querySelectorAll('.about__text > p[data-animation]')]
+        return {
+          h2: wKadrze(sek.querySelector('h2')),
+          akapity: akapity.filter(wKadrze).length,
+          wszystkie: akapity.length,
+        }
+      })
+
+      expect(m.h2, width + ' px').toBe(true)
+      expect(m.akapity, width + ' px: akapity w kadrze').toBe(m.wszystkie)
+    }
+  })
+
+  test('cztery fakty wchodza po kolei, nie naraz', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'reduced-motion', 'wariant bez ruchu ma wlasny test')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/#o-nas')
+    await page.waitForTimeout(2200)
+
+    const m = await page.evaluate(() =>
+      [...document.querySelectorAll('#o-nas .about__mark')].map((el) => {
+        const cs = getComputedStyle(el)
+        const ms = (v) => (v.endsWith('ms') ? parseFloat(v) : parseFloat(v) * 1000)
+        return {
+          opoznienie: ms(cs.transitionDelay.split(',')[0]),
+          czas: ms(cs.transitionDuration.split(',')[0]),
+          odsloniety: el.classList.contains('is-visible'),
+        }
+      }),
+    )
+
+    expect(m).toHaveLength(4)
+
+    // Stagger rosnie, krok miesci sie w widelkach 120-160 ms.
+    for (let i = 1; i < m.length; i += 1) {
+      const krok = m[i].opoznienie - m[i - 1].opoznienie
+      expect(krok, 'krok ' + i).toBeGreaterThanOrEqual(120)
+      expect(krok, 'krok ' + i).toBeLessThanOrEqual(160)
+    }
+
+    // Czas trwania spokojny, w widelkach 650-800 ms.
+    expect(m[0].czas).toBeGreaterThanOrEqual(650)
+    expect(m[0].czas).toBeLessThanOrEqual(800)
+
+    // Po odslonieciu zostaja widoczne - obserwator odlacza element.
+    for (const f of m) expect(f.odsloniety).toBe(true)
+  })
+
+  test('ruch faktow jest maly i bez skalowania', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'reduced-motion', 'wariant bez ruchu ma wlasny test')
+
+    await page.goto('/')
+
+    /*
+     * Stan poczatkowy zyje pod klasa dodawana przez skrypt. Odczyt tuz po
+     * zaladowaniu trafialby czasem przed nia i widzial element bez ruchu.
+     */
+    await page.waitForFunction(() => document.documentElement.classList.contains('js'))
+
+    /*
+     * Stan poczatkowy odtwarzamy jawnie, zamiast liczyc na to, ze element
+     * jeszcze go nie opuscil. Siatka bezpieczenstwa odslania cala strone
+     * po 2500 ms od zaladowania, a na wolniejszym silniku sam start testu
+     * potrafi przekroczyc ten prog - odczyt trafial wtedy w stan koncowy.
+     */
+    await page.evaluate(() =>
+      document.querySelector('#o-nas .about__mark').classList.remove('is-visible'),
+    )
+
+    await expect
+      .poll(
+        async () =>
+          page.evaluate(
+            () => getComputedStyle(document.querySelector('#o-nas .about__mark')).translate,
+          ),
+        { timeout: 3000 },
+      )
+      .not.toBe('none')
+
+    const m = await page.evaluate(() => {
+      const cs = getComputedStyle(document.querySelector('#o-nas .about__mark'))
+      return { translate: cs.translate, scale: cs.scale, rotate: cs.rotate }
+    })
+
+    // Tylko przesuniecie w pionie - bez scale, bez obrotu.
+    expect(m.scale).toBe('none')
+    expect(m.rotate).toBe('none')
+
+    /*
+     * Odczyt przez wyrazenie, nie przez podzial po spacji: WebKit serializuje
+     * `translate` inaczej niz Chromium i przy zerowej skladowej poziomej
+     * potrafi zwrocic sama wartosc pionowa. Bierzemy ostatnia liczbe,
+     * czyli przesuniecie w pionie w obu zapisach.
+     */
+    const liczby = m.translate.match(/-?\d+(?:\.\d+)?/g) ?? []
+    const px = Number(liczby.at(-1) ?? 0)
+
+    expect(px).toBeGreaterThan(0)
+    expect(px).toBeLessThanOrEqual(16)
+  })
+
+  test('przy reduced motion fakty sa widoczne od razu', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'reduced-motion', 'wariant reduced motion')
+
+    await page.goto('/#o-nas')
+    await page.waitForTimeout(400)
+
+    const m = await page.evaluate(() =>
+      [...document.querySelectorAll('#o-nas .about__mark')].map((el) => {
+        const cs = getComputedStyle(el)
+        return { opacity: Number(cs.opacity), translate: cs.translate }
+      }),
+    )
+
+    expect(m).toHaveLength(4)
+    for (const f of m) {
+      expect(f.opacity).toBe(1)
+      expect(f.translate).toBe('none')
+    }
+  })
+})

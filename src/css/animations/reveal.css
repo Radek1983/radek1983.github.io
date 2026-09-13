@@ -103,6 +103,49 @@
 }
 
 /*
+ * --- Cztery fakty w sekcji 05, jeden po drugim od lewej ---
+ *
+ * Uzywamy istniejacego mechanizmu: obserwator dodaje `is-visible`, a przesuniecie
+ * w czasie robi --reveal-delay. Zadnej nowej biblioteki ani osobnego modulu.
+ *
+ * Ruch jest mniejszy niz domyslny fade-up: 1rem zamiast 1.5rem. Pasek stoi
+ * w jednym rzedzie, wiec cztery elementy jadace po 24 px czytalyby sie jak
+ * skok layoutu, a nie jak spokojne wejscie.
+ *
+ * Obserwator odlacza element po odslonieciu, wiec fakty pokazuja sie RAZ
+ * i nie migocza przy przewijaniu w gore i w dol.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js .about__mark[data-animation] {
+    translate: 0 1rem;
+    transition-duration: 700ms;
+  }
+
+  .js .about__mark:nth-child(2) {
+    --reveal-delay: 140ms;
+  }
+
+  .js .about__mark:nth-child(3) {
+    --reveal-delay: 280ms;
+  }
+
+  .js .about__mark:nth-child(4) {
+    --reveal-delay: 420ms;
+  }
+}
+
+/*
+ * Na telefonie fakty stoja jeden pod drugim albo 2x2, wiec ten sam ruch
+ * czyta sie mocniej. Amplituda w dol, zgodnie z regula o mniejszym ruchu
+ * na malych ekranach.
+ */
+@media (prefers-reduced-motion: no-preference) and (width < 48rem) {
+  .js .about__mark[data-animation] {
+    translate: 0 0.625rem;
+  }
+}
+
+/*
  * Bloki sekcji 02 nie maja juz stagger: po przebudowie na scrollytelling
  * dziela je cale ekrany przewijania, wiec nigdy nie wchodza w kadr razem.
  * Opozniony start bylby wtedy tylko zwloka przed pojawieniem sie tekstu.
