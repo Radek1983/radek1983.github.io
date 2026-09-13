@@ -140,29 +140,37 @@ test.describe('oferta dla seniorow', () => {
   })
 
   test('fakty i model rozliczenia sa podane wprost', async ({ page }) => {
-    const section = page.locator('#seniorzy')
+    /*
+     * Szczegoly przenioslу sie na podstrone razem ze skroceniem sekcji
+     * na stronie glownej. Zajawka ma zapraszac, a nie powtarzac cala oferte.
+     *
+     * Model rozliczenia MUSI byc podany wprost: bez tego zastrzezenia
+     * "45 zl" czytaloby sie jak tansza alternatywa dla "55 zl", a to inna
+     * usluga, inne miejsce i inne zasady (docs/ADR/0005).
+     */
+    await page.goto('/oferta/seniorzy/')
+    const tresc = page.locator('main')
 
-    await expect(section).toContainText('Terminal Kultury Gocław')
-    await expect(section).toContainText('45 zł')
-
-    // Bez tego zastrzezenia 45 zl czytaloby sie jak tansza alternatywa dla 55 zl.
-    await expect(section).toContainText(/abonament miesięczny/i)
-    await expect(section).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
+    await expect(tresc).toContainText('Terminal Kultury Gocław')
+    await expect(tresc).toContainText('45 zł')
+    await expect(tresc).toContainText(/rozliczenie jest .{0,20}miesięczne/i)
+    await expect(tresc).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
   })
 
   test('konwersja senioralna nie konkuruje z primary CTA', async ({ page }) => {
-    const link = page.locator('#seniorzy a[href^="https://terminalkultury.pl"]')
-    await expect(link).toHaveCount(1)
-    await expect(link).toHaveAttribute('rel', /noopener/)
+    /*
+     * Zapisy dla seniorow prowadzi Terminal Kultury, wiec odnosnik wychodzi
+     * poza serwis. Na stronie glownej zajawka prowadzi juz tylko na podstrone -
+     * link zewnetrzny zyje tam, gdzie stoi pelna oferta.
+     */
+    const zajawka = page.locator('#seniorzy a[href="/oferta/seniorzy/"]')
+    await expect(zajawka).toHaveCount(1)
+    await expect(zajawka).toHaveClass(/cta--ghost/)
 
-    // Wariant obrysowany, nie wypelniony kolorem akcji.
-    await expect(link).toHaveClass(/cta--ghost/)
-
-    // Primary CTA nadal prowadzi do kontaktu.
-    await expect(page.getByRole('link', { name: /Zapisz si/ }).first()).toHaveAttribute(
-      'href',
-      '#kontakt',
-    )
+    await page.goto('/oferta/seniorzy/')
+    const zewnetrzny = page.locator('main a[href^="https://terminalkultury.pl"]')
+    await expect(zewnetrzny).toHaveCount(1)
+    await expect(zewnetrzny).toHaveAttribute('rel', /noopener/)
   })
 
   test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {
@@ -740,7 +748,7 @@ test.describe('nawigacja i dostepnosc', () => {
 
   test('odpowiedzi FAQ sa w DOM takze gdy sekcja jest zwinieta', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('.faq__answer').first()).toContainText('klas 1-8')
+    await expect(page.locator('.faq__answer').first()).toContainText('klas 1-7')
   })
 
   test('skip link jest pierwszy w kolejnosci focusu', async ({ page }, testInfo) => {

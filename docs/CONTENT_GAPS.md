@@ -168,3 +168,19 @@ z `course-kids` i `sp402-building`, `/oferta/egzamin-osmoklasisty` z `course-exa
 **Stare adresy przekierowują przez meta refresh, nie przez 301.** To ograniczenie GitHub Pages,
 nie decyzja projektowa. Prawdziwe przekierowanie wymaga własnej domeny za Cloudflare —
 patrz ADR 0008.
+
+## Braki po dopracowaniu strony głównej
+
+**Portret osoby prowadzącej** — sekcja `#o-nas` ma przygotowany slot z opisem kadru: portret
+w naturalnym świetle, podczas pracy lub rozmowy, nie pozowany, proporcja 4:5. To szósty
+brakujący kadr w serwisie.
+
+**Maksymalna wielkość grupy nie jest potwierdzona.** Pasek faktów mówił wcześniej „Małe grupy
+5-8 dzieci", ale §3 wymienia wyłącznie **minimum pięciu dzieci** — górna granica była liczbą
+dopisaną bez pokrycia. Zmienione na „Grupy od 5 dzieci". Jeśli maksimum istnieje i jest
+ustalone, można wrócić do pełnego zakresu.
+
+**Zakres klas w metadanych.** `title`, `meta description` i JSON-LD mówią „klas 1-8", a treść
+stron mówi teraz „klasy 1-7 + osobny kurs dla klasy 8". Formalnie oba są prawdziwe — 1-8 jest
+skrótem obejmującym obie ścieżki — ale przy najbliższej rewizji SEO warto to ujednolicić.
+Nie zmieniam teraz, bo `title` i `description` są cytatami z briefu (§13).

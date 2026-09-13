@@ -69,7 +69,12 @@ export const OFFERS = [
  * katalogu projektu - tak identyfikuje strone `transformIndexHtml`.
  */
 export const CTA = {
-  'index.html': { label: 'Zapisz dziecko', href: '/oferta/dzieci/' },
+  /*
+   * Strona glowna mowi do wszystkich czterech grup odbiorcow, wiec wezwanie
+   * musi byc neutralne. "Zapisz dziecko" zawezalo je do rodzicow, mimo ze
+   * ta sama strona niesie oferte dla seniorow i lekcje indywidualne.
+   */
+  'index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'oferta/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'oferta/dzieci/index.html': { label: 'Zapisz dziecko', href: '/#kontakt' },
   'oferta/egzamin-osmoklasisty/index.html': { label: 'Zapytaj o grupę', href: '/#kontakt' },
@@ -78,7 +83,7 @@ export const CTA = {
   'lokalizacje/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'cennik/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'kariera/index.html': { label: 'Aplikuj', href: '#aplikacja' },
-  '404.html': { label: 'Zapisz dziecko', href: '/oferta/dzieci/' },
+  '404.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
 }
 
 export const CTA_DOMYSLNE = { label: 'Zapisz dziecko', href: '/oferta/dzieci/' }

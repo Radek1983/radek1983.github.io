@@ -1,0 +1,83 @@
+/*
+ * 05 O HIGH FIVE
+ *
+ * Krotka sekcja o marce. Powstala, bo pozycja menu "O High Five" prowadzila
+ * wczesniej do sekcji "Jak uczymy" - a to opis metody, nie szkoly.
+ *
+ * Celowo krotka: jeden ekran, trzy wyroznika, zdjecie. Szkola ma male grupy
+ * i jedna osobe prowadzaca, wiec rozbudowana opowiesc "o nas" bylaby
+ * dopisywaniem tresci, ktorej nie ma.
+ */
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  align-items: center;
+}
+
+.about__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.about__media {
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 5;
+  margin-block-start: var(--space-8);
+}
+
+.about__title {
+  max-inline-size: 14ch;
+}
+
+/*
+ * Trzy wyrozniki jako typografia, nie plakietki. Kreska u gory zamiast
+ * ramki - ten sam jezyk co kolumny korzysci i kroki na podstronach.
+ */
+.about__marks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about__mark {
+  padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.about__mark strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.875rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-heading);
+}
+
+.about__mark span {
+  display: block;
+  margin-block-start: var(--space-1);
+  font-size: var(--step-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
+}
+
+@media (width >= 62rem) {
+  .about__text {
+    grid-column: 1 / span 6;
+  }
+
+  .about__media {
+    grid-column: 8 / -1;
+    margin-block-start: 0;
+    block-size: min(60svh, 30rem);
+    aspect-ratio: auto;
+  }
+}

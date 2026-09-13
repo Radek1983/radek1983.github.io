@@ -191,7 +191,7 @@ test.describe('tresc i SEO', () => {
      */
     const zgloszeniowe = await page.evaluate(() =>
       [...document.querySelectorAll('a.cta')]
-        .filter((el) => /zapisz (si[eę]|dziecko)/i.test(el.textContent))
+        .filter((el) => /zapisz (si[eę]|dziecko)|zapytaj o zaj/i.test(el.textContent))
         .filter((el) => {
           const r = el.getBoundingClientRect()
           return r.top < window.innerHeight && r.bottom > 0 && el.offsetParent !== null
@@ -203,7 +203,7 @@ test.describe('tresc i SEO', () => {
     // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
     const hero = await page.locator('.hero').innerText()
     expect(hero).not.toMatch(/55 z[lł]/)
-    expect(hero).not.toMatch(/zapisz (si[eę]|dziecko)/i)
+    expect(hero).not.toMatch(/zapisz (si[eę]|dziecko)|zapytaj o zaj/i)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {
