@@ -184,3 +184,29 @@ ustalone, można wrócić do pełnego zakresu.
 stron mówi teraz „klasy 1-7 + osobny kurs dla klasy 8". Formalnie oba są prawdziwe — 1-8 jest
 skrótem obejmującym obie ścieżki — ale przy najbliższej rewizji SEO warto to ujednolicić.
 Nie zmieniam teraz, bo `title` i `description` są cytatami z briefu (§13).
+
+## Sekcja „O High Five" — brak zamknięty, nowe fakty opublikowane
+
+**Portret osoby prowadzącej został dostarczony.** Źródło:
+`src/assets/images/sections/about-magdalena-germel-1122.png` (1122×1402, 4:5), warianty AVIF
+i WebP w trzech szerokościach. Slot `.photo-todo` w sekcji `#o-nas` zniknął — zostaje pięć
+brakujących kadrów zamiast sześciu.
+
+### Fakty przekazane przez właściciela przy tej zmianie
+
+Publikujemy je, bo pochodzą wprost od właściciela. Bez tego §4 zabraniałby publikowania
+nazwisk i kwalifikacji osób uczących:
+
+| Fakt                                                                                 | Gdzie                                         |
+| ------------------------------------------------------------------------------------ | --------------------------------------------- |
+| **Magdalena Germel** prowadzi High Five                                              | `#o-nas`, wcześniej także `/oferta/seniorzy/` |
+| Absolwentka **lingwistyki stosowanej na Uniwersytecie Warszawskim**                  | `#o-nas`                                      |
+| **Studia podyplomowe z tłumaczeń przysięgłych w SWPS**                               | `#o-nas`                                      |
+| **Ponad 20 lat** nauczania angielskiego                                              | `#o-nas`, `/kariera/`                         |
+| Szkoła jest **kameralna, z Gocławia**                                                | `#o-nas`                                      |
+| Zajęcia prowadzą także **zweryfikowani lektorzy** z doświadczeniem w pracy z dziećmi | `#o-nas`                                      |
+| Osoby uczące posiadają **zaświadczenie o niekaralności**                             | `#o-nas`, spójne z `/kariera/`                |
+
+Ostatnie dwa zdania to deklaracje o zespole, a nie o jednej osobie. Jeśli skład się zmieni,
+trzeba je zweryfikować — test w `tests/e2e/layout.spec.js` pilnuje ich obecności, ale nie
+prawdziwości.

@@ -426,6 +426,9 @@
            05 O HIGH FIVE — Kim jesteśmy?
            Krotka sekcja o marce. Powstala, bo pozycja menu "O High Five"
            prowadzila wczesniej do "Jak uczymy" - a to opis metody, nie szkoly.
+
+           Nazwisko, wyksztalcenie i dlugosc doswiadczenia pochodza WPROST
+           od wlasciciela. Bez tego par. 4 zabranialby ich publikacji.
            ============================================================ -->
       <section class="section" id="o-nas" data-animation="section" aria-labelledby="o-nas-title">
         <div class="container">
@@ -437,13 +440,21 @@
               </p>
 
               <h2 class="u-h2 about__title" id="o-nas-title" data-animation="fade-up">
-                Mała szkoła. Dużo uwagi.
+                Lokalna szkoła. Dużo uwagi.
               </h2>
 
-              <p class="u-lead" data-animation="fade-up">
-                High Five prowadzi doświadczona lektorka z około 20-letnim doświadczeniem w
-                nauczaniu języka angielskiego. Stawiamy na małe grupy, bezpośredni kontakt z uczniem
-                i praktyczne używanie języka.
+              <p data-animation="fade-up">
+                High Five to kameralna szkoła językowa z Gocławia, prowadzona przez Magdalenę
+                Germel. Magdalena jest absolwentką lingwistyki stosowanej na Uniwersytecie
+                Warszawskim oraz studiów podyplomowych z tłumaczeń przysięgłych w SWPS. Od ponad 20
+                lat uczy angielskiego, a w High Five stawia na małe grupy, praktyczne używanie
+                języka i uważną pracę z każdym uczniem.
+              </p>
+
+              <p data-animation="fade-up">
+                Zajęcia prowadzą także zweryfikowani lektorzy z doświadczeniem w pracy z dziećmi.
+                Dbamy o dobrą atmosferę, wysoki standard pracy i bezpieczeństwo — osoby uczące w
+                szkole posiadają zaświadczenie o niekaralności.
               </p>
 
               <ul class="about__marks">
@@ -452,28 +463,43 @@
                   <span>lat doświadczenia</span>
                 </li>
                 <li class="about__mark" data-animation="fade-up">
-                  <strong>Małe</strong>
-                  <span>grupy</span>
+                  <strong>UW + SWPS</strong>
+                  <span>wykształcenie językowe</span>
                 </li>
                 <li class="about__mark" data-animation="fade-up">
-                  <strong>Praktyczny</strong>
-                  <span>angielski</span>
+                  <strong>Małe</strong>
+                  <span>grupy i uważność</span>
                 </li>
               </ul>
             </div>
 
-            <!--
-              BRAK ZDJECIA. Portret osoby prowadzacej nie zostal dostarczony,
-              a par. 4 zabrania podstawiania w to miejsce przypadkowego kadru.
-              Wymaganie zapisane w docs/CONTENT_GAPS.md.
-            -->
-            <div class="media about__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: portret osoby prowadzącej szkołę, w naturalnym świetle, podczas
-                pracy lub rozmowy — nie pozowany. Proporcja 4:5, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media about__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/about-magdalena-germel-480.avif   480w,
+                    /src/assets/images/sections/about-magdalena-germel-768.avif   768w,
+                    /src/assets/images/sections/about-magdalena-germel-1120.avif 1120w
+                  "
+                  sizes="(min-width: 62rem) 42vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/about-magdalena-germel-768.webp"
+                  srcset="
+                    /src/assets/images/sections/about-magdalena-germel-480.webp   480w,
+                    /src/assets/images/sections/about-magdalena-germel-768.webp   768w,
+                    /src/assets/images/sections/about-magdalena-germel-1120.webp 1120w
+                  "
+                  sizes="(min-width: 62rem) 42vw, 100vw"
+                  alt="Magdalena Germel, lektorka prowadząca szkołę High Five"
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>

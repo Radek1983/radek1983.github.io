@@ -20,7 +20,11 @@
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
+}
+
+.about__text p {
+  max-inline-size: 46ch;
 }
 
 .about__media {
@@ -39,9 +43,15 @@
  */
 .about__marks {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--grid-gutter);
-  margin: 0;
+
+  /*
+   * auto-fit z minimum, nie sztywne trzy kolumny: etykiety maja rozna
+   * dlugosc ("20+" obok "UW + SWPS"), a przy waskim ekranie trzy rowne
+   * kolumny lamalyby je na pojedyncze litery.
+   */
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-6) var(--grid-gutter);
+  margin-block-start: var(--space-4);
   padding: 0;
   list-style: none;
 }
@@ -54,17 +64,23 @@
 .about__mark strong {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.2vw, 1.875rem);
+  font-size: clamp(1.125rem, 1.9vw, 1.625rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
 }
 
 .about__mark span {
   display: block;
   margin-block-start: var(--space-1);
   font-size: var(--step-label);
-  letter-spacing: var(--tracking-label);
+
+  /*
+   * Ciasniejszy trakt niz --tracking-label. Przy pelnych 0.14em najdluzsza
+   * etykieta lamala sie na dwie linie i rzad tracil wspolna linie bazowa.
+   */
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
@@ -75,9 +91,16 @@
   }
 
   .about__media {
-    grid-column: 8 / -1;
+    grid-column: 7 / -1;
     margin-block-start: 0;
-    block-size: min(60svh, 30rem);
-    aspect-ratio: auto;
+
+    /*
+     * Pelna proporcja zrodla, bez przycinania. Kwadratowy kadr obcinal dolna
+     * czesc zdjecia razem z biurkiem i notatnikiem, czyli z tym, co nadaje
+     * portretowi kontekst pracy zamiast studyjnego popiersia.
+     */
+    aspect-ratio: 4 / 5;
+    block-size: auto;
+    max-block-size: min(80svh, 44rem);
   }
 }

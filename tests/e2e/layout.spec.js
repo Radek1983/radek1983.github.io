@@ -1041,3 +1041,93 @@ test.describe('reduced motion', () => {
     expect(sticky).toBe('static')
   })
 })
+
+test.describe('05 o high five', () => {
+  test('sekcja niesie fakty przekazane przez wlasciciela', async ({ page }) => {
+    await page.goto('/')
+    const sekcja = page.locator('#o-nas')
+
+    await expect(sekcja.locator('h2')).toHaveText('Lokalna szkoła. Dużo uwagi.')
+
+    /*
+     * Nazwisko, uczelnie i dlugosc doswiadczenia pochodza WPROST od
+     * wlasciciela. Bez tego par. 4 zabranialby publikowania kwalifikacji
+     * osob uczacych.
+     */
+    await expect(sekcja).toContainText('Magdalenę Germel')
+    await expect(sekcja).toContainText('Uniwersytecie Warszawskim')
+    await expect(sekcja).toContainText('SWPS')
+    /*
+     * s+ zamiast spacji: toContainText normalizuje biale znaki tylko dla
+     * lancuchow. Wyrazenie regularne dostaje surowy tekst razem z lamaniem
+     * wierszy ze zrodla, wiec sztywna spacja nie trafialaby w zdanie
+     * rozbite miedzy dwie linie HTML.
+     */
+    await expect(sekcja).toContainText(/od\s+ponad\s+20\s+lat/i)
+    await expect(sekcja).toContainText(/zaświadczenie\s+o\s+niekaralności/i)
+
+    const wyrozniki = await sekcja.locator('.about__mark strong').allTextContents()
+    expect(wyrozniki.map((t) => t.trim())).toEqual(['20+', 'UW + SWPS', 'Małe'])
+  })
+
+  test('portret jest prawdziwym zdjeciem, nie zastepnikiem', async ({ page }) => {
+    await page.goto('/')
+
+    // Slot na brakujacy kadr zniknal - zdjecie zostalo dostarczone.
+    await expect(page.locator('#o-nas .photo-todo')).toHaveCount(0)
+
+    const img = page.locator('#o-nas img')
+    await expect(img).toHaveAttribute('src', /about-magdalena-germel/)
+    await expect(img).toHaveAttribute('alt', /Magdalena Germel/)
+
+    // Wymiary w atrybutach rezerwuja miejsce, wiec obraz nie przesuwa layoutu.
+    await expect(img).toHaveAttribute('width', '1122')
+    await expect(img).toHaveAttribute('height', '1402')
+    await expect(img).toHaveAttribute('loading', 'lazy')
+
+    // Pelna proporcja zrodla - kwadratowy kadr obcinal biurko i notatnik.
+    const proporcja = await page.evaluate(() => {
+      const box = document.querySelector('#o-nas .about__media').getBoundingClientRect()
+      return +(box.width / box.height).toFixed(2)
+    })
+    expect(proporcja).toBeCloseTo(0.8, 1)
+  })
+
+  test('menu O High Five prowadzi do tej sekcji, nie do metody', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'menu poziome od 75rem')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    const pozycja = page.locator('.site-nav__link[data-nav="o-nas"]')
+    await expect(pozycja).toHaveAttribute('href', '/#o-nas')
+
+    await pozycja.click()
+    await page.waitForTimeout(600)
+
+    // Sekcja stoi pod sticky naglowkiem, a nie pod nim schowana.
+    const m = await page.evaluate(() => ({
+      gora: document.querySelector('#o-nas').getBoundingClientRect().top,
+      dolNaglowka: document.querySelector('.site-header').getBoundingClientRect().bottom,
+    }))
+    expect(m.gora).toBeGreaterThanOrEqual(m.dolNaglowka - 2)
+  })
+
+  test('wyrozniki nie lamia sie na telefonie i nie powoduja scrolla', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari', 'uklad mobilny')
+
+    await page.goto('/')
+    const m = await page.evaluate(() => {
+      const sekcja = document.querySelector('#o-nas')
+      return {
+        marks: sekcja.querySelectorAll('.about__mark').length,
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      }
+    })
+
+    expect(m.marks).toBe(3)
+    expect(m.overflow).toBeLessThanOrEqual(1)
+  })
+})
