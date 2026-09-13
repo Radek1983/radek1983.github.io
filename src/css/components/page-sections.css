@@ -445,12 +445,17 @@
    ============================================================ */
 
 /*
- * Trzy korzysci rozdzielone cienka kreska pionowa, bez ikon i bez kart.
+ * Trzy korzysci rozdzielone WYLACZNIE kreska pionowa.
  *
- * Par. 7 briefu dopuszcza wylacznie ikony uzytkowe (strzalka, plus/minus
- * w FAQ, marker mapy), a par. 8 wymienia "szesc ikonek korzysci" wprost
- * jako anty-wzorzec. Kreska pionowa niesie ten sam podzial, ktorego uzywa
- * juz metryczka firmy w sekcji kontaktu i kolumny mega-menu.
+ * Pierwsza wersja miala czerwone etykiety i kreske pozioma u gory. Czerwien
+ * w tej kolumnie jest kolorem AKCJI - niesie ja wezwanie stojace wyzej -
+ * wiec trzy czerwone napisy zaraz pod nim czytaly sie jak kolejne odnosniki.
+ * Pozioma kreska dokladala czwarta linie podzialu do kolumny, ktora ma juz
+ * naglowek, akapit i przycisk.
+ *
+ * Teraz hierarchia idzie SAMYM stopniem i kolorem tekstu: nazwa w kroju
+ * display, wersalikami, w kolorze tekstu; opis mniejszy i wyciszony.
+ * To ten sam uklad, ktory niesie metryczka firmy w sekcji kontaktu.
  */
 .perks {
   display: grid;
@@ -461,33 +466,60 @@
    * ustawiaja sie jedna pod druga zamiast w rzedzie.
    */
   inline-size: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
-  gap: var(--space-6) var(--space-6);
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
   margin: 0;
   padding: 0;
-  padding-block-start: var(--space-6);
-  border-block-start: 1px solid var(--color-rule);
   list-style: none;
 }
 
 .perks__title {
   margin: 0 0 var(--space-2);
-  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 .perks__text {
   margin: 0;
   font-size: 0.9375rem;
-  max-inline-size: 22ch;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  max-inline-size: 24ch;
 }
 
 @media (width >= 30rem) {
   /*
-   * Kreska stoi PRZED pozycja, wiec pierwsza zostaje bez niej i blok
-   * zaczyna sie rowno z lewa krawedzia tresci.
+   * Trzy rowne kolumny, kreska PRZED pozycja. Pierwsza zostaje bez niej,
+   * wiec blok zaczyna sie rowno z lewa krawedzia tresci - tak jak naglowek
+   * i akapit nad nim.
+   */
+  .perks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    gap: var(--space-6) 0;
+  }
+
+  /*
+   * Subgrid wyrownuje opisy do wspolnej linii.
+   *
+   * "Indywidualne podejscie" lamie sie na dwa wiersze, a pozostale dwie
+   * nazwy na jeden - bez tego opisy startowaly na trzech roznych
+   * wysokosciach i rzad czytal sie jak zbior przypadkowych blokow.
+   *
+   * Bez wsparcia subgrid pozycje po prostu zachowuja wlasne wiersze,
+   * czyli stan sprzed tej reguly. Nic sie nie psuje.
    */
   .perks__item {
-    padding-inline-start: var(--space-6);
+    grid-row: span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+    gap: 0;
+    padding-inline: var(--space-6);
     border-inline-start: 1px solid var(--color-rule);
   }
 

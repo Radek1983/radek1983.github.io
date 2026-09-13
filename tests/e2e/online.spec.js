@@ -75,6 +75,27 @@ test.describe('online 1 na 1', () => {
     }
   })
 
+  /*
+   * Naglowek w DWOCH wierszach i bez kropek - decyzja wlasciciela.
+   * "Indywidualnie" wypadlo, bo z nim drugi wiersz mial 28 znakow i lamal
+   * sie na trzeci przy kazdej szerokosci desktopu.
+   */
+  test('naglowek ma dwa wiersze, bez kropek i bez powtorzenia etykiety', async ({ page }) => {
+    const tytul = page.locator('.page-hero__title')
+    await expect(tytul).toHaveText('Online 1 na 1 W Twoim tempie')
+    await expect(tytul).not.toContainText('.')
+
+    const linie = await tytul.evaluate((el) =>
+      Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)),
+    )
+    expect(linie).toBe(2)
+
+    // Etykieta niesie sam kontekst - nie powtarza pierwszego wiersza naglowka.
+    const etykieta = page.locator('.page-hero .section__label')
+    await expect(etykieta).toHaveText('Dzieci, młodzież, dorośli')
+    await expect(etykieta).not.toContainText(/Online 1 na 1/i)
+  })
+
   test('hero niesie trzy korzysci w jednym rzedzie', async ({ page }) => {
     const pozycje = page.locator('.perks__item')
     await expect(pozycje).toHaveCount(3)
@@ -92,6 +113,18 @@ test.describe('online 1 na 1', () => {
       els.map((el) => Math.round(el.getBoundingClientRect().y)),
     )
     expect(new Set(y).size, 'wszystkie trzy w jednym rzedzie').toBe(1)
+
+    /*
+     * Nazwy sa w kolorze TEKSTU, nie sygnalowym. Czerwien niesie tu wezwanie
+     * stojace wyzej; trzy czerwone napisy zaraz pod nim czytaly sie jak
+     * kolejne odnosniki.
+     */
+    const SIGNAL = 'rgb(242, 59, 47)'
+    await expect(page.locator('.perks__title').first()).not.toHaveCSS('color', SIGNAL)
+
+    // Tylko kreski pionowe - poziomej nad blokiem juz nie ma.
+    await expect(page.locator('.perks')).toHaveCSS('border-top-width', '0px')
+    await expect(page.locator('.perks__item').nth(1)).not.toHaveCSS('border-left-width', '0px')
   })
 
   test('lista "Dla kogo" ma wlasny znacznik, nie punktor przegladarki', async ({ page }) => {
