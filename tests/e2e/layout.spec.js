@@ -490,6 +490,210 @@ test.describe('02 po lekcjach - scrollytelling', () => {
   })
 })
 
+test.describe('03 co dziecko zyskuje - pas typograficzny', () => {
+  async function doSekcji(page) {
+    await page.evaluate(() =>
+      window.scrollTo(
+        0,
+        window.scrollY + document.querySelector('#korzysci').getBoundingClientRect().top,
+      ),
+    )
+  }
+
+  /** Skrajne polozenia pasa na calej drodze przez ekran. */
+  async function skrajneZapasy(page, h) {
+    const top = await page.evaluate(
+      () => window.scrollY + document.querySelector('#korzysci').getBoundingClientRect().top,
+    )
+    const wysokosc = await page.evaluate(
+      () => document.querySelector('#korzysci').getBoundingClientRect().height,
+    )
+
+    let lewy = Infinity
+    let prawy = Infinity
+    for (let i = 0; i <= 16; i += 1) {
+      await page.evaluate((y) => window.scrollTo(0, y), top - h + (i / 16) * (wysokosc + h))
+      await page.waitForTimeout(40)
+      const z = await page.evaluate(() => {
+        const kont = document.querySelector('#korzysci .container')
+        const kb = kont.getBoundingClientRect()
+        const cs = getComputedStyle(kont)
+        const elementy = [...document.querySelectorAll('.marquee__word, .marquee__sep')]
+        if (elementy.length === 0) return null
+        const boxy = elementy.map((e) => e.getBoundingClientRect())
+        return {
+          l: Math.min(...boxy.map((b) => b.left)) - (kb.left + parseFloat(cs.paddingLeft)),
+          p: kb.right - parseFloat(cs.paddingRight) - Math.max(...boxy.map((b) => b.right)),
+        }
+      })
+      if (!z) continue
+      lewy = Math.min(lewy, z.l)
+      prawy = Math.min(prawy, z.p)
+    }
+    return { lewy, prawy }
+  }
+
+  test('napis miesci sie w calosci, takze w skrajnych punktach ruchu', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad poziomy pasa')
+
+    /*
+     * Regresja, ktora ten test lapie: pas jechal od 6vw do -10vw, czyli przy
+     * 1920 px o 192 px w lewo, a .marquee mial overflow: hidden z zalozeniem,
+     * ze przyciete litery to kadrowanie. Pierwsza litera znikala za krawedzia
+     * okna i czytalo sie to jak blad overflow.
+     *
+     * Sprawdzamy nie stan spoczynkowy, tylko NAJGORSZY punkt animacji.
+     */
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      const z = await skrajneZapasy(page, 900)
+
+      expect(z.lewy, `lewy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
+      expect(z.prawy, `prawy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
+    }
+  })
+
+  test('pas to jedna linia z dwoma rombami, bez samotnego symbolu', async ({ page }) => {
+    await page.goto('/')
+
+    /*
+     * Drugi pas byl odsuniety o -8vw i przy dryfie zostawal z niego w kadrze
+     * jeden romb wiszacy w pustce. Pusta przestrzen tej sekcji ma byc czysta -
+     * brief zabrania wypelniania jej dekoracja.
+     */
+    await expect(page.locator('.marquee__row')).toHaveCount(1)
+    await expect(page.locator('.marquee__sep')).toHaveCount(2)
+    await expect(page.locator('.marquee__word')).toHaveCount(2)
+
+    // Pas jest dekoracja; tresc niesie naglowek dostepny dla czytnikow.
+    await expect(page.locator('.marquee')).toHaveAttribute('aria-hidden', 'true')
+    await expect(page.locator('#korzysci-title')).toHaveText('Co dziecko zyskuje na zajęciach')
+  })
+
+  test('kolumny korzysci wchodza po kolei i nigdy nie znikaja', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'stagger liczony na desktopie')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(900)
+
+    const items = page.locator('.benefits__item')
+    await expect(items).toHaveCount(3)
+
+    const stan = await page.evaluate(() =>
+      [...document.querySelectorAll('.benefits__item')].map((el) => {
+        const cs = getComputedStyle(el)
+        const v = cs.transitionDelay.split(',')[0]
+        return {
+          delay: v.endsWith('ms') ? parseFloat(v) : parseFloat(v) * 1000,
+          widoczny: el.classList.contains('is-visible'),
+        }
+      }),
+    )
+
+    // Stagger rosnie, a krok miesci sie w widelkach 80-140 ms na kolumne.
+    expect(stan[0].delay).toBe(0)
+    expect(stan[1].delay - stan[0].delay).toBeGreaterThanOrEqual(80)
+    expect(stan[1].delay - stan[0].delay).toBeLessThanOrEqual(140)
+    expect(stan[2].delay - stan[1].delay).toBeGreaterThanOrEqual(80)
+    expect(stan[2].delay - stan[1].delay).toBeLessThanOrEqual(140)
+
+    for (const s of stan) expect(s.widoczny).toBe(true)
+
+    /*
+     * Stan wyjsciowy to polowa krycia, nie zero: trzy krotkie zdania obok
+     * siebie, ktore gasna do konca, czytaja sie jak doladowywanie strony.
+     */
+    await page.evaluate(() =>
+      document.querySelector('.benefits__item').classList.remove('is-visible'),
+    )
+
+    /*
+     * Odczyt musi poczekac na koniec przejscia. Tuz po zdjeciu klasy
+     * getComputedStyle zwraca jeszcze wartosc w trakcie animacji, czyli 1.
+     */
+    await expect
+      .poll(
+        async () =>
+          Number(
+            await page.evaluate(
+              () => getComputedStyle(document.querySelector('.benefits__item')).opacity,
+            ),
+          ),
+        { timeout: 3000 },
+      )
+      .toBeLessThanOrEqual(0.5)
+
+    const wyjsciowa = Number(
+      await page.evaluate(
+        () => getComputedStyle(document.querySelector('.benefits__item')).opacity,
+      ),
+    )
+    expect(wyjsciowa).toBeGreaterThanOrEqual(0.3)
+  })
+
+  test('na telefonie pas idzie w pion i nie powoduje poziomego scrolla', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari', 'uklad mobilny')
+
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(400)
+
+    const m = await page.evaluate(() => {
+      const row = document.querySelector('.marquee__row')
+      const slowa = [...document.querySelectorAll('.marquee__word')].map((el) =>
+        el.getBoundingClientRect(),
+      )
+      const kont = document.querySelector('#korzysci .container').getBoundingClientRect()
+      return {
+        kierunek: getComputedStyle(row).flexDirection,
+        // Przy ukladzie pionowym dryf w bok wypychalby dolne slowo z kolumny.
+        ruch: getComputedStyle(document.querySelector('.marquee__word--trail')).animationName,
+        najdalejWLewo: Math.min(...slowa.map((b) => b.left)) - kont.left,
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      }
+    })
+
+    expect(m.kierunek).toBe('column')
+    expect(m.ruch).toBe('none')
+    expect(m.najdalejWLewo).toBeGreaterThanOrEqual(0)
+    expect(m.overflow).toBeLessThanOrEqual(1)
+  })
+
+  test('przy reduced motion pas stoi, romby sie nie krecą, tekst jest pelny', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'reduced-motion', 'wariant reduced motion')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(400)
+
+    const m = await page.evaluate(() => ({
+      slowo: getComputedStyle(document.querySelector('.marquee__word--lead')).animationName,
+      romb: getComputedStyle(document.querySelector('.marquee__sep')).animationName,
+      przesuniecie: getComputedStyle(document.querySelector('.marquee__word--lead')).translate,
+      obrot: getComputedStyle(document.querySelector('.marquee__sep')).rotate,
+      krycie: [...document.querySelectorAll('.benefits__item')].map((el) =>
+        Number(getComputedStyle(el).opacity),
+      ),
+    }))
+
+    expect(m.slowo).toBe('none')
+    expect(m.romb).toBe('none')
+    expect(m.przesuniecie).toBe('none')
+    expect(m.obrot).toBe('none')
+    for (const o of m.krycie) expect(o).toBe(1)
+  })
+})
+
 test.describe('nawigacja i dostepnosc', () => {
   test('kotwica z URL ustawia sekcje pod sticky headerem', async ({ page }) => {
     await page.goto('/#cennik')
@@ -782,7 +986,12 @@ test.describe('reduced motion', () => {
 
     await page.goto('/')
 
-    for (const selector of ['.hero__wordmark', '.marquee__row', '.method__verb']) {
+    for (const selector of [
+      '.hero__wordmark',
+      '.marquee__word--lead',
+      '.marquee__sep',
+      '.method__verb',
+    ]) {
       const name = await page
         .locator(selector)
         .first()

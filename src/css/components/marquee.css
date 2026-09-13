@@ -1,51 +1,73 @@
 /*
- * Pasy typograficzne. Korzysci sa rytmem wizualnym, nie gridem szesciu ikonek.
+ * Pas typograficzny. Korzysci sa rytmem wizualnym, nie gridem szesciu ikonek.
  *
  * BEZ autoplay w spoczynku - wymog briefu i rozdz. 30.2 specyfikacji.
- * W tym kroku pasy sa statyczne i przesuniete wzgledem siebie kompozycyjnie;
- * powiazanie ich ruchu ze scrollem nalezy do warstwy motion.
+ * Ruch pasu jest wiazany ze scrollem w warstwie motion; gdy uzytkownik nie
+ * przewija, pas stoi.
  */
 
 .marquee {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.25rem, 1vw, 1rem);
 
-  /* Pasy celowo wychodza poza krawedz - to kadrowanie typografii, nie blad. */
-  overflow: hidden;
+  /*
+   * Pas ma miescic sie w calosci.
+   *
+   * Wczesniej stalo tu `overflow: hidden` z zalozeniem, ze przyciete litery
+   * to kadrowanie typografii. Wlasciciel to odrzucil: pierwsza litera ucieta
+   * przy krawedzi okna czyta sie jak blad overflow, a nie jak decyzja.
+   * Przycinanie zostaje wylacznie jako zabezpieczenie przed poziomym
+   * scrollem - w poprawnym stanie nie ma czego przycinac, a test pilnuje,
+   * ze pas razem z dryfem miesci sie w kontenerze.
+   */
+  overflow: clip;
 }
 
 .marquee__row {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 3vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 4.5rem);
   white-space: nowrap;
+
+  /*
+   * Wlasna skala zamiast --step-display.
+   *
+   * Napis musi zmiescic sie w kontenerze RAZEM z dryfem (+-1rem na slowo)
+   * i z zapasem po obu stronach. Przy 10vw z --step-display sam napis byl
+   * szerszy od kontenera, wiec zadne ustawienie overflow go nie uratowalo.
+   */
   font-family: var(--font-display);
-  font-size: var(--step-display);
+  font-size: clamp(2rem, 7.2vw, 8rem);
   font-weight: 800;
-  line-height: 0.95;
+  line-height: 0.9;
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
 
-/* Drugi pas przesuniety w przeciwna strone - buduje przeciwbiezny rytm
-   widoczny nawet na statycznym screenshocie. */
-.marquee__row--offset {
-  margin-inline-start: -8vw;
-}
-
-.marquee__row--outline {
-  color: transparent;
-  -webkit-text-stroke: 1px currentcolor;
-}
-
-.marquee__row--outline .marquee__sep {
-  color: var(--color-text);
-  -webkit-text-stroke: 0;
+/*
+ * Slowa w osobnych spanach, bo kazde dryfuje w inna strone.
+ * Bez ruchu (brak wsparcia scroll-driven albo reduced motion) to zwykly
+ * tekst w linii - kompozycja nie zalezy od animacji.
+ */
+.marquee__word {
+  display: inline-block;
 }
 
 .marquee__sep {
   flex: none;
   font-size: 0.45em;
   transform: translateY(-0.22em);
+}
+
+/*
+ * Mobile: pas idzie w pion. Jedna linia przy 390 px wymagalaby stopnia pisma
+ * ponizej 30 px, czyli straty skali, ktora jest tu calym sensem sekcji.
+ */
+@media (width < 48rem) {
+  .marquee__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(0.25rem, 2vw, 0.75rem);
+    font-size: clamp(2.75rem, 15vw, 4.5rem);
+  }
 }

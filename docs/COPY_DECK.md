@@ -90,14 +90,21 @@ pilnuje tego test w `tests/e2e/layout.spec.js`.
 
 ## 03 Co dziecko zyskuje — `#korzysci`
 
-**Pasy typograficzne:** Mówię · Rozumiem · Próbuję / Pewność · Ciekawość · Postęp
+**Pas typograficzny:** MÓWIĘ ◆ ROZUMIEM ◆
 
-Pasy są `aria-hidden` — są rytmem wizualnym, nie nośnikiem treści. Semantyczna wersja
+Jeden pas, nie dwa. Drugi — „Pewność ◆ Ciekawość ◆ Postęp" — został usunięty na polecenie
+właściciela: był odsunięty w lewo i przy przewijaniu zostawał z niego w kadrze pojedynczy romb
+wiszący w pustce, co czytało się jak błąd, a nie kompozycja.
+
+Pas jest `aria-hidden` — jest rytmem wizualnym, nie nośnikiem treści. Semantyczna wersja
 komunikatu to trzy bloki poniżej. Sekcja ma ukryty nagłówek dla czytników ekranu.
 
-- **Więcej mówienia.** Dziecko regularnie używa języka w praktyce, zamiast tylko rozwiązywać ćwiczenia.
-- **Lepsze rozumienie.** Słownictwo i gramatyka mają pomagać rozumieć i komunikować się, nie być celem samym w sobie.
-- **Więcej pewności.** Regularny kontakt z językiem ułatwia pracę na lekcjach szkolnych i przygotowanie do ważnych sprawdzianów.
+Nagłówki kolumn przepisane przez właściciela na pierwszą osobę, tak by odpowiadały pasowi
+(„Mówię", „Rozumiem"). Fakty bez zmian.
+
+- **Mówię więcej.** Dziecko regularnie używa angielskiego w praktyce, zamiast tylko rozwiązywać ćwiczenia.
+- **Rozumiem więcej.** Słownictwo i gramatyka pomagają dziecku rozumieć i komunikować się – nie są celem samym w sobie.
+- **Czuję się pewniej.** Regularny kontakt z językiem ułatwia pracę na lekcjach i przygotowanie do ważnych sprawdzianów.
 
 ## 04 Kursy — `#oferta`
 

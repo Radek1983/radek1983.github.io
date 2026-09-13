@@ -334,36 +334,43 @@
           </p>
           <h2 class="u-sr-only" id="korzysci-title">Co dziecko zyskuje na zajęciach</h2>
 
+          <!--
+            Jeden pas, nie dwa. Drugi - "Pewność / Ciekawość / Postęp" - byl
+            odsuniety o -8vw i przy dryfie widac bylo z niego tylko jeden romb
+            wiszacy w pustce. Wlasciciel czytal to jako blad, nie kompozycje.
+
+            Slowa sa w osobnych spanach, bo kazde dryfuje w inna strone.
+            Caly pas jest aria-hidden - tresc niesie naglowek h2 wyzej.
+          -->
           <div class="marquee benefits__marquee" aria-hidden="true">
             <p class="marquee__row">
-              Mówię <span class="marquee__sep">◆</span> Rozumiem
-              <span class="marquee__sep">◆</span> Próbuję
-            </p>
-            <p class="marquee__row marquee__row--offset marquee__row--outline">
-              Pewność <span class="marquee__sep">◆</span> Ciekawość
-              <span class="marquee__sep">◆</span> Postęp
+              <span class="marquee__word marquee__word--lead">Mówię</span>
+              <span class="marquee__sep">◆</span>
+              <span class="marquee__word marquee__word--trail">Rozumiem</span>
+              <span class="marquee__sep">◆</span>
             </p>
           </div>
 
           <ul class="benefits__list">
-            <li class="benefits__item" data-animation="reveal">
-              <h3>Więcej mówienia</h3>
+            <li class="benefits__item" data-animation="fade-up">
+              <h3>Mówię więcej.</h3>
               <p>
-                Dziecko regularnie używa języka w praktyce, zamiast tylko rozwiązywać ćwiczenia.
+                Dziecko regularnie używa angielskiego w praktyce, zamiast tylko rozwiązywać
+                ćwiczenia.
               </p>
             </li>
-            <li class="benefits__item" data-animation="reveal">
-              <h3>Lepsze rozumienie</h3>
+            <li class="benefits__item" data-animation="fade-up">
+              <h3>Rozumiem więcej.</h3>
               <p>
-                Słownictwo i gramatyka mają pomagać rozumieć i komunikować się, nie być celem samym
-                w sobie.
+                Słownictwo i gramatyka pomagają dziecku rozumieć i komunikować się – nie są celem
+                samym w sobie.
               </p>
             </li>
-            <li class="benefits__item" data-animation="reveal">
-              <h3>Więcej pewności</h3>
+            <li class="benefits__item" data-animation="fade-up">
+              <h3>Czuję się pewniej.</h3>
               <p>
-                Regularny kontakt z językiem ułatwia pracę na lekcjach szkolnych i przygotowanie do
-                ważnych sprawdzianów.
+                Regularny kontakt z językiem ułatwia pracę na lekcjach i przygotowanie do ważnych
+                sprawdzianów.
               </p>
             </li>
           </ul>

@@ -138,34 +138,83 @@
      * Przeciwbiezny dryf wiazany ze scrollem. Brief zabrania autoplay
      * w spoczynku: gdy uzytkownik nie przewija, pasy stoja.
      */
-    .marquee__row {
-      animation: marquee-drift-start linear both;
+
+    /*
+     * Dryfuja POJEDYNCZE SLOWA, nie caly pas.
+     *
+     * Wczesniej pas jechal od 6vw do -10vw, czyli przy 1920 px o 192 px w lewo,
+     * i pierwsza litera wychodzila poza krawedz okna. Tu amplituda jest stala
+     * i mala: kazde slowo pokonuje 32 px na calej drodze przez ekran, wiec
+     * ruch zostaje w srodku kontenera niezaleznie od szerokosci okna.
+     *
+     * Slowa ida ku sobie. Odstep w pasie jest wiekszy od sumy dryfu, wiec
+     * nawet w skrajnym punkcie nie stykaja sie.
+     */
+
+    /*
+     * Tylko uklad poziomy. Ponizej 48rem pas lamie sie na kolumne, wiec dryf
+     * w bok nie rozsuwa slow wzgledem siebie, tylko wypycha dolne z kolumny
+     * tekstu - zmierzone 22 px poza krawedz przy 390 px.
+     */
+    @media (width >= 48rem) {
+      .marquee__word--lead {
+        animation: word-drift-lead linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+        will-change: translate;
+      }
+
+      .marquee__word--trail {
+        animation: word-drift-trail linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+        will-change: translate;
+      }
+    }
+
+    /*
+     * Dryf startuje od ZERA, a nie od wartosci ujemnej.
+     *
+     * Gdy pierwsze slowo zaczynalo od -1rem, na poczatku zakresu wychodzilo
+     * 16 px poza kolumne tekstu - dokladnie ten rodzaj "przypadkowo ucietej
+     * litery", ktory mielismy usunac. Teraz polozenie spoczynkowe jest
+     * skrajnym lewym polozeniem i zaden punkt animacji nie wyjdzie poza nie.
+     */
+    @keyframes word-drift-lead {
+      from {
+        translate: 0 0;
+      }
+
+      to {
+        translate: 2rem 0;
+      }
+    }
+
+    @keyframes word-drift-trail {
+      from {
+        translate: 0 0;
+      }
+
+      to {
+        translate: -2rem 0;
+      }
+    }
+
+    /* Romby dokrecaja sie do kwadratu - jedyny ruch obrotowy na stronie. */
+    .marquee__sep {
+      animation: sep-turn linear both;
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
-      will-change: translate;
+      will-change: rotate;
     }
 
-    .marquee__row--offset {
-      animation-name: marquee-drift-end;
-    }
-
-    @keyframes marquee-drift-start {
+    @keyframes sep-turn {
       from {
-        translate: 6vw 0;
+        rotate: 0deg;
       }
 
       to {
-        translate: -10vw 0;
-      }
-    }
-
-    @keyframes marquee-drift-end {
-      from {
-        translate: -12vw 0;
-      }
-
-      to {
-        translate: 4vw 0;
+        rotate: 45deg;
       }
     }
 
