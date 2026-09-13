@@ -27,9 +27,9 @@
    dlatego line-height jest ciasny i litery prawie sie stykaja. */
 .method__verb {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-size: clamp(2rem, 6.6vw, 5.75rem);
   font-weight: 800;
-  line-height: 0.88;
+  line-height: var(--leading-caps);
   letter-spacing: -0.045em;
   text-transform: uppercase;
 }

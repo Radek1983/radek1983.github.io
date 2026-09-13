@@ -98,10 +98,16 @@
 
 /*
  * Wlasna skala zamiast .u-display: przy 10vw ten naglowek zajmowal 83% wysokosci
- * ekranu, a brief dopuszcza 30-70%. 6.5vw daje ok. 45% przy 1440 px.
+ * ekranu, a brief dopuszcza 30-70%.
+ *
+ * Stopien zszedl z 6.5vw po tym, jak interlinia wersalikow wzrosla do
+ * bezpiecznych 1.16 em. Przy 6.5vw naglowek lamal sie na SZESC wierszy
+ * i z nowa interlinia zajmowal 68% ekranu, spychajac akapit pod krawedz.
+ * Teraz mieszczą się PIĘĆ wierszy i blok wraca do ok. 53% - czyli mniej
+ * wiecej tam, gdzie byl przed zmiana interlinii.
  */
 .after-school__claim {
-  font-size: clamp(2.25rem, 6.5vw, 5.5rem);
+  font-size: clamp(2.125rem, 6.05vw, 5.125rem);
   max-inline-size: 16ch;
 }
 

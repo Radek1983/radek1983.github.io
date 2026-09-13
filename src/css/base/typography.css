@@ -28,7 +28,7 @@ body {
   font-family: var(--font-display);
   font-size: var(--step-display);
   font-weight: 800;
-  line-height: var(--leading-tight);
+  line-height: var(--leading-caps);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
@@ -149,4 +149,38 @@ a {
 .u-display.faq__title,
 .u-display.contact__claim {
   font-size: clamp(2.5rem, 7vw, 6.25rem);
+}
+
+/*
+ * --- Miejsce na tusz polskich wersalikow ---
+ *
+ * Dwa rozne defekty mialy to samo zrodlo: tusz wersalika z akcentem siega
+ * 0.95 em nad linie bazowa, a pudelko wiersza przy ciasnej interlinii jest
+ * nizsze. Nadmiar wychodzi PONAD pudelko tresci - zmierzone od 0.06 do
+ * 0.155 em, zaleznie od elementu.
+ *
+ * Dopoki nic nie przycina, nadmiar jest nieszkodliwy. Ale warstwa reveal
+ * odslania elementy maska o rozmiarze dokladnie pudelka (--- animations/
+ * reveal.css), a maska przycina wszystko poza nim. Skutek: plasko sciety
+ * akcent w "MOWIJ." i "KROTKO." dokladnie w miejscu kreski nad O.
+ *
+ * Padding powieksza pudelko maski, a ujemny margines tej samej wielkosci
+ * zdejmuje jego wplyw na uklad. Zero zmian w rytmie pionowym, zero zmian
+ * w geometrii - element zajmuje tyle samo miejsca, co przedtem, tylko ma
+ * gdzie wydrukowac akcent.
+ */
+.u-wordmark,
+.u-display,
+.page-hero__title,
+.statement__claim,
+.closing__title,
+.offer-row__title,
+.paths__title,
+.mega__label,
+.location__place,
+.site-footer__brand,
+.method__verb,
+.drawer__sublink strong {
+  padding-block: 0.18em;
+  margin-block: -0.18em;
 }
