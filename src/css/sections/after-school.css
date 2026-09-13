@@ -1,8 +1,15 @@
 /*
  * 02 PO LEKCJACH
  *
- * Split: tekst w krotkich blokach po lewej, sticky fotografia po prawej.
- * Najpierw konkret lokalny, dopiero potem korzysc edukacyjna (brief, sekcja 11).
+ * Scrollytelling na sticky fotografii. Zdjecie stoi po prawej jako staly punkt
+ * odniesienia, a po lewej przewijaja sie: wprowadzenie, trzy bloki tekstu
+ * i puenta. Najpierw konkret lokalny, dopiero potem korzysc edukacyjna
+ * (brief, sekcja 11).
+ *
+ * Wysokosc sekcji NIE jest wymuszona zadnym min-height. Bierze sie wylacznie
+ * z odstepow miedzy blokami, wiec rosnie i maleje razem z trescia. Sztuczne
+ * rozciaganie ekranu do 300vh jest wprost zabronione (CLAUDE.md par. 9)
+ * i przy krotszej tresci zostawialoby pustke pod ostatnim akapitem.
  */
 
 .after-school__grid {
@@ -12,16 +19,74 @@
   align-items: start;
 }
 
+.after-school__intro,
+.after-school__media,
 .after-school__text {
   grid-column: 1 / -1;
+}
+
+.after-school__intro {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
 }
 
 .after-school__media {
-  grid-column: 1 / -1;
-  margin-block-start: var(--space-12);
+  margin-block: var(--space-8);
+}
+
+/*
+ * Kadr jest w zrodle dokladnie 4:5, wiec przy pelnej proporcji nic nie jest
+ * przycinane. Gdy ograniczenie wysokosci zaczyna dzialac, crop ma schodzic
+ * z DOLU - stad gorne kotwiczenie. Centrowanie scinalo wlosy dziewczynki.
+ */
+.after-school__media img {
+  object-position: center top;
+}
+
+/*
+ * Maska wejscia kadru siedzi na <picture>, a NIE na <figure>.
+ *
+ * IntersectionObserver liczy przeciecie na prostokacie przycietym przez
+ * clip-path. Element z `inset(100% 0 0 0)` ma zerowa powierzchnie, wiec
+ * obserwator raportuje isIntersecting: false i nie odslania go nigdy -
+ * ratuje go dopiero siatka bezpieczenstwa po 2,5 s od zaladowania strony.
+ * Zmierzone: ratio 1.0 bez clip-path, 0.0 z nim.
+ *
+ * Obserwowany <figure> zostaje wiec bez maski i ma pelna geometrie, a maska
+ * jedzie na dziecku. Sam <figure> nadal gasnie i zapala sie przez opacity,
+ * bo przezroczystosc nie wplywa na pomiar przeciecia.
+ *
+ * To samo dotyczy wszystkich pozostalych wariantow reveal / mask-up
+ * / mask-start na stronie. Naprawa calej warstwy wykracza poza te sekcje
+ * i czeka na osobna decyzje.
+ */
+.js .after-school__media[data-animation] {
+  clip-path: none;
+}
+
+.js .after-school__media picture {
+  display: block;
+  block-size: 100%;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--dur-reveal) var(--ease-out-expo);
+}
+
+.js .after-school__media.is-visible picture {
+  clip-path: inset(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .after-school__media picture {
+    clip-path: none;
+    transition: none;
+  }
+}
+
+.after-school__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 /*
@@ -39,17 +104,73 @@
   border-block-start: 1px solid var(--color-rule);
 }
 
-@media (width >= 62rem) {
-  .after-school__text {
-    grid-column: 1 / span 6;
+/* --- Puenta sekcji --- */
 
-    /* Wysokosc wieksza od media daje sticky obrazowi dystans do "stania". */
-    padding-block: var(--space-4) var(--space-16);
-    gap: var(--space-8);
+/*
+ * Pierwsze zdanie puenty jest wypowiedzia, nie akapitem: stopien pisma bliski
+ * H3, krój display i ciasna interlinia. Nie jest naglowkiem semantycznym -
+ * hierarchia h2 -> h3 opisywalaby tu strukture, ktorej nie ma, a par. 10
+ * zabrania skokow naglowkow dla samego wygladu.
+ */
+.after-school__punch {
+  margin-block-end: var(--space-4);
+  max-inline-size: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: var(--tracking-heading);
+}
+
+.after-school__coda {
+  max-inline-size: var(--measure);
+  font-size: clamp(1.125rem, 1.45vw, 1.5rem);
+  line-height: 1.45;
+}
+
+@media (width >= 62rem) {
+  .after-school__intro {
+    grid-column: 1 / span 6;
+    grid-row: 1;
   }
 
+  /*
+   * Zdjecie zajmuje OBA wiersze lewej kolumny. To jego obszar siatki jest
+   * torem, po ktorym moze jechac position: sticky - gdyby stalo tylko
+   * w wierszu 1, odklejaloby sie zaraz po naglowku.
+   *
+   * align-self: start jest tu warunkiem dzialania sticky, a nie kosmetyka:
+   * domyslne stretch rozciagneloby element na cala wysokosc obszaru i nie
+   * zostaloby ani piksela, w ktorym moglby sie przesuwac.
+   */
   .after-school__media {
+    grid-row: 1 / span 2;
     grid-column: 8 / -1;
-    margin-block-start: 0;
+    align-self: start;
+    margin-block: 0;
+
+    /* Kadr ma zmiescic sie w oknie razem ze sticky naglowkiem strony. */
+    max-block-size: 78svh;
+  }
+
+  .after-school__text {
+    grid-row: 2;
+    grid-column: 1 / span 6;
+    padding-block-end: var(--space-32);
+
+    /*
+     * Ten odstep steruje dlugoscia calego efektu. To on, a nie min-height,
+     * decyduje jak dlugo zdjecie stoi: przy 1440x900 daje okolo dwoch
+     * wysokosci okna na sama kolumne tekstu.
+     */
+    gap: clamp(6rem, 26vh, 15rem);
+  }
+
+  /*
+   * Puenta dostaje dodatkowy odstep ponad zwykly rytm blokow, zeby wjechala
+   * w kadr dopiero w koncowce sekcji i miala wlasny moment.
+   */
+  .after-school__block--punch {
+    margin-block-start: clamp(3rem, 12vh, 7rem);
   }
 }

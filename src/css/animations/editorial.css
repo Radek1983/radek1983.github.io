@@ -67,8 +67,14 @@
       }
     }
 
-    /* --- Parallax mediow sekcyjnych. Regula 2: parallax tylko w mediach. --- */
-    .after-school__media img,
+    /*
+     * --- Parallax mediow sekcyjnych. Regula 2: parallax tylko w mediach. ---
+     *
+     * Kadr sekcji 02 jest tu SWIADOMIE pominiety. Parallax zaklada, ze obraz
+     * przeplywa przez kadr; tamto zdjecie jest sticky i przez wiekszosc sekcji
+     * stoi, wiec ruch zamieral, a potem skakal. Drugi powod jest wazniejszy:
+     * scale 1.08 z przesunieciem -4% scinalo gore kadru i ucinalo glowe.
+     */
     .location__media img,
     .contact__media img {
       animation: media-parallax linear both;
@@ -86,6 +92,44 @@
       to {
         translate: 0 4%;
         scale: 1.08;
+      }
+    }
+
+    /*
+     * --- 02 Po lekcjach: blok w centrum uwagi. ---
+     *
+     * Bloki poza srodkiem okna sa przygaszone, blok czytany ma pelna moc.
+     * Wygaszenie zatrzymuje sie na wartosci, ktora zostawia tekst czytelnym -
+     * to podkreslenie biezacego akapitu, nie chowanie pozostalych.
+     *
+     * Animacja siedzi na DZIECIACH bloku, nie na nim samym. Blok nosi
+     * data-animation i ma wlasne przejscie opacity przy wejsciu w kadr;
+     * animacja na tym samym elemencie wygralaby z tym przejsciem i omijala
+     * siatke bezpieczenstwa, ktora gwarantuje, ze tresc zawsze sie odsloni.
+     *
+     * Tylko desktop: na telefonie bloki i tak czyta sie pojedynczo,
+     * a przygaszanie na malym ekranie czyta sie jak blad renderowania.
+     */
+    @media (width >= 62rem) {
+      .after-school__block > * {
+        animation: block-focus linear both;
+        animation-timeline: view();
+        animation-range: entry 25% exit 25%;
+      }
+    }
+
+    @keyframes block-focus {
+      0% {
+        opacity: 0.45;
+      }
+
+      25%,
+      75% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.55;
       }
     }
 

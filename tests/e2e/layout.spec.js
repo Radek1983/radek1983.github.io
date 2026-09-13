@@ -172,6 +172,191 @@ test.describe('oferta dla seniorow', () => {
   })
 })
 
+test.describe('02 po lekcjach - scrollytelling', () => {
+  const DESKTOP = { width: 1440, height: 900 }
+
+  async function geometria(page) {
+    return page.evaluate(() => {
+      const sec = document.querySelector('#po-lekcjach')
+      const media = document.querySelector('.after-school__media')
+      const b = sec.getBoundingClientRect()
+      return {
+        sekcjaVh: b.height / window.innerHeight,
+        position: getComputedStyle(media).position,
+        mediaTop: Math.round(media.getBoundingClientRect().top),
+        mediaVh: media.getBoundingClientRect().height / window.innerHeight,
+      }
+    })
+  }
+
+  async function doSekcji(page, offset = 0) {
+    await page.evaluate((dy) => {
+      const y = window.scrollY + document.querySelector('#po-lekcjach').getBoundingClientRect().top
+      window.scrollTo(0, y + dy)
+    }, offset)
+  }
+
+  test('kadr stoi, a tekst przewija sie obok', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+
+    await doSekcji(page)
+    await page.waitForTimeout(400)
+    const a = await geometria(page)
+
+    // Przewijamy o cale okno w glab sekcji.
+    await doSekcji(page, 900)
+    await page.waitForTimeout(400)
+    const b = await geometria(page)
+
+    expect(a.position).toBe('sticky')
+
+    // Istota efektu: po przewinieciu o 900 px kadr stoi w tym samym miejscu.
+    expect(Math.abs(b.mediaTop - a.mediaTop)).toBeLessThanOrEqual(2)
+
+    // I nie wchodzi pod sticky naglowek.
+    const headerBottom = await page.evaluate(
+      () => document.querySelector('.site-header').getBoundingClientRect().bottom,
+    )
+    expect(a.mediaTop).toBeGreaterThanOrEqual(headerBottom)
+
+    // Kadr miesci sie w oknie razem z naglowkiem.
+    expect(a.mediaVh).toBeLessThanOrEqual(0.82)
+  })
+
+  test('sekcja jest dosc dluga, by kadr rzeczywiscie postal', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    const { sekcjaVh } = await geometria(page)
+
+    /*
+     * Dolna granica to sens efektu: ponizej dwoch ekranow kadr ledwie zdazy
+     * stanac. Gorna pilnuje zakazu sztucznego rozciagania sekcji - wysokosc
+     * ma wynikac z odstepow miedzy blokami, nie z min-height.
+     */
+    expect(sekcjaVh).toBeGreaterThan(1.9)
+    expect(sekcjaVh).toBeLessThan(2.8)
+  })
+
+  test('puenta wchodzi w koncowce sekcji, zanim kadr sie odklei', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+
+    const m = await page.evaluate(() => {
+      const sec = document.querySelector('#po-lekcjach')
+      const media = document.querySelector('.after-school__media')
+      const punch = document.querySelector('.after-school__block--punch')
+      const vh = window.innerHeight
+      const top = window.scrollY + sec.getBoundingClientRect().top
+      const skok = sec.getBoundingClientRect().height - vh
+      const punchBox = punch.getBoundingClientRect()
+      const punchTop = window.scrollY + punchBox.top
+      const area = media.parentElement.getBoundingClientRect()
+      const areaBot = window.scrollY + area.top + area.height
+      const stickyTop = parseFloat(getComputedStyle(media).insetBlockStart)
+      const odklejenieNa = areaBot - media.getBoundingClientRect().height - stickyTop
+      return {
+        // Obserwator odslania przy rootMargin -12% od dolu okna.
+        revealProc: ((punchTop - vh * 0.88 - top) / skok) * 100,
+        zapasPrzedOdklejeniem: odklejenieNa - (punchTop + punchBox.height - vh),
+      }
+    })
+
+    // Puenta ma dostac wlasny moment, a nie wjechac tuz za trzecim akapitem.
+    expect(m.revealProc).toBeGreaterThan(60)
+    expect(m.revealProc).toBeLessThan(90)
+
+    // I ma sie skonczyc, zanim kadr zacznie opuszczac stan sticky.
+    expect(m.zapasPrzedOdklejeniem).toBeGreaterThan(0)
+  })
+
+  test('reveal odpala przy wejsciu w kadr, nie z siatki bezpieczenstwa', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    /*
+     * Regresja, ktora ten test lapie: clip-path: inset(100%) zeruje prostokat
+     * przeciecia, wiec IntersectionObserver raportuje isIntersecting: false
+     * i NIGDY nie odslania elementu. Tresc ratowala dopiero siatka
+     * bezpieczenstwa po 2500 ms, a reveal tracil zwiazek ze scrollem.
+     *
+     * Dlatego sprawdzamy stan wyraznie PRZED tym progiem.
+     */
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(700)
+
+    await expect(page.locator('.after-school__claim')).toHaveClass(/is-visible/)
+    await expect(page.locator('.after-school__media')).toHaveClass(/is-visible/)
+  })
+
+  test('na telefonie kadr stoi miedzy naglowkiem a tekstem i nie jest sticky', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari', 'uklad mobilny')
+
+    await page.goto('/')
+
+    const m = await page.evaluate(() => {
+      const intro = document.querySelector('.after-school__intro')
+      const media = document.querySelector('.after-school__media')
+      const text = document.querySelector('.after-school__text')
+      const y = (el) => window.scrollY + el.getBoundingClientRect().top
+      return {
+        position: getComputedStyle(media).position,
+        kolejnosc: y(intro) < y(media) && y(media) < y(text),
+        odstepBlokow: parseFloat(getComputedStyle(text).rowGap),
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      }
+    })
+
+    expect(m.position).toBe('static')
+    expect(m.kolejnosc).toBe(true)
+    expect(m.overflow).toBeLessThanOrEqual(1)
+
+    /*
+     * Na telefonie nie odtwarzamy efektu desktopowego kosztem dlugosci strony.
+     * Mierzymy odstep miedzy blokami, a nie wysokosc sekcji: to odstep jest
+     * narzedziem rozciagania, a wysokosc zalezy tu od tresci i od tego, ze
+     * okno telefonu jest niskie. Desktop ma w tym miejscu minimum 96 px.
+     */
+    expect(m.odstepBlokow).toBeLessThanOrEqual(48)
+  })
+
+  test('przy reduced motion caly tekst sekcji jest w pelni widoczny', async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== 'reduced-motion', 'wariant reduced motion')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    await doSekcji(page)
+    await page.waitForTimeout(500)
+
+    const opacities = await page.evaluate(() =>
+      [...document.querySelectorAll('.after-school__block > *')].map((el) =>
+        Number(getComputedStyle(el).opacity),
+      ),
+    )
+    expect(opacities.length).toBeGreaterThan(0)
+    for (const o of opacities) expect(o).toBe(1)
+
+    // Sticky degraduje sie do bloku statycznego - wymog CLAUDE.md par. 9.
+    const position = await page.evaluate(
+      () => getComputedStyle(document.querySelector('.after-school__media')).position,
+    )
+    expect(position).toBe('static')
+  })
+})
+
 test.describe('nawigacja i dostepnosc', () => {
   test('kotwica z URL ustawia sekcje pod sticky headerem', async ({ page }) => {
     await page.goto('/#cennik')

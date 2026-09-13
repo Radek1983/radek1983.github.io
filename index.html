@@ -219,22 +219,65 @@
         aria-labelledby="po-lekcjach-title"
       >
         <div class="container">
+          <!--
+            Kolejnosc w DOM jest jednoczesnie kolejnoscia na telefonie:
+            wprowadzenie, zdjecie, bloki tekstu. Na desktopie zdjecie wraca
+            na prawo przez jawne grid-column i grid-row, wiec uklad mobilny
+            nie potrzebuje ani duplikatu markupu, ani zmiany kolejnosci
+            wizualnej wzgledem focusu.
+          -->
           <div class="after-school__grid">
-            <div class="after-school__text">
-              <div>
-                <p class="u-label section__label">
-                  <span>02</span>
-                  <span>Po lekcjach</span>
-                </p>
-                <h2
-                  class="u-display after-school__claim"
-                  id="po-lekcjach-title"
-                  data-animation="reveal"
-                >
-                  Mniej logistyki. Znane miejsce. Więcej ciągłości.
-                </h2>
-              </div>
+            <div class="after-school__intro">
+              <p class="u-label section__label">
+                <span>02</span>
+                <span>Po lekcjach</span>
+              </p>
+              <!--
+                fade-up, nie reveal: wariant z clip-path jest dla obserwatora
+                prostokatem o zerowej powierzchni, wiec nigdy nie zglasza
+                przeciecia. Szczegoly przy regule maski w after-school.css.
+              -->
+              <h2
+                class="u-display after-school__claim"
+                id="po-lekcjach-title"
+                data-animation="fade-up"
+              >
+                Mniej logistyki. Znane miejsce. Więcej ciągłości.
+              </h2>
+            </div>
 
+            <figure
+              class="media media--4-5 media--sticky after-school__media"
+              data-animation="mask-up"
+            >
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/after-school-corridor-480.avif   480w,
+                    /src/assets/images/sections/after-school-corridor-768.avif   768w,
+                    /src/assets/images/sections/after-school-corridor-1120.avif 1120w
+                  "
+                  sizes="(min-width: 62rem) 44vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/after-school-corridor-768.webp"
+                  srcset="
+                    /src/assets/images/sections/after-school-corridor-480.webp   480w,
+                    /src/assets/images/sections/after-school-corridor-768.webp   768w,
+                    /src/assets/images/sections/after-school-corridor-1120.webp 1120w
+                  "
+                  sizes="(min-width: 62rem) 44vw, 100vw"
+                  alt="Uczennica z plecakiem idzie szkolnym korytarzem po lekcjach"
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+
+            <div class="after-school__text">
               <div class="after-school__block" data-animation="fade-up">
                 <p class="u-lead">
                   High Five prowadzi zajęcia z angielskiego dla dzieci z klas 1-8 po zakończeniu
@@ -256,38 +299,19 @@
                   dojazdu w środku popołudnia.
                 </p>
               </div>
-            </div>
 
-            <figure
-              class="media media--4-5 media--sticky after-school__media"
-              data-animation="mask-up"
-            >
-              <picture>
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/sections/after-school-corridor-480.avif   480w,
-                    /src/assets/images/sections/after-school-corridor-768.avif   768w,
-                    /src/assets/images/sections/after-school-corridor-1120.avif 1120w
-                  "
-                  sizes="(min-width: 62rem) 40vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/sections/after-school-corridor-768.webp"
-                  srcset="
-                    /src/assets/images/sections/after-school-corridor-480.webp   480w,
-                    /src/assets/images/sections/after-school-corridor-768.webp   768w,
-                    /src/assets/images/sections/after-school-corridor-1120.webp 1120w
-                  "
-                  sizes="(min-width: 62rem) 40vw, 100vw"
-                  alt="Uczennica z plecakiem idzie szkolnym korytarzem po lekcjach"
-                  width="1122"
-                  height="1402"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
+              <!-- Puenta sekcji. Dostaje wlasny, duzy odstep, zeby nie czytala sie
+                   jak czwarty akapit z rzedu. -->
+              <div class="after-school__block after-school__block--punch" data-animation="fade-up">
+                <p class="after-school__punch">
+                  Mniej wożenia, mniej pośpiechu, więcej spokojnego popołudnia.
+                </p>
+                <p class="after-school__coda">
+                  Angielski staje się naturalnym ciągiem dnia dziecka — a nie kolejnym punktem, do
+                  którego trzeba zdążyć.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

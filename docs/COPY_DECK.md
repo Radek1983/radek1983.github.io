@@ -76,6 +76,18 @@ Przekazał ją właściciel — patrz `docs/CONTENT_GAPS.md`. Nie jest sprzeczna
 > Dziecko nie musi jechać do kolejnej placówki, a rodzic nie organizuje dodatkowego dojazdu
 > w środku popołudnia.
 
+**Puenta sekcji** — pierwsze zdanie znacznie mocniejsze typograficznie od pozostałych akapitów,
+drugie mniejsze. Dopisane przez właściciela przy przebudowie sekcji na scrollytelling.
+
+> Mniej wożenia, mniej pośpiechu, więcej spokojnego popołudnia.
+
+> Angielski staje się naturalnym ciągiem dnia dziecka — a nie kolejnym punktem, do którego
+> trzeba zdążyć.
+
+Sekcja jest zbudowana na sticky fotografii: zdjęcie stoi po prawej, a cztery bloki przewijają
+się obok niego. Puenta ma wjeżdżać w kadr dopiero w końcówce, żeby dostała własny moment —
+pilnuje tego test w `tests/e2e/layout.spec.js`.
+
 ## 03 Co dziecko zyskuje — `#korzysci`
 
 **Pasy typograficzne:** Mówię · Rozumiem · Próbuję / Pewność · Ciekawość · Postęp
