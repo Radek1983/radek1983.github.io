@@ -355,10 +355,14 @@
   color: var(--color-accent);
 }
 
-.paths__link:hover .paths__cta,
-.paths__link:focus-visible .paths__cta {
-  text-decoration: underline;
-}
+/*
+ * Stan hover/focus tej kolumny opisuje components/offer-mark.css - ten sam
+ * plik, ktory obsluguje mega-menu. Tutaj zostaja wylacznie style spoczynku.
+ *
+ * Body celowo NIE dostaje markera pod naglowkiem, ktory ma mega-menu:
+ * czerwona kreska nad modulem, czerwony numer i ruch strzalki wystarcza,
+ * a czwarty sygnal zrobilby z sekcji contentowej drugie menu.
+ */
 
 @media (width >= 48rem) {
   .paths__item {

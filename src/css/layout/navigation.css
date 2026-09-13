@@ -467,6 +467,7 @@
 }
 
 .mega__label {
+  position: relative;
   font-family: var(--font-display);
   font-size: clamp(1.125rem, 1.6vw, 1.5rem);
   font-weight: 800;
@@ -497,52 +498,41 @@
 }
 
 /*
- * Strzalka jest osobnym spanem, zeby dalo sie ja przesunac bez ruszania
- * tekstu wezwania. Ruch wylacznie przez translate - zadnego scale, cienia
- * ani unoszenia calego modulu.
+ * --- Czwarty sygnal, wylacznie w mega-menu ---
+ *
+ * Czerwona kreska nad modulem, czerwony numer i ruch strzalki sa wspolne
+ * z sekcja oferty w body - opisuje je components/offer-mark.css.
+ *
+ * Mega-menu dostaje JEDEN sygnal wiecej: krotki marker pod etykieta. Menu
+ * jest nawigacja i musi bez watpliwosci pokazac, na ktorej pozycji stoi
+ * kursor albo focus. Sekcja w body celowo go NIE ma, zeby nie zaczela
+ * wygladac jak drugie menu na tej samej stronie.
+ *
+ * Marker jest pozycjonowany bezwzglednie i miesci sie w istniejacej przerwie
+ * miedzy etykieta a opisem, wiec jego pojawienie sie nie przesuwa ani jednego
+ * wiersza. Gdyby stal w przeplywie, panel urosby o kilka pikseli na stale.
  */
-.mega__arrow {
-  display: inline-block;
-  transition: translate var(--dur-micro) var(--ease-standard);
+.mega__label::after {
+  content: '';
+  position: absolute;
+  inset-block-start: calc(100% + 0.1875rem);
+  inset-inline-start: 0;
+  inline-size: 1.75rem;
+  block-size: 2px;
+  background-color: var(--color-accent);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale var(--dur-state) var(--ease-standard);
 }
 
-/*
- * Stan aktywny calej kolumny. Focus klawiatury wyglada DOKLADNIE tak samo
- * jak najechanie myszka - poza wlasnym obrysem focus-visible - wiec nikt
- * nie dostaje slabszej informacji zwrotnej.
- */
-.mega__link:hover .mega__number,
-.mega__link:focus-visible .mega__number {
-  color: var(--color-accent);
-}
-
-.mega__link:hover .mega__arrow,
-.mega__link:focus-visible .mega__arrow {
-  translate: 6px 0;
-}
-
-.mega__link:hover .mega__cta,
-.mega__link:focus-visible .mega__cta {
-  text-decoration: underline;
-}
-
-/* Kreska nad kolumna lekko ciemnieje - subtelne podkreslenie wyboru. */
-.mega__item:has(.mega__link:hover),
-.mega__item:has(.mega__link:focus-visible) {
-  border-block-start-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
-}
-
-.mega__number,
-.mega__item {
-  transition:
-    color var(--dur-micro) var(--ease-standard),
-    border-color var(--dur-micro) var(--ease-standard);
+.mega__link:hover .mega__label::after,
+.mega__link:focus-visible .mega__label::after,
+.mega__link[aria-current='page'] .mega__label::after {
+  scale: 1 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mega__arrow,
-  .mega__number,
-  .mega__item {
+  .mega__label::after {
     transition: none;
   }
 }

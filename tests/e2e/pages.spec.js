@@ -489,7 +489,7 @@ test.describe('mega-menu - dopracowanie', () => {
       const link = document.querySelector('.mega__link')
       return {
         numer: getComputedStyle(link.querySelector('.mega__number')).color,
-        strzalka: getComputedStyle(link.querySelector('.mega__arrow')).translate,
+        strzalka: getComputedStyle(link.querySelector('.offer-mark__arrow')).translate,
       }
     })
 

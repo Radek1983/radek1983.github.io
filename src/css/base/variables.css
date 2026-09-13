@@ -75,6 +75,14 @@
 
   /* --- Motion. Wartosci startowe z briefu; warstwa ruchu powstaje w osobnym kroku. --- */
   --dur-micro: 180ms;
+
+  /*
+   * Czas trwania stanu hover/focus na kolumnie oferty: czerwona kreska nad
+   * modulem, marker pod naglowkiem w mega-menu i przesuniecie strzalki.
+   * Dluzszy niz --dur-micro, bo droga kreski to cala szerokosc kolumny,
+   * a nie kilka pikseli. Sam kolor numeru zostaje na --dur-micro.
+   */
+  --dur-state: 240ms;
   --dur-reveal: 560ms;
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

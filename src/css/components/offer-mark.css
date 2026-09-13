@@ -1,0 +1,106 @@
+/*
+ * --- Wspolny jezyk interakcji kolumny oferty ---
+ *
+ * Ten sam stan "wskazuje na mnie" obowiazuje w dwoch miejscach:
+ *   - mega-menu OFERTA w naglowku   (.mega__link)
+ *   - sekcja 04 NASZA OFERTA w body (.paths__link)
+ *
+ * Oba dostaja klasy .offer-mark*, wiec zachowanie jest opisane RAZ. Gdyby
+ * stalo w dwoch plikach, predzej czy pozniej rozjechalyby sie czasy albo
+ * odcien czerwieni i uzytkownik dostalby dwa rozne jezyki na jednej stronie.
+ *
+ * Trzy sygnaly wspolne: czerwona kreska nad modulem, czerwony numer, ruch
+ * strzalki. CZWARTY - krotki marker pod naglowkiem - jest WYLACZNIE w
+ * mega-menu i mieszka w layout/navigation.css przy .mega__label. Menu jest
+ * nawigacja i musi jednoznacznie wskazywac pozycje; sekcja w body nie moze
+ * wygladac jak drugie menu.
+ *
+ * Nic w tym pliku nie zmienia geometrii: kreska i marker sa pozycjonowane
+ * bezwzglednie, ruch strzalki to `translate`. Hover nie przesuwa layoutu.
+ */
+
+.offer-mark {
+  position: relative;
+}
+
+/*
+ * Czerwona kreska KLADZIE SIE na istniejacej szarej, zamiast ja zastepowac.
+ * Dzieki temu szara linia zostaje w spoczynku, a stan nie zmienia wysokosci
+ * modulu ani o piksel. `inset-block-start: -1px` trafia dokladnie w
+ * border-block-start elementu listy.
+ */
+.offer-mark::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline: 0;
+  block-size: 2px;
+  background-color: var(--color-accent);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale var(--dur-state) var(--ease-standard);
+}
+
+/*
+ * Focus klawiatury daje DOKLADNIE ten sam stan co najechanie myszka -
+ * poza wlasnym obrysem focus-visible. aria-current="page" trzyma stan
+ * na produkcie, ktory wlasnie oglada uzytkownik; atrybut jest wstawiany
+ * przy budowaniu, wiec zadna z dziewieciu stron nie potrzebuje JavaScriptu,
+ * zeby wiedziec, gdzie stoi.
+ */
+.offer-mark:hover::before,
+.offer-mark:focus-visible::before,
+.offer-mark[aria-current='page']::before {
+  scale: 1 1;
+}
+
+.offer-mark__number {
+  transition: color var(--dur-micro) var(--ease-standard);
+}
+
+.offer-mark:hover .offer-mark__number,
+.offer-mark:focus-visible .offer-mark__number,
+.offer-mark[aria-current='page'] .offer-mark__number {
+  color: var(--color-accent);
+}
+
+/*
+ * Strzalka jest osobnym spanem, zeby dalo sie ja przesunac bez ruszania
+ * tekstu wezwania - inaczej ruch zmienialby szerokosc CTA i ciagnal za soba
+ * cala linie. Zadnego scale, cienia ani unoszenia modulu.
+ */
+.offer-mark__arrow {
+  display: inline-block;
+  transition: translate var(--dur-state) var(--ease-standard);
+}
+
+.offer-mark:hover .offer-mark__arrow,
+.offer-mark:focus-visible .offer-mark__arrow,
+.offer-mark[aria-current='page'] .offer-mark__arrow {
+  translate: 7px 0;
+}
+
+.offer-mark:hover .offer-mark__cta,
+.offer-mark:focus-visible .offer-mark__cta,
+.offer-mark[aria-current='page'] .offer-mark__cta {
+  text-decoration: underline;
+}
+
+/*
+ * Kolor nadal sie przelacza - uzytkownik z reduced motion ma dostac te sama
+ * informacje, tylko natychmiast. Znika wylacznie RUCH: rozwijanie kreski
+ * i przesuwanie strzalki.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .offer-mark::before,
+  .offer-mark__number,
+  .offer-mark__arrow {
+    transition: none;
+  }
+
+  .offer-mark:hover .offer-mark__arrow,
+  .offer-mark:focus-visible .offer-mark__arrow,
+  .offer-mark[aria-current='page'] .offer-mark__arrow {
+    translate: none;
+  }
+}

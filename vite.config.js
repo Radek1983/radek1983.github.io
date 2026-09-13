@@ -61,19 +61,31 @@ function htmlPartials() {
    * spanami w srodku. Dzieki temu klikalna jest cala powierzchnia kolumny,
    * a nie samo czerwone slowo na koncu, i nie powstaje zagniezdzony <a>.
    */
-  const megaMenu = OFFERS.map(
-    (o) => `          <li class="mega__item">
-            <a class="mega__link" href="${o.url}">
-              <span class="mega__number" aria-hidden="true">${o.numer}</span>
+  const megaMenu = (aktywnyUrl) =>
+    OFFERS.map((o) => {
+      /*
+       * Kolumna produktu, ktory uzytkownik wlasnie oglada, zostaje w stanie
+       * aktywnym bez najechania. `aria-current="page"` niesie te informacje
+       * jednoczesnie do CSS i do czytnika ekranu - nie potrzeba ani klasy
+       * modyfikatora, ani JavaScriptu odczytujacego adres w przegladarce.
+       *
+       * Cztery strony produktowe maja to samo data-section="oferta", wiec
+       * sam atrybut na <body> nie odroznilby ich od siebie.
+       */
+      const biezaca = o.url === aktywnyUrl ? ' aria-current="page"' : ''
+
+      return `          <li class="mega__item">
+            <a class="mega__link offer-mark" href="${o.url}"${biezaca}>
+              <span class="mega__number offer-mark__number" aria-hidden="true">${o.numer}</span>
               <span class="mega__label">${o.skrot}</span>
               <span class="mega__desc">${o.opis}</span>
               <span class="mega__meta">${o.kontekst}</span>
-              <span class="mega__cta"
-                >${o.ctaMenu} <span class="mega__arrow" aria-hidden="true">→</span></span
+              <span class="mega__cta offer-mark__cta"
+                >${o.ctaMenu} <span class="offer-mark__arrow" aria-hidden="true">→</span></span
               >
             </a>
-          </li>`,
-  ).join('\n')
+          </li>`
+    }).join('\n')
 
   /*
    * Ta sama lista w szufladzie mobilnej. Czterech kolumn nie przenosimy
@@ -127,7 +139,7 @@ function htmlPartials() {
         const cta = CTA[klucz] ?? CTA_DOMYSLNE
 
         return wynik
-          .replaceAll('{{MEGA_MENU}}', megaMenu)
+          .replaceAll('{{MEGA_MENU}}', megaMenu(`/${klucz.replace(/index\.html$/, '')}`))
           .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
           .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
           .replaceAll('{{LINK_CENNIK}}', LINK_CENNIK)
