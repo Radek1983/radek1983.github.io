@@ -30,7 +30,16 @@ test.describe('12 kontakt', () => {
 
     const kanaly = sekcja.locator('.contact__channel')
     await expect(kanaly).toHaveCount(2)
-    await expect(kanaly.nth(0).locator('a')).toHaveAttribute('href', 'tel:+48790266517')
+
+    /*
+     * Telefon jest TEKSTEM, nie odnosnikiem - decyzja wlasciciela. Na
+     * desktopie `tel:` niczego sensownego nie robi, a wyglada jak link.
+     * Numer zostaje klikalny w stopce, wiec dotkniecie go na telefonie
+     * nadal dzwoni.
+     */
+    await expect(kanaly.nth(0)).toContainText('+48 790 266 517')
+    await expect(kanaly.nth(0).locator('a')).toHaveCount(0)
+
     await expect(kanaly.nth(1).locator('a')).toHaveAttribute(
       'href',
       'mailto:highfive.zapisy@gmail.com',

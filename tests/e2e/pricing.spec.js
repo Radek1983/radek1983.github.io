@@ -71,13 +71,39 @@ test.describe('07 cennik - struktura', () => {
    * startuja w tej samej osi.
    */
   test('obie ceny stoja w tej samej linii i maja te sama wysokosc', async ({ page }) => {
-    const a = await page.locator('.price--primary .price__figure').boundingBox()
-    const b = await page.locator('.price--secondary .price__figure').boundingBox()
+    /*
+     * Pomiar przez offsetTop/offsetLeft, nie przez getBoundingClientRect.
+     *
+     * Prostokat klienta jest ulamkowy i zalezy od pozycji przewiniecia oraz
+     * od device scale factor - WebKit przy DSR 3 potrafil zwrocic roznice
+     * 2.9 px tam, gdzie layout byl identyczny, i test padal pod obciazeniem.
+     * Offsety sa wielkosciami LAYOUTU i nie maja tego szumu.
+     */
+    const m = await page.evaluate(() => {
+      /*
+       * Offsety sumowane az do korzenia. Samo offsetTop jest liczone wzgledem
+       * rodzica pozycjonujacego, wiec dla obu cen wyszloby zerem i test
+       * przechodzilby niezaleznie od tego, co widac.
+       */
+      const box = (s) => {
+        const el = document.querySelector(s)
+        let top = 0
+        let left = 0
+        for (let n = el; n; n = n.offsetParent) {
+          top += n.offsetTop
+          left += n.offsetLeft
+        }
+        return { top, left, h: el.offsetHeight }
+      }
+      return {
+        a: box('.price--primary .price__figure'),
+        b: box('.price--secondary .price__figure'),
+      }
+    })
 
-    // Tolerancja 3 px, bo WebKit przy device scale factor 3 zaokragla subpiksele.
-    expect(Math.abs(a.y - b.y)).toBeLessThanOrEqual(3)
-    expect(Math.abs(a.height - b.height)).toBeLessThanOrEqual(3)
-    expect(b.x).toBeGreaterThan(a.x)
+    expect(m.a.top).toBe(m.b.top)
+    expect(Math.abs(m.a.h - m.b.h)).toBeLessThanOrEqual(1)
+    expect(m.b.left).toBeGreaterThan(m.a.left)
   })
 
   test('przypis stoi pod cenami, nie miedzy nimi', async ({ page }) => {

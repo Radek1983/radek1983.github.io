@@ -424,6 +424,12 @@ rozwinięcie po kliknięciu istnieje wyłącznie jako mikrointerakcja **nad tre�
 w dokumencie**. `mailto:` dostaje gotowy `subject` i szkic `body` (imię rodzica, klasa dziecka,
 preferowany kontakt) — to przenosi wartość utraconego formularza bez żadnego backendu.
 
+**Wyjątek — telefon w sekcji `#kontakt`.** Na polecenie właściciela numer stoi tam jako zwykły
+tekst, nie odnośnik: na desktopie `tel:` niczego sensownego nie robi, a wygląda jak link do
+kliknięcia. **Klikalny `tel:` zostaje w stopce, na wszystkich dziewięciu stronach**, więc
+dotknięcie numeru na telefonie nadal dzwoni, a wymóg „droga kontaktu dostępna bez JavaScriptu"
+jest spełniony. Pilnują tego testy w `tests/smoke/page.spec.js` i `tests/e2e/kontakt.spec.js`.
+
 - **GitHub Pages nie ma warstwy serwerowej i nie wyśle poczty.** Serwuje wyłącznie
   `Last-Modified`, `ETag`, `expires`, `Cache-Control: max-age=600`. Samo podanie adresu w kodzie
   niczego nie uruchamia.

@@ -769,7 +769,7 @@ test.describe('nawigacja i dostepnosc', () => {
 
     const small = await page.evaluate(() => {
       const out = []
-      for (const el of document.querySelectorAll('.cta, .contact__link, .faq__question')) {
+      for (const el of document.querySelectorAll('.cta, .contact__row, .faq__question')) {
         const r = el.getBoundingClientRect()
         if (r.height > 0 && r.height < 44) out.push([el.className, Math.round(r.height)])
       }
@@ -958,7 +958,14 @@ test.describe('motion', () => {
     expect(await page.locator('.hero__title').evaluate((el) => getComputedStyle(el).opacity)).toBe(
       '1',
     )
-    await expect(page.locator('#kontakt a[href^="tel:"]')).toBeVisible()
+    /*
+     * Droga kontaktu musi byc osiagalna bez JavaScriptu (D2). Numer w sekcji
+     * kontaktu jest tekstem - decyzja wlasciciela - wiec KLIKALNY telefon
+     * sprawdzamy tam, gdzie zostal: w stopce, obecnej na kazdej stronie.
+     */
+    await expect(page.locator('#kontakt')).toContainText('+48 790 266 517')
+    await expect(page.locator('.site-footer a[href^="tel:"]')).toBeVisible()
+    await expect(page.locator('.site-footer a[href^="mailto:"]')).toBeVisible()
 
     await context.close()
   })

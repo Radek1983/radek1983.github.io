@@ -979,7 +979,7 @@
       </section>
 
       <section
-        class="section section--airy"
+        class="section contact"
         id="kontakt"
         data-animation="section"
         aria-labelledby="kontakt-title"
@@ -1002,14 +1002,24 @@
               </p>
 
               <ul class="contact__channels">
+                <!--
+                  Telefon jako TEKST, nie odnosnik - decyzja wlasciciela.
+                  Na desktopie `tel:` i tak niczego sensownego nie robi,
+                  a wyglada jak link do klikniecia.
+
+                  Numer zostaje odnosnikiem `tel:` w stopce, na wszystkich
+                  dziewieciu stronach - dzieki temu dotkniecie go na telefonie
+                  nadal dzwoni, a wymog D2 (droga kontaktu dostepna bez
+                  JavaScriptu) jest spelniony.
+                -->
                 <li class="contact__channel">
-                  <a class="contact__link" href="tel:{{TEL_HREF}}">
+                  <p class="contact__row">
                     <span class="contact__value">{{TEL}}</span>
                     <span class="u-label">Telefon</span>
-                  </a>
+                  </p>
                 </li>
                 <li class="contact__channel">
-                  <a class="contact__link" href="mailto:{{EMAIL}}">
+                  <a class="contact__row contact__link" href="mailto:{{EMAIL}}">
                     <span class="contact__value">{{EMAIL}}</span>
                     <span class="u-label">E-mail</span>
                   </a>

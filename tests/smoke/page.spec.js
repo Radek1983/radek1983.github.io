@@ -118,9 +118,15 @@ test.describe('tresc i SEO', () => {
     await expect(page.locator('body')).toContainText(/nie jest oficjalnym serwisem/i)
   })
 
+  /*
+   * Telefon w sekcji kontaktu jest TEKSTEM - decyzja wlasciciela. Odnosnik
+   * `tel:` zostaje w stopce, na kazdej stronie, wiec dotkniecie numeru na
+   * telefonie nadal dzwoni, a wymog D2 jest spelniony bez JavaScriptu.
+   */
   test('dane kontaktowe sa klikalne i obecne w DOM', async ({ page }) => {
-    await expect(page.locator('#kontakt a[href^="tel:"]')).toHaveCount(1)
+    await expect(page.locator('#kontakt')).toContainText('+48 790 266 517')
     await expect(page.locator('#kontakt a[href^="mailto:"]').first()).toBeVisible()
+    await expect(page.locator('.site-footer a[href^="tel:"]')).toHaveCount(1)
   })
 
   test('kazdy link nawigacji prowadzi do istniejacej sekcji lub podstrony', async ({
