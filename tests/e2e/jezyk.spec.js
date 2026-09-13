@@ -114,3 +114,41 @@ test.describe('higiena językowa', () => {
     }
   })
 })
+
+/*
+ * Scena metody. "Mówij" nie jest polskim słowem - tryb rozkazujący od
+ * "mówić" to "mów". Błędna forma stoi w master prompcie i w briefie,
+ * więc wraca przy każdym przepisywaniu copy ze źródła. ADR 0009.
+ */
+test.describe('06 jak uczymy', () => {
+  test.beforeEach(async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'tekst jest ten sam w każdym silniku')
+    await page.goto('/')
+  })
+
+  test('cztery czasowniki w trybie rozkazującym, bez kropek', async ({ page }) => {
+    const czasowniki = page.locator('.method__verb')
+    await expect(czasowniki).toHaveText(['Mów', 'Próbuj', 'Poprawiaj', 'Używaj'])
+
+    const t = await tekst(page)
+    expect(t, 'wróciła forma "mówij"').not.toMatch(/[Mm]ówij/i)
+  })
+
+  /*
+   * Etykieta sekcji i pierwszy czasownik stały 37 px od siebie. Ujemny
+   * margines z warstwy anty-przycinającej podciągał pierwszy element
+   * o 17 px i napis kleił się do "06 JAK UCZYMY".
+   */
+  test('pierwszy czasownik nie klei się do etykiety sekcji', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    const odstep = await page.evaluate(() => {
+      const etykieta = document.querySelector('#metoda .section__label')
+      const pierwszy = document.querySelector('.method__verb')
+      return pierwszy.getBoundingClientRect().top - etykieta.getBoundingClientRect().bottom
+    })
+
+    expect(odstep).toBeGreaterThanOrEqual(30)
+  })
+})

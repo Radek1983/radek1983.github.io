@@ -168,6 +168,13 @@ a {
  * zdejmuje jego wplyw na uklad. Zero zmian w rytmie pionowym, zero zmian
  * w geometrii - element zajmuje tyle samo miejsca, co przedtem, tylko ma
  * gdzie wydrukowac akcent.
+ *
+ * Ujemny margines PIERWSZEGO elementu w bloku sklada sie jednak z gornym
+ * marginesem rodzica i podciaga caly blok w gore. Dlatego trik dostaja
+ * tylko te napisy, ktore faktycznie cos przycina - maska warstwy reveal
+ * albo overflow. Czasowniki sekcji 06 sa listą czterech osobnych <li>
+ * bez data-animation i bez przycinajacego rodzica: trik odsuwal je od
+ * etykiety "06 JAK UCZYMY" o 17 px, nie dajac nic w zamian.
  */
 .u-wordmark,
 .u-display,
@@ -179,7 +186,6 @@ a {
 .mega__label,
 .location__place,
 .site-footer__brand,
-.method__verb,
 .drawer__sublink strong {
   padding-block: 0.18em;
   margin-block: -0.18em;

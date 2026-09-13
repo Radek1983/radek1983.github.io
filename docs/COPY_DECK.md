@@ -137,7 +137,11 @@ minimum (5 dzieci w grupie), cena (55 zł/godz., rodzeństwo 50 zł/godz.).
 
 ## 05 Jak uczymy — `#metoda`
 
-**Scena typograficzna:** `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.`
+**Scena typograficzna:** `MÓW  PRÓBUJ  POPRAWIAJ  UŻYWAJ`
+
+Master prompt §16 podaje tu `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` — **„mówij" nie jest polskim
+słowem.** Tryb rozkazujący od „mówić" to „mów"; pozostałe trzy formy są poprawne i to po nich
+błędna została dopisana przez analogię. Poprawkę i zdjęcie kropek polecił właściciel — ADR 0009.
 
 > Zajęcia mają być miejscem aktywnego używania języka, nie kolejną godziną siedzenia
 > nad ćwiczeniami.
