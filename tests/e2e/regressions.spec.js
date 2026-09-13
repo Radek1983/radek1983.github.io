@@ -57,10 +57,17 @@ test.describe('regresje tresci', () => {
    */
   test('model rozliczenia stoi przy cenie', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('.pricing__billing')).toContainText(
-      'Płacisz za zajęcia, które są w kalendarzu',
+
+    /*
+     * Model rozliczenia to drugi panel sekcji 07, nie osobna sekcja -
+     * dlatego szukamy go wewnatrz #cennik. Szczegolowa struktura panelu:
+     * tests/e2e/pricing.spec.js.
+     */
+    const cennik = page.locator('#cennik')
+    await expect(cennik.locator('.billing__claim')).toContainText(
+      'Płacisz tylko za zajęcia, które są w kalendarzu',
     )
-    await expect(page.locator('#cennik')).toContainText('Nie pobieramy stałej opłaty miesięcznej')
+    await expect(cennik).toContainText('Nie pobieramy stałej miesięcznej opłaty')
   })
 
   /*

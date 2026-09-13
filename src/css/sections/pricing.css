@@ -1,14 +1,22 @@
 /*
- * 06 CENA
+ * 07 CENNIK — dwa panele jednej sekcji
+ *
+ * PANEL A odpowiada na pytanie "ile", PANEL B na "na jakich zasadach".
+ * To jedna sekcja i jeden numer aktu: rodzic czyta to jako ciag dalszy,
+ * a nie jako dwa niezalezne bloki.
  *
  * Liczby sa dominujaca typografia. Zero pricing cards, zero tabel,
  * zero flip-animation. Cena musi byc widoczna bez zadnej interakcji.
  */
 
+/* ============================================================
+   PANEL A — ile kosztuje
+   ============================================================ */
+
 .pricing__grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-  gap: var(--space-8) var(--grid-gutter);
+  gap: var(--space-12) var(--grid-gutter);
   align-items: start;
 }
 
@@ -52,35 +60,146 @@
   color: var(--color-signal);
 }
 
+/*
+ * Przypis cenowy. Cala szerokosc i maly stopien - to drobny druk, a nie
+ * akapit do czytania ciagiem, wiec swiadomie nie obowiazuje go --measure.
+ * Stoi POD obiema cenami, nigdy miedzy nimi.
+ */
 .pricing__note {
-  max-inline-size: var(--measure);
   grid-column: 1 / -1;
   padding-block-start: var(--space-4);
   border-block-start: 1px solid var(--color-rule);
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
 }
 
 @media (width >= 62rem) {
   .price {
     grid-column: span 6;
   }
+}
 
-  .price--secondary {
-    padding-block-start: clamp(1.5rem, 3vw, 3rem);
-  }
+/* ============================================================
+   PANEL B — jak rozliczamy
+   ============================================================ */
+
+/*
+ * Przejscie miedzy panelami niesie sam oddech, bez linii i bez zmiany tla.
+ * Linia byloby tu o jedna za duzo: przypis panelu A juz stoi pod kreska,
+ * a druga tuz pod nia czytalaby sie jak koniec sekcji, nie jak jej ciag.
+ */
+.billing {
+  margin-block-start: clamp(3.5rem, 9vw, 8rem);
+}
+
+.billing__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-12) var(--grid-gutter);
+  align-items: start;
 }
 
 /*
- * Model rozliczenia. Jedno zdanie mocniejsze od reszty przypisu, bo to
- * odpowiedz na ciche zalozenie rodzica, ze cena oznacza abonament.
- * Bez ramki i bez tla - to nadal przypis, tylko czytany najpierw.
+ * Drugi mocny moment sekcji, nie srodtytul.
+ *
+ * WLASNY clamp, wezszy niz --step-display. Ten ostatni skaluje sie do
+ * szerokosci OKNA, a naglowek stoi w kolumnie o polowe wezszej - przy 1440 px
+ * dawalby 144 px i "W KALENDARZU." nie zmiescilby sie w kolumnie, a
+ * `overflow-x: clip` na sekcji ucialby koncowke.
  */
-.pricing__billing {
-  margin-block-start: var(--space-4);
+.billing__claim {
+  grid-column: 1 / -1;
+  font-size: var(--step-h1);
+
+  /*
+   * Bez tego czwarty wiersz skladal sie z samego "SĄ W" - dwa krotkie slowa
+   * w ogromnym stopniu pisma czytaly sie jak pomylka skladu. `balance`
+   * wyrownuje dlugosci wierszy, wiec sierota znika sama i nie trzeba
+   * wstawiac twardych <br>, ktore i tak psulyby sie przy innej szerokosci.
+   */
+  text-wrap: balance;
+}
+
+.billing__rules {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Numer i tresc w dwoch kolumnach, kreska nad kazda zasada. Numer ma stala
+ * szerokosc, wiec wszystkie trzy akapity zaczynaja sie w tej samej osi.
+ */
+.billing__rule {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-6);
+  align-items: start;
+  padding-block: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.billing__rule:last-child {
+  border-block-end: 1px solid var(--color-rule);
+}
+
+/*
+ * Numer jest czysto typograficzny, bez okregu.
+ *
+ * Referencja pokazywala cyfre w kolku, ale par. 7 briefu daje promien
+ * zaokraglenia wylacznie kapsule CTA - pilnuje tego VIZ-008. Poza tym
+ * numerowane pozycje maja juz na tej stronie swoj jezyk: 01-04 w mega-menu
+ * i w sekcji 04 stoja jako sama liczba w kroju display. Kolko byloby tu
+ * piatym, osobnym wzorcem na to samo.
+ *
+ * Stala szerokosc trzyma wszystkie trzy akapity w jednej osi.
+ */
+.billing__number {
+  inline-size: 2.5rem;
   font-family: var(--font-display);
-  font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
+  font-size: 1.125rem;
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: var(--tracking-heading);
-  text-transform: uppercase;
-  max-inline-size: 24ch;
+  line-height: inherit;
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+.billing__text {
+  margin: 0;
+  max-inline-size: var(--measure);
+}
+
+.billing__more {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+@media (width >= 62rem) {
+  /*
+   * Split 50/50. Naglowek dostaje szesc kolumn po lewej, zasady piec po
+   * prawej, a jedna kolumna zostaje jako rynna miedzy nimi - inaczej dlugi
+   * wiersz zasady kleilby sie do ostatniej litery naglowka.
+   */
+  .billing__claim {
+    grid-column: span 6;
+  }
+
+  .billing__rules {
+    grid-column: 8 / -1;
+  }
+
+  .billing__more {
+    grid-column: 8 / -1;
+    margin-block-start: calc(var(--space-12) * -1 + var(--space-6));
+  }
+
+  /*
+   * Panel dostaje wlasny ekran, ale przez min-block-size, nie height:
+   * przy nizszym oknie albo wiekszym stopniu pisma decyduje tresc,
+   * a nie sztywna wartosc.
+   */
+  .billing__grid {
+    min-block-size: 70vh;
+    align-content: center;
+  }
 }

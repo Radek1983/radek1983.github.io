@@ -576,8 +576,8 @@
       </section>
 
       <!-- ============================================================
-           06 CENA — Ile?
-           Liczby jako dominująca typografia. Bez pricing cards.
+           07 CENNIK — Ile kosztuje i jak rozliczamy?
+           Dwa panele jednej sekcji. Liczby jako dominująca typografia, bez pricing cards.
            ============================================================ -->
       <section class="section" id="cennik" data-animation="section" aria-labelledby="cennik-title">
         <div class="container">
@@ -591,42 +591,72 @@
             </h2>
           </div>
 
+          <!-- ===== PANEL A - ile kosztuje ===== -->
           <div class="pricing__grid">
-            <div class="price price--primary">
+            <div class="price price--primary" data-animation="fade-up">
               <p class="price__figure">
                 <span class="price__amount">55</span>
-                <span class="price__unit">zł<br />/ 45 min</span>
+                <span class="price__unit">zł<br />/&nbsp;45&nbsp;min</span>
               </p>
               <p class="price__who">Pierwsze dziecko</p>
             </div>
 
-            <div class="price price--secondary">
+            <div class="price price--secondary" data-animation="fade-up">
               <p class="price__figure">
                 <span class="price__amount">50</span>
-                <span class="price__unit">zł<br />/ 45 min</span>
+                <span class="price__unit">zł<br />/&nbsp;45&nbsp;min</span>
               </p>
               <p class="price__who">Drugie i każde kolejne dziecko z rodzeństwa</p>
             </div>
 
-            <p class="pricing__note">
-              Cena za jedną lekcję dla klas 1-7. Grupa rozpoczyna pracę po zebraniu minimum 5
-              dzieci. Ceny kursu egzaminacyjnego, zajęć dla seniorów i lekcji online ustalamy
-              indywidualnie.
+            <p class="pricing__note" data-animation="fade-up">
+              Cennik dotyczy zajęć dla klas 1-7. Ceny kursu egzaminacyjnego, zajęć dla seniorów i
+              lekcji online ustalamy indywidualnie.
             </p>
+          </div>
+        </div>
 
-            <!--
-              Model rozliczenia podany WPROST. Rodzic porownujacy szkoly zaklada
-              stala oplate miesieczna - bez tego zdania nasza cena czytalaby sie
-              jak abonament, a nie jak stawka za odbyta lekcje.
-            -->
-            <p class="pricing__billing">Płacisz za zajęcia, które są w kalendarzu.</p>
+        <!--
+          ===== PANEL B - jak rozliczamy =====
 
-            <p class="pricing__note">
-              Nie pobieramy stałej opłaty miesięcznej niezależnej od liczby lekcji. Zajęcia, które
-              nie odbywają się w dni wolne od szkoły, nie są naliczane.
-            </p>
+          Drugi akt TEJ SAMEJ sekcji 07, nie osobna sekcja: numer aktu pada raz,
+          w naglowku panelu A, i nie wraca. Rodzic czyta to jako jedna odpowiedz
+          rozlozona na dwa ekrany - najpierw ile, potem na jakich zasadach.
 
-            <p class="pricing__note">
+          Model rozliczenia stoi tu WPROST, bo rodzic porownujacy szkoly domyslnie
+          zaklada stala oplate miesieczna. Bez tego nasza stawka czytalaby sie
+          jak abonament, a nie jak cena za odbyta lekcje.
+        -->
+        <div class="container billing">
+          <div class="billing__grid">
+            <h3 class="u-display billing__claim" data-animation="reveal">
+              Płacisz tylko za zajęcia, które są w kalendarzu.
+            </h3>
+
+            <ol class="billing__rules">
+              <li class="billing__rule" data-animation="fade-up">
+                <span class="billing__number" aria-hidden="true">01</span>
+                <p class="billing__text">
+                  Nie pobieramy stałej miesięcznej opłaty. Płacisz tylko za lekcje zaplanowane w
+                  danym miesiącu.
+                </p>
+              </li>
+
+              <li class="billing__rule" data-animation="fade-up">
+                <span class="billing__number" aria-hidden="true">02</span>
+                <p class="billing__text">
+                  Jeśli zajęcia przypadają w dzień wolny i lekcja się nie odbywa, nie jest doliczana
+                  do rozliczenia.
+                </p>
+              </li>
+
+              <li class="billing__rule" data-animation="fade-up">
+                <span class="billing__number" aria-hidden="true">03</span>
+                <p class="billing__text">Grupa rozpoczyna zajęcia po zebraniu minimum 5 dzieci.</p>
+              </li>
+            </ol>
+
+            <p class="billing__more" data-animation="fade-up">
               <a class="u-link" href="/cennik/">Zobacz pełny cennik →</a>
             </p>
           </div>
