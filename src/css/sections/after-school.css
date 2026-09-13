@@ -142,11 +142,16 @@
 }
 
 /*
- * Miara szersza niz --measure jest tu celowa: przy 34rem ostatni wyraz
- * spadal do trzeciej linii. Zdanie ma sie zmiescic w dwoch.
+ * Miara szersza niz --measure jest tu celowa. Puenta ma miescic sie
+ * w DWOCH wierszach na calej macierzy desktopu - to jawna decyzja
+ * wlasciciela, pilnowana testem w tests/e2e/layout.spec.js.
+ *
+ * 34rem spychalo ostatni wyraz do trzeciej linii. Pozniej doszlo drugie
+ * pol piksela: myslnik jest szerszy od polpauzy, ktora stala tu wczesniej,
+ * wiec przy 1920 px zdanie znowu zaczelo lamac sie na trzy wiersze.
  */
 .after-school__coda {
-  max-inline-size: 38rem;
+  max-inline-size: 40.5rem;
   font-size: clamp(1.125rem, 1.45vw, 1.5rem);
   line-height: 1.45;
 }
