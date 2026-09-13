@@ -439,3 +439,82 @@
 .page-hero__text--wide .page-hero__title {
   max-inline-size: 18ch;
 }
+
+/* ============================================================
+   KORZYŚCI W HERO — trzy krótkie pozycje pod wezwaniem
+   ============================================================ */
+
+/*
+ * Trzy korzysci rozdzielone cienka kreska pionowa, bez ikon i bez kart.
+ *
+ * Par. 7 briefu dopuszcza wylacznie ikony uzytkowe (strzalka, plus/minus
+ * w FAQ, marker mapy), a par. 8 wymienia "szesc ikonek korzysci" wprost
+ * jako anty-wzorzec. Kreska pionowa niesie ten sam podzial, ktorego uzywa
+ * juz metryczka firmy w sekcji kontaktu i kolumny mega-menu.
+ */
+.perks {
+  display: grid;
+
+  /*
+   * .page-hero__text jest kolumna flex z align-items: flex-start, wiec bez
+   * tego lista kurczy sie do szerokosci najdluzszego zdania i trzy pozycje
+   * ustawiaja sie jedna pod druga zamiast w rzedzie.
+   */
+  inline-size: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: var(--space-6) var(--space-6);
+  margin: 0;
+  padding: 0;
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+  list-style: none;
+}
+
+.perks__title {
+  margin: 0 0 var(--space-2);
+  color: var(--color-accent);
+}
+
+.perks__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  max-inline-size: 22ch;
+}
+
+@media (width >= 30rem) {
+  /*
+   * Kreska stoi PRZED pozycja, wiec pierwsza zostaje bez niej i blok
+   * zaczyna sie rowno z lewa krawedzia tresci.
+   */
+  .perks__item {
+    padding-inline-start: var(--space-6);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+
+  .perks__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/*
+ * Lista z wlasnym znacznikiem zamiast punktora przegladarki.
+ * Znacznik jest dekoracja, nie trescia - stad pseudo-element.
+ */
+.split__list--check {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.split__list--check li {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.split__list--check li::before {
+  content: '✓';
+  color: var(--color-accent);
+  font-weight: 700;
+}

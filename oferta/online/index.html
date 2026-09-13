@@ -61,16 +61,44 @@
 
               <p class="u-lead page-hero__lead" data-animation="fade-up">
                 Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Jeden
-                uczeń, jeden lektor i plan dopasowany do poziomu, celu oraz tempa nauki.
+                uczeń, jeden lektor i plan dopasowany do Twoich potrzeb, celów oraz tempa nauki.
               </p>
 
               <a class="cta cta--ink" href="/#kontakt" data-animation="fade-up">
                 Umów lekcję
                 <span class="cta__arrow" aria-hidden="true">→</span>
               </a>
+
+              <!--
+                Trzy korzysci bez ikon.
+
+                Referencja pokazywala je z ikonami line-art, ale par. 7 briefu
+                dopuszcza wylacznie ikony uzytkowe - strzalke, plus/minus w FAQ
+                i marker mapy - a par. 8 wymienia "szesc ikonek korzysci" jako
+                anty-wzorzec. Rozdzielenie cienka kreska pionowa to ten sam
+                jezyk, ktory niesie juz metryczka firmy i mega-menu.
+              -->
+              <ul class="perks" data-animation="fade-up">
+                <li class="perks__item">
+                  <p class="u-label perks__title">100% online</p>
+                  <p class="perks__text">Uczysz się z dowolnego miejsca.</p>
+                </li>
+                <li class="perks__item">
+                  <p class="u-label perks__title">Indywidualne podejście</p>
+                  <p class="perks__text">Program dopasowany do Ciebie.</p>
+                </li>
+                <li class="perks__item">
+                  <p class="u-label perks__title">Realne efekty</p>
+                  <p class="perks__text">Mierzymy postępy i osiągasz cele.</p>
+                </li>
+              </ul>
             </div>
 
-            <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
+            <!--
+              Gora strony pokazuje, KTO prowadzi. Dol strony - DLA KOGO sa
+              zajecia. Wczesniej w obu miejscach stal ten sam kadr z podzialem
+              ekranu i oba mowily dokladnie to samo.
+            -->
             <figure class="media page-hero__media" data-animation="fade-up">
               <picture>
                 <source
@@ -90,7 +118,7 @@
                     /src/assets/images/sections/online-lesson-1448.webp 1448w
                   "
                   sizes="(min-width: 62rem) 45vw, 100vw"
-                  alt="Lektorka i uczeń w słuchawkach przed laptopami podczas lekcji online"
+                  alt="Lektorka prowadząca indywidualną lekcję języka online"
                   width="1448"
                   height="1086"
                   loading="eager"
@@ -136,8 +164,13 @@
       <!-- ============================================================
            JAK WYGLĄDA WSPÓŁPRACA
            ============================================================ -->
+      <!--
+        Sekcja gesta: trzy krotkie kroki nie potrzebuja pelnego odstepu
+        sekcyjnego. Przy 1440 px padding byl wiekszy niz polowa tresci
+        i miedzy krokami a "Dla kogo?" robila sie pusta plansza.
+      -->
       <section
-        class="section"
+        class="section section--tight"
         id="wspolpraca"
         data-animation="section"
         aria-labelledby="online-kroki"
@@ -188,7 +221,7 @@
 
               <p data-animation="fade-up">Możemy pracować między innymi nad:</p>
 
-              <ul class="split__list" data-animation="fade-up">
+              <ul class="split__list split__list--check" data-animation="fade-up">
                 <li>angielskim ogólnym,</li>
                 <li>konwersacją,</li>
                 <li>materiałem szkolnym,</li>
@@ -198,7 +231,6 @@
               </ul>
             </div>
 
-            <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
             <figure class="media split__media" data-animation="fade-up">
               <picture>
                 <source
@@ -218,7 +250,7 @@
                     /src/assets/images/sections/online-student-1448.webp 1448w
                   "
                   sizes="(min-width: 62rem) 45vw, 100vw"
-                  alt="Uczeń w słuchawkach przy laptopie w czasie lekcji z lektorką"
+                  alt="Uczeń uczestniczący w indywidualnej lekcji online"
                   width="1448"
                   height="1086"
                   loading="lazy"

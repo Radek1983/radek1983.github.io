@@ -340,3 +340,21 @@ kopie zgodne co do znaku — literówka w NIP-ie nie przejdzie niezauważona.
 **Adres rejestrowy nadal nieprzekazany** i celowo nie jest publikowany. Adres SP 402
 pozostaje **miejscem zajęć**, nie siedzibą firmy (§4) — dotyczy to również JSON-LD,
 gdzie stoi jako `location`, nie `address`.
+
+## Kadry na `/oferta/online/` — podmienione na dwa różne ujęcia
+
+Pierwsza dostawa zawierała dwa bardzo podobne kadry: oba były tym samym podziałem ekranu
+(lektorka po lewej, uczeń po prawej) i stały jeden pod drugim na tej samej stronie.
+Właściciel dostarczył dwa osobne ujęcia i zastąpiły one poprzednie źródła **pod tymi samymi
+nazwami plików** — markup i `srcset` zostały bez zmian.
+
+| Plik                               | Miejsce            | Kadr                                                           |
+| ---------------------------------- | ------------------ | -------------------------------------------------------------- |
+| `sections/online-lesson-1448.png`  | hero               | Lektorka w zestawie słuchawkowym przy laptopie, domowy gabinet |
+| `sections/online-student-1448.png` | sekcja „Dla kogo?" | Nastolatek w słuchawkach przy laptopie, zwykły pokój           |
+
+Narracja strony czyta się teraz jako **kto prowadzi → dla kogo są zajęcia**.
+
+`alt` opisuje **scenę, nie tożsamość** — zdjęcia są ilustracyjne i nie przedstawiają osób
+związanych ze szkołą (§4, D4). Nie piszemy „lektorka High Five" ani „uczeń High Five";
+pilnuje tego test w `tests/e2e/online.spec.js`.
