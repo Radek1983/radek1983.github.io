@@ -15,7 +15,7 @@
     transition:
       opacity var(--dur-reveal) var(--ease-out-expo),
       translate var(--dur-reveal) var(--ease-out-expo),
-      clip-path var(--dur-reveal) var(--ease-out-expo);
+      mask-size var(--dur-reveal) var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -36,19 +36,50 @@
     transition-timing-function: ease-out;
   }
 
-  /* Domyslnie: wylonienie sie z wlasnej linii od dolu. */
+  /*
+   * --- Maski wejscia: mask-size zamiast clip-path ---
+   *
+   * To NIE jest zmiana jezyka ruchu. Efekt jest ten sam: tresc wylania sie
+   * spod krawedzi. Zmienil sie mechanizm, bo clip-path mial powazna wade
+   * ukryta przed okiem.
+   *
+   * IntersectionObserver liczy przeciecie na prostokacie PRZYCIETYM przez
+   * clip-path. Element z `inset(100%)` ma zerowa powierzchnie, wiec zglaszal
+   * isIntersecting: false i nie odslanial sie NIGDY - ratowala go dopiero
+   * siatka bezpieczenstwa 2,5 s po zaladowaniu strony. Skutek byl widoczny
+   * wprost: pelnoszerokie zdjecie nad stopka przez ponad dwie sekundy
+   * zostawialo jasny, pusty pas.
+   *
+   * Maska CSS nie wplywa na pomiar przeciecia. Zmierzone na tej samej
+   * stronie: ratio 1.0 z maska, 0.0 z clip-path.
+   *
+   * Mechanizm: jednolita maska kotwiczona do krawedzi, ktorej rozmiar rosnie
+   * od zera do pelnego. Kierunek wynika z mask-position.
+   */
+  .js [data-animation='reveal'],
+  .js [data-animation='mask-up'],
+  .js [data-animation='mask-start'] {
+    mask-image: linear-gradient(#000, #000);
+    mask-repeat: no-repeat;
+  }
+
+  /* Wylonienie sie z wlasnej linii, od gory w dol. */
   .js [data-animation='reveal'] {
-    clip-path: inset(0 0 100% 0);
+    mask-position: 0 0;
+    mask-size: 100% 0%;
     translate: 0 1.25rem;
   }
 
-  /* Maska pozioma - dla mediow i pasow pelnej szerokosci. */
+  /* Maska pozioma od dolu - dla mediow i pasow pelnej szerokosci. */
   .js [data-animation='mask-up'] {
-    clip-path: inset(100% 0 0 0);
+    mask-position: 0 100%;
+    mask-size: 100% 0%;
   }
 
+  /* Maska pionowa od lewej krawedzi. */
   .js [data-animation='mask-start'] {
-    clip-path: inset(0 100% 0 0);
+    mask-position: 0 0;
+    mask-size: 0% 100%;
   }
 
   /* Sam fade z drobnym przesunieciem - dla elementow, ktore maska by rozbila
@@ -59,7 +90,7 @@
 
   .js [data-animation].is-visible {
     opacity: 1;
-    clip-path: inset(0 0 0 0);
+    mask-size: 100% 100%;
     translate: none;
   }
 }
@@ -158,7 +189,7 @@
 @media (prefers-reduced-motion: reduce) {
   .js [data-animation] {
     opacity: 1;
-    clip-path: none;
+    mask-image: none;
     translate: none;
   }
 }

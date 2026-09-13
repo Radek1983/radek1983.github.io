@@ -58,37 +58,13 @@
 }
 
 /*
- * Maska wejscia kadru siedzi na <picture>, a NIE na <figure>.
+ * Lokalne obejscie maski zostalo USUNIETE.
  *
- * IntersectionObserver liczy przeciecie na prostokacie przycietym przez
- * clip-path. Element z `inset(100% 0 0 0)` ma zerowa powierzchnie, wiec
- * obserwator raportuje isIntersecting: false i nie odslania go nigdy -
- * ratuje go dopiero siatka bezpieczenstwa po 2,5 s od zaladowania strony.
- * Zmierzone: ratio 1.0 bez clip-path, 0.0 z nim. To bylo zrodlo kilku sekund
- * czekania na wejscie tej sekcji.
- *
- * Obserwowany <figure> zostaje wiec bez maski i ma pelna geometrie, a maska
- * jedzie na dziecku. Sam <figure> nadal gasnie i zapala sie przez opacity,
- * bo przezroczystosc nie wplywa na pomiar przeciecia.
- *
- * To samo dotyczy wszystkich pozostalych wariantow reveal / mask-up
- * / mask-start na stronie. Naprawa calej warstwy wykracza poza te sekcje
- * i czeka na osobna decyzje.
+ * Kadr mial tu wlasna maske na <picture>, bo clip-path na obserwowanym
+ * elemencie zerowal prostokat przeciecia i zdjecie nie odslanialo sie
+ * nigdy. Cala warstwa reveal uzywa teraz maski CSS zamiast clip-path,
+ * wiec obejscie przestalo byc potrzebne - patrz animations/reveal.css.
  */
-.js .after-school__media[data-animation] {
-  clip-path: none;
-}
-
-.js .after-school__media picture {
-  display: block;
-  block-size: 100%;
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path var(--dur-after-school) var(--ease-standard);
-}
-
-.js .after-school__media.is-visible picture {
-  clip-path: inset(0);
-}
 
 /*
  * --- Wejscie sekcji: startuje natychmiast, trwa dluzej ---
@@ -118,13 +94,6 @@
 
 .js .after-school__block:first-child {
   --reveal-delay: 280ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js .after-school__media picture {
-    clip-path: none;
-    transition: none;
-  }
 }
 
 /*
