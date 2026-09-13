@@ -81,7 +81,7 @@ drugie mniejsze. Dopisane przez właściciela przy przebudowie sekcji na scrolly
 
 > Mniej wożenia, mniej pośpiechu, więcej spokojnego popołudnia.
 
-> Angielski staje się naturalnym ciągiem dnia dziecka — a nie kolejnym punktem, do którego
+> Angielski staje się naturalnym ciągiem dnia dziecka – a nie kolejnym punktem, do którego
 > trzeba zdążyć.
 
 Sekcja jest zbudowana na sticky fotografii: zdjęcie stoi po prawej, a cztery bloki przewijają

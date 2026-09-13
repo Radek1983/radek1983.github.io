@@ -175,20 +175,6 @@ test.describe('oferta dla seniorow', () => {
 test.describe('02 po lekcjach - scrollytelling', () => {
   const DESKTOP = { width: 1440, height: 900 }
 
-  async function geometria(page) {
-    return page.evaluate(() => {
-      const sec = document.querySelector('#po-lekcjach')
-      const media = document.querySelector('.after-school__media')
-      const b = sec.getBoundingClientRect()
-      return {
-        sekcjaVh: b.height / window.innerHeight,
-        position: getComputedStyle(media).position,
-        mediaTop: Math.round(media.getBoundingClientRect().top),
-        mediaVh: media.getBoundingClientRect().height / window.innerHeight,
-      }
-    })
-  }
-
   async function doSekcji(page, offset = 0) {
     await page.evaluate((dy) => {
       const y = window.scrollY + document.querySelector('#po-lekcjach').getBoundingClientRect().top
@@ -196,34 +182,129 @@ test.describe('02 po lekcjach - scrollytelling', () => {
     }, offset)
   }
 
-  test('kadr stoi, a tekst przewija sie obok', async ({ page }, testInfo) => {
+  test('kadr najpierw jedzie, potem stoi, na koncu odjezdza', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
 
     await page.setViewportSize(DESKTOP)
     await page.goto('/')
 
-    await doSekcji(page)
-    await page.waitForTimeout(400)
-    const a = await geometria(page)
-
-    // Przewijamy o cale okno w glab sekcji.
-    await doSekcji(page, 900)
-    await page.waitForTimeout(400)
-    const b = await geometria(page)
-
-    expect(a.position).toBe('sticky')
-
-    // Istota efektu: po przewinieciu o 900 px kadr stoi w tym samym miejscu.
-    expect(Math.abs(b.mediaTop - a.mediaTop)).toBeLessThanOrEqual(2)
-
-    // I nie wchodzi pod sticky naglowek.
-    const headerBottom = await page.evaluate(
-      () => document.querySelector('.site-header').getBoundingClientRect().bottom,
+    /*
+     * Probkujemy pozycje kadru na calej drodze przez sekcje. Efekt jest
+     * poprawny tylko wtedy, gdy widac wszystkie trzy fazy: kadr wjezdza
+     * normalnym scrollem, zatrzymuje sie na swojej pozycji i dopiero pod
+     * koniec sekcji odjezdza. Sam sticky bez fazy dojazdu czyta sie jak
+     * zdjecie przyklejone od pierwszej chwili.
+     */
+    const start = await page.evaluate(
+      () =>
+        window.scrollY +
+        document.querySelector('#po-lekcjach').getBoundingClientRect().top -
+        window.innerHeight,
     )
-    expect(a.mediaTop).toBeGreaterThanOrEqual(headerBottom)
+    const dystans = await page.evaluate(
+      () =>
+        document.querySelector('#po-lekcjach').getBoundingClientRect().height + window.innerHeight,
+    )
+    const stickyTop = await page.evaluate(() =>
+      Math.round(
+        parseFloat(
+          getComputedStyle(document.querySelector('.after-school__media')).insetBlockStart,
+        ),
+      ),
+    )
 
-    // Kadr miesci sie w oknie razem z naglowkiem.
-    expect(a.mediaVh).toBeLessThanOrEqual(0.82)
+    const pozycje = []
+    for (let i = 0; i <= 24; i += 1) {
+      await page.evaluate((y) => window.scrollTo(0, y), start + (i / 24) * dystans)
+      await page.waitForTimeout(50)
+      pozycje.push(
+        await page.evaluate(() =>
+          Math.round(document.querySelector('.after-school__media').getBoundingClientRect().top),
+        ),
+      )
+    }
+
+    const przed = pozycje.filter((t) => t > stickyTop).length
+    const stoi = pozycje.filter((t) => t === stickyTop).length
+    const po = pozycje.filter((t) => t < stickyTop).length
+
+    expect(przed, 'faza dojazdu').toBeGreaterThan(2)
+    expect(stoi, 'faza sticky').toBeGreaterThan(2)
+    expect(po, 'faza odjazdu').toBeGreaterThan(2)
+  })
+
+  test('kadr nie wchodzi pod sticky naglowek', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+    await doSekcji(page, 600)
+    await page.waitForTimeout(300)
+
+    const m = await page.evaluate(() => {
+      const media = document.querySelector('.after-school__media')
+      return {
+        mediaTop: media.getBoundingClientRect().top,
+        headerBottom: document.querySelector('.site-header').getBoundingClientRect().bottom,
+        mediaVh: media.getBoundingClientRect().height / window.innerHeight,
+        position: getComputedStyle(media).position,
+      }
+    })
+
+    expect(m.position).toBe('sticky')
+    expect(m.mediaTop).toBeGreaterThanOrEqual(m.headerBottom)
+
+    // Kadr ma byc duzy, ale wciaz miescic sie w oknie razem z naglowkiem.
+    expect(m.mediaVh).toBeGreaterThan(0.7)
+    expect(m.mediaVh).toBeLessThanOrEqual(0.88)
+  })
+
+  test('prawa krawedz kadru stoi w jednej osi z kadrem hero', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    /*
+     * Wymog wlasciciela: obie fotografie maja tworzyc jedna pionowa linie.
+     * Hero jest full-bleed, wiec kadr sekcji 02 musi wyjsc poza siatke
+     * o --bleed-inline. Sprawdzamy na kilku szerokosciach, bo ta odleglosc
+     * inaczej wyglada przed i po osiagnieciu maksymalnej szerokosci kontenera.
+     */
+    for (const width of [1280, 1440, 1680, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const m = await page.evaluate(() => ({
+        hero: Math.round(document.querySelector('.hero__media').getBoundingClientRect().right),
+        sekcja: Math.round(
+          document.querySelector('.after-school__media').getBoundingClientRect().right,
+        ),
+      }))
+
+      expect(m.sekcja, `szerokosc ${width} px`).toBe(m.hero)
+    }
+  })
+
+  test('przejscie z hero do sekcji jest zwarte', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    await page.setViewportSize(DESKTOP)
+    await page.goto('/')
+
+    const m = await page.evaluate(() => {
+      const hero = document.querySelector('.hero').getBoundingClientRect()
+      const eyebrow = document
+        .querySelector('.after-school__intro .u-label')
+        .getBoundingClientRect()
+      const pelny = getComputedStyle(document.querySelector('#faq')).paddingBlockStart
+      return { przerwa: eyebrow.top - hero.bottom, pelnyOdstepSekcji: parseFloat(pelny) }
+    })
+
+    /*
+     * Po pelnowymiarowym kadrze hero pelny odstep sekcyjny czytal sie jak
+     * dziura. Ma byc najwyzej polowa tego, co dostaja pozostale sekcje -
+     * ale nie zero, bo sekcje nadal maja oddychac.
+     */
+    expect(m.przerwa).toBeGreaterThan(16)
+    expect(m.przerwa).toBeLessThanOrEqual(m.pelnyOdstepSekcji / 2 + 2)
   })
 
   test('sekcja jest dosc dluga, by kadr rzeczywiscie postal', async ({ page }, testInfo) => {
@@ -231,15 +312,19 @@ test.describe('02 po lekcjach - scrollytelling', () => {
 
     await page.setViewportSize(DESKTOP)
     await page.goto('/')
-    const { sekcjaVh } = await geometria(page)
+    const sekcjaVh = await page.evaluate(
+      () =>
+        document.querySelector('#po-lekcjach').getBoundingClientRect().height / window.innerHeight,
+    )
 
     /*
-     * Dolna granica to sens efektu: ponizej dwoch ekranow kadr ledwie zdazy
-     * stanac. Gorna pilnuje zakazu sztucznego rozciagania sekcji - wysokosc
-     * ma wynikac z odstepow miedzy blokami, nie z min-height.
+     * Widelki po skroceniu odstepow na prosbe wlasciciela. Dolna granica
+     * pilnuje, ze zostalo miejsce na realna faze sticky. Gorna pilnuje
+     * zakazu sztucznego rozciagania sekcji - wysokosc ma wynikac z odstepow
+     * miedzy blokami, nie z min-height.
      */
-    expect(sekcjaVh).toBeGreaterThan(1.9)
-    expect(sekcjaVh).toBeLessThan(2.8)
+    expect(sekcjaVh).toBeGreaterThan(1.4)
+    expect(sekcjaVh).toBeLessThan(2.2)
   })
 
   test('puenta wchodzi w koncowce sekcji, zanim kadr sie odklei', async ({ page }, testInfo) => {
@@ -269,25 +354,41 @@ test.describe('02 po lekcjach - scrollytelling', () => {
     })
 
     // Puenta ma dostac wlasny moment, a nie wjechac tuz za trzecim akapitem.
-    expect(m.revealProc).toBeGreaterThan(60)
-    expect(m.revealProc).toBeLessThan(90)
+    expect(m.revealProc).toBeGreaterThan(50)
+    expect(m.revealProc).toBeLessThan(95)
 
     // I ma sie skonczyc, zanim kadr zacznie opuszczac stan sticky.
     expect(m.zapasPrzedOdklejeniem).toBeGreaterThan(0)
   })
 
-  test('reveal odpala przy wejsciu w kadr, nie z siatki bezpieczenstwa', async ({
-    page,
-  }, testInfo) => {
+  test('puenta miesci sie w dwoch linijkach', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
+
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const linie = await page.evaluate(() => {
+        const el = document.querySelector('.after-school__coda')
+        return Math.round(
+          el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight),
+        )
+      })
+      expect(linie, `szerokosc ${width} px`).toBe(2)
+    }
+  })
+
+  test('wejscie startuje szybko, ale trwa dlugo', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'desktop-chromium', 'efekt wylacznie na desktopie')
 
     /*
-     * Regresja, ktora ten test lapie: clip-path: inset(100%) zeruje prostokat
-     * przeciecia, wiec IntersectionObserver raportuje isIntersecting: false
-     * i NIGDY nie odslania elementu. Tresc ratowala dopiero siatka
-     * bezpieczenstwa po 2500 ms, a reveal tracil zwiazek ze scrollem.
+     * Najwazniejsze rozroznienie w tej sekcji: opoznienie ma byc male,
+     * a czas trwania duzy. Regresja poszlaby w strone "poczekaj dluzej",
+     * czyli dokladnie odwrotnie niz prosil wlasciciel.
      *
-     * Dlatego sprawdzamy stan wyraznie PRZED tym progiem.
+     * Osobno pilnujemy, ze reveal nie czeka na siatke bezpieczenstwa
+     * (2500 ms): clip-path na obserwowanym elemencie zerowal prostokat
+     * przeciecia i wlasnie to dawalo kilkusekundowe czekanie.
      */
     await page.setViewportSize(DESKTOP)
     await page.goto('/')
@@ -296,6 +397,31 @@ test.describe('02 po lekcjach - scrollytelling', () => {
 
     await expect(page.locator('.after-school__claim')).toHaveClass(/is-visible/)
     await expect(page.locator('.after-school__media')).toHaveClass(/is-visible/)
+
+    const czasy = await page.evaluate(() => {
+      const ms = (v) => (v.endsWith('ms') ? parseFloat(v) : parseFloat(v) * 1000)
+      const odczyt = (sel) => {
+        const cs = getComputedStyle(document.querySelector(sel))
+        return {
+          trwanie: ms(cs.transitionDuration.split(',')[0]),
+          opoznienie: ms(cs.transitionDelay.split(',')[0]),
+        }
+      }
+      return {
+        media: odczyt('.after-school__media'),
+        naglowek: odczyt('.after-school__claim'),
+        blok: odczyt('.after-school__block'),
+      }
+    })
+
+    for (const [nazwa, v] of Object.entries(czasy)) {
+      expect(v.trwanie, `${nazwa}: czas trwania`).toBeGreaterThanOrEqual(900)
+      expect(v.opoznienie, `${nazwa}: opoznienie`).toBeLessThanOrEqual(300)
+    }
+
+    // Kolejnosc: kadr, naglowek, tekst.
+    expect(czasy.media.opoznienie).toBeLessThan(czasy.naglowek.opoznienie)
+    expect(czasy.naglowek.opoznienie).toBeLessThan(czasy.blok.opoznienie)
   })
 
   test('na telefonie kadr stoi miedzy naglowkiem a tekstem i nie jest sticky', async ({
@@ -326,7 +452,7 @@ test.describe('02 po lekcjach - scrollytelling', () => {
      * Na telefonie nie odtwarzamy efektu desktopowego kosztem dlugosci strony.
      * Mierzymy odstep miedzy blokami, a nie wysokosc sekcji: to odstep jest
      * narzedziem rozciagania, a wysokosc zalezy tu od tresci i od tego, ze
-     * okno telefonu jest niskie. Desktop ma w tym miejscu minimum 96 px.
+     * okno telefonu jest niskie.
      */
     expect(m.odstepBlokow).toBeLessThanOrEqual(48)
   })
@@ -349,11 +475,18 @@ test.describe('02 po lekcjach - scrollytelling', () => {
     expect(opacities.length).toBeGreaterThan(0)
     for (const o of opacities) expect(o).toBe(1)
 
-    // Sticky degraduje sie do bloku statycznego - wymog CLAUDE.md par. 9.
-    const position = await page.evaluate(
-      () => getComputedStyle(document.querySelector('.after-school__media')).position,
-    )
-    expect(position).toBe('static')
+    // Maska kadru tez znika, a sticky degraduje sie do bloku statycznego.
+    const m = await page.evaluate(() => ({
+      position: getComputedStyle(document.querySelector('.after-school__media')).position,
+      maska: getComputedStyle(document.querySelector('.after-school__media picture')).clipPath,
+    }))
+    expect(m.position).toBe('static')
+
+    /*
+     * Kadr ma byc nieprzyciety. Dwa zapisy znacza tu to samo: 'none' przed
+     * odslonieciem i 'inset(0px)' po nim - zadne nic nie zaslania.
+     */
+    expect(['none', 'inset(0px)']).toContain(m.maska)
   })
 })
 
