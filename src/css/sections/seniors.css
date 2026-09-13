@@ -25,14 +25,29 @@
   align-items: flex-start;
 }
 
+/*
+ * Naglowek plakatowy, nie zdanie. Ten sam rejestr co sekcja cennika:
+ * kroj display, wersaliki, ciasna interlinia bezpieczna dla polskich
+ * znakow diakrytycznych.
+ */
 .seniors__title {
-  max-inline-size: 18ch;
+  max-inline-size: 16ch;
+  font-family: var(--font-display);
+  font-size: var(--step-h1);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
 }
 
-/* Trzy filary kursu. Lista, nie grid ikon - brief zabrania ikonek korzysci. */
+/*
+ * Trzy filary kursu. Numer i wersaliki zamiast punktorow - brief zabrania
+ * ikonek korzysci, a numeracja to jezyk, ktory strona niesie juz w ofercie,
+ * w krokach metody i w zasadach rozliczenia.
+ */
 .seniors__points {
   display: grid;
-  gap: var(--space-4);
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -40,13 +55,33 @@
 }
 
 .seniors__point {
-  padding-block-start: var(--space-3);
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding-block: var(--space-4);
   border-block-start: 1px solid var(--color-rule);
+}
+
+.seniors__point:last-child {
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.seniors__number {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  opacity: 0.5;
 }
 
 .seniors__point strong {
   display: block;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .seniors__point span {
@@ -100,8 +135,37 @@
     grid-column: 1 / span 6;
   }
 
+  /*
+   * Kadr dostaje polowe szerokosci i dochodzi do krawedzi okna.
+   *
+   * WYSREDNIKOWANY, nie rozciagniety na cala wysokosc kolumny tekstowej.
+   * Zrodlo ma 750x500 px - to jedyny kadr Terminalu, jakim dysponujemy -
+   * a kolumna tekstu ma przy 1440 px 791 px wysokosci. Wypelnienie jej
+   * przez object-fit: cover oznaczaloby powiekszenie 1,58x, czyli widoczne
+   * rozmycie na najwiekszej fotografii tej sekcji.
+   *
+   * Wysrodkowanie sprawia, ze granat obejmuje kadr symetrycznie z gory
+   * i z dolu i czyta sie jak marginesy, a nie jak dziura pod zdjeciem.
+   * Wieksze zrodlo pozwoli wrocic do pelnej wysokosci - odnotowane
+   * w docs/CONTENT_GAPS.md.
+   */
   .seniors__media {
-    grid-column: 8 / -1;
+    grid-column: 7 / -1;
+    align-self: center;
     margin-inline: 0 calc(-1 * var(--bleed-inline));
   }
 }
+
+/*
+ * Wezwanie senioralne: kapsula PELNA, ale w kolorze motywu.
+ *
+ * Wczesniej byla obrysowa i ginela na koncu dlugiej kolumny. Referencja
+ * proponowala czerwona - i tu wygrywa design system: czerwien jest kolorem
+ * GLOWNEJ konwersji ("Zapisz sie na zajecia" i wezwanie w naglowku), a ta
+ * sekcja celuje w innego odbiorce i stoi poza lejkiem dla rodzicow. Druga
+ * czerwona kapsula splaszczylaby te hierarchie.
+ *
+ * Kremowa kapsula na granacie ma wyzszy kontrast niz czerwona i jest
+ * wyraznie mocniejsza od poprzedniego obrysu, wiec cel "bardziej widoczne"
+ * zostaje osiagniety bez kosztu. Kolory bierze [data-theme='blue'].
+ */

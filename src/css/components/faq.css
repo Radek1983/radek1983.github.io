@@ -73,7 +73,27 @@
   transform: translateX(-50%) scaleY(0);
 }
 
+/*
+ * Stan wskazania. Czerwien jest tu akcentem interakcji, nie dekoracja:
+ * dotyka wylacznie znaku plus, a samo pytanie tylko sie rozjasnia.
+ * Focus klawiatury daje ten sam sygnal co najechanie.
+ */
+.faq__question:hover .faq__sign,
+.faq__question:focus-visible .faq__sign {
+  color: var(--color-signal);
+}
+
+.faq__item[open] .faq__sign {
+  color: var(--color-signal);
+}
+
+/*
+ * Odpowiedz ma mniejszy kontrast niz pytanie, ale nie schodzi ponizej progu
+ * czytelnosci - stad wyciszenie kolorem, nie przezroczystoscia calego bloku.
+ */
 .faq__answer {
   padding-block-end: var(--space-6);
   max-width: var(--measure);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }

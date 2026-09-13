@@ -817,7 +817,7 @@
            Kontekst decyzji: docs/ADR/0005-trzecia-sciezka-oferty-seniorzy.md
            ============================================================ -->
       <section
-        class="section"
+        class="section seniors"
         id="seniorzy"
         data-animation="section"
         data-theme="blue"
@@ -831,8 +831,14 @@
                 <span>Dodatkowo · Terminal Kultury Gocław</span>
               </p>
 
-              <h2 class="u-h2 seniors__title" id="seniorzy-title" data-animation="reveal">
-                Angielski dla seniorów. Grupa początkująca.
+              <!--
+                Lamanie jest swiadome: dwa zdania, dwa wiersze. Naglowek stoi
+                w tym samym rejestrze co "PROSTA CENA. BEZ UKRYWANIA." i
+                "MOW. PROBUJ." - wersaliki w kroju display, nie zdanie.
+              -->
+              <h2 class="seniors__title" id="seniorzy-title" data-animation="reveal">
+                Angielski dla seniorów.<br />
+                Grupa początkująca.
               </h2>
 
               <p class="u-lead" data-animation="fade-up">
@@ -840,19 +846,27 @@
                 potrzebny w codziennych sytuacjach.
               </p>
 
-              <ul class="seniors__points">
+              <!--
+                Numeracja zamiast punktorow: te same trzy filary, ale czytane
+                jako sekwencja, nie jako lista cech. <ol>, bo kolejnosc niesie
+                sens - od wielkosci grupy, przez tempo, do jezyka.
+              -->
+              <ol class="seniors__points">
                 <li class="seniors__point" data-animation="fade-up">
+                  <span class="seniors__number" aria-hidden="true">01</span>
                   <strong>Mała grupa</strong>
                 </li>
                 <li class="seniors__point" data-animation="fade-up">
+                  <span class="seniors__number" aria-hidden="true">02</span>
                   <strong>Tempo bez presji</strong>
                 </li>
                 <li class="seniors__point" data-animation="fade-up">
+                  <span class="seniors__number" aria-hidden="true">03</span>
                   <strong>Praktyczny język</strong>
                 </li>
-              </ul>
+              </ol>
 
-              <a class="cta cta--ghost" href="/oferta/seniorzy/" data-animation="fade-up">
+              <a class="cta" href="/oferta/seniorzy/" data-animation="fade-up">
                 Zobacz zajęcia dla seniorów
                 <span class="cta__arrow" aria-hidden="true">→</span>
               </a>
@@ -890,7 +904,19 @@
       <!-- ============================================================
            09 FAQ + FINAL CTA — Co dalej?
            ============================================================ -->
-      <section class="section" id="faq" data-animation="section" aria-labelledby="faq-title">
+      <!--
+        Czarny akt miedzy granatem seniorow a kremowym kontaktem. Rytm sekcji
+        to teraz kremowy -> granat -> czern -> kremowy, czyli dokladnie regula
+        "kolor zmienia akt" z par. 9. Motyw niesie data-theme, wiec komponent
+        FAQ nie ma o nim pojecia - bierze kolory z rol semantycznych.
+      -->
+      <section
+        class="section"
+        id="faq"
+        data-animation="section"
+        data-theme="ink"
+        aria-labelledby="faq-title"
+      >
         <div class="container">
           <div class="faq-section__grid">
             <div class="faq-section__head">

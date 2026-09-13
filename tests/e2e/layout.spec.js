@@ -165,7 +165,14 @@ test.describe('oferta dla seniorow', () => {
      */
     const zajawka = page.locator('#seniorzy a[href="/oferta/seniorzy/"]')
     await expect(zajawka).toHaveCount(1)
-    await expect(zajawka).toHaveClass(/cta--ghost/)
+
+    /*
+     * Kapsula jest pelna, bo obrysowa ginela na koncu kolumny - ale NIE
+     * czerwona. Czerwien niesie glowna konwersje dla rodzicow i druga taka
+     * sama kapsula splaszczylaby hierarchie strony.
+     */
+    await expect(zajawka).not.toHaveCSS('background-color', 'rgb(242, 59, 47)')
+    await expect(zajawka).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
 
     await page.goto('/oferta/seniorzy/')
     const zewnetrzny = page.locator('main a[href^="https://terminalkultury.pl"]')

@@ -358,3 +358,23 @@ Narracja strony czyta się teraz jako **kto prowadzi → dla kogo są zajęcia**
 `alt` opisuje **scenę, nie tożsamość** — zdjęcia są ilustracyjne i nie przedstawiają osób
 związanych ze szkołą (§4, D4). Nie piszemy „lektorka High Five" ani „uczeń High Five";
 pilnuje tego test w `tests/e2e/online.spec.js`.
+
+## Kadr Terminalu Kultury — ograniczenie rozdzielczości
+
+Jedyny kadr Terminalu, jakim dysponujemy, ma **750 × 500 px**
+(`sections/terminal-kultury-750.jpg`). Po przebudowie sekcji 10 kolumna
+tekstowa ma przy 1440 px **791 px** wysokości, więc wypełnienie jej zdjęciem
+przez `object-fit: cover` wymagałoby powiększenia **1,58×** — widocznego
+rozmycia na największej fotografii tej sekcji.
+
+Kadr jest dlatego **wyśrodkowany w pionie**: granat obejmuje go symetrycznie
+z góry i z dołu i czyta się jak margines, a nie jak dziura pod zdjęciem.
+
+Drugi dostarczony kadr (`terminal-kultury-detail-960`, 960 × 720) jest
+ujęciem z poziomu ulicy — dużo jezdni i nieba, gorsza kompozycja do wąskiej
+kolumny. Zostaje w rezerwie.
+
+**Potrzebny materiał:** ujęcie Terminalu o szerokości **minimum 1400 px**
+i proporcji bliższej pionowi (3:4 lub 1:1). Pozwoli oprzeć kadr o pełną
+wysokość kolumny, tak jak robi to zdjęcie SP 402 w sekcji 09.
+Nieblokujący.
