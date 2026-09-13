@@ -86,6 +86,9 @@ To jedyne dane, które wolno publikować:
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
+- **Dane rejestrowe:** `High Five Magdalena Germel`, NIP `8241730595`,
+  REGON `523281712`, działalność od `2022`. Przekazane przez właściciela;
+  publikowane w sekcji `#kontakt` i w JSON-LD (`legalName`, `taxID`, `foundingDate`).
 
 Cena i warunek minimum 5 dzieci muszą być widoczne **przed** sekcją kontaktu.
 

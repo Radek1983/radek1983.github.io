@@ -18,7 +18,7 @@ nie zatrzymuje pracy.
 | G-06 | **Polityka nieobecności i odrabiania**                                                                                   | Właściciel                    | FAQ                                                     | **Nie**                                                                                 |
 | G-07 | **Czy materiały są w cenie**                                                                                             | Właściciel                    | FAQ, cennik                                             | **Nie**                                                                                 |
 | G-08 | **Zasady rezygnacji**                                                                                                    | Właściciel                    | FAQ, regulamin                                          | **Nie**                                                                                 |
-| G-09 | **Dane rejestrowe firmy** — nazwa, NIP, adres                                                                            | Właściciel                    | Stopka, JSON-LD                                         | **Nie** dla obecnego zakresu. **Tak**, jeśli powstanie formularz albo płatności         |
+| G-09 | **Dane rejestrowe firmy** — ZAMKNIĘTE, patrz sekcja niżej. Dawniej: nazwa, NIP, adres                                    | Właściciel                    | Stopka, JSON-LD                                         | **Nie** dla obecnego zakresu. **Tak**, jeśli powstanie formularz albo płatności         |
 | G-10 | **Polityka prywatności i klauzula RODO**                                                                                 | Prawnik / właściciel          | Osobna podstrona                                        | **Nie** dziś. **Tak** w momencie zbierania danych osobowych — czyli gdy wróci formularz |
 | G-11 | **Benchmark** „One-page i slide-animation dla szkoły angielskiego" wymieniony w master prompcie §2                       | Właściciel                    | Audyt kompletności informacji                           | **Nie** — checklistę 8 pytań klienta wzięliśmy z master promptu §14                     |
 | G-12 | **Informacje o lektorach** — nazwiska, kwalifikacje, doświadczenie                                                       | Właściciel                    | Brak sekcji; architektura pozwala dodać                 | **Nie** — brief zabrania wymyślania                                                     |
@@ -321,3 +321,22 @@ ilustracyjny i nie przedstawiają uczniów tej szkoły" — obejmuje również t
 | G-02 | **`og:image`** (1200 × 630)          | **Nie** — psuje tylko podgląd linku          |
 | G-03 | **Logo / znak graficzny w SVG**      | **Nie** — wordmark realizowany typografią    |
 | G-17 | **Własna domena i skrzynka firmowa** | **Nie** — argument biznesowy, nie techniczny |
+
+## Dane rejestrowe — brak G-09 zamknięty
+
+Właściciel przekazał dane rejestrowe działalności:
+
+| Pozycja        | Wartość                      |
+| -------------- | ---------------------------- |
+| Pełna nazwa    | `High Five Magdalena Germel` |
+| NIP            | `8241730595`                 |
+| REGON          | `523281712`                  |
+| Działalność od | `2022`                       |
+
+Publikowane w dwóch miejscach: blok **Dane firmy** w sekcji `#kontakt` oraz JSON-LD
+(`legalName`, `taxID`, `foundingDate`). Test w `tests/e2e/kontakt.spec.js` trzyma obie
+kopie zgodne co do znaku — literówka w NIP-ie nie przejdzie niezauważona.
+
+**Adres rejestrowy nadal nieprzekazany** i celowo nie jest publikowany. Adres SP 402
+pozostaje **miejscem zajęć**, nie siedzibą firmy (§4) — dotyczy to również JSON-LD,
+gdzie stoi jako `location`, nie `address`.

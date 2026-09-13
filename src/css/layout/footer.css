@@ -50,3 +50,17 @@
     grid-column: span 3;
   }
 }
+
+/*
+ * Miejsce na dok CTA.
+ *
+ * .cta-dock jest przyklejony do dolu okna ponizej 32rem i ma wlasne tlo,
+ * wiec na stale zaslanial ostatnie 73 px strony - w praktyce zastrzezenie
+ * o SP 402, czyli jedyny tekst prawny w serwisie. Stopka rezerwuje teraz
+ * to miejsce; wartosc jest z zapasem nad zmierzona wysokoscia doku.
+ */
+@media (width < 32rem) {
+  .site-footer {
+    padding-block-end: 5.5rem;
+  }
+}

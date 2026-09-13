@@ -107,3 +107,89 @@
     grid-column: 7 / -1;
   }
 }
+
+/* ============================================================
+   DANE FIRMY — blok formalny pod wezwaniem do działania
+   ============================================================ */
+
+/*
+ * Rejestrowa metryczka firmy. Rodzic porownujacy szkoly szuka dowodu, ze
+ * po drugiej stronie stoi dzialalnosc, a nie ogloszenie - ale ten dowod ma
+ * uwiarygadniac, a nie przejmowac uwage. Stad osobny modul pod CTA,
+ * w stopniu tekstu ciaglego i z wyciszona etykieta.
+ *
+ * Kreska u gory oddziela go od czesci kontaktowej. To jedyna ozdoba:
+ * zero ramki, zero tla, zero zaokraglen - blok jest cichszy od reszty
+ * sekcji samym skladem, nie pojemnikiem.
+ */
+.legal {
+  grid-column: 1 / -1;
+  margin-block-start: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.legal__title {
+  margin-block-end: var(--space-6);
+  opacity: 0.55;
+}
+
+.legal__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-6) var(--grid-gutter);
+  margin: 0;
+}
+
+.legal__item {
+  grid-column: 1 / -1;
+}
+
+.legal__key {
+  opacity: 0.55;
+}
+
+/* <dd> ma domyslnie 40 px wciecia - tutaj rozjechaloby kolumny. */
+.legal__value {
+  margin: 0;
+  margin-block-start: var(--space-2);
+  overflow-wrap: anywhere;
+}
+
+@media (width >= 48rem) {
+  /*
+   * Cztery rowne kolumny rozdzielone pionowa kreska. Kreska stoi PRZED
+   * pozycja, wiec pierwsza zostaje bez niej i blok zaczyna sie rowno
+   * z lewa krawedzia tresci, tak jak reszta sekcji.
+   */
+  .legal__item {
+    grid-column: span 3;
+    padding-inline-start: var(--space-6);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+
+  .legal__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/*
+ * Telefon i e-mail: na waskim ekranie etykieta schodzi POD wartosc.
+ *
+ * W jednym wierszu "highfive.zapisy@gmail.com" i "E-MAIL" walczyly o 350 px:
+ * adres lamal sie w srodku wyrazu, a sama etykieta na dwie linie ("E-" / "MAIL").
+ * Ukladu poziomego bronic nie warto - to ten sam komplet informacji, tylko
+ * ustawiony jedna pod druga.
+ */
+@media (width < 48rem) {
+  .contact__link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .contact__link .u-label {
+    white-space: nowrap;
+  }
+}
