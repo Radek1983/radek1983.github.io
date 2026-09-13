@@ -178,18 +178,10 @@ test.describe('tresc i SEO', () => {
     )
     expect(zgloszeniowe).toHaveLength(1)
 
-    /*
-     * Hero nie zawiera CTA zgloszeniowego - ono zyje w naglowku i dalej na stronie.
-     *
-     * Cena wrocila do hero na polecenie wlasciciela, ale jako jedna linia pod
-     * przyciskiem pomocniczym, bez ramki i bez plakietki. Test pilnuje, ze jest
-     * to nadal tekst, a nie drugie wezwanie do dzialania.
-     */
+    // Hero nie zawiera ani ceny, ani CTA zgloszeniowego - oba zyja dalej na stronie.
     const hero = await page.locator('.hero').innerText()
+    expect(hero).not.toMatch(/55 z[lł]/)
     expect(hero).not.toMatch(/zapisz si[eę]/i)
-    expect(hero).toMatch(/55 z[lł] \/ 45 min/)
-    await expect(page.locator('.hero__price')).toHaveCount(1)
-    await expect(page.locator('.hero__price a, .hero__price button')).toHaveCount(0)
   })
 
   test('strona 404 dziala i ma wlasny naglowek', async ({ page }) => {

@@ -37,13 +37,9 @@ ani przycienienia, ani gradientu — jednego i drugiego brief zabrania.
 **Akcja pomocnicza:** `Sprawdź grupy i ceny` — czarny przycisk, prowadzi do `#oferta`.
 Wcześniej `Zobacz ofertę`; właściciel nazwał wprost to, co rodzic znajdzie po kliknięciu.
 
-**Linia cenowa pod przyciskiem:** `55 zł / 45 min · rodzeństwo 50 zł / 45 min` — jedna linia,
-bez ramki, tła i ikony. Pełny cennik zostaje w sekcji `#cennik`.
-
 **W hero NIE MA:**
 
-- ~~ceny~~ — **decyzja cofnięta przez właściciela.** Cena wróciła do hero jako jedna linia
-  pod przyciskiem pomocniczym. Nadal nie ma jej w pasku faktów ani w formie plakietki;
+- ceny — żyje w pasku faktów i w sekcji `#cennik`;
 - głównego CTA `Zapisz się na zajęcia` — zostaje w nagłówku oraz w sekcjach
   decyzyjnych `#nabor` i `#kontakt`.
 

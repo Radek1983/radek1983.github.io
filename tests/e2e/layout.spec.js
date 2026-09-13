@@ -275,8 +275,7 @@ test.describe('responsywnosc', () => {
       await page.goto('/')
 
       const right = await page.evaluate(() => {
-        const selektory = ['.hero__wordmark', '.hero__title', '.hero__lead', '.hero__price']
-        const boxes = selektory.flatMap((sel) => {
+        const boxes = ['.hero__wordmark', '.hero__title', '.hero__lead'].flatMap((sel) => {
           const el = document.querySelector(sel)
           return el ? [...el.getClientRects()] : []
         })
