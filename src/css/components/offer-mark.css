@@ -104,3 +104,18 @@
     translate: none;
   }
 }
+
+/*
+ * --- Odstep miedzy slowami w etykiecie ---
+ *
+ * Etykiety sa wersalikami z UJEMNYM trackingiem (--tracking-heading: -0.02em).
+ * Ujemna wartosc zjada rowniez spacje, wiec "ONLINE 1 NA 1" skladalo sie
+ * w "ONLINE1NA1" i cyfra zlewala sie ze slowem. Przy nazwach bez cyfr bylo
+ * to tylko ciasne; przy "1 NA 1" przestawalo byc czytelne.
+ *
+ * Kompensujemy sam odstep MIEDZY SLOWAMI, nie tracking - zbita, gesta forma
+ * liter zostaje taka, jak zostala zaprojektowana.
+ */
+.offer-mark__label {
+  word-spacing: 0.1em;
+}

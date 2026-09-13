@@ -8,24 +8,24 @@ nie zatrzymuje pracy.
 
 ## Otwarte
 
-| #    | Brak                                                                                                                              | Właściciel danych             | Miejsce użycia                                  | Blokuje release                                                                         |
-| ---- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------- |
-| G-01 | **Docelowe dane kontaktowe High Five** — obecne (`janek.gitara@onet.pl`, `+48 789 789 789`) są tymczasowe i prywatne, nie firmowe | Właściciel                    | `index.html` sekcja `#kontakt`, stopka, JSON-LD | **Nie** — wartości tymczasowe działają. Do podmiany przed kampanią                      |
-| G-02 | **Grafika Open Graph** (`og-image.jpg`, 1200 × 630)                                                                               | Wykonawca albo właściciel     | `public/social/`, `<meta property="og:image">`  | **Nie** — brak obrazu nie psuje strony, tylko podgląd linku                             |
-| G-03 | **Logo / znak graficzny High Five** w SVG                                                                                         | Właściciel                    | Header, stopka, favicon                         | **Nie** — wordmark jest dziś realizowany typografią, co jest zgodne z kierunkiem briefu |
-| G-04 | **Grafik i częstotliwość zajęć** — ile razy w tygodniu, w jakich godzinach                                                        | Właściciel                    | Sekcja oferty, FAQ                              | **Nie** — brief zabrania publikacji bez potwierdzenia                                   |
-| G-05 | **Zasady dołączenia po 1 października**                                                                                           | Właściciel                    | FAQ                                             | **Nie**                                                                                 |
-| G-06 | **Polityka nieobecności i odrabiania**                                                                                            | Właściciel                    | FAQ                                             | **Nie**                                                                                 |
-| G-07 | **Czy materiały są w cenie**                                                                                                      | Właściciel                    | FAQ, cennik                                     | **Nie**                                                                                 |
-| G-08 | **Zasady rezygnacji**                                                                                                             | Właściciel                    | FAQ, regulamin                                  | **Nie**                                                                                 |
-| G-09 | **Dane rejestrowe firmy** — nazwa, NIP, adres                                                                                     | Właściciel                    | Stopka, JSON-LD                                 | **Nie** dla obecnego zakresu. **Tak**, jeśli powstanie formularz albo płatności         |
-| G-10 | **Polityka prywatności i klauzula RODO**                                                                                          | Prawnik / właściciel          | Osobna podstrona                                | **Nie** dziś. **Tak** w momencie zbierania danych osobowych — czyli gdy wróci formularz |
-| G-11 | **Benchmark** „One-page i slide-animation dla szkoły angielskiego" wymieniony w master prompcie §2                                | Właściciel                    | Audyt kompletności informacji                   | **Nie** — checklistę 8 pytań klienta wzięliśmy z master promptu §14                     |
-| G-12 | **Informacje o lektorach** — nazwiska, kwalifikacje, doświadczenie                                                                | Właściciel                    | Brak sekcji; architektura pozwala dodać         | **Nie** — brief zabrania wymyślania                                                     |
-| G-14 | **Dokładny adres Terminalu Kultury Gocław** — w JSON-LD jest dziś tylko miasto                                                    | Właściciel                    | Sekcja `#seniorzy`, JSON-LD                     | **Nie** — nazwa i link do strony instytucji wystarczają do znalezienia miejsca          |
-| G-15 | **Harmonogram zajęć dla seniorów** — dni i godziny                                                                                | Właściciel / Terminal Kultury | Sekcja `#seniorzy`                              | **Nie** — strona Terminalu podaje szczegóły, link jest na miejscu                       |
-| G-16 | **Warunki uruchomienia grupy senioralnej** — czy obowiązuje minimum uczestników                                                   | Właściciel                    | Sekcja `#seniorzy`                              | **Nie**                                                                                 |
-| G-13 | **Opinie i referencje**                                                                                                           | Właściciel                    | Brak sekcji                                     | **Nie** — zakaz wymyślonych ocen jest testowany automatycznie w JSON-LD                 |
+| #    | Brak                                                                                                                     | Właściciel danych             | Miejsce użycia                                          | Blokuje release                                                                         |
+| ---- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| G-01 | **Docelowe dane kontaktowe High Five** — ZAMKNIĘTE. Właściciel przekazał `highfive.zapisy@gmail.com` i `+48 790 266 517` | Właściciel                    | `src/data/offers.mjs`, stąd wszystkie 9 stron i JSON-LD | **Zamknięty.** Zostaje G-17: skrzynka we własnej domenie                                |
+| G-02 | **Grafika Open Graph** (`og-image.jpg`, 1200 × 630)                                                                      | Wykonawca albo właściciel     | `public/social/`, `<meta property="og:image">`          | **Nie** — brak obrazu nie psuje strony, tylko podgląd linku                             |
+| G-03 | **Logo / znak graficzny High Five** w SVG                                                                                | Właściciel                    | Header, stopka, favicon                                 | **Nie** — wordmark jest dziś realizowany typografią, co jest zgodne z kierunkiem briefu |
+| G-04 | **Grafik i częstotliwość zajęć** — ile razy w tygodniu, w jakich godzinach                                               | Właściciel                    | Sekcja oferty, FAQ                                      | **Nie** — brief zabrania publikacji bez potwierdzenia                                   |
+| G-05 | **Zasady dołączenia po 1 października**                                                                                  | Właściciel                    | FAQ                                                     | **Nie**                                                                                 |
+| G-06 | **Polityka nieobecności i odrabiania**                                                                                   | Właściciel                    | FAQ                                                     | **Nie**                                                                                 |
+| G-07 | **Czy materiały są w cenie**                                                                                             | Właściciel                    | FAQ, cennik                                             | **Nie**                                                                                 |
+| G-08 | **Zasady rezygnacji**                                                                                                    | Właściciel                    | FAQ, regulamin                                          | **Nie**                                                                                 |
+| G-09 | **Dane rejestrowe firmy** — nazwa, NIP, adres                                                                            | Właściciel                    | Stopka, JSON-LD                                         | **Nie** dla obecnego zakresu. **Tak**, jeśli powstanie formularz albo płatności         |
+| G-10 | **Polityka prywatności i klauzula RODO**                                                                                 | Prawnik / właściciel          | Osobna podstrona                                        | **Nie** dziś. **Tak** w momencie zbierania danych osobowych — czyli gdy wróci formularz |
+| G-11 | **Benchmark** „One-page i slide-animation dla szkoły angielskiego" wymieniony w master prompcie §2                       | Właściciel                    | Audyt kompletności informacji                           | **Nie** — checklistę 8 pytań klienta wzięliśmy z master promptu §14                     |
+| G-12 | **Informacje o lektorach** — nazwiska, kwalifikacje, doświadczenie                                                       | Właściciel                    | Brak sekcji; architektura pozwala dodać                 | **Nie** — brief zabrania wymyślania                                                     |
+| G-14 | **Dokładny adres Terminalu Kultury Gocław** — w JSON-LD jest dziś tylko miasto                                           | Właściciel                    | Sekcja `#seniorzy`, JSON-LD                             | **Nie** — nazwa i link do strony instytucji wystarczają do znalezienia miejsca          |
+| G-15 | **Harmonogram zajęć dla seniorów** — dni i godziny                                                                       | Właściciel / Terminal Kultury | Sekcja `#seniorzy`                                      | **Nie** — strona Terminalu podaje szczegóły, link jest na miejscu                       |
+| G-16 | **Warunki uruchomienia grupy senioralnej** — czy obowiązuje minimum uczestników                                          | Właściciel                    | Sekcja `#seniorzy`                                      | **Nie**                                                                                 |
+| G-13 | **Opinie i referencje**                                                                                                  | Właściciel                    | Brak sekcji                                             | **Nie** — zakaz wymyślonych ocen jest testowany automatycznie w JSON-LD                 |
 
 ## Materiały dostarczone
 
@@ -249,11 +249,35 @@ marketingową na stronie głównej.
 
 ### Nadal otwarte
 
-| #    | Brak                                                                                                               | Blokuje release                                                     |
-| ---- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| G-01 | **Docelowy numer telefonu High Five** — dziś `+48 789 789 789` (D6, wartość tymczasowa i prywatna)                 | **Nie** — działa, ale nie jest numerem firmowym                     |
-| G-01 | **Docelowy adres e-mail High Five** — dziś `janek.gitara@onet.pl`, adres prywatny na darmowej poczcie              | **Nie** — działa. Przed kampanią wymaga skrzynki we własnej domenie |
-| G-17 | **Własna domena i skrzynka firmowa** (`kontakt@…`) — warunek profesjonalnego adresu i zdjęcia odstępstw z ADR 0003 | **Nie** dla obecnego zakresu. Argument biznesowy, nie techniczny    |
+| #    | Brak                                                                                                               | Blokuje release                                                  |
+| ---- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| G-01 | **Telefon i e-mail** — ZAMKNIĘTE, patrz niżej                                                                      | —                                                                |
+| G-17 | **Własna domena i skrzynka firmowa** (`kontakt@…`) — warunek profesjonalnego adresu i zdjęcia odstępstw z ADR 0003 | **Nie** dla obecnego zakresu. Argument biznesowy, nie techniczny |
 
 Wszystkie trzy pozycje to jedna zmiana w `src/data/offers.mjs` — dane kontaktowe stoją
 w jednym miejscu i są podstawiane do wszystkich dziewięciu stron przy budowaniu.
+
+## Dane kontaktowe — brak zamknięty
+
+Właściciel przekazał docelowe dane kontaktowe High Five, które zastąpiły prywatne konto
+używane na czas budowy (decyzja D6):
+
+| Dana    | Wartość                     |
+| ------- | --------------------------- |
+| E-mail  | `highfive.zapisy@gmail.com` |
+| Telefon | `+48 790 266 517`           |
+
+Obie stoją w jednym miejscu — `KONTAKT` w `src/data/offers.mjs` — i są podstawiane przy
+budowaniu do wszystkich dziewięciu stron, do stopki, do JSON-LD oraz do gotowych szkiców
+wiadomości `mailto:` na stronach zapisów, kariery, online i seniorów.
+
+**Powrót starych wartości jest niemożliwy po cichu:** test w `tests/e2e/regressions.spec.js`
+skanuje wszystkie dziewięć stron i wywala build, jeśli którakolwiek z nich znów się pojawi.
+
+### Co zostaje otwarte
+
+**G-17 — skrzynka we własnej domenie.** Adres jest firmowy i działa, ale stoi u publicznego
+dostawcy poczty. Po zakupie domeny (decyzja D3) warto przejść na `kontakt@<domena>`.
+Nieblokujące. **Domeny nie wymyślamy.**
+
+**Dane rejestrowe firmy (G-09)** nadal nieprzekazane — bez zmian.

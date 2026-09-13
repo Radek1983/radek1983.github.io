@@ -380,14 +380,14 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #      | Temat              | Decyzja                                                                                                                                                                               |
-| ------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1** | Środowisko lokalne | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                   |
-| **D2** | Konwersja          | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                          |
-| **D3** | Adres              | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                           |
-| **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                 |
-| **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie |
-| **D6** | Dane kontaktowe    | **Tymczasowo:** e-mail `janek.gitara@onet.pl`, telefon `+48 789 789 789`. Do podmiany na dane HIGH FIVE. Errata E-02                                                                  |
+| #      | Temat              | Decyzja                                                                                                                                                                                                                          |
+| ------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1** | Środowisko lokalne | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
+| **D2** | Konwersja          | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
+| **D3** | Adres              | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
+| **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
+| **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
+| **D6** | Dane kontaktowe    | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
 
 ### D5 — konsekwencje
 
@@ -399,12 +399,16 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ### D6 — konsekwencje
 
-- Obie wartości trzymane w **jednym miejscu w kodzie**, żeby podmiana była jedną zmianą.
-- Wyświetlanie `+48 789 789 789`, atrybut `tel:+48789789789`.
-- Content gap „dane kontaktowe" schodzi z **blokującego** na **nieblokujący**, ale pozostaje
-  otwarty w `docs/CONTENT_GAPS.md` do przekazania danych docelowych. Zapisz jawnie, że są
-  tymczasowe i prywatne, nie firmowe.
-- Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko wartości tymczasowej.
+- Obie wartości trzymane w **jednym miejscu w kodzie** — `KONTAKT` w `src/data/offers.mjs`.
+  Podmiana z danych tymczasowych na docelowe była dzięki temu jedną zmianą w jednym pliku,
+  rozniesioną przy budowaniu na wszystkie dziewięć stron.
+- Wyświetlanie `+48 790 266 517`, atrybut `tel:+48790266517`.
+- Content gap „dane kontaktowe" jest **zamknięty**. Otwarta zostaje wyłącznie skrzynka
+  we własnej domenie (G-17): adres jest firmowy, ale stoi u publicznego dostawcy.
+  Przejście na `kontakt@<domena>` po zakupie domeny (D3). **Domeny nie wymyślamy.**
+- Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko.
+- Stare wartości nie mogą wrócić: pilnuje tego test w `tests/e2e/regressions.spec.js`,
+  który skanuje wszystkie dziewięć stron.
 
 ### D2 — mechanika i konsekwencje
 

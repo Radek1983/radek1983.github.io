@@ -137,7 +137,7 @@ test.describe('architektura - stare adresy', () => {
 
 test.describe('architektura - wspolna nawigacja', () => {
   const MENU = ['Oferta', 'Lokalizacje', 'O High Five', 'FAQ', 'Kontakt', 'Kariera']
-  const OFERTA = ['Klasy 1-7', 'Klasa 8', '60+', '1 na 1']
+  const OFERTA = ['Klasy 1-7', 'Klasa 8', 'Dla seniorów', 'Online 1 na 1']
 
   for (const url of ['/', ...STRONY.map((s) => s.url)]) {
     test(`menu na ${url} ma te sama kolejnosc`, async ({ page }) => {
@@ -431,15 +431,16 @@ test.describe('mega-menu - dopracowanie', () => {
       },
       {
         numer: '03',
-        etykieta: '60+',
+        etykieta: 'Dla seniorów',
         opis: 'Angielski dla seniorów',
-        kontekst: 'Terminal Kultury Gocław',
+        // Prog wiekowy zszedl z etykiety, wiec musi stac tutaj.
+        kontekst: '60+ · Terminal Kultury Gocław',
         cta: 'Zobacz zajęcia →',
         href: '/oferta/seniorzy/',
       },
       {
         numer: '04',
-        etykieta: '1 na 1',
+        etykieta: 'Online 1 na 1',
         opis: 'Indywidualnie online',
         kontekst: 'Dzieci · młodzież · dorośli',
         cta: 'Zobacz online →',

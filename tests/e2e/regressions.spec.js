@@ -72,9 +72,33 @@ test.describe('regresje tresci', () => {
       await page.goto(url)
       await expect(page.locator('a[href^="tel:"]').first(), `tel na ${url}`).toHaveAttribute(
         'href',
-        'tel:+48789789789',
+        'tel:+48790266517',
       )
       await expect(page.locator('a[href^="mailto:"]').first(), `mail na ${url}`).toBeVisible()
+    }
+  })
+
+  /*
+   * Dane kontaktowe zmieniono raz - z prywatnego konta z czasu budowy na
+   * firmowe. Stare wartosci nie moga wrocic zadna droga: ani przez cofniety
+   * merge, ani przez skopiowany fragment starego HTML-a.
+   */
+  test('nigdzie nie zostaly stare dane kontaktowe z czasu budowy', async ({ page }) => {
+    for (const url of STRONY) {
+      await page.goto(url)
+      const html = await page.content()
+      expect(html, `stary telefon na ${url}`).not.toMatch(/789\D*789\D*789/)
+      expect(html, `stary e-mail na ${url}`).not.toMatch(/janek\.gitara/)
+    }
+  })
+
+  test('e-mail i telefon sa wszedzie te same', async ({ page }) => {
+    for (const url of STRONY) {
+      await page.goto(url)
+      await expect(
+        page.locator('a[href="mailto:highfive.zapisy@gmail.com"]').first(),
+        url,
+      ).toBeVisible()
     }
   })
 

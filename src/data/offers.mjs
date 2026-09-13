@@ -46,11 +46,16 @@ export const OFFERS = [
   {
     id: 'seniorzy',
     numer: '03',
-    skrot: '60+',
+    skrot: 'Dla seniorów',
     etykietaStopki: 'Seniorzy 60+',
     tytul: 'Angielski dla seniorów',
     opis: 'Angielski dla seniorów',
-    kontekst: 'Terminal Kultury Gocław',
+    /*
+     * Wiek zszedl z etykiety, wiec musi zostac TU. Inaczej pozycja "Dla
+     * seniorow" nie mowilaby juz, do kogo sa te zajecia - a to jedyna
+     * oferta w serwisie z progiem wiekowym.
+     */
+    kontekst: '60+ · Terminal Kultury Gocław',
     odbiorca: '60+',
     miejsce: 'Terminal Kultury Gocław',
     url: '/oferta/seniorzy/',
@@ -60,8 +65,8 @@ export const OFFERS = [
   {
     id: 'online',
     numer: '04',
-    skrot: '1 na 1',
-    etykietaStopki: 'Online 1:1',
+    skrot: 'Online 1 na 1',
+    etykietaStopki: 'Online 1 na 1',
     tytul: 'Indywidualnie online',
     opis: 'Indywidualnie online',
 
@@ -125,19 +130,17 @@ export const LINK_CENNIK = CENY_KOMPLETNE ? 'Porównaj ceny' : 'Cennik'
  * na dane docelowe oznaczalaby pieciokrotna edycje i realne ryzyko, ze gdzies
  * zostanie stara wartosc.
  *
- * OBIE WARTOSCI SA TYMCZASOWE (decyzja D6 w CLAUDE.md). To prywatne konto
- * przekazane przez wlasciciela na czas budowy, NIE dane firmowe High Five.
+ * OBIE WARTOSCI SA DOCELOWE. Wlasciciel przekazal je bezposrednio i zastapily
+ * tymczasowe konto prywatne z decyzji D6 - patrz CLAUDE.md par. 15.
  *
- * TODO - DOCELOWY TELEFON: numer High Five nie zostal przekazany.
- * TODO - DOCELOWY E-MAIL: rekomendowana skrzynka we wlasnej domenie
- *        (np. kontakt@<domena>), gdy domena zostanie kupiona. Adres
- *        w domenie publicznego dostawcy oslabia wiarygodnosc szkoly.
- *        Domeny NIE wymyslamy - patrz decyzja D3.
+ * TODO - SKRZYNKA WE WLASNEJ DOMENIE: adres dziala i jest firmowy, ale stoi
+ *        u publicznego dostawcy. Po zakupie domeny (decyzja D3) warto przejsc
+ *        na kontakt@<domena>. Domeny NIE wymyslamy.
  */
 export const KONTAKT = {
   /** Postac wyswietlana, z niełamliwymi spacjami. */
-  telefon: '+48&nbsp;789&nbsp;789&nbsp;789',
+  telefon: '+48&nbsp;790&nbsp;266&nbsp;517',
   /** Postac dla protokolu tel: - bez spacji i znakow formatujacych. */
-  telefonHref: '+48789789789',
-  email: 'janek.gitara@onet.pl',
+  telefonHref: '+48790266517',
+  email: 'highfive.zapisy@gmail.com',
 }

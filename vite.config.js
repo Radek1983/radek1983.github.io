@@ -77,7 +77,7 @@ function htmlPartials() {
       return `          <li class="mega__item">
             <a class="mega__link offer-mark" href="${o.url}"${biezaca}>
               <span class="mega__number offer-mark__number" aria-hidden="true">${o.numer}</span>
-              <span class="mega__label">${o.skrot}</span>
+              <span class="mega__label offer-mark__label">${o.skrot}</span>
               <span class="mega__desc">${o.opis}</span>
               <span class="mega__meta">${o.kontekst}</span>
               <span class="mega__cta offer-mark__cta"
@@ -102,9 +102,10 @@ function htmlPartials() {
   ).join('\n')
 
   /*
-   * I w stopce - ale z ETYKIETA OPISOWA, nie skrotem z mega-menu.
-   * "60+" i "1 na 1" dzialaja w panelu, gdzie stoja pod numerem i opisem.
-   * W stopce, jako goly odnosnik w kolumnie linkow, nie niosa kontekstu.
+   * I w stopce - ale z wlasna etykieta, nie skrotem z mega-menu.
+   * "Dla seniorow" dziala w panelu, gdzie stoi pod numerem i opisem;
+   * w kolumnie linkow stopki lepiej niesie sens "Seniorzy 60+", bo prog
+   * wiekowy nie ma tam gdzie indziej wybrzmiec.
    */
   const stopkaOferta = OFFERS.map(
     (o) => `      <a class="u-link" href="${o.url}">${o.etykietaStopki}</a>`,
