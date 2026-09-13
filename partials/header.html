@@ -45,9 +45,15 @@
                 {{MEGA_MENU}}
               </ul>
 
+              <!--
+                Etykieta drugiego odnosnika zalezy od kompletnosci cen
+                w src/data/offers.mjs. "Porownaj ceny" obiecuje zestawienie
+                czterech kwot obok siebie - przy trzech brakujacych stawkach
+                takiego zestawienia po prostu nie ma.
+              -->
               <p class="mega__more">
                 <a class="u-link" href="/oferta/">Zobacz całą ofertę →</a>
-                <a class="u-link" href="/cennik/">Porównaj ceny →</a>
+                <a class="u-link" href="/cennik/">{{LINK_CENNIK}} →</a>
               </p>
             </div>
           </div>
@@ -116,7 +122,12 @@
 
             <ul class="drawer__sublist">
               {{MENU_MOBILNE_OFERTA}}
-              <li><a class="drawer__sublink" href="/oferta/">Cała oferta</a></li>
+              <li>
+                <a class="drawer__sublink" href="/oferta/"><strong>Cała oferta</strong></a>
+              </li>
+              <li>
+                <a class="drawer__sublink" href="/cennik/"><strong>{{LINK_CENNIK}}</strong></a>
+              </li>
             </ul>
           </details>
         </li>

@@ -1,0 +1,195 @@
+
+test.describe('mega-menu - dopracowanie', () => {
+  test.skip(
+    ({ }, testInfo) => testInfo.project.name !== 'desktop-chromium',
+    'menu poziome dziala od 75rem',
+  )
+
+  test('kazda kolumna niesie cztery poziomy informacji', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await page.locator('.site-nav__trigger').click()
+
+    const kolumny = await page.evaluate(() =>
+      [...document.querySelectorAll('.mega__item')].map((li) => ({
+        numer: li.querySelector('.mega__number').textContent.trim(),
+        etykieta: li.querySelector('.mega__label').textContent.trim(),
+        opis: li.querySelector('.mega__desc').textContent.trim(),
+        kontekst: li.querySelector('.mega__meta').textContent.trim(),
+        cta: li.querySelector('.mega__cta').textContent.trim().replace(/\s+/g, ' '),
+        href: li.querySelector('.mega__link').getAttribute('href'),
+      })),
+    )
+
+    expect(kolumny).toEqual([
+      {
+        numer: '01',
+        etykieta: 'Klasy 1-7',
+        opis: 'Angielski po lekcjach',
+        kontekst: 'SP 402 · klasy 1-7',
+        cta: 'Zobacz zajęcia →',
+        href: '/oferta/dzieci/',
+      },
+      {
+        numer: '02',
+        etykieta: 'Klasa 8',
+        opis: 'Egzamin ósmoklasisty',
+        kontekst: 'SP 402 · przygotowanie egzaminacyjne',
+        cta: 'Zobacz kurs →',
+        href: '/oferta/egzamin-osmoklasisty/',
+      },
+      {
+        numer: '03',
+        etykieta: '60+',
+        opis: 'Angielski dla seniorów',
+        kontekst: 'Terminal Kultury Gocław',
+        cta: 'Zobacz zajęcia →',
+        href: '/oferta/seniorzy/',
+      },
+      {
+        numer: '04',
+        etykieta: '1 na 1',
+        opis: 'Indywidualnie online',
+        kontekst: 'Dzieci · młodzież · dorośli',
+        cta: 'Zobacz online →',
+        href: '/oferta/online/',
+      },
+    ])
+  })
+
+  test('cala powierzchnia kolumny jest klikalna, bez zagniezdzonych linkow', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await page.locator('.site-nav__trigger').click()
+
+    // Jeden link na kolumne - wezwanie jest spanem w srodku, nie osobnym <a>.
+    const zagniezdzone = await page.evaluate(
+      () => document.querySelectorAll('.mega__link a').length,
+    )
+    expect(zagniezdzone).toBe(0)
+
+    /*
+     * Klikniecie w PUSTA czesc kolumny, nie w czerwone slowo. Celujemy
+     * w obszar numeru, ktory jest tylko dekoracja - a mimo to ma prowadzic.
+     */
+    const numer = page.locator('.mega__item').nth(2).locator('.mega__number')
+    await numer.click()
+    await page.waitForURL('**/oferta/seniorzy/')
+  })
+
+  test('focus klawiatury daje ten sam sygnal co najechanie', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await page.locator('.site-nav__trigger').click()
+
+    const link = page.locator('.mega__link').first()
+    const numer = link.locator('.mega__number')
+    const strzalka = link.locator('.mega__arrow')
+
+    const spoczynek = await page.evaluate(() => {
+      const el = document.querySelector('.mega__number')
+      return getComputedStyle(el).color
+    })
+
+    await link.focus()
+    await page.waitForTimeout(300)
+
+    const poFocusie = await numer.evaluate((el) => getComputedStyle(el).color)
+    const przesuniecie = await strzalka.evaluate((el) => getComputedStyle(el).translate)
+
+    expect(poFocusie).not.toBe(spoczynek)
+    expect(przesuniecie).not.toBe('none')
+  })
+
+  test('Tab przechodzi przez cztery oferty i dwa odnosniki zbiorcze', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    const trigger = page.locator('.site-nav__trigger')
+    await trigger.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.locator('.mega')).toBeVisible()
+
+    const kolejnosc = []
+    for (let i = 0; i < 6; i += 1) {
+      await page.keyboard.press('Tab')
+      kolejnosc.push(await page.evaluate(() => document.activeElement.getAttribute('href')))
+    }
+
+    expect(kolejnosc).toEqual([
+      '/oferta/dzieci/',
+      '/oferta/egzamin-osmoklasisty/',
+      '/oferta/seniorzy/',
+      '/oferta/online/',
+      '/oferta/',
+      '/cennik/',
+    ])
+  })
+
+  test('etykieta odnosnika cenowego wynika z kompletnosci danych', async ({ page }) => {
+    /*
+     * "Porownaj ceny" obiecuje zestawienie czterech kwot obok siebie.
+     * Dopoki trzy z czterech produktow nie maja potwierdzonej stawki,
+     * taka obietnica wprowadzalaby w blad - etykieta brzmi wtedy "Cennik".
+     * Zmieni sie sama, gdy ceny trafia do src/data/offers.mjs.
+     */
+    const { CENY_KOMPLETNE, LINK_CENNIK } = await import('../../src/data/offers.mjs')
+
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await page.locator('.site-nav__trigger').click()
+
+    const etykieta = await page
+      .locator('.mega__more a[href="/cennik/"]')
+      .textContent()
+
+    expect(etykieta.trim()).toBe(`${LINK_CENNIK} →`)
+    if (!CENY_KOMPLETNE) expect(etykieta).not.toMatch(/porównaj/i)
+  })
+
+  test('strzalka przy Ofercie obraca sie po otwarciu', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    const chevron = page.locator('.site-nav__chevron')
+    const zamkniety = await chevron.evaluate((el) => getComputedStyle(el).rotate)
+
+    await page.locator('.site-nav__trigger').click()
+    await page.waitForTimeout(300)
+    const otwarty = await chevron.evaluate((el) => getComputedStyle(el).rotate)
+
+    expect(zamkniety).not.toBe(otwarty)
+  })
+
+  test('panel styka sie z naglowkiem, wiec kursor go nie gubi', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await page.locator('.site-nav__trigger').click()
+
+    /*
+     * Miedzy dolna krawedzia naglowka a gora panelu nie moze byc przerwy -
+     * kursor przechodzacy z pozycji menu do kolumny przeciolby przez pustke
+     * i zamknal panel.
+     */
+    const przerwa = await page.evaluate(() => {
+      const naglowek = document.querySelector('.site-header').getBoundingClientRect()
+      const panel = document.querySelector('.mega').getBoundingClientRect()
+      return Math.round(panel.top - naglowek.bottom)
+    })
+    expect(przerwa).toBeLessThanOrEqual(0)
+
+    // Panel przykrywa tresc, ale nie chowa sie pod paskiem faktow.
+    const warstwy = await page.evaluate(() => ({
+      mega: Number(getComputedStyle(document.querySelector('.mega')).zIndex),
+      ticker: Number(getComputedStyle(document.querySelector('.ticker')).zIndex),
+    }))
+    expect(warstwy.mega).toBeGreaterThan(warstwy.ticker)
+  })
+
+  test('panel nie powoduje przesuniecia layoutu ani poziomego scrolla', async ({ page }) => {
+    for (const width of [1280, 1366, 1440, 1600, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const przed = await page.evaluate(() => document.body.scrollHeight)
+      await page.locator('.site-nav__trigger'

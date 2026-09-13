@@ -20,6 +20,8 @@ export const OFFERS = [
     numer: '01',
     skrot: 'Klasy 1-7',
     tytul: 'Angielski dla dzieci',
+    opis: 'Angielski po lekcjach',
+    kontekst: 'SP 402 · klasy 1-7',
     odbiorca: 'Klasy 1-7',
     miejsce: 'SP 402, po lekcjach',
     url: '/oferta/dzieci/',
@@ -31,6 +33,8 @@ export const OFFERS = [
     numer: '02',
     skrot: 'Klasa 8',
     tytul: 'Egzamin ósmoklasisty',
+    opis: 'Egzamin ósmoklasisty',
+    kontekst: 'SP 402 · przygotowanie egzaminacyjne',
     odbiorca: 'Klasa 8',
     miejsce: 'SP 402, po lekcjach',
     url: '/oferta/egzamin-osmoklasisty/',
@@ -42,6 +46,8 @@ export const OFFERS = [
     numer: '03',
     skrot: '60+',
     tytul: 'Angielski dla seniorów',
+    opis: 'Angielski dla seniorów',
+    kontekst: 'Terminal Kultury Gocław',
     odbiorca: '60+',
     miejsce: 'Terminal Kultury Gocław',
     url: '/oferta/seniorzy/',
@@ -53,6 +59,13 @@ export const OFFERS = [
     numer: '04',
     skrot: '1 na 1',
     tytul: 'Indywidualnie online',
+    opis: 'Indywidualnie online',
+
+    /*
+     * Nie "Online" - to powtarzalo slowo z linii wyzej. Druga linia ma
+     * dopowiadac, kto moze skorzystac, a nie duplikowac nazwe.
+     */
+    kontekst: 'Dzieci · młodzież · dorośli',
     odbiorca: 'Dzieci, młodzież, dorośli',
     miejsce: 'Online',
     url: '/oferta/online/',
@@ -87,3 +100,16 @@ export const CTA = {
 }
 
 export const CTA_DOMYSLNE = { label: 'Zapisz dziecko', href: '/oferta/dzieci/' }
+
+/**
+ * Etykieta odnosnika do cennika.
+ *
+ * "Porownaj ceny" obiecuje zestawienie czterech kwot obok siebie. Dopoki
+ * trzy z czterech produktow nie maja potwierdzonej stawki, taka obietnica
+ * byloby wprowadzaniem w blad - strona cennika pokazuje wtedy glownie
+ * informacje "cena nieustalona".
+ *
+ * Etykieta zmieni sie sama, gdy wlasciciel uzupelni brakujace ceny w OFFERS.
+ */
+export const CENY_KOMPLETNE = OFFERS.every((oferta) => oferta.price !== null)
+export const LINK_CENNIK = CENY_KOMPLETNE ? 'Porównaj ceny' : 'Cennik'

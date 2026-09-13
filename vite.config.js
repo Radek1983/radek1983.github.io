@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
-import { CTA, CTA_DOMYSLNE, OFFERS } from './src/data/offers.mjs'
+import { CTA, CTA_DOMYSLNE, LINK_CENNIK, OFFERS } from './src/data/offers.mjs'
 
 const root = import.meta.dirname
 
@@ -54,21 +54,39 @@ const CSP = [
 function htmlPartials() {
   const WZORZEC = /<!--#include\s+([\w./-]+)\s*-->/g
 
-  /** Lista oferty w mega-menu. Numer, skrot, opis i link do podstrony. */
+  /*
+   * Lista oferty w mega-menu.
+   *
+   * Caly modul jest JEDNYM linkiem - numer, etykieta, opis i wezwanie sa
+   * spanami w srodku. Dzieki temu klikalna jest cala powierzchnia kolumny,
+   * a nie samo czerwone slowo na koncu, i nie powstaje zagniezdzony <a>.
+   */
   const megaMenu = OFFERS.map(
     (o) => `          <li class="mega__item">
             <a class="mega__link" href="${o.url}">
               <span class="mega__number" aria-hidden="true">${o.numer}</span>
               <span class="mega__label">${o.skrot}</span>
-              <span class="mega__desc">${o.tytul}<br />${o.miejsce}</span>
-              <span class="mega__cta">${o.ctaMenu} <span aria-hidden="true">→</span></span>
+              <span class="mega__desc">${o.opis}</span>
+              <span class="mega__meta">${o.kontekst}</span>
+              <span class="mega__cta"
+                >${o.ctaMenu} <span class="mega__arrow" aria-hidden="true">→</span></span
+              >
             </a>
           </li>`,
   ).join('\n')
 
-  /** Ta sama lista w szufladzie mobilnej - plaska, bez numerow. */
+  /*
+   * Ta sama lista w szufladzie mobilnej. Czterech kolumn nie przenosimy
+   * na telefon - zostaje etykieta i jedna linia opisu, zeby wybor byl
+   * zrozumialy bez zgadywania.
+   */
   const menuMobilne = OFFERS.map(
-    (o) => `          <li><a class="drawer__sublink" href="${o.url}">${o.skrot}</a></li>`,
+    (o) => `          <li>
+            <a class="drawer__sublink" href="${o.url}">
+              <strong>${o.skrot}</strong>
+              <span>${o.opis}</span>
+            </a>
+          </li>`,
   ).join('\n')
 
   /** I w stopce. */
@@ -108,6 +126,7 @@ function htmlPartials() {
           .replaceAll('{{MEGA_MENU}}', megaMenu)
           .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
           .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
+          .replaceAll('{{LINK_CENNIK}}', LINK_CENNIK)
           .replaceAll('{{CTA_LABEL}}', cta.label)
           .replaceAll('{{CTA_HREF}}', cta.href)
       },

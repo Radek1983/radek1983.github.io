@@ -285,7 +285,8 @@ test.describe('architektura - mega-menu', () => {
     await expect(grupa).toHaveCount(1)
     await grupa.locator('summary').click()
 
-    await expect(page.locator('.drawer__sublink')).toHaveCount(5)
+    // Cztery produkty, cala oferta i cennik.
+    await expect(page.locator('.drawer__sublink')).toHaveCount(6)
     await expect(page.locator('.drawer__sublink[href="/oferta/"]')).toBeVisible()
   })
 })
@@ -387,5 +388,210 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
     }
 
     expect(sprawdzone.size).toBeGreaterThan(5)
+  })
+})
+
+test.describe('mega-menu - dopracowanie', () => {
+  test.beforeEach(async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'menu poziome dziala od 75rem')
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+  })
+
+  test('kazda kolumna niesie cztery poziomy informacji', async ({ page }) => {
+    await page.locator('.site-nav__trigger').click()
+
+    const kolumny = await page.evaluate(() =>
+      [...document.querySelectorAll('.mega__item')].map((li) => ({
+        numer: li.querySelector('.mega__number').textContent.trim(),
+        etykieta: li.querySelector('.mega__label').textContent.trim(),
+        opis: li.querySelector('.mega__desc').textContent.trim(),
+        kontekst: li.querySelector('.mega__meta').textContent.trim(),
+        cta: li.querySelector('.mega__cta').textContent.trim().replace(/\s+/g, ' '),
+        href: li.querySelector('.mega__link').getAttribute('href'),
+      })),
+    )
+
+    expect(kolumny).toEqual([
+      {
+        numer: '01',
+        etykieta: 'Klasy 1-7',
+        opis: 'Angielski po lekcjach',
+        kontekst: 'SP 402 · klasy 1-7',
+        cta: 'Zobacz zajęcia →',
+        href: '/oferta/dzieci/',
+      },
+      {
+        numer: '02',
+        etykieta: 'Klasa 8',
+        opis: 'Egzamin ósmoklasisty',
+        kontekst: 'SP 402 · przygotowanie egzaminacyjne',
+        cta: 'Zobacz kurs →',
+        href: '/oferta/egzamin-osmoklasisty/',
+      },
+      {
+        numer: '03',
+        etykieta: '60+',
+        opis: 'Angielski dla seniorów',
+        kontekst: 'Terminal Kultury Gocław',
+        cta: 'Zobacz zajęcia →',
+        href: '/oferta/seniorzy/',
+      },
+      {
+        numer: '04',
+        etykieta: '1 na 1',
+        opis: 'Indywidualnie online',
+        kontekst: 'Dzieci · młodzież · dorośli',
+        cta: 'Zobacz online →',
+        href: '/oferta/online/',
+      },
+    ])
+  })
+
+  test('cala powierzchnia kolumny jest klikalna, bez zagniezdzonych linkow', async ({ page }) => {
+    await page.locator('.site-nav__trigger').click()
+
+    // Jeden link na kolumne - wezwanie jest spanem w srodku, nie osobnym <a>.
+    const zagniezdzone = await page.evaluate(
+      () => document.querySelectorAll('.mega__link a').length,
+    )
+    expect(zagniezdzone).toBe(0)
+
+    /*
+     * Klikniecie w PUSTA czesc kolumny, nie w czerwone slowo. Celujemy
+     * w obszar numeru, ktory jest tylko dekoracja - a mimo to ma prowadzic.
+     */
+    await page.locator('.mega__item').nth(2).locator('.mega__number').click()
+    await page.waitForURL('**/oferta/seniorzy/')
+  })
+
+  test('focus klawiatury daje ten sam sygnal co najechanie', async ({ page }) => {
+    /*
+     * Stan spoczynkowy czytamy przy ZAMKNIETYM panelu. Wymuszenie jego
+     * otwarcia przed testem sprawialo, ze Enter ponizej go zamykal zamiast
+     * otwierac - a wtedy Tab wychodzil poza panel i nic sie nie podswietlalo.
+     */
+    const spoczynek = await page.evaluate(
+      () => getComputedStyle(document.querySelector('.mega__number')).color,
+    )
+
+    /*
+     * Wejscie z KLAWIATURY, nie programowy focus() po klknieciu.
+     * :focus-visible wlacza sie tylko wtedy, gdy ostatnia interakcja byla
+     * klawiaturowa - a wlasnie ten przypadek testujemy.
+     */
+    await page.locator('.site-nav__trigger').focus()
+    await page.keyboard.press('Enter')
+    await page.keyboard.press('Tab')
+    await page.waitForTimeout(300)
+
+    const stan = await page.evaluate(() => {
+      const link = document.querySelector('.mega__link')
+      return {
+        numer: getComputedStyle(link.querySelector('.mega__number')).color,
+        strzalka: getComputedStyle(link.querySelector('.mega__arrow')).translate,
+      }
+    })
+
+    expect(stan.numer).not.toBe(spoczynek)
+    expect(stan.strzalka).not.toBe('none')
+  })
+
+  test('Tab przechodzi przez cztery oferty i dwa odnosniki zbiorcze', async ({ page }) => {
+    await page.locator('.site-nav__trigger').focus()
+    await page.keyboard.press('Enter')
+    await expect(page.locator('.mega')).toBeVisible()
+
+    const kolejnosc = []
+    for (let i = 0; i < 6; i += 1) {
+      await page.keyboard.press('Tab')
+      kolejnosc.push(await page.evaluate(() => document.activeElement.getAttribute('href')))
+    }
+
+    expect(kolejnosc).toEqual([
+      '/oferta/dzieci/',
+      '/oferta/egzamin-osmoklasisty/',
+      '/oferta/seniorzy/',
+      '/oferta/online/',
+      '/oferta/',
+      '/cennik/',
+    ])
+  })
+
+  test('etykieta odnosnika cenowego wynika z kompletnosci danych', async ({ page }) => {
+    /*
+     * "Porownaj ceny" obiecuje zestawienie czterech kwot obok siebie.
+     * Dopoki trzy z czterech produktow nie maja potwierdzonej stawki,
+     * taka obietnica wprowadzalaby w blad - etykieta brzmi wtedy "Cennik".
+     * Zmieni sie sama, gdy ceny trafia do src/data/offers.mjs.
+     */
+    const { CENY_KOMPLETNE, LINK_CENNIK } = await import('../../src/data/offers.mjs')
+
+    await page.locator('.site-nav__trigger').click()
+    const etykieta = (
+      await page.locator('.mega .mega__more a[href="/cennik/"]').textContent()
+    ).trim()
+
+    expect(etykieta).toBe(LINK_CENNIK + ' →')
+    if (!CENY_KOMPLETNE) expect(etykieta).not.toMatch(/porównaj/i)
+  })
+
+  test('strzalka przy Ofercie obraca sie po otwarciu', async ({ page }) => {
+    const chevron = page.locator('.site-nav__chevron')
+    const zamkniety = await chevron.evaluate((el) => getComputedStyle(el).rotate)
+
+    await page.locator('.site-nav__trigger').click()
+    await page.waitForTimeout(300)
+
+    expect(await chevron.evaluate((el) => getComputedStyle(el).rotate)).not.toBe(zamkniety)
+  })
+
+  test('panel styka sie z naglowkiem, wiec kursor go nie gubi', async ({ page }) => {
+    await page.locator('.site-nav__trigger').click()
+
+    /*
+     * Miedzy dolna krawedzia naglowka a gora panelu nie moze byc przerwy -
+     * kursor przechodzacy z pozycji menu do kolumny przeciolby przez pustke
+     * i zamknal panel.
+     */
+    const m = await page.evaluate(() => {
+      const naglowek = document.querySelector('.site-header').getBoundingClientRect()
+      const panel = document.querySelector('.mega').getBoundingClientRect()
+      return {
+        przerwa: Math.round(panel.top - naglowek.bottom),
+        mega: Number(getComputedStyle(document.querySelector('.mega')).zIndex),
+        ticker: Number(getComputedStyle(document.querySelector('.ticker')).zIndex),
+      }
+    })
+
+    expect(m.przerwa).toBeLessThanOrEqual(0)
+    expect(m.mega).toBeGreaterThan(m.ticker)
+  })
+
+  test('panel nie przesuwa layoutu i miesci cztery rowne kolumny', async ({ page }) => {
+    for (const width of [1280, 1366, 1440, 1600, 1920]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+
+      const przed = await page.evaluate(() => document.body.scrollHeight)
+      await page.locator('.site-nav__trigger').click()
+      await page.waitForTimeout(200)
+
+      const po = await page.evaluate(() => ({
+        wysokosc: document.body.scrollHeight,
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+        kolumny: [...document.querySelectorAll('.mega__item')].map((li) =>
+          Math.round(li.getBoundingClientRect().width),
+        ),
+      }))
+
+      // Panel jest pozycjonowany bezwzglednie, wiec nie moze wydluzyc strony.
+      expect(po.wysokosc, width + ' px').toBe(przed)
+      expect(po.overflow, width + ' px').toBeLessThanOrEqual(0)
+
+      // Cztery rowne kolumny, zadna nie sciska sie ponizej czytelnosci.
+      expect(new Set(po.kolumny).size, width + ' px').toBe(1)
+      expect(po.kolumny[0], width + ' px').toBeGreaterThan(150)
+    }
   })
 })

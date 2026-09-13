@@ -406,12 +406,17 @@
   border-block-end: 1px solid var(--color-rule);
 }
 
+/*
+ * Panel byl odrobine za wysoki. Sciete zostalo WYLACZNIE powietrze w pionie -
+ * gorny i dolny padding oraz odstepy wokol etykiety i dolnych odnosnikow,
+ * okolo 18 procent. Same kolumny zachowuja swoj rytm.
+ */
 .mega__inner {
-  padding-block: clamp(1.5rem, 3vw, 3rem);
+  padding-block: clamp(1.25rem, 2.4vw, 2.5rem);
 }
 
 .mega__eyebrow {
-  margin-block-end: var(--space-6);
+  margin-block-end: var(--space-4);
 }
 
 .mega__list {
@@ -459,8 +464,14 @@
 
 .mega__desc {
   font-size: var(--step-label);
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  line-height: 1.4;
+}
+
+/* Druga linia opisu: kto i gdzie. Ciszej niz sam opis. */
+.mega__meta {
+  font-size: var(--step-label);
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
 }
 
 .mega__cta {
@@ -472,17 +483,63 @@
   color: var(--color-accent);
 }
 
+/*
+ * Strzalka jest osobnym spanem, zeby dalo sie ja przesunac bez ruszania
+ * tekstu wezwania. Ruch wylacznie przez translate - zadnego scale, cienia
+ * ani unoszenia calego modulu.
+ */
+.mega__arrow {
+  display: inline-block;
+  transition: translate var(--dur-micro) var(--ease-standard);
+}
+
+/*
+ * Stan aktywny calej kolumny. Focus klawiatury wyglada DOKLADNIE tak samo
+ * jak najechanie myszka - poza wlasnym obrysem focus-visible - wiec nikt
+ * nie dostaje slabszej informacji zwrotnej.
+ */
+.mega__link:hover .mega__number,
+.mega__link:focus-visible .mega__number {
+  color: var(--color-accent);
+}
+
+.mega__link:hover .mega__arrow,
+.mega__link:focus-visible .mega__arrow {
+  translate: 6px 0;
+}
+
 .mega__link:hover .mega__cta,
 .mega__link:focus-visible .mega__cta {
   text-decoration: underline;
+}
+
+/* Kreska nad kolumna lekko ciemnieje - subtelne podkreslenie wyboru. */
+.mega__item:has(.mega__link:hover),
+.mega__item:has(.mega__link:focus-visible) {
+  border-block-start-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
+.mega__number,
+.mega__item {
+  transition:
+    color var(--dur-micro) var(--ease-standard),
+    border-color var(--dur-micro) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega__arrow,
+  .mega__number,
+  .mega__item {
+    transition: none;
+  }
 }
 
 .mega__more {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-8);
-  margin-block-start: var(--space-6);
-  padding-block-start: var(--space-4);
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-3);
   border-block-start: 1px solid var(--color-rule);
 }
 
@@ -543,9 +600,19 @@
 .drawer__sublink {
   display: block;
   padding-block: var(--space-2);
-  font-size: 1.0625rem;
-  font-weight: 500;
   text-decoration: none;
+}
+
+.drawer__sublink strong {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.drawer__sublink span {
+  display: block;
+  font-size: var(--step-label);
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
