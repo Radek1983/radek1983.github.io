@@ -2,12 +2,17 @@
   Naglowek wspolny dla wszystkich stron. Jedno zrodlo prawdy - patrz plugin
   htmlPartials w vite.config.js.
 
-  Adresy sa BEZWZGLEDNE (/#oferta, nie #oferta), bo to samo menu stoi na
-  stronie glownej i na trzech podstronach. Na stronie glownej "/#oferta" to
-  nadal skok w obrebie dokumentu, wiec nic sie nie przeladowuje.
+  Trzy rzeczy sa podstawiane przy budowaniu z src/data/offers.mjs: lista
+  oferty w mega-menu, ta sama lista w szufladzie oraz etykieta i adres
+  przycisku. Dzieki temu dodanie piatego kursu albo zmiana wezwania
+  na jednej podstronie nie wymaga dotykania dziewieciu plikow HTML.
 
-  Stan aktywny bierze sie z atrybutu data-page na <body> i data-nav na linku -
-  bez JavaScriptu i bez czterech wariantow tego pliku.
+  UWAGA: nie wypisuj tu nazw znacznikow doslownie. Podstawienie jest zwyklym
+  zastapieniem tekstu i trafiloby rowniez w ten komentarz - lista oferty
+  wchodzila wtedy do dokumentu dwa razy.
+
+  Adresy sa BEZWZGLEDNE (/#faq, nie #faq), bo to samo menu stoi na dziewieciu
+  stronach. Na stronie glownej "/#faq" to nadal skok w obrebie dokumentu.
 -->
 <header class="site-header">
   <div class="site-header__inner">
@@ -15,44 +20,58 @@
 
     <nav class="site-nav" aria-label="Nawigacja główna">
       <ul class="site-nav__list">
-        <li><a class="site-nav__link" data-nav="oferta" href="/#oferta">Oferta</a></li>
-        <li><a class="site-nav__link" data-nav="cennik" href="/#cennik">Cennik</a></li>
-        <li>
-          <a class="site-nav__link" data-nav="lokalizacja" href="/#lokalizacja">Lokalizacja</a>
+        <li class="site-nav__item site-nav__item--mega">
+          <!--
+            Przycisk, nie link: rozwija panel, a nie prowadzi pod adres.
+            Sama strona oferty jest osiagalna z dolu panelu - inaczej
+            uzytkownik klawiatury nie mialby jak do niej dojsc.
+          -->
+          <button
+            class="site-nav__link site-nav__trigger"
+            type="button"
+            data-nav="oferta"
+            aria-expanded="false"
+            aria-controls="mega-oferta"
+          >
+            Oferta
+            <span class="site-nav__chevron" aria-hidden="true">↓</span>
+          </button>
+
+          <div class="mega" id="mega-oferta" hidden>
+            <div class="mega__inner container">
+              <p class="u-label mega__eyebrow">Oferta High Five</p>
+
+              <ul class="mega__list">
+                {{MEGA_MENU}}
+              </ul>
+
+              <p class="mega__more">
+                <a class="u-link" href="/oferta/">Zobacz całą ofertę →</a>
+                <a class="u-link" href="/cennik/">Porównaj ceny →</a>
+              </p>
+            </div>
+          </div>
         </li>
+
         <li>
-          <a class="site-nav__link" data-nav="seniorzy" href="/dla-seniorow/">Dla seniorów</a>
+          <a class="site-nav__link" data-nav="lokalizacje" href="/lokalizacje/">Lokalizacje</a>
         </li>
-        <li><a class="site-nav__link" data-nav="online" href="/online/">Online 1:1</a></li>
-        <li><a class="site-nav__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
+        <li><a class="site-nav__link" data-nav="o-nas" href="/#metoda">O High Five</a></li>
         <li><a class="site-nav__link" data-nav="faq" href="/#faq">FAQ</a></li>
         <li><a class="site-nav__link" data-nav="kontakt" href="/#kontakt">Kontakt</a></li>
+        <li><a class="site-nav__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
       </ul>
     </nav>
 
-    <a class="cta site-header__cta" href="/#kontakt">
-      Zapisz dziecko
+    <a class="cta site-header__cta" href="{{CTA_HREF}}">
+      {{CTA_LABEL}}
       <span class="cta__arrow" aria-hidden="true">→</span>
     </a>
 
     <!--
-      Na stronie kariery wezwanie sprzedazowe bylo by pomylka: kandydat nie
-      zapisuje dziecka. Oba przyciski stoja w partialu, a CSS pokazuje ten
-      wlasciwy dla biezacej strony - bez drugiej wersji naglowka.
-    -->
-    <a class="cta site-header__cta site-header__cta--kariera" href="#aplikacja">
-      Aplikuj
-      <span class="cta__arrow" aria-hidden="true">→</span>
-    </a>
-
-    <!--
-      Przelacznik szuflady. Do osmiu pozycji menu nie da sie juz zmiescic
-      w jednym wierszu na telefonie - wczesniej nawigacja po prostu znikala,
-      bo cztery kotwice nie uzasadnialy hamburgera.
-
-      Jest <button>, nie <a>: to akcja, nie nawigacja. aria-expanded niesie
-      stan, a etykieta jest tekstowa, wiec przycisk ma nazwe dostepna nawet
-      gdy widac same kreski.
+      Przelacznik szuflady. Jest <button>, nie <a>: to akcja, nie nawigacja.
+      aria-expanded niesie stan, a etykieta jest tekstowa, wiec przycisk ma
+      nazwe dostepna nawet gdy widac same kreski.
     -->
     <button
       class="site-header__toggle"
@@ -83,24 +102,37 @@
 
     <nav class="drawer__nav" aria-label="Nawigacja mobilna">
       <ul class="drawer__list">
-        <li><a class="drawer__link" data-nav="oferta" href="/#oferta">Oferta</a></li>
-        <li><a class="drawer__link" data-nav="cennik" href="/#cennik">Cennik</a></li>
-        <li><a class="drawer__link" data-nav="lokalizacja" href="/#lokalizacja">Lokalizacja</a></li>
-        <li><a class="drawer__link" data-nav="seniorzy" href="/dla-seniorow/">Dla seniorów</a></li>
-        <li><a class="drawer__link" data-nav="online" href="/online/">Online 1:1</a></li>
-        <li><a class="drawer__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
+        <li>
+          <!--
+            Rozwijana grupa oferty. <details> daje dzialajace rozwijanie bez
+            ani jednej linii JavaScriptu, wlasciwa semantyke i obsluge
+            klawiatury z pudelka - tak samo jak FAQ na stronie glownej.
+          -->
+          <details class="drawer__group">
+            <summary class="drawer__link drawer__summary">
+              Oferta
+              <span class="drawer__plus" aria-hidden="true"></span>
+            </summary>
+
+            <ul class="drawer__sublist">
+              {{MENU_MOBILNE_OFERTA}}
+              <li><a class="drawer__sublink" href="/oferta/">Cała oferta</a></li>
+            </ul>
+          </details>
+        </li>
+
+        <li>
+          <a class="drawer__link" data-nav="lokalizacje" href="/lokalizacje/">Lokalizacje</a>
+        </li>
+        <li><a class="drawer__link" data-nav="o-nas" href="/#metoda">O High Five</a></li>
         <li><a class="drawer__link" data-nav="faq" href="/#faq">FAQ</a></li>
         <li><a class="drawer__link" data-nav="kontakt" href="/#kontakt">Kontakt</a></li>
+        <li><a class="drawer__link" data-nav="kariera" href="/kariera/">Kariera</a></li>
       </ul>
     </nav>
 
-    <a class="cta drawer__cta" href="/#kontakt">
-      Zapisz dziecko
-      <span class="cta__arrow" aria-hidden="true">→</span>
-    </a>
-
-    <a class="cta drawer__cta drawer__cta--kariera" href="#aplikacja">
-      Aplikuj
+    <a class="cta drawer__cta" href="{{CTA_HREF}}">
+      {{CTA_LABEL}}
       <span class="cta__arrow" aria-hidden="true">→</span>
     </a>
   </div>

@@ -323,61 +323,234 @@
  * data-page na <body>, wiec nie potrzebuje JavaScriptu ani osobnej wersji
  * naglowka dla kazdej podstrony.
  */
-[data-page='seniorzy'] .site-nav__link[data-nav='seniorzy'],
-[data-page='online'] .site-nav__link[data-nav='online'],
-[data-page='kariera'] .site-nav__link[data-nav='kariera'] {
+
+/*
+ * Stan aktywny bierze sie z atrybutu data-section na <body>.
+ *
+ * Wczesniej kazda podstrona potrzebowala wlasnej pary regul. Teraz strona
+ * deklaruje, do ktorej GALEZI serwisu nalezy - wszystkie cztery podstrony
+ * oferty ustawiaja "oferta", wiec pozycja menu podswietla sie tak samo
+ * na /oferta i na /oferta/dzieci, bez mnozenia selektorow.
+ */
+[data-section='oferta'] .site-nav__trigger[data-nav='oferta'],
+[data-section='lokalizacje'] .site-nav__link[data-nav='lokalizacje'],
+[data-section='kariera'] .site-nav__link[data-nav='kariera'] {
   color: var(--color-signal);
 }
 
-[data-page='seniorzy'] .site-nav__link[data-nav='seniorzy']::after,
-[data-page='online'] .site-nav__link[data-nav='online']::after,
-[data-page='kariera'] .site-nav__link[data-nav='kariera']::after {
+[data-section='oferta'] .site-nav__trigger[data-nav='oferta']::after,
+[data-section='lokalizacje'] .site-nav__link[data-nav='lokalizacje']::after,
+[data-section='kariera'] .site-nav__link[data-nav='kariera']::after {
   transform: scaleX(1);
 }
 
-/* --- Wariant kariery --- */
-
-/*
- * Domyslnie ukryte. Pokazujemy wylacznie na /kariera, gdzie jednoczesnie
- * chowamy wezwanie sprzedazowe - inaczej w naglowku stalyby dwa CTA naraz.
- */
-
-/*
- * Selektor musi byc zlozony: reguly pokazujace przycisk w naglowku celuja
- * w dwie klasy naraz, wiec pojedyncza klasa modyfikatora przegrywala
- * z nimi specyficznoscia i oba wezwania byly widoczne jednoczesnie.
- */
-.site-header .site-header__cta--kariera,
-.drawer .drawer__cta--kariera {
-  display: none;
-}
-
-[data-page='kariera'] .site-header .site-header__cta:not(.site-header__cta--kariera),
-[data-page='kariera'] .drawer__cta:not(.drawer__cta--kariera) {
-  display: none;
-}
-
-[data-page='kariera'] .drawer .drawer__cta--kariera {
-  display: inline-flex;
-}
-
-@media (width >= 75rem) {
-  [data-page='kariera'] .site-header .site-header__cta--kariera {
-    display: inline-flex;
-  }
-}
+/* --- Ciemny naglowek strony kariery --- */
 
 /*
  * Ciemny naglowek na stronie kariery. Nie jest to druga nawigacja - ten sam
  * markup, ten sam uklad, wylacznie inny motyw kolorystyczny, tak jak sekcje
  * strony glownej zmieniaja akt przez [data-theme].
  */
-[data-page='kariera'] .site-header {
+[data-section='kariera'] .site-header {
   background-color: var(--color-ink);
   color: var(--color-paper);
   border-block-end-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
 }
 
-[data-page='kariera'] .ticker {
+[data-section='kariera'] .ticker {
   background-color: var(--color-ink);
+}
+
+/* --- Mega-menu oferty --- */
+
+/*
+ * Panel na calej szerokosci okna, nie maly dropdown. Cztery produkty
+ * z numerami, opisem i wlasnym wezwaniem - to jest wybor sciezki, a nie
+ * lista odnosnikow.
+ */
+.site-nav__item--mega {
+  position: static;
+}
+
+.site-nav__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.site-nav__chevron {
+  font-size: 0.75em;
+  transition: rotate var(--dur-micro) var(--ease-standard);
+}
+
+.site-nav__trigger[aria-expanded='true'] .site-nav__chevron {
+  rotate: 180deg;
+}
+
+/*
+ * Panel wisi pod naglowkiem na calej szerokosci okna. Pozycjonowanie
+ * bezwzgledne wzgledem <header>, a nie pozycji menu - stad `position: static`
+ * na elemencie listy powyzej.
+ */
+.mega {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: var(--z-header);
+  background-color: var(--color-paper);
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.mega__inner {
+  padding-block: clamp(1.5rem, 3vw, 3rem);
+}
+
+.mega__eyebrow {
+  margin-block-end: var(--space-6);
+}
+
+.mega__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mega__item {
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Caly moduł jest jednym linkiem - cel dotykowy obejmuje numer, etykiete
+ * i opis, a nie samo slowo na koncu.
+ */
+.mega__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-4) var(--space-6);
+  text-decoration: none;
+  color: inherit;
+}
+
+.mega__number {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+.mega__label {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+}
+
+.mega__desc {
+  font-size: var(--step-label);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.mega__cta {
+  margin-block-start: var(--space-2);
+  font-size: var(--step-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.mega__link:hover .mega__cta,
+.mega__link:focus-visible .mega__cta {
+  text-decoration: underline;
+}
+
+.mega__more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/* --- Oferta w szufladzie mobilnej --- */
+
+/*
+ * <details> zamiast wlasnego przelacznika: rozwijanie, semantyka i obsluga
+ * klawiatury dziala bez JavaScriptu, tak samo jak w FAQ na stronie glownej.
+ */
+.drawer__group {
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.drawer__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  cursor: pointer;
+  list-style: none;
+}
+
+.drawer__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Plus zmieniajacy sie w minus - jedyna ikona w szufladzie, uzytkowa. */
+.drawer__plus {
+  position: relative;
+  flex: none;
+  inline-size: 16px;
+  block-size: 2px;
+  background-color: currentcolor;
+}
+
+.drawer__plus::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentcolor;
+  rotate: 90deg;
+  transition: opacity var(--dur-micro) var(--ease-standard);
+}
+
+.drawer__group[open] .drawer__plus::after {
+  opacity: 0;
+}
+
+.drawer__sublist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0 0 var(--space-4) var(--space-4);
+  list-style: none;
+}
+
+.drawer__sublink {
+  display: block;
+  padding-block: var(--space-2);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__chevron,
+  .drawer__plus::after {
+    transition: none;
+  }
 }

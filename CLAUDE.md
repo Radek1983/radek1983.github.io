@@ -334,9 +334,18 @@ inicjalizacji albo przez klasę `js` na `<html>`.
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.
 - JSON-LD `EducationalOrganization`/`LocalBusiness` **tylko z prawdziwymi danymi**. Bez ratingów.
   Adres SP 402 jako miejsce zajęć, nie adres rejestrowy firmy.
-- **Serwis ma cztery adresy** (ADR 0007): `/`, `/dla-seniorow/`, `/online/`, `/kariera/`.
-  Każdy to osobny katalog z `index.html` i osobne wejście w konfiguracji Vite - bez routera
-  po stronie klienta. Wspólny nagłówek i stopka żyją w `partials/`.
+- **Serwis ma dziewięć adresów** (ADR 0007, 0008). Hierarchia: `/` (one-page), `/oferta`
+  jako hub czterech produktów (`/oferta/dzieci`, `/oferta/egzamin-osmoklasisty`,
+  `/oferta/seniorzy`, `/oferta/online`), `/lokalizacje`, `/cennik` oraz `/kariera` jako osobna
+  ścieżka dla innego odbiorcy. Każdy adres to katalog z `index.html` i wejście w konfiguracji
+  Vite - bez routera po stronie klienta.
+- **Cena należy do produktu.** `/cennik` jest stroną porównawczą osiągalną z mega-menu
+  i ze stopki, ale **nie** z pierwszego poziomu menu.
+- **Jedno źródło danych oferty:** `src/data/offers.mjs` zasila mega-menu, szufladę, stopkę
+  i kontekstowe CTA. Dodanie kursu to jedna zmiana w jednym pliku. Stron `/oferta` i `/cennik`
+  **nie** generujemy z tych danych - to byłby page builder.
+- **Stare adresy** `/dla-seniorow/` i `/online/` zostają jako strony przekierowujące.
+  GitHub Pages nie umie 301 - szczegóły i droga do prawdziwego przekierowania: ADR 0008.
 - Podstrony SEO-owe (`/angielski-dla-dzieci-warszawa/`, `/egzamin-osmoklasisty-angielski/`,
   `/cennik/`) nadal tylko opisz w `docs/SEO.md`. **Nie rozszerzaj zakresu bez zlecenia.**
 
@@ -430,6 +439,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Brak formularza (D2)                            | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15                                                                                                                                                                                                                                                                                                                                                                                     |
 | Hosting i `base` — ADR 0001                     | GitHub Pages user site, `base` = `/`, źródło „GitHub Actions” ustawiane ręcznie w Settings → Pages                                                                                                                                                                                                                                                                                                                                                                         |
 | Brzmienie primary CTA — ADR 0006                | Odstępstwo polecone przez właściciela: `Zapisz się na zajęcia` zamiast `Zgłoś dziecko do grupy` z master promptu §7. Czasownik „zgłosić” niosł skojarzenie ze zgłoszeniem na policję. Funkcja, cel `#kontakt` i kolor sygnałowy bez zmian, więc zakaz miękkich CTA nadal obowiązuje. **BIZ-007 formalnie naruszone** — w raporcie odbioru jako odstępstwo, nie PASS                                                                                                        |
+| Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                          |
 | Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                           |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 

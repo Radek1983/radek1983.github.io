@@ -75,7 +75,7 @@
     </script>
   </head>
 
-  <body data-page="home">
+  <body>
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
     <!-- Potwierdzone fakty widoczne przed pierwszym scrollem.
@@ -358,8 +358,9 @@
       </section>
 
       <!-- ============================================================
-           04 KURSY — Która oferta?
-           Dwa pełnowymiarowe moduły. Drugi w motywie BLUE.
+           04 OFERTA — Która oferta?
+           Skrot czterech sciezek. Szczegoly zyja na podstronach: strona
+           glowna jest doswiadczeniem marki i drogowskazem, nie katalogiem.
            ============================================================ -->
       <section
         class="section section--tight"
@@ -371,161 +372,52 @@
           <div class="section__head">
             <p class="u-label section__label">
               <span>04</span>
-              <span>Oferta</span>
+              <span>Nasza oferta</span>
             </p>
-            <h2 class="u-display" id="oferta-title" data-animation="reveal">
-              Dwie ścieżki. Zero chaosu.
+            <h2 class="u-h2" id="oferta-title" data-animation="fade-up">
+              Cztery drogi do pewnego angielskiego.
             </h2>
           </div>
-        </div>
 
-        <div class="courses__stage">
-          <!--
-            Nieruchome tlo typograficzne. Napis stoi, a moduly oferty przesuwaja
-            sie po nim i stopniowo go zaslaniaja. Wzorzec ze wskazanej referencji.
-            Element dekoracyjny, wiec ukryty przed czytnikami ekranu - tresc niesie
-            naglowek sekcji.
-          -->
-          <div class="courses__backdrop" aria-hidden="true">
-            <span>Klasy 1-8</span>
-          </div>
+          <ul class="paths u-mt-8">
+            <li class="paths__item" data-animation="fade-up">
+              <a class="paths__link" href="/oferta/dzieci/">
+                <span class="paths__number" aria-hidden="true">01</span>
+                <span class="paths__title">Dla dzieci</span>
+                <span class="paths__meta">Klasy 1-7 · SP 402</span>
+                <span class="paths__cta">Zobacz zajęcia <span aria-hidden="true">→</span></span>
+              </a>
+            </li>
+            <li class="paths__item" data-animation="fade-up">
+              <a class="paths__link" href="/oferta/egzamin-osmoklasisty/">
+                <span class="paths__number" aria-hidden="true">02</span>
+                <span class="paths__title">Egzamin</span>
+                <span class="paths__meta">Klasa 8 · SP 402</span>
+                <span class="paths__cta">Zobacz kurs <span aria-hidden="true">→</span></span>
+              </a>
+            </li>
+            <li class="paths__item" data-animation="fade-up">
+              <a class="paths__link" href="/oferta/seniorzy/">
+                <span class="paths__number" aria-hidden="true">03</span>
+                <span class="paths__title">Dla seniorów</span>
+                <span class="paths__meta">60+ · Terminal Kultury Gocław</span>
+                <span class="paths__cta">Zobacz zajęcia <span aria-hidden="true">→</span></span>
+              </a>
+            </li>
+            <li class="paths__item" data-animation="fade-up">
+              <a class="paths__link" href="/oferta/online/">
+                <span class="paths__number" aria-hidden="true">04</span>
+                <span class="paths__title">Online 1:1</span>
+                <span class="paths__meta">Indywidualnie · zdalnie</span>
+                <span class="paths__cta">Zobacz online <span aria-hidden="true">→</span></span>
+              </a>
+            </li>
+          </ul>
 
-          <div class="courses__grid">
-            <article class="course">
-              <div class="course__head">
-                <p class="u-label">Klasy 1-7</p>
-                <p class="course__index" aria-hidden="true">01</p>
-              </div>
-
-              <figure class="media media--4-5 course__media" data-animation="mask-up">
-                <picture>
-                  <source
-                    type="image/avif"
-                    srcset="
-                      /src/assets/images/courses/course-kids-480.avif   480w,
-                      /src/assets/images/courses/course-kids-768.avif   768w,
-                      /src/assets/images/courses/course-kids-1120.avif 1120w
-                    "
-                    sizes="(min-width: 62rem) 44vw, 100vw"
-                  />
-                  <img
-                    src="/src/assets/images/courses/course-kids-768.webp"
-                    srcset="
-                      /src/assets/images/courses/course-kids-480.webp   480w,
-                      /src/assets/images/courses/course-kids-768.webp   768w,
-                      /src/assets/images/courses/course-kids-1120.webp 1120w
-                    "
-                    sizes="(min-width: 62rem) 44vw, 100vw"
-                    alt="Uczennica młodszych klas mówi i gestykuluje podczas zajęć"
-                    width="1122"
-                    height="1402"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-              </figure>
-
-              <h3 class="u-h2 course__title" data-animation="reveal">Angielski dla dzieci</h3>
-
-              <div class="course__body">
-                <p>
-                  Regularne zajęcia dopasowane do wieku i poziomu grupy. Rozwijamy słownictwo,
-                  rozumienie, gramatykę potrzebną w praktyce oraz przede wszystkim swobodę używania
-                  języka.
-                </p>
-                <p>
-                  W młodszych klasach tempo i zadania są krótsze i bardziej aktywne. W starszych
-                  coraz więcej miejsca zajmuje precyzja, dłuższa wypowiedź, czytanie i praca nad
-                  językiem potrzebnym w szkole.
-                </p>
-              </div>
-
-              <dl class="course__facts">
-                <div class="course__fact">
-                  <dt>Format</dt>
-                  <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
-                </div>
-                <div class="course__fact">
-                  <dt>Minimum</dt>
-                  <dd>5 dzieci w grupie</dd>
-                </div>
-                <div class="course__fact">
-                  <dt>Cena</dt>
-                  <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
-                </div>
-              </dl>
-            </article>
-
-            <article class="course" data-theme="blue">
-              <div class="course__head">
-                <p class="u-label">Klasa 8</p>
-                <p class="course__index" aria-hidden="true">02</p>
-              </div>
-
-              <figure class="media media--4-5 course__media" data-animation="mask-up">
-                <picture>
-                  <source
-                    type="image/avif"
-                    srcset="
-                      /src/assets/images/courses/course-exam-480.avif   480w,
-                      /src/assets/images/courses/course-exam-768.avif   768w,
-                      /src/assets/images/courses/course-exam-1120.avif 1120w
-                    "
-                    sizes="(min-width: 62rem) 44vw, 100vw"
-                  />
-                  <img
-                    src="/src/assets/images/courses/course-exam-768.webp"
-                    srcset="
-                      /src/assets/images/courses/course-exam-480.webp   480w,
-                      /src/assets/images/courses/course-exam-768.webp   768w,
-                      /src/assets/images/courses/course-exam-1120.webp 1120w
-                    "
-                    sizes="(min-width: 62rem) 44vw, 100vw"
-                    alt="Starszy uczeń pracuje nad zadaniem, notując w zeszycie"
-                    width="1122"
-                    height="1402"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-              </figure>
-
-              <h3 class="u-h2 course__title" data-animation="reveal">
-                Przygotowanie do egzaminu ósmoklasisty
-              </h3>
-
-              <div class="course__body">
-                <p>
-                  Program dla ósmoklasistów, którzy chcą uporządkować materiał, poznać logikę zadań
-                  egzaminacyjnych i regularnie ćwiczyć w warunkach zbliżonych do egzaminu.
-                </p>
-                <p>
-                  Pracujemy nad rozumieniem ze słuchu i tekstu, środkami językowymi, funkcjami
-                  językowymi oraz wypowiedzią pisemną. Ważnym elementem jest plan pracy, kontrola
-                  czasu i analiza błędów.
-                </p>
-                <p>
-                  <strong>Nie obiecujemy wyniku.</strong> Dajemy regularny trening i sposób pracy,
-                  który pomaga wejść na egzamin przygotowanym.
-                </p>
-              </div>
-
-              <dl class="course__facts">
-                <div class="course__fact">
-                  <dt>Format</dt>
-                  <dd>Zajęcia grupowe po lekcjach w SP 402</dd>
-                </div>
-                <div class="course__fact">
-                  <dt>Minimum</dt>
-                  <dd>5 dzieci w grupie</dd>
-                </div>
-                <div class="course__fact">
-                  <dt>Cena</dt>
-                  <dd>55 zł/godz., rodzeństwo 50 zł/godz.</dd>
-                </div>
-              </dl>
-            </article>
-          </div>
+          <p class="mega__more u-mt-8" data-animation="fade-up">
+            <a class="u-link" href="/oferta/">Zobacz całą ofertę →</a>
+            <a class="u-link" href="/cennik/">Porównaj ceny →</a>
+          </p>
         </div>
       </section>
 

@@ -1,45 +1,45 @@
 <!--
-  Stopka wspolna dla wszystkich stron. Adresy bezwzgledne z tego samego
-  powodu co w naglowku.
+  Stopka wspolna dla wszystkich stron. Lista oferty jest podstawiana przy
+  budowaniu z src/data/offers.mjs.
 
-  Dane kontaktowe sa TYMCZASOWE (decyzja D6 w CLAUDE.md) i stoja tu w jednym
-  miejscu, wiec podmiana na dane High Five to jedna zmiana w jednym pliku,
-  a nie cztery.
+  UWAGA: nie wypisuj tu nazwy znacznika doslownie. Podstawienie jest zwyklym
+  zastapieniem tekstu i trafiloby rowniez w ten komentarz - lista wchodzila
+  wtedy do dokumentu dwa razy.
+
+  Stopka moze miec wiecej linkow niz naglowek: to ona jest pelna mapa
+  serwisu i jedyna nawigacja dzialajaca bez JavaScriptu.
+
+  Dane kontaktowe sa TYMCZASOWE (decyzja D6 w CLAUDE.md) i stoja tu
+  w jednym miejscu, wiec podmiana to jedna zmiana w jednym pliku.
 -->
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <p class="site-footer__brand">High Five</p>
 
-    <nav class="site-footer__col" aria-label="Nawigacja w stopce">
-      <p class="u-label">Strona</p>
-      <a class="u-link" href="/#oferta">Oferta</a>
-      <a class="u-link" href="/#cennik">Cennik</a>
-      <a class="u-link" href="/#lokalizacja">Lokalizacja</a>
-      <a class="u-link" href="/dla-seniorow/">Dla seniorów</a>
-      <a class="u-link" href="/online/">Online 1:1</a>
-      <a class="u-link" href="/kariera/">Kariera</a>
+    <nav class="site-footer__col" aria-label="Oferta">
+      <p class="u-label">Oferta</p>
+      {{STOPKA_OFERTA}}
+      <a class="u-link" href="/oferta/">Cała oferta</a>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="Informacje">
+      <p class="u-label">Informacje</p>
+      <a class="u-link" href="/cennik/">Cennik</a>
+      <a class="u-link" href="/lokalizacje/">Lokalizacje</a>
       <a class="u-link" href="/#faq">FAQ</a>
       <a class="u-link" href="/#kontakt">Kontakt</a>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="High Five">
+      <p class="u-label">High Five</p>
+      <a class="u-link" href="/#metoda">O nas</a>
+      <a class="u-link" href="/kariera/">Kariera</a>
     </nav>
 
     <div class="site-footer__col">
       <p class="u-label">Kontakt</p>
       <a class="u-link" href="tel:+48789789789">+48&nbsp;789&nbsp;789&nbsp;789</a>
       <a class="u-link" href="mailto:janek.gitara@onet.pl">janek.gitara@onet.pl</a>
-    </div>
-
-    <div class="site-footer__col">
-      <p class="u-label">Miejsca zajęć</p>
-      <p>
-        SP 402 im. Haliny Konopackiej<br />
-        ul. Jana Nowaka-Jeziorańskiego 22<br />
-        03-982 Warszawa
-      </p>
-      <p>
-        Terminal Kultury Gocław<br />
-        ul. Jana Nowaka-Jeziorańskiego 24<br />
-        Warszawa
-      </p>
     </div>
 
     <p class="site-footer__note">

@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
+import { CTA, CTA_DOMYSLNE, OFFERS } from './src/data/offers.mjs'
+
 const root = import.meta.dirname
 
 /**
@@ -52,19 +54,62 @@ const CSP = [
 function htmlPartials() {
   const WZORZEC = /<!--#include\s+([\w./-]+)\s*-->/g
 
+  /** Lista oferty w mega-menu. Numer, skrot, opis i link do podstrony. */
+  const megaMenu = OFFERS.map(
+    (o) => `          <li class="mega__item">
+            <a class="mega__link" href="${o.url}">
+              <span class="mega__number" aria-hidden="true">${o.numer}</span>
+              <span class="mega__label">${o.skrot}</span>
+              <span class="mega__desc">${o.tytul}<br />${o.miejsce}</span>
+              <span class="mega__cta">${o.ctaMenu} <span aria-hidden="true">→</span></span>
+            </a>
+          </li>`,
+  ).join('\n')
+
+  /** Ta sama lista w szufladzie mobilnej - plaska, bez numerow. */
+  const menuMobilne = OFFERS.map(
+    (o) => `          <li><a class="drawer__sublink" href="${o.url}">${o.skrot}</a></li>`,
+  ).join('\n')
+
+  /** I w stopce. */
+  const stopkaOferta = OFFERS.map(
+    (o) => `      <a class="u-link" href="${o.url}">${o.skrot}</a>`,
+  ).join('\n')
+
   return {
     name: 'high-five-html-partials',
-    enforce: 'pre',
+
+    /*
+     * Kolejnosc deklarowana WYLACZNIE w haku. Ustawienie `enforce: 'pre'`
+     * na pluginie razem z `order: 'pre'` rejestrowalo go dwukrotnie:
+     * mega-menu wchodzilo do panelu dwa razy i lista miala osiem pozycji
+     * zamiast czterech.
+     */
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
-        return html.replace(WZORZEC, (_, sciezka) => {
+      handler(html, ctx) {
+        const wynik = html.replace(WZORZEC, (_, sciezka) => {
           const plik = resolve(root, sciezka)
           if (!plik.startsWith(root)) {
             throw new Error(`Fragment poza katalogiem projektu: ${sciezka}`)
           }
           return readFileSync(plik, 'utf8').trimEnd()
         })
+
+        /*
+         * Podstawienia po wstawieniu fragmentow, bo to wlasnie one niosa
+         * znaczniki. `ctx.filename` jest bezwzgledna sciezka pliku wejsciowego;
+         * normalizujemy ja do postaci uzywanej jako klucz w src/data/offers.mjs.
+         */
+        const klucz = ctx.filename.slice(root.length + 1).replace(/\\/g, '/')
+        const cta = CTA[klucz] ?? CTA_DOMYSLNE
+
+        return wynik
+          .replaceAll('{{MEGA_MENU}}', megaMenu)
+          .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
+          .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
+          .replaceAll('{{CTA_LABEL}}', cta.label)
+          .replaceAll('{{CTA_HREF}}', cta.href)
       },
     },
   }
@@ -128,9 +173,24 @@ export default defineConfig(({ mode }) => ({
          * Kazda podstrona to wlasny katalog z index.html, wiec GitHub Pages
          * serwuje ja pod czystym adresem /dla-seniorow/ bez przepisywania URL.
          */
-        seniorzy: resolve(root, 'dla-seniorow/index.html'),
-        online: resolve(root, 'online/index.html'),
+        // Hub oferty i cztery produkty
+        oferta: resolve(root, 'oferta/index.html'),
+        ofertaDzieci: resolve(root, 'oferta/dzieci/index.html'),
+        ofertaEgzamin: resolve(root, 'oferta/egzamin-osmoklasisty/index.html'),
+        ofertaSeniorzy: resolve(root, 'oferta/seniorzy/index.html'),
+        ofertaOnline: resolve(root, 'oferta/online/index.html'),
+
+        // Strony pomocnicze i osobna sciezka rekrutacyjna
+        lokalizacje: resolve(root, 'lokalizacje/index.html'),
+        cennik: resolve(root, 'cennik/index.html'),
         kariera: resolve(root, 'kariera/index.html'),
+
+        /*
+         * Stare adresy zostaja jako strony przekierowujace. GitHub Pages nie
+         * potrafi odpowiedziec kodem 301 - szczegoly i konsekwencje w ADR 0008.
+         */
+        starySeniorzy: resolve(root, 'dla-seniorow/index.html'),
+        staryOnline: resolve(root, 'online/index.html'),
       },
     },
   },

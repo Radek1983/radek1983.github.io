@@ -40,8 +40,12 @@ test.describe('kompozycja i art direction', () => {
     expect(await bg('#cennik')).toBe(PAPER)
     expect(await bg('.site-footer')).toBe(INK)
 
-    // Sciezka egzaminacyjna niesie granat jako drugi akt marki.
-    expect(await bg('.course[data-theme="blue"]')).toBe(HF_BLUE)
+    /*
+     * Granat jako drugi akt marki. Wczesniej niosla go sekcja kursow;
+     * po przebudowie architektury szczegoly kursow zyja na podstronach,
+     * a na stronie glownej granat zostal przy ofercie senioralnej.
+     */
+    expect(await bg('#seniorzy')).toBe(HF_BLUE)
   })
 
   test('hierarchia typograficzna ma wyrazisty poziom display skalowany clamp (VIZ-002)', async ({
@@ -102,7 +106,7 @@ test.describe('kompozycja i art direction', () => {
     await expect(hero).toHaveAttribute('fetchpriority', 'high')
     expect(await hero.getAttribute('loading')).toBeNull()
 
-    const belowFold = page.locator('.course__media img').first()
+    const belowFold = page.locator('.after-school__media img').first()
     await expect(belowFold).toHaveAttribute('loading', 'lazy')
   })
 

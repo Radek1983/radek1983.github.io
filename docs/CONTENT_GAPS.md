@@ -129,3 +129,42 @@ Publikujemy je, bo pochodzą wprost od właściciela — tak jak dane Terminalu 
   bez potwierdzenia.
 - **Lekcje indywidualne online jako linia usług**, dla dzieci, młodzieży i dorosłych.
 - **Grupy rekrutacyjne:** studenci i absolwenci anglistyki, lingwistyki, amerykanistyki.
+
+## Braki po przebudowie architektury (ADR 0008)
+
+### Ceny — trzy z czterech produktów bez stawki
+
+| Produkt              | Cena                                        | Status       |
+| -------------------- | ------------------------------------------- | ------------ |
+| Klasy 1-7            | **55 zł / 60 min**, rodzeństwo 50 zł        | potwierdzone |
+| Egzamin ósmoklasisty | **TODO**                                    | brak         |
+| Seniorzy             | **TODO** — zapisy prowadzi Terminal Kultury | brak         |
+| Online 1:1           | **TODO**                                    | brak         |
+
+Żadna strona nie podaje kwoty tam, gdzie jej nie ma — pytanie o cenę kieruje do kontaktu.
+Test w `tests/e2e/pages.spec.js` pilnuje, że na tych trzech podstronach nie pojawi się
+wzorzec „liczba zł / liczba min".
+
+### Treść
+
+- **Sekcja „O nas" nie istnieje.** Pozycja menu „O High Five" prowadzi do `/#metoda`, czyli
+  do sekcji o sposobie prowadzenia zajęć — to najbliższe temu, czym High Five jest. Prawdziwa
+  sekcja o szkole wymaga faktów od właściciela: historii, kwalifikacji, ewentualnego zespołu.
+  §4 zabrania ich wymyślania.
+- **Czas trwania zajęć dla seniorów, online i kursu egzaminacyjnego** — strony nie podają
+  ani długości lekcji, ani harmonogramu.
+- **Osobna skrzynka rekrutacyjna** — zgłoszenia z `/kariera` idą na ten sam adres co kontakt
+  ogólny, z tematem „Rekrutacja".
+- **`og:image`** — żadna z dziewięciu stron nie ma jeszcze obrazka Open Graph.
+
+### Fotografie
+
+Bez zmian względem poprzedniej listy: pięć kadrów nadal brakuje (seniorzy, online ×2,
+kariera ×2). Dwie nowe podstrony korzystają z istniejących zdjęć: `/oferta/dzieci`
+z `course-kids` i `sp402-building`, `/oferta/egzamin-osmoklasisty` z `course-exam`.
+
+### Przekierowania
+
+**Stare adresy przekierowują przez meta refresh, nie przez 301.** To ograniczenie GitHub Pages,
+nie decyzja projektowa. Prawdziwe przekierowanie wymaga własnej domeny za Cloudflare —
+patrz ADR 0008.

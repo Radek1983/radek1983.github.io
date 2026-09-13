@@ -99,8 +99,12 @@ test.describe('tresc i SEO', () => {
       expect(text).not.toContain(forbidden)
     }
 
-    // Klasa 8 musi miec jawne zastrzezenie o braku obietnicy wyniku.
-    expect(text).toContain('nie obiecujemy wyniku')
+    /*
+     * Zastrzezenie o braku obietnicy wyniku przenioslo sie na podstrone
+     * kursu egzaminacyjnego - tam, gdzie stoi jego opis. Strona glowna
+     * pokazuje juz tylko skrot czterech sciezek. Pilnuje go test
+     * w tests/e2e/pages.spec.js.
+     */
   })
 
   test('relacja ze SP 402 jest opisana bez sugerowania oficjalnego partnerstwa', async ({
@@ -119,14 +123,17 @@ test.describe('tresc i SEO', () => {
     request,
   }) => {
     /*
-     * Od dodania podstron menu ma dwa rodzaje pozycji: kotwice w glab strony
-     * glownej ("/#oferta") i adresy podstron ("/online/"). Adresy sa
-     * bezwzgledne, bo to samo menu stoi na czterech stronach.
+     * Menu ma trzy rodzaje pozycji: przycisk rozwijajacy ofere (bez adresu),
+     * kotwice w glab strony glownej ("/#faq") i adresy podstron
+     * ("/lokalizacje/"). Adresy sa bezwzgledne, bo to samo menu stoi
+     * na dziewieciu stronach.
+     *
+     * Pozycje oferty sprawdza osobny zestaw w tests/e2e/pages.spec.js.
      */
     const href = await page
-      .locator('.site-nav__link')
+      .locator('.site-nav__link[href]')
       .evaluateAll((els) => els.map((el) => el.getAttribute('href')))
-    expect(href.length).toBe(8)
+    expect(href.length).toBe(5)
 
     for (const adres of href) {
       if (adres.includes('#')) {

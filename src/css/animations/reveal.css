@@ -72,9 +72,12 @@
  * Krok jest maly: przy trzech elementach caly ciag konczy sie 140 ms
  * po pierwszym, wiec nie powstaje wrazenie doladowywania strony.
  */
-.js .course:nth-child(2) .course__media {
-  --reveal-delay: 70ms;
-}
+
+/*
+ * Stagger kursow zniknal razem z sekcja. Po przebudowie architektury strona
+ * glowna pokazuje skrot czterech sciezek, a szczegoly obu kursow zyja na
+ * wlasnych podstronach.
+ */
 
 .js .benefits__item:nth-child(2) {
   --reveal-delay: 120ms;

@@ -4,225 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Indywidualne lekcje angielskiego online | High Five</title>
-    <meta
-      name="description"
-      content="Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Nauka 1:1, elastyczne terminy i program dopasowany do ucznia."
-    />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="theme-color" content="#f2efe8" />
-    <link rel="canonical" href="https://radek1983.github.io/online/" />
+    <!--
+      PRZEKIEROWANIE ZE STAREGO ADRESU.
 
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="High Five" />
-    <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/online/" />
-    <meta property="og:title" content="Indywidualne lekcje angielskiego online | High Five" />
-    <meta
-      property="og:description"
-      content="Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Nauka 1:1, elastyczne terminy i program dopasowany do ucznia."
-    />
+      GitHub Pages nie potrafi odpowiedziec kodem 301 - nie ma tam warstwy
+      serwerowej ani pliku przepisujacego adresy. Jedyne, co dziala na czysto
+      statycznym hostingu, to odswiezenie znacznikiem meta plus canonical
+      wskazujacy nowy adres.
+
+      Konsekwencje i droga do prawdziwego 301 (wlasna domena za Cloudflare):
+      docs/ADR/0008-hub-oferty-i-przekierowania.md.
+
+      `noindex` jest tu konieczny: bez niego wyszukiwarka trzymalaby w indeksie
+      dwa adresy o tej samej tresci.
+    -->
+    <meta http-equiv="refresh" content="0; url=/oferta/online/" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://radek1983.github.io/oferta/online/" />
+
+    <title>Lekcje online - strona zmieniła adres | High Five</title>
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <link
-      rel="preload"
-      href="/src/assets/fonts/InterDisplay-ExtraBold.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-
     <link rel="stylesheet" href="/src/css/main.css" />
   </head>
 
-  <body data-page="online">
-    <a class="skip-link" href="#main">Przejdź do treści</a>
-
-    <!--#include partials/header.html -->
-
-    <main id="main">
-      <!-- ============================================================
-           HERO
-           ============================================================ -->
-      <section class="section page-hero" data-animation="section" aria-labelledby="online-title">
-        <div class="container">
-          <div class="page-hero__grid">
-            <div class="page-hero__text">
-              <p class="u-label section__label">
-                <span>Online 1:1</span>
-                <span>Dzieci, młodzież, dorośli</span>
-              </p>
-
-              <h1 class="u-display page-hero__title" id="online-title" data-animation="fade-up">
-                1 na 1. Online. W Twoim tempie.
-              </h1>
-
-              <p class="u-lead page-hero__lead" data-animation="fade-up">
-                Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Jeden
-                uczeń, jeden lektor i plan dopasowany do poziomu, celu oraz tempa nauki.
-              </p>
-
-              <a class="cta cta--ink" href="#wspolpraca" data-animation="fade-up">
-                Zobacz jak to działa
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
-            </div>
-
-            <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: osoba prowadząca zajęcia, 25-35 lat, w słuchawkach przed laptopem
-                podczas lekcji online. Neutralne, proste wnętrze. Bez plakatów i kubków z
-                angielskimi hasłami, bez symboli brytyjskich. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           DEKLARACJA — czerwony akt
-           ============================================================ -->
-      <section
-        class="section statement"
-        data-animation="section"
-        data-theme="signal"
-        aria-labelledby="online-deklaracja"
-      >
-        <div class="container">
-          <h2 class="statement__claim" id="online-deklaracja" data-animation="fade-up">
-            Mówię. Ćwiczę. Rozwijam się.
-          </h2>
-
-          <ul class="cols statement__cols">
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Elastyczny grafik</h3>
-              <p>Uczysz się w terminie dopasowanym do Twojego planu.</p>
-            </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Lekcja szyta na miarę</h3>
-              <p>Tempo, materiały i cele zajęć są dopasowane do jednej osoby.</p>
-            </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Komfort online</h3>
-              <p>Łączysz się z domu lub innego spokojnego miejsca — bez dodatkowych dojazdów.</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           JAK WYGLĄDA WSPÓŁPRACA
-           ============================================================ -->
-      <section
-        class="section"
-        id="wspolpraca"
-        data-animation="section"
-        aria-labelledby="online-kroki"
-      >
-        <div class="container">
-          <p class="u-label section__label"><span>Jak wygląda współpraca</span></p>
-
-          <h2 class="u-h2" id="online-kroki" data-animation="fade-up">
-            Trzy kroki do lekcji online.
-          </h2>
-
-          <ol class="steps u-mt-8">
-            <li class="steps__item" data-animation="fade-up">
-              <span class="steps__number" aria-hidden="true">01</span>
-              <h3>Rozmowa wstępna</h3>
-              <p>
-                Ustalamy poziom, potrzeby i cel nauki. W przypadku dziecka rozmawiamy również z
-                rodzicem o oczekiwaniach i organizacji zajęć.
-              </p>
-            </li>
-            <li class="steps__item" data-animation="fade-up">
-              <span class="steps__number" aria-hidden="true">02</span>
-              <h3>Plan zajęć</h3>
-              <p>Dobieramy zakres materiału, sposób pracy i rytm spotkań.</p>
-            </li>
-            <li class="steps__item" data-animation="fade-up">
-              <span class="steps__number" aria-hidden="true">03</span>
-              <h3>Regularna nauka</h3>
-              <p>Pracujemy systematycznie i obserwujemy postępy.</p>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           DLA KOGO — split
-           ============================================================ -->
-      <section class="section split" data-animation="section" aria-labelledby="online-dla-kogo">
-        <div class="container">
-          <div class="split__grid">
-            <div class="split__text">
-              <h2 class="u-h2" id="online-dla-kogo" data-animation="fade-up">Dla kogo?</h2>
-
-              <p class="u-lead" data-animation="fade-up">
-                Dla uczniów, którzy potrzebują indywidualnego tempa i pełnej uwagi osoby
-                prowadzącej.
-              </p>
-
-              <p data-animation="fade-up">Możemy pracować między innymi nad:</p>
-
-              <ul class="split__list" data-animation="fade-up">
-                <li>angielskim ogólnym,</li>
-                <li>konwersacją,</li>
-                <li>materiałem szkolnym,</li>
-                <li>uzupełnieniem zaległości,</li>
-                <li>przygotowaniem do sprawdzianów,</li>
-                <li>konkretnym celem językowym.</li>
-              </ul>
-            </div>
-
-            <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media split__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: dziecko w wieku 9-13 lat w słuchawkach przed laptopem, na ekranie
-                widoczna osoba prowadząca lekcję. Dziecko nie patrzy w obiektyw. Zwykłe, polskie
-                wnętrze. Proporcja 3:2, docelowo AVIF i WebP.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           CTA KOŃCOWE — czerwony pas
-           ============================================================ -->
-      <section
-        class="section closing"
-        data-animation="section"
-        data-theme="signal"
-        aria-labelledby="online-cta"
-      >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="online-cta" data-animation="fade-up">Chcesz zacząć?</h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas — zaproponujemy termin pierwszego spotkania.
-            </p>
-          </div>
-
-          <a
-            class="cta cta--large cta--ink"
-            href="mailto:janek.gitara@onet.pl?subject=Lekcja%20online%201%3A1%20-%20High%20Five&amp;body=Imi%C4%99%20i%20nazwisko%3A%0AUczen%20(wiek%20lub%20klasa)%3A%0ACel%20nauki%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0A"
-            data-animation="fade-up"
-          >
-            Napisz do nas
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </section>
+  <body>
+    <main id="main" class="section">
+      <div class="container page-hero__text page-hero__text--wide">
+        <h1 class="u-h2">Ta strona ma nowy adres</h1>
+        <p class="u-lead">
+          Lekcje indywidualne online przeniosły się do sekcji oferty. Za chwilę przeniesiemy Cię
+          automatycznie.
+        </p>
+        <a class="cta" href="/oferta/online/">
+          Przejdź do lekcji online
+          <span class="cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </main>
-
-    <!--#include partials/footer.html -->
-
-    <script type="module" src="/src/js/main.js"></script>
   </body>
 </html>
