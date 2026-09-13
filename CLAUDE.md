@@ -78,7 +78,11 @@ To jedyne dane, które wolno publikować:
 - Zajęcia po lekcjach na terenie SP 402 w Warszawie.
 - Nabór trwa. Planowany start: 1 października.
 - Grupa rusza po zebraniu minimum 5 dzieci.
-- Pierwsze dziecko: **55 zł/godz.** Drugie i każde kolejne dziecko z rodzeństwa: **50 zł/godz.**
+- Pierwsze dziecko: **55 zł / 45 min.** Drugie i każde kolejne dziecko z rodzeństwa:
+  **50 zł / 45 min.** Brief pisał „zł/godz.”; właściciel potwierdził, że lekcja trwa **45 minut**,
+  więc jednostka godzinowa obiecywała rodzicowi 15 minut więcej, niż trwają zajęcia.
+- **Płacisz za zajęcia, które są w kalendarzu.** Brak stałej opłaty miesięcznej niezależnej od
+  liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
@@ -107,7 +111,8 @@ Sekcje briefu oznaczone jako gotowe copy to zatwierdzony copy deck. Przenieś je
 `docs/COPY_DECK.md` i mapuj na fragmenty kodu. **Nie przerabiaj ich na generyczny marketing.**
 
 - **H1:** `Angielski po lekcjach. W tej samej szkole.`
-- **Hero lead:** `Zajęcia dla dzieci z klas 1-8 na terenie Szkoły Podstawowej nr 402 w Warszawie. Małe grupy, dużo praktycznego używania języka i osobna ścieżka przygotowania do egzaminu ósmoklasisty.`
+- **Hero lead:** `Zajęcia dla uczniów klas 1-7, prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy, dużo praktycznego angielskiego i osobny program przygotowujący do egzaminu ósmoklasisty.`
+  Brzmienie zmienione przez właściciela wraz z rozbiciem oferty na cztery produkty (ADR 0008).
 - **Nabór:** `Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.`
 - **Primary CTA:** `Zapisz się na zajęcia`, w nagłówku skrócone do `Zapisz się`.
   Wcześniej brief żądał `Zgłoś dziecko do grupy`. Zmianę polecił właściciel: „zgłoś dziecko” czyta się jak zgłoszenie na policję. Cel, kolor i rola CTA bez zmian — **ADR 0006**
@@ -328,7 +333,9 @@ inicjalizacji albo przez klasę `js` na `<html>`.
 **SEO.** Na start jeden kompletny one-page.
 
 - `title`: `High Five - angielski dla dzieci w SP 402 Warszawa`
-- `meta description`: `Zajęcia z angielskiego dla klas 1-8 po lekcjach w SP 402 w Warszawie. Przygotowanie do egzaminu ósmoklasisty. Nabór trwa, start 1 października.`
+- `meta description`: `Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października.`
+  `1-8` zamienione na `1-7 + osobny kurs`, bo tak brzmi menu i treść stron po ADR 0008.
+  Sam `title` pozostaje dosłownym cytatem z briefu.
 - `h1`: `Angielski po lekcjach. W tej samej szkole.`
 - Wymagane: canonical, Open Graph, favicon, `sitemap.xml`, `robots.txt`, poprawny `lang`,
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.

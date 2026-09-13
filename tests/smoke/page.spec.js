@@ -30,7 +30,7 @@ test.describe('tresc i SEO', () => {
     )
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',
-      /klas 1-8 po lekcjach w SP 402/,
+      /klas 1-7 po lekcjach w SP 402/,
     )
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
     await expect(page.locator('html')).toHaveAttribute('lang', 'pl')
@@ -59,7 +59,12 @@ test.describe('tresc i SEO', () => {
   test('wszystkie potwierdzone fakty sa w DOM, nie doczytywane przez JS', async ({ page }) => {
     const body = page.locator('body')
 
-    await expect(body).toContainText('klas 1-8')
+    /*
+     * "Klasy 1-7" plus osobny kurs dla klasy 8 zamiast zbiorczego "1-8".
+     * Brief opisuje DWIE sciezki, a jedna etykieta je zacierala.
+     */
+    await expect(body).toContainText('klas 1-7')
+    await expect(body).toContainText(/egzamin/i)
     await expect(body).toContainText('SP 402')
     await expect(body).toContainText('1 października')
     await expect(body).toContainText('minimum 5 dzieci')

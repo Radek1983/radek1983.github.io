@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
-import { CTA, CTA_DOMYSLNE, LINK_CENNIK, OFFERS } from './src/data/offers.mjs'
+import { CTA, CTA_DOMYSLNE, KONTAKT, LINK_CENNIK, OFFERS } from './src/data/offers.mjs'
 
 const root = import.meta.dirname
 
@@ -89,9 +89,13 @@ function htmlPartials() {
           </li>`,
   ).join('\n')
 
-  /** I w stopce. */
+  /*
+   * I w stopce - ale z ETYKIETA OPISOWA, nie skrotem z mega-menu.
+   * "60+" i "1 na 1" dzialaja w panelu, gdzie stoja pod numerem i opisem.
+   * W stopce, jako goly odnosnik w kolumnie linkow, nie niosa kontekstu.
+   */
   const stopkaOferta = OFFERS.map(
-    (o) => `      <a class="u-link" href="${o.url}">${o.skrot}</a>`,
+    (o) => `      <a class="u-link" href="${o.url}">${o.etykietaStopki}</a>`,
   ).join('\n')
 
   return {
@@ -127,6 +131,9 @@ function htmlPartials() {
           .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
           .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
           .replaceAll('{{LINK_CENNIK}}', LINK_CENNIK)
+          .replaceAll('{{TEL}}', KONTAKT.telefon)
+          .replaceAll('{{TEL_HREF}}', KONTAKT.telefonHref)
+          .replaceAll('{{EMAIL}}', KONTAKT.email)
           .replaceAll('{{CTA_LABEL}}', cta.label)
           .replaceAll('{{CTA_HREF}}', cta.href)
       },

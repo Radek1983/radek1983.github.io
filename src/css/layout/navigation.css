@@ -51,8 +51,21 @@
 }
 
 @media (width >= 48rem) {
+  /*
+   * "safe center", nie samo "center".
+   *
+   * Pasek ma szesc pozycji i miedzy 768 a okolo 1900 px jest szerszy od okna.
+   * Zwykle centrowanie rozklada wtedy nadmiar ROWNO na obie strony i ucina
+   * poczatek listy - zamiast "Nabor trwa" widac "trwa". Zmierzone: pierwsza
+   * pozycja zaczynala sie na -440 px przy 768 i -104 px przy 1440.
+   *
+   * Slowo kluczowe "safe" znaczy dokladnie: wysrodkuj, ale gdy tresc sie nie
+   * miesci, wyrownaj do poczatku zamiast obcinac. Przegladarka bez wsparcia
+   * dla tego slowa zignoruje cala deklaracje i zostanie przy wyrownaniu
+   * do lewej, czyli przy bezpieczniejszym z dwoch zachowan.
+   */
   .ticker__track {
-    justify-content: center;
+    justify-content: safe center;
   }
 }
 

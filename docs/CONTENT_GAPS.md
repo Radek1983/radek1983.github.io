@@ -136,7 +136,7 @@ Publikujemy je, bo pochodzą wprost od właściciela — tak jak dane Terminalu 
 
 | Produkt              | Cena                                        | Status       |
 | -------------------- | ------------------------------------------- | ------------ |
-| Klasy 1-7            | **55 zł / 60 min**, rodzeństwo 50 zł        | potwierdzone |
+| Klasy 1-7            | **55 zł / 45 min**, rodzeństwo 50 zł        | potwierdzone |
 | Egzamin ósmoklasisty | **TODO**                                    | brak         |
 | Seniorzy             | **TODO** — zapisy prowadzi Terminal Kultury | brak         |
 | Online 1:1           | **TODO**                                    | brak         |
@@ -180,10 +180,11 @@ brakujący kadr w serwisie.
 dopisaną bez pokrycia. Zmienione na „Grupy od 5 dzieci". Jeśli maksimum istnieje i jest
 ustalone, można wrócić do pełnego zakresu.
 
-**Zakres klas w metadanych.** `title`, `meta description` i JSON-LD mówią „klas 1-8", a treść
-stron mówi teraz „klasy 1-7 + osobny kurs dla klasy 8". Formalnie oba są prawdziwe — 1-8 jest
-skrótem obejmującym obie ścieżki — ale przy najbliższej rewizji SEO warto to ujednolicić.
-Nie zmieniam teraz, bo `title` i `description` są cytatami z briefu (§13).
+**Zakres klas w metadanych — ZAMKNIĘTE.** `meta description`, Open Graph i JSON-LD mówiły
+„klas 1-8", a treść stron „klasy 1-7 + osobny kurs dla klasy 8". Formalnie oba były prawdziwe,
+ale rodzic czytający wynik wyszukiwania dostawał inny podział niż w menu. Ujednolicone na
+„klas 1-7 … osobny kurs przygotowujący do egzaminu ósmoklasisty". `title` pozostaje cytatem
+z briefu (§13). Regresję pilnuje `tests/e2e/regressions.spec.js`.
 
 ## Sekcja „O High Five" — brak zamknięty, nowe fakty opublikowane
 
@@ -226,3 +227,33 @@ kwalifikacji bez potwierdzenia — tutaj potwierdzeniem jest przekazanie ich prz
 **Zdanie o zaświadczeniu o niekaralności zeszło z sekcji „O High Five".** Nie zniknęło
 z serwisu — stoi na `/kariera/`, gdzie jest wymogiem wobec kandydatów, a nie deklaracją
 marketingową na stronie głównej.
+
+## Finalny pass produkcyjny homepage
+
+### Braki zamknięte
+
+| Brak                           | Jak zamknięty                                                                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Jednostka ceny**             | Właściciel potwierdził lekcję **45-minutową**. Wcześniejsze „zł/godz." z briefu §3 obiecywało 15 minut więcej, niż trwają zajęcia    |
+| **Model rozliczenia**          | Właściciel potwierdził: płatność za zajęcia obecne w kalendarzu, bez stałej opłaty miesięcznej, dni wolne od szkoły nie są naliczane |
+| **Zakres klas w metadanych**   | Ujednolicony — patrz wyżej                                                                                                           |
+| **Pochodzenie zdjęcia SP 402** | Fotografia rzeczywistego budynku szkoły, nie kadr AI. Odnotowane w tabeli materiałów dostarczonych i w `docs/ART_DIRECTION.md`       |
+
+### Fakty przekazane przez właściciela przy tej zmianie
+
+| Fakt                                                                      | Gdzie użyty                                   |
+| ------------------------------------------------------------------------- | --------------------------------------------- |
+| **Lekcja trwa 45 minut** — cena 55 zł / 50 zł należy do tej jednostki     | `#cennik`, `/cennik/`, `/oferta/dzieci/`, FAQ |
+| **Płacisz za zajęcia, które są w kalendarzu** — brak stałej opłaty stałej | `#cennik`                                     |
+| **Zajęcia w dni wolne od szkoły nie są naliczane**                        | `#cennik`                                     |
+
+### Nadal otwarte
+
+| #    | Brak                                                                                                               | Blokuje release                                                     |
+| ---- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| G-01 | **Docelowy numer telefonu High Five** — dziś `+48 789 789 789` (D6, wartość tymczasowa i prywatna)                 | **Nie** — działa, ale nie jest numerem firmowym                     |
+| G-01 | **Docelowy adres e-mail High Five** — dziś `janek.gitara@onet.pl`, adres prywatny na darmowej poczcie              | **Nie** — działa. Przed kampanią wymaga skrzynki we własnej domenie |
+| G-17 | **Własna domena i skrzynka firmowa** (`kontakt@…`) — warunek profesjonalnego adresu i zdjęcia odstępstw z ADR 0003 | **Nie** dla obecnego zakresu. Argument biznesowy, nie techniczny    |
+
+Wszystkie trzy pozycje to jedna zmiana w `src/data/offers.mjs` — dane kontaktowe stoją
+w jednym miejscu i są podstawiane do wszystkich dziewięciu stron przy budowaniu.

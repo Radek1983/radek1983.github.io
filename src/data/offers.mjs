@@ -19,6 +19,7 @@ export const OFFERS = [
     id: 'dzieci',
     numer: '01',
     skrot: 'Klasy 1-7',
+    etykietaStopki: 'Klasy 1-7',
     tytul: 'Angielski dla dzieci',
     opis: 'Angielski po lekcjach',
     kontekst: 'SP 402 · klasy 1-7',
@@ -26,12 +27,13 @@ export const OFFERS = [
     miejsce: 'SP 402, po lekcjach',
     url: '/oferta/dzieci/',
     ctaMenu: 'Zobacz zajęcia',
-    price: { pierwsze: '55 zł / 60 min', kolejne: '50 zł / 60 min' },
+    price: { pierwsze: '55 zł / 45 min', kolejne: '50 zł / 45 min' },
   },
   {
     id: 'egzamin',
     numer: '02',
     skrot: 'Klasa 8',
+    etykietaStopki: 'Klasa 8',
     tytul: 'Egzamin ósmoklasisty',
     opis: 'Egzamin ósmoklasisty',
     kontekst: 'SP 402 · przygotowanie egzaminacyjne',
@@ -45,6 +47,7 @@ export const OFFERS = [
     id: 'seniorzy',
     numer: '03',
     skrot: '60+',
+    etykietaStopki: 'Seniorzy 60+',
     tytul: 'Angielski dla seniorów',
     opis: 'Angielski dla seniorów',
     kontekst: 'Terminal Kultury Gocław',
@@ -58,6 +61,7 @@ export const OFFERS = [
     id: 'online',
     numer: '04',
     skrot: '1 na 1',
+    etykietaStopki: 'Online 1:1',
     tytul: 'Indywidualnie online',
     opis: 'Indywidualnie online',
 
@@ -113,3 +117,27 @@ export const CTA_DOMYSLNE = { label: 'Zapisz dziecko', href: '/oferta/dzieci/' }
  */
 export const CENY_KOMPLETNE = OFFERS.every((oferta) => oferta.price !== null)
 export const LINK_CENNIK = CENY_KOMPLETNE ? 'Porównaj ceny' : 'Cennik'
+
+/**
+ * Dane kontaktowe - JEDNO zrodlo dla calego serwisu.
+ *
+ * Wczesniej numer i adres byly zaszyte w pieciu plikach HTML, wiec podmiana
+ * na dane docelowe oznaczalaby pieciokrotna edycje i realne ryzyko, ze gdzies
+ * zostanie stara wartosc.
+ *
+ * OBIE WARTOSCI SA TYMCZASOWE (decyzja D6 w CLAUDE.md). To prywatne konto
+ * przekazane przez wlasciciela na czas budowy, NIE dane firmowe High Five.
+ *
+ * TODO - DOCELOWY TELEFON: numer High Five nie zostal przekazany.
+ * TODO - DOCELOWY E-MAIL: rekomendowana skrzynka we wlasnej domenie
+ *        (np. kontakt@<domena>), gdy domena zostanie kupiona. Adres
+ *        w domenie publicznego dostawcy oslabia wiarygodnosc szkoly.
+ *        Domeny NIE wymyslamy - patrz decyzja D3.
+ */
+export const KONTAKT = {
+  /** Postac wyswietlana, z niełamliwymi spacjami. */
+  telefon: '+48&nbsp;789&nbsp;789&nbsp;789',
+  /** Postac dla protokolu tel: - bez spacji i znakow formatujacych. */
+  telefonHref: '+48789789789',
+  email: 'janek.gitara@onet.pl',
+}

@@ -299,8 +299,8 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
      * ustali (CLAUDE.md par. 4). Lista brakow: docs/CONTENT_GAPS.md.
      */
     await page.goto('/cennik/')
-    await expect(page.locator('body')).toContainText('55 zł / 60 min')
-    await expect(page.locator('body')).toContainText('50 zł / 60 min')
+    await expect(page.locator('body')).toContainText('55 zł / 45 min')
+    await expect(page.locator('body')).toContainText('50 zł / 45 min')
 
     for (const url of ['/oferta/egzamin-osmoklasisty/', '/oferta/seniorzy/', '/oferta/online/']) {
       await page.goto(url)
