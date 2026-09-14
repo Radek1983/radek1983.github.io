@@ -413,16 +413,17 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #      | Temat                 | Decyzja                                                                                                                                                                                                                          |
-| ------ | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1** | Środowisko lokalne    | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
-| **D2** | Konwersja             | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
-| **D3** | Adres                 | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
-| **D4** | Fotografia            | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
-| **D5** | Wersje narzędzi       | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
-| **D6** | Dane kontaktowe       | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
-| **D7** | Sekcja 01 hero        | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
-| **D8** | Sekcja 02 po lekcjach | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                   |
+| #      | Temat                        | Decyzja                                                                                                                                                                                                                          |
+| ------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1** | Środowisko lokalne           | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
+| **D2** | Konwersja                    | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
+| **D3** | Adres                        | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
+| **D4** | Fotografia                   | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
+| **D5** | Wersje narzędzi              | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
+| **D6** | Dane kontaktowe              | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7** | Sekcja 01 hero               | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
+| **D8** | Sekcja 02 po lekcjach        | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                   |
+| **D9** | Sekcja 03 co dziecko zyskuje | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                             |
 
 ### D5 — konsekwencje
 
@@ -495,6 +496,22 @@ razem z krótszą treścią, którą właściciel wymienił. Nie przywracaj go.
 
 Pilnuje tego `tests/e2e/po-lekcjach.spec.js` na macierzy 1280–1920 px. Czerwony test w tym
 pliku oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
+
+### D9 — sekcja 03 co dziecko zyskuje jest zamknięta
+
+Zatwierdzona **14.09.2026**, jako trzecia po hero i „Po lekcjach”. Otagowana jako
+`zatwierdzone/korzysci`. Obowiązuje ta sama zasada co przy D7 i D8: sekcji nie dotykasz
+ani „przy okazji”, ani w ramach porządków. Jeżeli zadanie tego wymaga — zapytaj właściciela.
+
+Co jest zamrożone — blok `#korzysci` w `index.html` i `src/css/sections/benefits.css`:
+
+- trzy korzyści w pierwszej osobie (`Mówię więcej.`, `Rozumiem więcej.`, `Czuję się pewniej.`)
+  w dokładnie tym brzmieniu, jakie stoi w teście;
+- twarde spacje zgodne z regułą łamania wierszy z §5 — właściciel zgłosił tu wiszące `do`;
+- marquee zostaje **dekoracją** z `aria-hidden="true"`; treść niesie nagłówek sekcji;
+- czerwony akt, zero obrazów i ikon, zero kart — §7 i §8.
+
+Pilnuje tego `tests/e2e/korzysci.spec.js` na macierzy 1280–1920 px.
 
 ### D2 — mechanika i konsekwencje
 
@@ -574,10 +591,11 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
-- **Nie zmieniaj sekcji 01 hero ani 02 po lekcjach** — obie są zamknięte decyzją właściciela,
-  patrz D7 i D8 w §15. Dotyczy to również zmian pośrednich: tokenów, od których te sekcje
+- **Nie zmieniaj sekcji zamkniętych: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje** —
+  patrz D7, D8 i D9 w §15. Dotyczy to również zmian pośrednich: tokenów, od których te sekcje
   zależą, i reguł globalnych, które na nie wpływają. Po każdej zmianie w innych sekcjach
-  uruchom `tests/e2e/hero.spec.js` i `tests/e2e/po-lekcjach.spec.js`.
+  uruchom `tests/e2e/hero.spec.js`, `tests/e2e/po-lekcjach.spec.js` i `tests/e2e/korzysci.spec.js`
+  — to około 30 sekund i jedyna rzecz, która wyłapie zmianę pośrednią.
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR
