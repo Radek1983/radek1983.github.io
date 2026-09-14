@@ -128,6 +128,27 @@ Zakaz pustych fraz: „nowoczesne metody”, „najwyższa jakość”, „dośw
 „przyjazna atmosfera” — o ile nie stoi za nimi potwierdzony konkret. Najpierw konkret lokalny,
 potem korzyść edukacyjna.
 
+### Łamanie wierszy — zasada obowiązkowa
+
+**Krótkie słowo nie zostaje na końcu wiersza.** Dotyczy spójników, przyimków, przeczeń
+i skrótów: `z`, `w`, `i`, `a`, `o`, `u`, `do`, `po`, `za`, `na`, `od`, `nie`, `dla`, `nr`,
+`np.`, `im.`, `ul.`, a także liczby oddzielonej od tego, co opisuje (`nr 402`, `klas 1-7`,
+`5 dzieci`, `45 min`). Takie słowo ma schodzić do następnego wiersza **razem z wyrazem,
+do którego należy**.
+
+Wiąże się je **twardą spacją** `&nbsp;` w HTML — nigdy `<br />`. Różnica jest zasadnicza:
+`<br />` wymusza łamanie w tym samym miejscu przy każdej szerokości ekranu i na telefonie
+zostawia poszarpane wiersze; twarda spacja mówi wyłącznie „tych dwóch słów nie rozdzielaj”,
+a resztę układu przeglądarka dobiera sama.
+
+Sprawdzaj to po **każdej** zmianie tekstu, szerokości kolumny i stopnia pisma — łamanie
+zależy od wszystkich trzech naraz. Właściciel zgłasza takie miejsca wzrokowo, więc nie czekaj
+na zgłoszenie: przy zmianie copy przejrzyj cały akapit, nie tylko zdanie, które zmieniałeś.
+
+Reguła ma dziś charakter redakcyjny — twarde spacje wstawiamy ręcznie w treści. Automat
+wstawiający je przy budowaniu byłby możliwy w `htmlPartials`, ale to zmiana architektury
+i wymaga osobnej decyzji właściciela oraz ADR.
+
 ## 6. Architektura treści: 9 aktów, jeden scroll
 
 | #   | Akt                | Pytanie rodzica            | Dominująca forma                                                | Kotwica            |
@@ -392,15 +413,16 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #      | Temat              | Decyzja                                                                                                                                                                                                                          |
-| ------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1** | Środowisko lokalne | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
-| **D2** | Konwersja          | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
-| **D3** | Adres              | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
-| **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
-| **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
-| **D6** | Dane kontaktowe    | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
-| **D7** | Sekcja 01 hero     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
+| #      | Temat                 | Decyzja                                                                                                                                                                                                                          |
+| ------ | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1** | Środowisko lokalne    | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
+| **D2** | Konwersja             | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
+| **D3** | Adres                 | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
+| **D4** | Fotografia            | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
+| **D5** | Wersje narzędzi       | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
+| **D6** | Dane kontaktowe       | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7** | Sekcja 01 hero        | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
+| **D8** | Sekcja 02 po lekcjach | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                   |
 
 ### D5 — konsekwencje
 
@@ -447,6 +469,32 @@ Co dokładnie jest zamrożone — `src/css/sections/hero.css` i blok hero w `ind
 
 Pilnuje tego `tests/e2e/hero.spec.js` na macierzy 1280–1920 px. Czerwony test w tym pliku
 oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
+
+### D8 — sekcja 02 po lekcjach jest zamknięta
+
+Właściciel zatwierdził sekcję **14.09.2026**, tego samego dnia co hero, i poprosił, żeby jej
+już nie zmieniać — **także przy pracy nad innymi sekcjami**. Stan otagowany w git:
+`zatwierdzone/po-lekcjach`.
+
+Obowiązuje ta sama zasada co przy D7: sekcji nie dotykasz ani „przy okazji”, ani w ramach
+porządków, ani optymalizacji. Jeżeli zadanie wymaga ruszenia sekcji 02, **zatrzymaj się
+i zapytaj właściciela**.
+
+Co jest zamrożone — `src/css/sections/after-school.css` i blok `#po-lekcjach` w `index.html`:
+
+- **wszystkie przerwy między blokami mają identyczną wysokość.** Jedynym ich źródłem jest
+  `gap` w `.after-school__text`; żaden blok nie dokłada własnego marginesu. Puenta straciła
+  swój dodatkowy odstęp i **nie wolno go przywracać**;
+- puenta `Mniej wożenia…` stoi w **dwóch** wierszach, z podziałem po „pośpiechu,” —
+  pilnuje tego miara `24ch`, policzona na podstawie szerokości obu wariantów wiersza;
+- hasło sekcji zostaje w rejestrze plakatowym (`clamp(2.125rem, 6.05vw, 5.125rem)`);
+- treści akapitów mają twarde spacje zgodne z regułą łamania wierszy z §5.
+
+Wymóg „zdanie kończące sekcję mieści się w dwóch wierszach” **już nie obowiązuje** — zniknął
+razem z krótszą treścią, którą właściciel wymienił. Nie przywracaj go.
+
+Pilnuje tego `tests/e2e/po-lekcjach.spec.js` na macierzy 1280–1920 px. Czerwony test w tym
+pliku oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
 
 ### D2 — mechanika i konsekwencje
 
@@ -526,7 +574,10 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
-- **Nie zmieniaj sekcji 01 hero** — jest zamknięta decyzją właściciela, patrz D7 w §15.
+- **Nie zmieniaj sekcji 01 hero ani 02 po lekcjach** — obie są zamknięte decyzją właściciela,
+  patrz D7 i D8 w §15. Dotyczy to również zmian pośrednich: tokenów, od których te sekcje
+  zależą, i reguł globalnych, które na nie wpływają. Po każdej zmianie w innych sekcjach
+  uruchom `tests/e2e/hero.spec.js` i `tests/e2e/po-lekcjach.spec.js`.
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR

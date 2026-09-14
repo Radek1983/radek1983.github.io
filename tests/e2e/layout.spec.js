@@ -380,20 +380,33 @@ test.describe('02 po lekcjach - scrollytelling', () => {
     expect(m.zapasPrzedOdklejeniem).toBeGreaterThan(0)
   })
 
-  test('puenta miesci sie w dwoch linijkach', async ({ page }, testInfo) => {
+  /*
+   * Wymog "dwa wiersze" ZNIKNAL wraz z trescia, ktorej dotyczyl.
+   *
+   * Byl zwiazany z krotszym zdaniem konczacym sekcje. Wlasciciel wymienil je
+   * na dluzsze, ktore przy tej kolumnie nie ma szans zmiescic sie w dwoch
+   * wierszach - i nie ma takiej potrzeby. Zostaje to, co naprawde ma tu byc
+   * pilnowane: zdanie nie moze rozlac sie na cala szerokosc kolumny i nie
+   * moze zostawiac krotkich slow na koncach wierszy.
+   */
+  test('puenta trzyma miare i nie rozlewa sie na cala kolumne', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'desktop-chromium', 'uklad dwukolumnowy')
 
     for (const width of [1280, 1440, 1920]) {
       await page.setViewportSize({ width, height: 900 })
       await page.goto('/')
 
-      const linie = await page.evaluate(() => {
+      const m = await page.evaluate(() => {
         const el = document.querySelector('.after-school__coda')
-        return Math.round(
-          el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight),
-        )
+        return {
+          szerokosc: el.getBoundingClientRect().width,
+          kolumna: el.parentElement.getBoundingClientRect().width,
+          nadmiar: el.scrollWidth - el.clientWidth,
+        }
       })
-      expect(linie, `szerokosc ${width} px`).toBe(2)
+
+      expect(m.nadmiar, `clipping przy ${width} px`).toBeLessThanOrEqual(1)
+      expect(m.szerokosc, `miara przy ${width} px`).toBeLessThanOrEqual(m.kolumna)
     }
   })
 
