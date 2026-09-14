@@ -300,6 +300,13 @@ Dokumenty obowiązkowe poza techniczną dokumentacją: `docs/BUSINESS_REQUIREMEN
 - SemVer, tagi `vX.Y.Z`, `CHANGELOG.md` aktualizowany przed wydaniem.
 - `npm run check` musi przechodzić lokalnie **przed** PR: format:check, lint:js, lint:css, build,
   validate:html, test:e2e.
+- **Pętla robocza przy zmianach wizualnych.** Pełny `npm run check` trwa około czterech minut
+  i nie jest narzędziem do oglądania przesuniętego napisu. Przy dopracowywaniu wyglądu —
+  odstęp, stopień pisma, kadr, kolor — pracuj w pętli **stylelint + `npm run build` + podgląd
+  w przeglądarce** (kilkanaście sekund) i pokazuj właścicielowi efekt. Testy zbieraj w paczkę:
+  najpierw testy sekcji, której dotyczyła zmiana, a pełny `npm run check` **raz, przed
+  commitem** całej serii poprawek. Wyjątek bez dyskusji: zmiana architektury, danych, treści
+  albo czegokolwiek w `src/js/` idzie z pełnym checkiem od razu.
 - Deployment automatyczny i powtarzalny. **Rollback = ponowne wdrożenie poprzedniego dobrego
   taga**, nie ręczna edycja plików na serwerze. Rutynowy FTP nie jest metodą publikacji.
 - CI generuje `version.json` (wersja, commit SHA, timestamp). Bez sekretów.
@@ -393,6 +400,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
 | **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
 | **D6** | Dane kontaktowe    | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7** | Sekcja 01 hero     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
 
 ### D5 — konsekwencje
 
@@ -414,6 +422,31 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 - Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko.
 - Stare wartości nie mogą wrócić: pilnuje tego test w `tests/e2e/regressions.spec.js`,
   który skanuje wszystkie dziewięć stron.
+
+### D7 — sekcja 01 hero jest zamknięta
+
+Właściciel zatwierdził układ hero **14.09.2026** po serii poprawek robionych na żywo i wprost
+poprosił, żeby tej sekcji już nie zmieniać. Stan zatwierdzony jest otagowany w git:
+`zatwierdzone/hero-strona-glowna`.
+
+**Zasada:** sekcji 01 nie dotykasz — ani „przy okazji" innej zmiany, ani w ramach porządków,
+ani optymalizacji. Jeżeli jakieś zadanie wymaga ruszenia hero, **zatrzymaj się i zapytaj
+właściciela**, tak jak przy sprzeczności z `instructions/` (§0). To dotyczy również zmian
+pośrednich: tokenów, od których hero zależy, i reguł globalnych, które na nie wpływają.
+
+Co dokładnie jest zamrożone — `src/css/sections/hero.css` i blok hero w `index.html`:
+
+- blok tekstu podniesiony ponad oś kadru (`--space-hero-lift`), żeby czarna typografia leżała
+  na jasnej ścianie, a nie na postaciach i blacie;
+- wezwanie `Sprawdź grupy i ceny` opuszczone o `--space-hero-cta-drop` względem reszty bloku,
+  z kompensacją w `--space-hero-lift` — dzięki niej opuszczenie przycisku nie rusza wordmarku,
+  nagłówka ani leadu;
+- lead łamany na **cztery** wiersze (`max-inline-size: 46ch`);
+- nagłówek: po jednym zdaniu w wierszu, dwa wiersze;
+- prawa granica całego tekstu: `--measure-hero-safe: 40vw`.
+
+Pilnuje tego `tests/e2e/hero.spec.js` na macierzy 1280–1920 px. Czerwony test w tym pliku
+oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
 
 ### D2 — mechanika i konsekwencje
 
@@ -493,6 +526,7 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
+- **Nie zmieniaj sekcji 01 hero** — jest zamknięta decyzją właściciela, patrz D7 w §15.
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR

@@ -105,6 +105,33 @@
     gap: var(--space-6);
 
     /*
+     * Blok tekstu stoi WYZEJ niz os kadru.
+     *
+     * Wysrodkowany pionowo schodzil na te czesc fotografii, gdzie konczy sie
+     * jasna sciana, a zaczynaja postacie i ciemny blat - czarny tekst wchodzil
+     * wtedy na ciemne tlo i tracil kontrast. Podniesienie o okolo 2 cm trzyma
+     * caly blok w gornej, jasnej partii kadru.
+     *
+     * Mechanika: przy justify-content: center dolozony dolny padding przesuwa
+     * srodek pola w gore o POLOWE swojej wartosci, stad mnoznik 2. Zapisane
+     * tokenem, zeby wartosc podniesienia byla wprost czytelna i skalowala sie
+     * razem z szerokoscia okna (77 px przy 1920, 58 px przy 1440).
+     *
+     * Wezwanie stoi nizej niz reszta bloku - decyzja wlasciciela, zeby
+     * odkleic je od akapitu i postawic na wolnym fragmencie kadru.
+     *
+     * Podniesienie jest o POLOWE tej wartosci mniejsze, i to nie jest
+     * kosmetyka. Pole jest wysrodkowane pionowo, wiec dolozenie odstepu
+     * nad przyciskiem samo z siebie podnioslo by wszystko nad nim o polowe
+     * dolozonej wysokosci. Ta korekta kasuje tamten ruch: wordmark, naglowek
+     * i lead zostaja dokladnie tam, gdzie byly, a w dol jedzie sam przycisk.
+     */
+    --space-hero-cta-drop: 0.5rem;
+    --space-hero-lift: calc(clamp(3.5rem, 4vw, 5rem) - var(--space-hero-cta-drop) / 2);
+
+    padding-block: var(--space-6) calc(var(--space-6) + 2 * var(--space-hero-lift));
+
+    /*
      * Wyrownanie do krawedzi tresci kontenera - ale WYLACZNIE z lewej strony.
      * Wczesniej ten sam margines szedl na oba boki i przy 1900 px zjadal
      * po 182 px z kazdej strony, zostawiajac 244 px na tekst. Naglowek lamal
@@ -130,17 +157,10 @@
     line-height: 0.86;
   }
 
-  /*
-   * Bez wlasnej miary: granice wyznacza pole, wiec H1 i lead stoja w kolumnie
-   * o identycznej szerokosci. Lead zawija sie wczesniej tylko dlatego, ze ma
-   * mniejszy stopien pisma.
-   */
-  .hero__title,
-  .hero__lead {
-    max-inline-size: none;
-  }
-
   .hero__title {
+    /* Granice naglowka wyznacza samo pole - szerokosci pilnuje stopien pisma. */
+    max-inline-size: none;
+
     /*
      * Wlasciciel wymaga, zeby kazde zdanie naglowka stalo w jednej linii.
      * Drugi argument min() to gwarancja tego przy kazdej rozdzielczosci:
@@ -158,6 +178,21 @@
   }
 
   .hero__lead {
+    /*
+     * Lead jest WEZSZY niz pole tekstowe - na zyczenie wlasciciela lamie sie
+     * na cztery wiersze, nie na trzy. Krotszy wiersz zostawia wieksza czesc
+     * kadru dla fotografii i cofa akapit dalej od postaci po prawej.
+     *
+     * Miara w `ch`, wiec liczba wierszy jest zwiazana z trescia, a nie
+     * z rozdzielczoscia: jednostka skaluje sie razem ze stopniem pisma,
+     * wiec przy kazdej szerokosci okna w wierszu miesci sie tyle samo znakow.
+     */
+    max-inline-size: 46ch;
     font-size: clamp(1rem, 1.05vw, 1.1875rem);
+  }
+
+  /* Odstep ponad rytm pola - uzasadnienie przy --space-hero-cta-drop. */
+  .hero__overlay .cta {
+    margin-block-start: var(--space-hero-cta-drop);
   }
 }
