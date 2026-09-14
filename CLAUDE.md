@@ -413,17 +413,19 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #      | Temat                        | Decyzja                                                                                                                                                                                                                          |
-| ------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1** | Środowisko lokalne           | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
-| **D2** | Konwersja                    | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
-| **D3** | Adres                        | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
-| **D4** | Fotografia                   | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
-| **D5** | Wersje narzędzi              | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
-| **D6** | Dane kontaktowe              | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
-| **D7** | Sekcja 01 hero               | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
-| **D8** | Sekcja 02 po lekcjach        | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                   |
-| **D9** | Sekcja 03 co dziecko zyskuje | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                             |
+| #       | Temat                                  | Decyzja                                                                                                                                                                                                                          |
+| ------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1**  | Środowisko lokalne                     | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
+| **D2**  | Konwersja                              | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
+| **D3**  | Adres                                  | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
+| **D4**  | Fotografia                             | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
+| **D5**  | Wersje narzędzi                        | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
+| **D6**  | Dane kontaktowe                        | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7**  | Sekcja 01 hero                         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
+| **D8**  | Sekcja 02 po lekcjach                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                   |
+| **D9**  | Sekcja 03 co dziecko zyskuje           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                             |
+| **D10** | Sekcje 04 nasza oferta i 06 jak uczymy | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                             |
+| **D11** | Sekcja 05 o High Five                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                               |
 
 ### D5 — konsekwencje
 
@@ -513,6 +515,52 @@ Co jest zamrożone — blok `#korzysci` w `index.html` i `src/css/sections/benef
 
 Pilnuje tego `tests/e2e/korzysci.spec.js` na macierzy 1280–1920 px.
 
+### D10 — sekcje 04 nasza oferta i 06 jak uczymy są zamknięte
+
+Zatwierdzone **14.09.2026**. Tagi: `zatwierdzone/oferta` i `zatwierdzone/metoda`.
+
+Co jest zamrożone:
+
+- **04:** cztery drogi w tej kolejności, z tymi adresami i etykietami; wspólny język wskazania
+  z mega-menu (`.offer-mark` — czerwony numer, strzałka 7 px); krem, zero kart;
+- **06:** `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` bez kropek i bez błędnego „MÓWIJ” (ADR 0009);
+  pięć kroków lekcji w tej kolejności; czarny akt bez fotografii; odstęp między etykietą
+  sekcji a pierwszym czasownikiem.
+
+**Otwarte, do decyzji właściciela:** pierwsza pozycja oferty nazywa się inaczej w menu
+(`Klasy 1-7`) niż w sekcji 04 (`Dla dzieci`). Pozostałe trzy zostały kiedyś ujednolicone
+na polecenie właściciela. Test porównuje adresy i trzy ujednolicone etykiety, ale **nie
+przesądza** tej jednej — nie zmieniaj jej samodzielnie.
+
+Pilnuje tego `tests/e2e/oferta-metoda.spec.js`.
+
+### D11 — sekcja 05 o High Five jest zamknięta
+
+Zatwierdzona **14.09.2026** po najdłuższej serii poprawek w całym projekcie. Tag:
+`zatwierdzone/o-high-five`.
+
+Co jest zamrożone:
+
+- miara akapitów **75ch** i kolumna tekstowa na **ośmiu** z dwunastu pól siatki;
+- kadr Magdaleny Germel kończy się **równo z dołem kolumny tekstowej** i zwęża się od lewej,
+  gdy tekst jest krótszy; prawa krawędź stoi na krawędzi okna — wspólna oś ze zdjęciami hero
+  i sekcji 02;
+- odstęp nad paskiem faktów: **2 px** łącznie z `gap` kolumny (`calc(0.125rem - var(--space-4))`);
+- `--space-about-anchor: 1.25rem` — po skoku z menu pasek faktów mieści się w ekranie.
+
+Trzy pułapki zapisane w `about.css`, żeby nikt ich nie powtórzył:
+
+1. `align-self: stretch` na kadrze jest **błędnym kołem** — jako element siatki kadr sam
+   współtworzy wysokość wiersza. Stąd pozycjonowanie bezwzględne.
+2. `inset-block: 0` **i** `block-size: 100%` naraz to nadmiar — wygrywa procent liczony
+   w chwili układu, więc kadr bywał o wiersz za krótki. Wysokość ma wynikać z samych `inset`.
+3. Kadr pozycjonowany bezwzględnie **nic go nie zatrzymuje przed wejściem na tekst** —
+   dlatego ma limit szerokości czterech pól siatki. Cena: przy oknie poniżej ~1400 px kadr
+   bywa niższy niż kolumna i dolne krawędzie się nie spotykają. To świadomy kompromis —
+   nachodzenie na treść jest gorsze niż nierówna krawędź.
+
+Pilnuje tego `tests/e2e/o-high-five.spec.js` na macierzy 1280–1920 px.
+
 ### D2 — mechanika i konsekwencje
 
 CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
@@ -591,11 +639,17 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
-- **Nie zmieniaj sekcji zamkniętych: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje** —
-  patrz D7, D8 i D9 w §15. Dotyczy to również zmian pośrednich: tokenów, od których te sekcje
-  zależą, i reguł globalnych, które na nie wpływają. Po każdej zmianie w innych sekcjach
-  uruchom `tests/e2e/hero.spec.js`, `tests/e2e/po-lekcjach.spec.js` i `tests/e2e/korzysci.spec.js`
-  — to około 30 sekund i jedyna rzecz, która wyłapie zmianę pośrednią.
+- **Nie zmieniaj sekcji zamkniętych. Zamknięte są: 01 hero, 02 po lekcjach,
+  03 co dziecko zyskuje, 04 nasza oferta, 05 o High Five, 06 jak uczymy** — patrz D7–D11
+  w §15. Dotyczy to również zmian pośrednich: tokenów, od których te sekcje zależą,
+  i reguł globalnych, które na nie wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
+
+  ```
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js --project=desktop-chromium
+  ```
+
+  To około 40 sekund i jedyna rzecz, która wyłapie zmianę pośrednią.
+
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR

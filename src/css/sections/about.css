@@ -33,7 +33,16 @@
  */
 .section.about {
   --space-about-top: clamp(1.5rem, 3vw, 2.5rem);
-  --space-about-anchor: 2rem;
+
+  /*
+   * Odstep etykiety od naglowka po skoku z menu.
+   *
+   * Zszedl z 2rem na zyczenie wlasciciela: przy 32 px sekcja zaczynala sie
+   * na tyle nisko, ze pasek faktow u jej dolu ledwo wchodzil w ekran.
+   * 20 px podciaga cala sekcje o te 12 px, nie ruszajac niczego w srodku -
+   * to WYLACZNIE miejsce zatrzymania scrolla, nie odstep w ukladzie.
+   */
+  --space-about-anchor: 1.25rem;
 
   padding-block-start: var(--space-about-top);
   scroll-margin-block-start: calc(
@@ -56,7 +65,19 @@
 }
 
 .about__text p {
-  max-inline-size: 46ch;
+  /*
+   * PODGLAD - do decyzji wlasciciela.
+   * Bylo kolejno: 46ch (551 px), 54ch (647 px), 62ch (743 px).
+   *
+   * 70ch bylo sufitem przy siedmiu polach siatki - akapity dobijaly do
+   * krawedzi kolumny. Kolumna dostala osme pole (patrz .about__text nizej),
+   * wiec 73ch to znowu miara, a nie ograniczenie siatki.
+   *
+   * 75 znakow to dokladnie gorna granica przedzialu czytelnej dlugosci
+   * wiersza (45-75). Swiadomy wybor wlasciciela; dalej oko gubi poczatek
+   * nastepnego wiersza, wiec to jest praktyczna granica tej kolumny.
+   */
+  max-inline-size: 75ch;
 }
 
 .about__media {
@@ -83,7 +104,25 @@
    */
   grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
   gap: var(--space-6) var(--grid-gutter);
-  margin-block-start: var(--space-4);
+
+  /*
+   * Odstep nad paskiem faktow liczony JAWNIE, nie z samego marginesu.
+   *
+   * Nad paskiem stoja dwie rzeczy naraz: `gap` kolumny tekstowej (--space-4)
+   * i jego wlasny margines. Razem dawaly 32 px. Wlasciciel poprosil
+   * o podciagniecie paska najpierw o pol centymetra, potem o kolejne 3 mm,
+   * wiec calosc ma miec 2 px - i tyle wlasnie mowi pierwszy czlon. Odjecie
+   * `gap` jest konieczne, bo tej wartosci nie da sie nadpisac z poziomu
+   * dziecka.
+   *
+   * To jest praktyczne dno: ponizej zera kreska nad paskiem zacznie wchodzic
+   * w wiersz ostatniego akapitu. Optycznie odstep jest wiekszy niz 2 px,
+   * bo nad kreska stoi jeszcze polinterlinia tego wiersza.
+   *
+   * Kadr po prawej idzie w gore razem z paskiem: jego wysokosc rowna sie
+   * wysokosci kolumny tekstowej, wiec obie dolne krawedzie zostaja rowne.
+   */
+  margin-block-start: calc(0.125rem - var(--space-4));
   padding: 0;
   list-style: none;
 }
@@ -141,6 +180,9 @@
      * zostawialoby nierowna pustke raz nad tekstem, raz nad kadrem.
      */
     align-items: start;
+
+    /* Uklad odniesienia dla kadru - patrz .about__media nizej. */
+    position: relative;
   }
 
   /*
@@ -149,11 +191,15 @@
    * na sasiednia kolumne. Poszerzenie kolumny bylo tu wlasciwa odpowiedzia -
    * zmniejszenie pisma zabraloby paskowi faktow cala hierarchie.
    *
-   * Akapity i tak zatrzymuja sie na 46ch, wiec tekst nie rozlewa sie
-   * na cala szerokosc - rosnie wylacznie pole dla paska faktow.
+   * PODGLAD - do decyzji wlasciciela. Kolumna urosla z siedmiu na OSIEM
+   * pol siatki, bo przy siedmiu akapity dobily do jej krawedzi i miara
+   * przestala cokolwiek zmieniac - szerokosc ograniczala juz siatka.
+   *
+   * To nie jest zmiana miary, tylko proporcji sekcji: kadr dostaje o jedno
+   * pole mniej i traci na tym szerokosc.
    */
   .about__text {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 8;
   }
 
   .about__media {
@@ -164,35 +210,68 @@
      * Portret konczyl sie 147 px wczesniej, wiec prawa strona strony nie
      * miala wspolnej linii. To nie jest ujemny margines jako hack - to ten
      * sam token --bleed-inline, ktorego uzywaja tamte trzy kadry.
-     */
-    grid-column: 8 / -1;
-    margin-block-start: 0;
-    margin-inline-end: calc(var(--bleed-inline) * -1);
-
-    /*
-     * Pelna proporcja zrodla, bez przycinania. Kwadratowy kadr obcinal dolna
-     * czesc zdjecia razem z biurkiem i notatnikiem, czyli z tym, co nadaje
-     * portretowi kontekst pracy zamiast studyjnego popiersia.
      *
-     * Limit wysokosci podniesiony, bo to ON, a nie siatka, decydowal
-     * o szerokosci kadru: przy 44rem portret zatrzymywal sie na 563 px
-     * mimo szerszej kolumny.
+     * PODGLAD - do decyzji wlasciciela.
+     *
+     * Kadr konczy sie DOKLADNIE na dole kolumny tekstowej, czyli rowno pod
+     * paskiem faktow. Wczesniej byl znacznie wyzszy i to ON, a nie tresc,
+     * wyznaczal wysokosc calej sekcji.
+     *
+     * Dlaczego pozycjonowanie bezwzgledne, a nie `align-self: stretch`:
+     * jako element siatki kadr sam wspoltworzyl wysokosc wiersza, wiec
+     * "rozciagnij go do wysokosci wiersza" bylo bledne kolem - wiersz mial
+     * wysokosc kadru, a kadr wysokosc wiersza. Zmierzone: 1008 px zamiast
+     * oczekiwanych 697. Wyjecie kadru z przeplywu przecina te zaleznosc:
+     * wiersz mierzy juz tylko kolumna tekstowa, a kadr bierze z niej 100%.
+     *
+     * Dalej dziala proporcja: przy JAWNEJ wysokosci i szerokosci `auto`
+     * to wysokosc wyznacza szerokosc, wiec skrocenie kadru samo zabiera mu
+     * szerokosc. `inset-inline-end` kotwiczy go do krawedzi okna, wiec
+     * wezszy kadr traci szerokosc z LEWEJ, a gorny prawy rog stoi w miejscu.
+     *
+     * `grid-column: auto` zdejmuje odziedziczone `1 / -1`. Element wyjety
+     * z przeplywu nie zajmuje juz pola w siatce, wiec przypisanie do kolumn
+     * tylko myliloby czytajacego - a przy elemencie pozycjonowanym
+     * bezwzglednie decyduje ono dodatkowo o tym, wzgledem czego liczy sie
+     * `inset`: wlasnego obszaru siatki czy pola kontenera. Tu ma byc pole
+     * kontenera, bo to jego wysokosc mierzy kolumna tekstowa.
      */
+    position: absolute;
+    grid-column: auto;
+    inset-block: 0;
+    inset-inline-end: calc(var(--bleed-inline) * -1);
+    margin: 0;
     aspect-ratio: 4 / 5;
-    block-size: auto;
+    inline-size: auto;
 
     /*
-     * Limit WYLACZNIE w rem, bez czlonu svh.
+     * Gorna granica szerokosci - zabezpieczenie, nie kosmetyka.
      *
-     * Kazda wersja z svh wiazala szerokosc kadru z wysokoscia okna: przy
-     * 1920x900 portret konczyl sie 121 px przed krawedzia, a przy 1920x1080
-     * juz w niej trafial. Ta sama strona wygladala inaczej na dwoch monitorach
-     * o tej samej szerokosci.
+     * Szerokosc kadru wynika z jego wysokosci, a ta rowna sie wysokosci
+     * kolumny tekstowej. Przy wezszym oknie tekst lamie sie na wiecej
+     * wierszy, kolumna rosnie - i kadr razem z nia. Przy 1280 px wchodzil
+     * juz 31 px na tekst, bo jako element pozycjonowany bezwzglednie nic
+     * go nie zatrzymywalo.
      *
-     * Cena jest swiadoma: przy szerokim oknie kadr bywa wyzszy niz viewport
-     * i sekcja rosnie. Wlasciciel wprost wybral czytelnosc i wspolna os
-     * ponad zmieszczenie sekcji na jednym ekranie.
+     * Limit to cztery pola siatki (kolumna tekstowa ma osiem z dwunastu)
+     * minus gutter, plus wyjscie poza kontener. Kadr nigdy nie wejdzie
+     * na tekst; cena jest taka, ze przy waskim oknie bywa nizszy niz
+     * kolumna i dolne krawedzie przestaja sie spotykac. Nachodzenie na
+     * tresc jest gorsze niz nierowna krawedz.
      */
-    max-block-size: 66rem;
+    max-inline-size: calc(33.333% - var(--grid-gutter) + var(--bleed-inline));
+
+    /*
+     * Wysokosc bierze sie z SAMYCH `inset`, bez `block-size: 100%`.
+     *
+     * Podanie obu naraz jest nadmiarowe: wygrywa wtedy wysokosc procentowa,
+     * a `inset-block-end` przestaje cokolwiek znaczyc. Procent liczy sie
+     * od wysokosci pola w chwili ukladu, wiec gdy pasek faktow lamal sie
+     * na dwa wiersze pozniej niz kadr policzyl swoja wysokosc - na przyklad
+     * po doczytaniu kroju - kadr zostawal o wiersz za krotki i drugi wiersz
+     * podpisow wychodzil pod jego krawedz. Para `inset` nie ma tego problemu:
+     * wysokosc jest z definicji odlegloscia miedzy gora a dolem pola.
+     */
+    block-size: auto;
   }
 }

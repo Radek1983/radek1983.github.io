@@ -1143,9 +1143,23 @@ test.describe('05 o high five', () => {
 
       expect(m.portret, width + ' px').toBe(m.hero)
 
-      // Kadr ma zajmowac okolo 40-43% szerokosci sekcji.
-      expect(m.udzial, width + ' px').toBeGreaterThan(0.38)
+      /*
+       * Udzial kadru NIE jest juz staly. Jego szerokosc wynika z wysokosci,
+       * a ta rowna sie wysokosci kolumny tekstowej - przy wezszym oknie tekst
+       * lamie sie na wiecej wierszy i kadr rosnie, dopoki nie zatrzyma go
+       * limit czterech pol siatki. Widelki opisuja wiec caly ten zakres,
+       * a nie jedna wartosc. Pilnujemy dwoch rzeczy: kadr zostaje duzym
+       * elementem kompozycji i nie wchodzi na kolumne tekstowa.
+       */
+      expect(m.udzial, width + ' px').toBeGreaterThan(0.2)
       expect(m.udzial, width + ' px').toBeLessThan(0.45)
+
+      const nachodzi = await page.evaluate(() => {
+        const kadr = document.querySelector('.about__media').getBoundingClientRect()
+        const tekst = document.querySelector('.about__text').getBoundingClientRect()
+        return Math.round(tekst.right - kadr.left)
+      })
+      expect(nachodzi, width + ' px - kadr na tekscie').toBeLessThanOrEqual(0)
     }
   })
 
@@ -1254,9 +1268,14 @@ test.describe('05 o high five - kotwica i wejscie faktow', () => {
       await page.evaluate(() => document.querySelector('[data-nav="o-nas"]').click())
       await poczekajNaKoniecScrolla(page)
 
+      /*
+       * Widelki zeszly z 24-40 px na 12-28 px razem z --space-about-anchor.
+       * Wlasciciel poprosil o podciagniecie sekcji po skoku z menu, zeby
+       * pasek faktow u jej dolu wchodzil w ekran w calosci.
+       */
       const odstep = await odstepPodNaglowkiem(page)
-      expect(odstep, width + ' px').toBeGreaterThanOrEqual(24)
-      expect(odstep, width + ' px').toBeLessThanOrEqual(40)
+      expect(odstep, width + ' px').toBeGreaterThanOrEqual(12)
+      expect(odstep, width + ' px').toBeLessThanOrEqual(28)
     }
   })
 
@@ -1281,8 +1300,9 @@ test.describe('05 o high five - kotwica i wejscie faktow', () => {
       await poczekajNaKoniecScrolla(page)
       const poOdswiezeniu = await odstepPodNaglowkiem(page)
 
-      expect(pierwsze, width + ' px').toBeGreaterThanOrEqual(24)
-      expect(pierwsze, width + ' px').toBeLessThanOrEqual(40)
+      // Te same widelki co przy skoku z menu - patrz --space-about-anchor.
+      expect(pierwsze, width + ' px').toBeGreaterThanOrEqual(12)
+      expect(pierwsze, width + ' px').toBeLessThanOrEqual(28)
       /*
        * Tolerancja dwoch pikseli, nie rownosc co do jednego. WebKit zaokragla
        * pozycje po przeladowaniu inaczej niz Chromium i roznica jednego
