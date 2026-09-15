@@ -34,6 +34,16 @@
    */
   --step-wordmark: clamp(4.5rem, 17vw, 17rem);
   --step-display: clamp(3rem, 9.2vw, 8.25rem);
+
+  /*
+   * Wlasny stopien sekcji 07. Niesie JEDNOCZESNIE naglowek cennika i same
+   * ceny - wlasciciel chce, zeby byly tej samej wielkosci, wiec musza brac
+   * wartosc z jednego miejsca, a nie z dwoch clampow ustawianych rownolegle.
+   *
+   * Osobny token, a nie --step-display, bo tamten niesie takze naglowki
+   * sekcji 08, 11 i 12 - ruszenie go zmienialoby cztery sekcje naraz.
+   */
+  --step-cennik: clamp(2.625rem, 8vw, 7.25rem);
   --step-h1: clamp(2.25rem, 5.2vw, 5rem);
   --step-h2: clamp(1.875rem, 4vw, 3.75rem);
   --step-h3: clamp(1.25rem, 1.6vw, 1.625rem);

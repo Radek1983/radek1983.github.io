@@ -46,6 +46,21 @@ test.describe('07 cennik - struktura', () => {
     await expect(cennik.locator('section')).toHaveCount(0)
   })
 
+  /*
+   * Brzmienie zatwierdzone przez wlasciciela 15.09.2026 (D12 w CLAUDE.md).
+   *
+   * Oba naglowki zmienily sens, nie tylko slowa: "bez abonamentu" nazywa
+   * przewage wprost zamiast mowic o jawnosci ceny, a "ktore sie odbywaja"
+   * mowi to samo co dawne "ktore sa w kalendarzu", bez odwolania do
+   * kalendarza, ktorego rodzic na tym etapie nie widzial.
+   */
+  test('oba naglowki maja zatwierdzone brzmienie', async ({ page }) => {
+    await expect(page.locator('#cennik-title')).toHaveText('Prosta cena. Bez abonamentu.')
+    await expect(page.locator('.billing__claim')).toHaveText(
+      'Płacisz za zajęcia, które się odbywają.',
+    )
+  })
+
   test('panel A niesie obie ceny w jednostce 45-minutowej', async ({ page }) => {
     const pierwsze = page.locator('.price--primary')
     const kolejne = page.locator('.price--secondary')
@@ -112,16 +127,33 @@ test.describe('07 cennik - struktura', () => {
 
     expect(przypis.y).toBeGreaterThan(kolejne.y + kolejne.height - 1)
     await expect(page.locator('.pricing__note')).toContainText('klas 1-7')
-    await expect(page.locator('.pricing__note')).toContainText('indywidualnie')
+    await expect(page.locator('.pricing__note')).toContainText('regularnych zajęć grupowych')
+
+    /*
+     * Przypis mowi WYLACZNIE, czego dotycza podane ceny. Odnosnik do pelnego
+     * cennika stoi raz, na koncu panelu B - wczesniej to samo wezwanie padalo
+     * w sekcji dwa razy i wlasciciel kazal to usunac.
+     */
+    await expect(page.locator('.pricing__note a')).toHaveCount(0)
   })
 
   test('panel B niesie trzy zasady rozliczania i link do pelnego cennika', async ({ page }) => {
     const zasady = page.locator('.billing__rule')
     await expect(zasady).toHaveCount(3)
 
-    await expect(zasady.nth(0)).toContainText('Nie pobieramy stałej miesięcznej opłaty')
-    await expect(zasady.nth(1)).toContainText('nie jest doliczana do rozliczenia')
-    await expect(zasady.nth(2)).toContainText('minimum 5 dzieci')
+    /*
+     * Kazda zasada ma TYTUL i jedno zdanie wyjasnienia. Tytul niesie sens,
+     * zdanie szczegol - rodzic skanujacy trzy wiersze wie, o czym sa, bez
+     * czytania calosci.
+     */
+    for (const [i, [tytul, zdanie]] of [
+      ['Bez stałej miesięcznej opłaty', 'liczby zajęć zaplanowanych'],
+      ['Bez opłat za dni wolne', 'nie są doliczane do rozliczenia'],
+      ['Grupa rusza od 5 osób', 'minimum 5 dzieci'],
+    ].entries()) {
+      await expect(zasady.nth(i).locator('.billing__title')).toHaveText(tytul)
+      await expect(zasady.nth(i).locator('.billing__text')).toContainText(zdanie)
+    }
 
     for (const [i, numer] of ['01', '02', '03'].entries()) {
       await expect(zasady.nth(i).locator('.billing__number')).toHaveText(numer)
@@ -130,7 +162,20 @@ test.describe('07 cennik - struktura', () => {
     // Prawdziwy <a>, nie div z obsluga klikniecia.
     const link = page.locator('.billing__more a')
     await expect(link).toHaveAttribute('href', '/cennik/')
-    await expect(link).toContainText('Zobacz pełny cennik')
+    await expect(link).toContainText('Zobacz cennik wszystkich zajęć')
+
+    // Podpis mowi, co uzytkownik zastanie po drugiej stronie odnosnika.
+    await expect(page.locator('.billing__scope')).toHaveText(
+      'Kurs egzaminacyjny · seniorzy · online 1 na 1',
+    )
+  })
+
+  /*
+   * Wezwanie do pelnego cennika pada w tej sekcji DOKLADNIE raz. Wczesniej
+   * stalo takze w przypisie pod cenami i dwa razy mowilo to samo.
+   */
+  test('do pelnego cennika prowadzi jeden odnosnik', async ({ page }) => {
+    await expect(page.locator('#cennik a[href="/cennik/"]')).toHaveCount(1)
   })
 
   /*

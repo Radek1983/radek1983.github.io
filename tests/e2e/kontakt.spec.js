@@ -12,7 +12,7 @@ const FIRMA = {
   Firma: 'High Five Magdalena Germel',
   NIP: '8241730595',
   REGON: '523281712',
-  Od: '2022',
+  'Działamy od': '2022',
 }
 
 test.describe('12 kontakt', () => {
@@ -72,7 +72,7 @@ test.describe('12 kontakt', () => {
     )
     expect(ld.legalName).toBe(FIRMA.Firma)
     expect(ld.taxID).toBe(FIRMA.NIP)
-    expect(ld.foundingDate).toBe(FIRMA.Od)
+    expect(ld.foundingDate).toBe(FIRMA['Działamy od'])
   })
 
   test('blok formalny jest cichszy niz wezwanie', async ({ page }) => {

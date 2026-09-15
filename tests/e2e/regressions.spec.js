@@ -65,9 +65,9 @@ test.describe('regresje tresci', () => {
      */
     const cennik = page.locator('#cennik')
     await expect(cennik.locator('.billing__claim')).toContainText(
-      'Płacisz tylko za zajęcia, które są w kalendarzu',
+      'Płacisz za zajęcia, które się odbywają',
     )
-    await expect(cennik).toContainText('Nie pobieramy stałej miesięcznej opłaty')
+    await expect(cennik).toContainText('Bez stałej miesięcznej opłaty')
   })
 
   /*

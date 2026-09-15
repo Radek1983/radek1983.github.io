@@ -601,8 +601,8 @@
               <span>07</span>
               <span>Cennik · klasy 1-7</span>
             </p>
-            <h2 class="u-display" id="cennik-title" data-animation="reveal">
-              Prosta cena. Bez ukrywania.
+            <h2 class="u-display pricing__claim" id="cennik-title" data-animation="reveal">
+              Prosta cena. Bez abonamentu.
             </h2>
           </div>
 
@@ -624,9 +624,13 @@
               <p class="price__who">Drugie i każde kolejne dziecko z rodzeństwa</p>
             </div>
 
+            <!--
+              Przypis mówi WYŁĄCZNIE, czego dotyczą podane ceny. Odnośnik
+              do pełnego cennika stoi raz, na końcu panelu B - wcześniej
+              to samo wezwanie padało w sekcji dwa razy.
+            -->
             <p class="pricing__note" data-animation="fade-up">
-              Cennik dotyczy zajęć dla klas 1-7. Ceny kursu egzaminacyjnego, zajęć dla seniorów i
-              lekcji online ustalamy indywidualnie.
+              Podane ceny dotyczą regularnych zajęć grupowych dla klas 1-7 w&nbsp;SP&nbsp;402.
             </p>
           </div>
         </div>
@@ -645,34 +649,58 @@
         <div class="container billing">
           <div class="billing__grid">
             <h3 class="u-display billing__claim" data-animation="reveal">
-              Płacisz tylko za zajęcia, które są w kalendarzu.
+              Płacisz za zajęcia, które się odbywają.
             </h3>
 
+            <!--
+              Każda zasada ma teraz TYTUŁ i jedno zdanie wyjaśnienia. Wcześniej
+              był sam akapit, więc rodzic musiał go przeczytać w całości, żeby
+              wiedzieć, o czym jest. Tytuł niesie sens, zdanie niesie szczegół.
+            -->
             <ol class="billing__rules">
               <li class="billing__rule" data-animation="fade-up">
                 <span class="billing__number" aria-hidden="true">01</span>
-                <p class="billing__text">
-                  Nie pobieramy stałej miesięcznej opłaty. Płacisz tylko za lekcje zaplanowane w
-                  danym miesiącu.
-                </p>
+                <div class="billing__body">
+                  <strong class="billing__title">Bez stałej miesięcznej opłaty</strong>
+                  <p class="billing__text">
+                    Rozliczenie zależy od liczby zajęć zaplanowanych w&nbsp;danym miesiącu.
+                  </p>
+                </div>
               </li>
 
               <li class="billing__rule" data-animation="fade-up">
                 <span class="billing__number" aria-hidden="true">02</span>
-                <p class="billing__text">
-                  Jeśli zajęcia przypadają w dzień wolny i lekcja się nie odbywa, nie jest doliczana
-                  do rozliczenia.
-                </p>
+                <div class="billing__body">
+                  <strong class="billing__title">Bez opłat za dni wolne</strong>
+                  <p class="billing__text">
+                    Jeśli zajęcia wypadają w&nbsp;dzień wolny od szkoły i&nbsp;nie odbywają się,
+                    nie&nbsp;są doliczane do rozliczenia.
+                  </p>
+                </div>
               </li>
 
               <li class="billing__rule" data-animation="fade-up">
                 <span class="billing__number" aria-hidden="true">03</span>
-                <p class="billing__text">Grupa rozpoczyna zajęcia po zebraniu minimum 5 dzieci.</p>
+                <div class="billing__body">
+                  <strong class="billing__title">Grupa rusza od 5 osób</strong>
+                  <p class="billing__text">
+                    Zajęcia rozpoczynamy po zebraniu minimum 5&nbsp;dzieci.
+                  </p>
+                </div>
               </li>
             </ol>
 
+            <!--
+              JEDYNY odnośnik do pełnego cennika w tej sekcji. Podpis pod nim
+              mówi, co użytkownik tam zastanie - bez tego "wszystkich zajęć"
+              byłoby obietnicą bez treści.
+            -->
             <p class="billing__more" data-animation="fade-up">
-              <a class="u-link" href="/cennik/">Zobacz pełny cennik →</a>
+              <a class="u-link billing__link" href="/cennik/">
+                Zobacz cennik wszystkich zajęć
+                <span class="billing__arrow" aria-hidden="true">→</span>
+              </a>
+              <span class="billing__scope">Kurs egzaminacyjny · seniorzy · online 1 na 1</span>
             </p>
           </div>
         </div>
@@ -1093,7 +1121,7 @@
                   <dd class="legal__value">523281712</dd>
                 </div>
                 <div class="legal__item">
-                  <dt class="u-label legal__key">Od</dt>
+                  <dt class="u-label legal__key">Działamy od</dt>
                   <dd class="legal__value">2022</dd>
                 </div>
               </dl>

@@ -81,8 +81,10 @@ To jedyne dane, które wolno publikować:
 - Pierwsze dziecko: **55 zł / 45 min.** Drugie i każde kolejne dziecko z rodzeństwa:
   **50 zł / 45 min.** Brief pisał „zł/godz.”; właściciel potwierdził, że lekcja trwa **45 minut**,
   więc jednostka godzinowa obiecywała rodzicowi 15 minut więcej, niż trwają zajęcia.
-- **Płacisz za zajęcia, które są w kalendarzu.** Brak stałej opłaty miesięcznej niezależnej od
-  liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane.
+- **Płacisz za zajęcia, które się odbywają.** Brak stałej opłaty miesięcznej niezależnej od
+  liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane. Fakt bez zmian;
+  brzmienie na stronie zmienił właściciel 15.09.2026 z „które są w kalendarzu” — rodzic na tym
+  etapie żadnego kalendarza jeszcze nie widział.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
@@ -426,6 +428,8 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | **D9**  | Sekcja 03 co dziecko zyskuje           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                             |
 | **D10** | Sekcje 04 nasza oferta i 06 jak uczymy | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                             |
 | **D11** | Sekcja 05 o High Five                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                               |
+| **D12** | Sekcja 07 cennik · klasy 1-7           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                   |
+| **D13** | Sekcja 12 kontakt                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                             |
 
 ### D5 — konsekwencje
 
@@ -561,6 +565,48 @@ Trzy pułapki zapisane w `about.css`, żeby nikt ich nie powtórzył:
 
 Pilnuje tego `tests/e2e/o-high-five.spec.js` na macierzy 1280–1920 px.
 
+### D12 — sekcja 07 cennik · klasy 1-7 jest zamknięta
+
+Zatwierdzona **15.09.2026** po przebudowie obu paneli według obrazu referencyjnego
+właściciela. Tag: `zatwierdzone/cennik`.
+
+Co jest zamrożone — blok `#cennik` w `index.html` i `src/css/sections/pricing.css`:
+
+- **panel A:** nagłówek `Prosta cena. Bez abonamentu.`, ceny `55` i `50` w jednostce
+  `zł / 45 min`, przypis `Podane ceny dotyczą regularnych zajęć grupowych dla klas 1-7
+w SP 402.` — **bez odnośnika**;
+- **panel B:** nagłówek `Płacisz za zajęcia, które się odbywają.` i trzy zasady z tytułem
+  oraz jednym zdaniem wyjaśnienia (`Bez stałej miesięcznej opłaty`, `Bez opłat za dni wolne`,
+  `Grupa rusza od 5 osób`);
+- **dokładnie jeden** odnośnik do `/cennik/` w całej sekcji: `Zobacz cennik wszystkich zajęć →`,
+  z podpisem `Kurs egzaminacyjny · seniorzy · online 1 na 1`. Wcześniej to samo wezwanie padało
+  dwa razy — **nie przywracaj drugiego**;
+- stopnie pisma liczone z jednego tokenu `--step-cennik`: nagłówek panelu A i ceny biorą go
+  wprost, hasło panelu B jako `calc(--step-cennik * 0.88)`. Relacja między nimi jest zapisana
+  w kodzie, więc zmiana tokenu przesuwa wszystkie trzy i proporcja zostaje.
+
+`--step-cennik` jest **osobnym** tokenem, nie `--step-display`: tamten niesie także nagłówki
+sekcji 08, 11 i 12, więc jego zmiana ruszyłaby cztery sekcje naraz.
+
+Pilnuje tego `tests/e2e/pricing.spec.js`.
+
+### D13 — sekcja 12 kontakt jest zamknięta
+
+Zatwierdzona **15.09.2026**. Tag: `zatwierdzone/kontakt`.
+
+Co jest zamrożone — blok `#kontakt` w `index.html` i `src/css/sections/contact.css`:
+
+- kolejność: nagłówek → lead → dwa kanały kontaktu → wezwanie → metryczka firmy;
+- dane rejestrowe co do znaku, z etykietami `Firma`, `NIP`, `REGON`, **`Działamy od`**
+  (etykieta zmieniona przez właściciela z samego `Od`);
+- te same dane w JSON-LD (`legalName`, `taxID`, `foundingDate`) — rozjechanie ich to błąd,
+  nie kosmetyka;
+- **telefon jako zwykły tekst, nie odnośnik** — wyjątek opisany w D2; klikalny `tel:` zostaje
+  w stopce na wszystkich dziewięciu stronach;
+- metryczka jest cichsza niż wezwanie: stopień `.legal__value` mniejszy niż `.contact__value`.
+
+Pilnuje tego `tests/e2e/kontakt.spec.js`.
+
 ### D2 — mechanika i konsekwencje
 
 CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
@@ -640,15 +686,20 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
 - **Nie zmieniaj sekcji zamkniętych. Zamknięte są: 01 hero, 02 po lekcjach,
-  03 co dziecko zyskuje, 04 nasza oferta, 05 o High Five, 06 jak uczymy** — patrz D7–D11
-  w §15. Dotyczy to również zmian pośrednich: tokenów, od których te sekcje zależą,
-  i reguł globalnych, które na nie wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
+  03 co dziecko zyskuje, 04 nasza oferta, 05 o High Five, 06 jak uczymy,
+  07 cennik · klasy 1-7, 12 kontakt** — patrz D7–D13 w §15. Dotyczy to również zmian
+  pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
+  wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
 
   ```
-  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js --project=desktop-chromium
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/kontakt.spec.js --project=desktop-chromium
   ```
 
-  To około 40 sekund i jedyna rzecz, która wyłapie zmianę pośrednią.
+  To około minuty i jedyna rzecz, która wyłapie zmianę pośrednią.
+
+- **Otwarte pozostają tylko sekcje 08 nabór, 09 lokalizacja, 10 seniorzy i 11 FAQ** oraz
+  wszystkie podstrony. Przy pracy nad nimi uważaj na `--step-display`: niesie nagłówki
+  sekcji 08, 11 i 12, a 12 jest już zamknięta.
 
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.

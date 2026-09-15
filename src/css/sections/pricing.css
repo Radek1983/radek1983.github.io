@@ -9,6 +9,28 @@
  * zero flip-animation. Cena musi byc widoczna bez zadnej interakcji.
  */
 
+/*
+ * PODGLAD - do decyzji wlasciciela.
+ *
+ * Wlasny stopien zamiast globalnego --step-display (clamp(3rem, 9.2vw,
+ * 8.25rem) - 132 px przy 1920). Naglowek cennika jest najdluzszy ze
+ * wszystkich display na stronie: dwa pelne zdania, wiec w tym stopniu
+ * zajmowal dwa bardzo szerokie wiersze i przytlaczal same ceny, ktore sa
+ * tu wlasciwym bohaterem.
+ *
+ * Stopien siedzi w osobnym tokenie --step-cennik, a nie w --step-display:
+ * tamten niesie takze naglowki sekcji 08, 11 i 12, wiec jego zmiana
+ * ruszalaby cztery sekcje naraz - w tym takie, ktorych wlasciciel jeszcze
+ * nie ogladal.
+ *
+ * Ten sam token niesie ceny (.price__amount), bo maja byc TEJ SAMEJ
+ * wielkosci co naglowek. Jedno zrodlo zamiast dwoch clampow ustawianych
+ * rownolegle - inaczej pierwsza zmiana jednej wartosci cicho rozjedzie pare.
+ */
+.pricing__claim {
+  font-size: var(--step-cennik);
+}
+
 /* ============================================================
    PANEL A — ile kosztuje
    ============================================================ */
@@ -37,8 +59,12 @@
   letter-spacing: -0.05em;
 }
 
+/*
+ * PODGLAD - do decyzji wlasciciela. Bylo clamp(4.5rem, 15vw, 11rem),
+ * czyli 176 px przy 1920. Teraz ten sam token co naglowek sekcji: 116 px.
+ */
 .price__amount {
-  font-size: clamp(4.5rem, 15vw, 11rem);
+  font-size: var(--step-cennik);
 }
 
 .price__unit {
@@ -87,9 +113,15 @@
  * Przejscie miedzy panelami niesie sam oddech, bez linii i bez zmiany tla.
  * Linia byloby tu o jedna za duzo: przypis panelu A juz stoi pod kreska,
  * a druga tuz pod nia czytalaby sie jak koniec sekcji, nie jak jej ciag.
+ *
+ * Odstep jest STANDARDOWY - ten sam token, ktory rozdziela sekcje strony.
+ * Wczesniej stal tu wlasny clamp (najpierw 128 px, potem 188 px przy 1920)
+ * i byl jedyna taka wartoscia na stronie. Uzycie --space-section oznacza,
+ * ze przejscie miedzy panelami oddycha dokladnie tak jak przejscia miedzy
+ * sekcjami, a zmiana rytmu strony przeniesie sie tu sama.
  */
 .billing {
-  margin-block-start: clamp(3.5rem, 9vw, 8rem);
+  margin-block-start: var(--space-section);
 }
 
 .billing__grid {
@@ -109,7 +141,19 @@
  */
 .billing__claim {
   grid-column: 1 / -1;
-  font-size: var(--step-h1);
+
+  /*
+   * Stopien LICZONY z naglowka panelu A, nie wpisany osobno.
+   *
+   * Oba sa plakatowymi momentami jednej sekcji, ale panel A otwiera sekcje
+   * i ma wazyc odrobine wiecej. Mnoznik zamiast wlasnego clamp() znaczy,
+   * ze relacja miedzy nimi jest zapisana w kodzie: zmiana --step-cennik
+   * przesuwa oba naglowki i proporcja zostaje.
+   *
+   * Przy --step-h1 haslo bylo o cala klase mniejsze i czytalo sie jak
+   * srodtytul pod cenami, a nie jak drugi akt.
+   */
+  font-size: calc(var(--step-cennik) * 0.88);
 
   /*
    * Bez tego czwarty wiersz skladal sie z samego "SĄ W" - dwa krotkie slowa
@@ -164,14 +208,71 @@
   color: color-mix(in srgb, var(--color-text) 40%, transparent);
 }
 
+/*
+ * Tytul zasady i jej wyjasnienie stoja w jednej kolumnie obok numeru.
+ * Wczesniej byl tu sam akapit; tytul niesie sens, zdanie niesie szczegol,
+ * wiec rodzic skanujacy wzrokiem trzy wiersze wie, o czym sa, bez czytania.
+ */
+.billing__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/*
+ * Tytul w kroju tekstowym, nie display. Display stoi juz po lewej w haslu
+ * panelu - dwa rejestry plakatowe obok siebie konkurowalyby ze soba, a to
+ * jest podpis wiersza, nie drugi naglowek.
+ */
+.billing__title {
+  font-size: var(--step-h3);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
 .billing__text {
   margin: 0;
   max-inline-size: var(--measure);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 
 .billing__more {
   grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
   margin: 0;
+}
+
+/*
+ * Wezwanie tekstowe w rejestrze etykiety: wersaliki i trakt jak w reszcie
+ * jezyka strony. Kreska pod spodem to `.u-link` - ten sam mechanizm, ktory
+ * niesie kazdy odnosnik tekstowy w projekcie, wiec nie powstaje tu nowy wzorzec.
+ */
+.billing__link {
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Ten sam ruch strzalki co w CTA - 4 px, --dur-micro. Zero nowych animacji. */
+.billing__arrow {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease-standard);
+}
+
+.billing__link:hover .billing__arrow,
+.billing__link:focus-visible .billing__arrow {
+  transform: translateX(4px);
+}
+
+/* Podpis odnosnika - mowi, co stoi po drugiej stronie linku. */
+.billing__scope {
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
 }
 
 @media (width >= 62rem) {

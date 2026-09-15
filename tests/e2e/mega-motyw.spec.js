@@ -176,19 +176,39 @@ test.describe('mega-menu: motyw jasny i ciemny', () => {
   test('kariera zostaje aktywną trasą, a CTA nagłówka się nie zmienia', async ({ page }) => {
     await otworz(page, '/kariera/')
 
-    const s = await page.evaluate(() => {
-      const podkreslenie = (sel) =>
-        getComputedStyle(document.querySelector(sel), '::after').transform
-      return {
-        kariera: podkreslenie('.site-nav__link[data-nav="kariera"]'),
-        oferta: podkreslenie('.site-nav__trigger[data-nav="oferta"]'),
-        cta: document.querySelector('.site-header .cta').textContent.trim().split('\n')[0],
-      }
-    })
+    /*
+     * Kursor MUSI zejsc z pozycji OFERTA przed pomiarem.
+     *
+     * To samo `::after` niesie dwa stany: podkreslenie biezacej trasy
+     * i podkreslenie przy wskazaniu. `otworz()` KLIKA w OFERTE, wiec wskaznik
+     * zostaje nad nia i element jest podkreslony z hoveru - test mierzylby
+     * wtedy co innego, niz sprawdza. Objawialo sie to wartoscia 1 zamiast 0
+     * przy pelnym przebiegu i przechodzilo, gdy kursor przypadkiem byl gdzie
+     * indziej.
+     *
+     * Do tego expect.poll: podkreslenie ma przejscie na scaleX, wiec zaraz
+     * po ruchu myszy bywa jeszcze w polowie drogi (widziane: 0.65).
+     */
+    await page.mouse.move(10, 400)
+    const podkreslenie = (sel) =>
+      page.evaluate((s) => getComputedStyle(document.querySelector(s), '::after').transform, sel)
 
-    expect(s.kariera, 'kariera podkreslona').toBe('matrix(1, 0, 0, 1, 0, 0)')
-    expect(s.oferta, 'oferta bez podkreslenia trasy').toBe('matrix(0, 0, 0, 1, 0, 0)')
-    expect(s.cta).toBe('Aplikuj')
+    await expect
+      .poll(() => podkreslenie('.site-nav__link[data-nav="kariera"]'), {
+        message: 'kariera podkreslona',
+      })
+      .toBe('matrix(1, 0, 0, 1, 0, 0)')
+
+    await expect
+      .poll(() => podkreslenie('.site-nav__trigger[data-nav="oferta"]'), {
+        message: 'oferta bez podkreslenia trasy',
+      })
+      .toBe('matrix(0, 0, 0, 1, 0, 0)')
+
+    const cta = await page.evaluate(
+      () => document.querySelector('.site-header .cta').textContent.trim().split('\n')[0],
+    )
+    expect(cta).toBe('Aplikuj')
   })
 
   /*

@@ -153,12 +153,37 @@ Zakaz dopisywania nazw metod, certyfikatów i obietnic pedagogicznych bez źród
 
 ## 06 Cena — `#cennik`
 
-**Nagłówek:** `Prosta cena. Bez ukrywania.`
+Sekcja ma **dwa panele jednej odpowiedzi**: najpierw ile, potem na jakich zasadach.
+Brzmienie poniżej zostało przebudowane na polecenie właściciela 15.09.2026.
 
-- **55 zł / godzina** — pierwsze dziecko
-- **50 zł / godzina** — drugie i każde kolejne dziecko z rodzeństwa
+### Panel A — ile kosztuje
 
-> Cena za godzinę zajęć. Grupa rozpoczyna pracę po zebraniu minimum 5 dzieci.
+**Nagłówek:** `Prosta cena. Bez abonamentu.`
+Wcześniej `Prosta cena. Bez ukrywania.` Nowe brzmienie nazywa przewagę wprost: nie chodzi
+o jawność ceny, tylko o brak stałej opłaty miesięcznej.
+
+- **55 zł / 45 min** — pierwsze dziecko
+- **50 zł / 45 min** — drugie i każde kolejne dziecko z rodzeństwa
+
+**Przypis:** `Podane ceny dotyczą regularnych zajęć grupowych dla klas 1-7 w SP 402.`
+Przypis mówi wyłącznie, czego dotyczą podane ceny. **Nie ma tu odnośnika do pełnego
+cennika** — wcześniej to samo wezwanie padało w sekcji dwa razy.
+
+### Panel B — na jakich zasadach
+
+**Nagłówek:** `Płacisz za zajęcia, które się odbywają.`
+Wcześniej `Płacisz tylko za zajęcia, które są w kalendarzu.` Fakt z §3 kontraktu jest ten
+sam; zmieniło się sformułowanie — „które się odbywają" mówi to samo bez odwołania do
+kalendarza, którego rodzic na tym etapie nie widział.
+
+| Nr  | Tytuł                         | Wyjaśnienie                                                                                         |
+| --- | ----------------------------- | --------------------------------------------------------------------------------------------------- |
+| 01  | Bez stałej miesięcznej opłaty | Rozliczenie zależy od liczby zajęć zaplanowanych w danym miesiącu.                                  |
+| 02  | Bez opłat za dni wolne        | Jeśli zajęcia wypadają w dzień wolny od szkoły i nie odbywają się, nie są doliczane do rozliczenia. |
+| 03  | Grupa rusza od 5 osób         | Zajęcia rozpoczynamy po zebraniu minimum 5 dzieci.                                                  |
+
+**Jedyny odnośnik sekcji:** `Zobacz cennik wszystkich zajęć →` → `/cennik/`
+**Podpis pod nim:** `Kurs egzaminacyjny · seniorzy · online 1 na 1`
 
 Brief zabrania nazywania niższej stawki „pakietem rodzinnym", jeśli formalnie jest to po
 prostu niższa cena za kolejne dziecko.
