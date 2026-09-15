@@ -294,15 +294,19 @@ test.describe('architektura - mega-menu', () => {
 test.describe('architektura - tresc i uczciwosc materialu', () => {
   test('zadna cena nie jest zmyslona', async ({ page }) => {
     /*
-     * Potwierdzona jest wylacznie stawka dla klas 1-7. Pozostale trzy
-     * produkty NIE moga podawac zadnej kwoty, dopoki wlasciciel jej nie
-     * ustali (CLAUDE.md par. 4). Lista brakow: docs/CONTENT_GAPS.md.
+     * Potwierdzone sa DWIE stawki: klasy 1-7 (55/50 zl za 45 min) oraz kurs
+     * egzaminacyjny (80 zl za 90 min, przekazany przez wlasciciela 15.09.2026).
+     * Seniorzy i online nadal NIE moga podawac zadnej kwoty, dopoki wlasciciel
+     * jej nie ustali (CLAUDE.md par. 4). Lista brakow: docs/CONTENT_GAPS.md.
      */
     await page.goto('/cennik/')
     await expect(page.locator('body')).toContainText('55 zł / 45 min')
     await expect(page.locator('body')).toContainText('50 zł / 45 min')
 
-    for (const url of ['/oferta/egzamin-osmoklasisty/', '/oferta/seniorzy/', '/oferta/online/']) {
+    await page.goto('/oferta/egzamin-osmoklasisty/')
+    await expect(page.locator('.exam-price')).toHaveText('80 zł / 90 minut')
+
+    for (const url of ['/oferta/seniorzy/', '/oferta/online/']) {
       await page.goto(url)
       const tekst = await page.locator('main').innerText()
       expect(tekst, url).not.toMatch(/\d+\s*z[lł]\s*\/\s*\d+\s*min/i)

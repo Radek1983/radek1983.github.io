@@ -24,6 +24,13 @@
 @import './sections/location.css';
 @import './sections/seniors.css';
 @import './sections/contact.css';
+
+/*
+ * Warstwa stron. Kazdy plik dotyczy JEDNEJ podstrony i ma wszystkie selektory
+ * zakotwiczone w `[data-page='...']` z jej <body>. Stoi po sekcjach, zeby
+ * mogl dopracowac komponent wspoldzielony bez ruszania go dla reszty serwisu.
+ */
+@import './pages/egzamin.css';
 @import './animations/reveal.css';
 @import './animations/editorial.css';
 @import './utilities/helpers.css';

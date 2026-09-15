@@ -151,8 +151,15 @@ wzorzec „liczba zł / liczba min".
   do sekcji o sposobie prowadzenia zajęć — to najbliższe temu, czym High Five jest. Prawdziwa
   sekcja o szkole wymaga faktów od właściciela: historii, kwalifikacji, ewentualnego zespołu.
   §4 zabrania ich wymyślania.
-- **Czas trwania zajęć dla seniorów, online i kursu egzaminacyjnego** — strony nie podają
-  ani długości lekcji, ani harmonogramu.
+- **Czas trwania zajęć dla seniorów i online** — strony nie podają ani długości lekcji,
+  ani harmonogramu. Dla kursu egzaminacyjnego brak został **zamknięty** 15.09.2026:
+  właściciel przekazał 80 zł za 90 minut i wartość stoi na `/oferta/egzamin-osmoklasisty/`.
+- **SPRZECZNOŚĆ DO ROZSTRZYGNIĘCIA — cena kursu egzaminacyjnego w dwóch miejscach.**
+  Podstrona kursu podaje `80 zł / 90 min`, a `/cennik/` nadal mówi „Cena kursu nie została
+  jeszcze ustalona — zapytaj o nią przy kontakcie". Rodzic porównujący obie strony zobaczy
+  dwie różne odpowiedzi na to samo pytanie. Poprawka to jeden akapit w `cennik/index.html`,
+  ale właściciel ograniczył zakres zadania wyłącznie do podstrony kursu, więc **czeka
+  na jego decyzję**. Do tego czasu nie zmieniaj `/cennik/` samodzielnie.
 - **Osobna skrzynka rekrutacyjna** — zgłoszenia z `/kariera` idą na ten sam adres co kontakt
   ogólny, z tematem „Rekrutacja".
 - **`og:image`** — żadna z dziewięciu stron nie ma jeszcze obrazka Open Graph.

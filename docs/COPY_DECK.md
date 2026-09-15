@@ -321,3 +321,45 @@ ceny, minimum 5 dzieci. Nie dopisywać tam nowych treści czasowych bez oznaczen
 Test w `tests/smoke/page.spec.js` pilnuje, żeby **żadna datowana wzmianka nie została
 nieoznaczona** — inaczej przetrwałaby usunięcie bloku. Sformułowanie „status naboru"
 w finalnym CTA jest świadomie stałe: opisuje proces, nie termin.
+
+## Podstrona `/oferta/egzamin-osmoklasisty/`
+
+Przebudowana **15.09.2026** według obrazu referencyjnego właściciela. Cały tekst poniżej jest
+zatwierdzony; podstrona ma własną warstwę stylów `src/css/pages/egzamin.css`, zakotwiczoną
+w `[data-page='egzamin']` na `<body>`.
+
+**Hero**
+
+- eyebrow: `Egzamin ósmoklasisty · Klasa 8`
+- headline: `Next step. Przygotuj się do egzaminu. Spokojnie i systematycznie.`
+  „Next step." jest częścią nazwy oferty — **nie wolno go usuwać.**
+- lead: `Kurs dla ósmoklasistów zgodny z wymaganiami egzaminacyjnymi i podstawą programową.
+Dopracowana metodyka, strategie egzaminacyjne i regularna praktyka zwiększają pewność
+przed egzaminem.`
+- CTA: `Zapytaj o grupę` → `/#kontakt`
+
+**Czarny pas:** `Słucham. Czytam. Piszę. Zdaję.` — słowo `Zdaję.` w kolorze sygnałowym.
+Pod nim: `Pracujemy nad tym, co naprawdę liczy się na egzaminie: rozumieniem, pisaniem,
+komunikacją, gramatyką i skutecznym działaniem pod presją czasu.`
+
+**Co obejmuje kurs?** Sześć obszarów (01–06): rozumienie ze słuchu, czytanie ze zrozumieniem,
+pisanie, komunikacja i mówienie, gramatyka i słownictwo, strategie egzaminacyjne i czas.
+Każdy z listą punktowaną — punktory są **typograficzne**, nie ikonowe.
+
+**Zastrzeżenie o braku obietnicy wyniku jest OBOWIĄZKOWE** i zeszło tu z czarnego pasa, bo ten
+niesie już inną treść. Brzmienie: `Nie obiecujemy wyniku egzaminu. Pracujemy nad tym, co realnie
+od nas zależy:` + trzy punkty (`uporządkowaniem materiału`, `znajomością typów zadań`,
+`regularnym treningiem`). Master prompt §8 zabrania obiecywania wyniku — nie usuwać.
+
+**Jak pracujemy?** Cztery kroki w jednym rzędzie: Diagnoza, Powtórki tematyczne, Praktyka
+egzaminacyjna, Informacja zwrotna.
+
+**Cennik** — sekcja na **HF BLUE** (§7: granat to „drugi akt marki / sekcja egzaminacyjna").
+`80 zł / 90 minut`, pod spodem cztery fakty: `1 spotkanie grupowe`, `90 minut pracy`,
+`Kurs dla klasy 8`, `Zgodny z podstawą programową i wymaganiami egzaminacyjnymi`.
+Przypis: `Status grupy i termin rozpoczęcia potwierdzamy po kontakcie.`
+Stawkę przekazał właściciel 15.09.2026 — **`/cennik/` nadal mówi, że cena nie jest ustalona**,
+patrz `docs/CONTENT_GAPS.md`.
+
+**CTA końcowe:** `Chcesz dołączyć?` + `Napisz do nas — odezwiemy się w sprawie terminu, poziomu
+i statusu grupy.` + przycisk `Zapytaj o grupę`.

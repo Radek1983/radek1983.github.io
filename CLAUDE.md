@@ -85,6 +85,10 @@ To jedyne dane, które wolno publikować:
   liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane. Fakt bez zmian;
   brzmienie na stronie zmienił właściciel 15.09.2026 z „które są w kalendarzu” — rodzic na tym
   etapie żadnego kalendarza jeszcze nie widział.
+- **Kurs egzaminacyjny: 80 zł / 90 min.** Jedne zajęcia trwają 90 minut. Przekazane przez
+  właściciela 15.09.2026; wcześniej stawka była jawnym brakiem danych. **Uwaga:** `/cennik/`
+  nadal mówi „Cena kursu nie została jeszcze ustalona" — do uzgodnienia z właścicielem,
+  patrz `docs/CONTENT_GAPS.md`.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.

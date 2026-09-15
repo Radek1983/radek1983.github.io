@@ -89,17 +89,41 @@ test.describe('02 po lekcjach - uklad zatwierdzony', () => {
       await page.goto('/')
       await page.evaluate(() => document.fonts.ready)
 
+      /*
+       * Pomiar z offsetow, nie z prostokatow ekranowych.
+       *
+       * Bloki maja `data-animation`, wiec dopoki nie wejda w kadr, niosa
+       * `translate` warstwy reveal - a prostokat klienta to przesuniecie
+       * uwzglednia. Pod obciazeniem pelnego przebiegu czesc blokow byla
+       * odsloniona, a czesc jeszcze nie, i trzy rowne przerwy raportowaly
+       * sie jako rozne. Offsety sa wielkosciami LAYOUTU i nie maja tego szumu.
+       */
       const przerwy = await page.evaluate(() => {
-        const b = [...document.querySelectorAll('.after-school__block')].map((el) =>
-          el.getBoundingClientRect(),
-        )
+        const off = (el) => {
+          let y = 0
+          for (let n = el; n; n = n.offsetParent) y += n.offsetTop
+          return y
+        }
+        const b = [...document.querySelectorAll('.after-school__block')]
         const out = []
-        for (let i = 1; i < b.length; i += 1) out.push(Math.round(b[i].top - b[i - 1].bottom))
+        for (let i = 1; i < b.length; i += 1) {
+          out.push(off(b[i]) - (off(b[i - 1]) + b[i - 1].offsetHeight))
+        }
         return out
       })
 
       expect(przerwy.length, 'cztery bloki, trzy przerwy').toBe(3)
-      expect(new Set(przerwy).size, `przerwy: ${przerwy.join(', ')}`).toBe(1)
+
+      /*
+       * Tolerancja JEDNEGO piksela, nie równość co do jedynki.
+       *
+       * Odstęp jest wartością ułamkową (`clamp` w `vh`), a offsety są
+       * całkowite - trzy identyczne przerwy raportowały się jako 59, 59, 58.
+       * To zaokrąglenie, nie nierówny rytm. Większa różnica nadal oznacza,
+       * że któryś blok dołożył własny margines, i test to złapie.
+       */
+      const rozstrzal = Math.max(...przerwy) - Math.min(...przerwy)
+      expect(rozstrzal, `przerwy: ${przerwy.join(', ')}`).toBeLessThanOrEqual(1)
     })
   }
 
