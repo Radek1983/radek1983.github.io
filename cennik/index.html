@@ -37,125 +37,303 @@
     <link rel="stylesheet" href="/src/css/main.css" />
   </head>
 
-  <body data-section="cennik">
+  <body data-section="cennik" data-page="cennik">
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
     <!--#include partials/header.html -->
 
     <main id="main">
+      <!-- ============================================================
+           01 HERO — sposob platnosci, nie lista cen
+
+           Kompozycja asymetryczna wprost z projektu wlasciciela: glowny
+           komunikat po lewej, pionowa krawedz, po prawej etykieta, krotka
+           kreska i haslo marki. Pierwsza wersja prawej kolumny nie miala
+           tego hasla, bo brief przebudowy mowil "bez dodatkowego
+           marketingowego tekstu"; wlasciciel obejrzal efekt i polecil
+           odtworzyc te czesc 1:1 z projektu.
+           ============================================================ -->
       <section class="section page-hero" data-animation="section" aria-labelledby="cennik-title">
         <div class="container">
-          <div class="page-hero__text page-hero__text--wide">
-            <p class="u-label section__label"><span>Cennik</span></p>
+          <div class="rate-hero">
+            <!--
+              Etykieta stoi w OSOBNYM wierszu siatki, nad obiema kolumnami.
+              Dzieki temu prawa kolumna zaczyna sie rowno z naglowkiem,
+              a jej pionowa krawedz biegnie dokladnie od pierwszego wiersza
+              tekstu do ostatniego - tak jak na projekcie.
+            -->
+            <p class="u-label section__label rate-hero__eyebrow"><span>Cennik</span></p>
 
-            <h1 class="u-display page-hero__title" id="cennik-title" data-animation="fade-up">
-              Prosto. Bez niespodzianek.
-            </h1>
+            <div class="rate-hero__main">
+              <!--
+                Bez <br />: lamanie ma zalezec od szerokosci okna. Twarde spacje
+                wiaza wylacznie krotkie slowa, zgodnie z par. 5 kontraktu.
+              -->
+              <h1 class="u-display rate-hero__title" id="cennik-title" data-animation="fade-up">
+                Płatność tylko za&nbsp;zajęcia zaplanowane.
+              </h1>
 
-            <p class="u-lead page-hero__lead" data-animation="fade-up">
-              Cena należy do konkretnych zajęć, więc znajdziesz ją także na stronie każdego kursu.
-              Tutaj stoją obok siebie, żeby dało się je porównać.
-            </p>
+              <p class="u-lead rate-hero__lead" data-animation="fade-up">
+                Nie pobieramy stałego ryczałtu. Na początku miesiąca płacisz za zajęcia zaplanowane
+                w&nbsp;kalendarzu. Jeśli spotkanie nie&nbsp;może się odbyć z&nbsp;przyczyn
+                organizacyjnych, nie&nbsp;jest wliczane do&nbsp;rozliczenia.
+              </p>
+
+              <p class="rate-hero__note" data-animation="fade-up">
+                Liczba zajęć może różnić się między miesiącami, dlatego różna może być również
+                wysokość płatności.
+              </p>
+            </div>
+
+            <!--
+              Prawa kolumna odwzorowana z projektu wlasciciela: trzy slowa
+              w rejestrze etykiety, krotka kreska i haslo marki z czerwona
+              kropka. Lamanie jest kompozycyjne - <br /> jest tu na miejscu,
+              bo nie wiaze krotkiego slowa (par. 5 kontraktu).
+            -->
+            <div class="rate-hero__aside" data-animation="fade-up">
+              <p class="rate-hero__values">
+                Prosto<br />
+                Uczciwie<br />
+                Bez ukrytych kosztów
+              </p>
+
+              <hr class="rate-hero__dash" />
+
+              <p class="rate-hero__claim">
+                Lepszy<br />
+                start<br />
+                z&nbsp;High Five<span class="rate-hero__dot">.</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-           01 KLASY 1-7 — jedyna potwierdzona cena
+           02 KLASY 1-7 — dwie stawki i warunek startu
            ============================================================ -->
-      <section class="section" data-animation="section" aria-labelledby="cennik-dzieci">
+      <section class="section rates" data-animation="section" aria-labelledby="cennik-dzieci">
         <div class="container">
-          <p class="u-label section__label"><span>01</span><span>Klasy 1-7</span></p>
+          <div class="section__head">
+            <p class="u-label section__label"><span>01</span><span>Klasy 1-7</span></p>
+            <!--
+              Dwa zdania, dwa wiersze - ten sam rejestr co naglowki sekcji 03
+              i 04 nizej. Lamanie jest kompozycyjne, nie wiaze krotkiego slowa,
+              wiec <br /> jest tu na miejscu (par. 5 kontraktu).
+            -->
+            <h2 class="u-display rates__title" id="cennik-dzieci" data-animation="fade-up">
+              Angielski dla dzieci.<br />
+              Prosta cena.
+            </h2>
+          </div>
 
-          <h2 class="u-h2" id="cennik-dzieci" data-animation="fade-up">Angielski dla dzieci</h2>
-
-          <ul class="cols u-mt-8">
-            <li class="cols__item" data-animation="fade-up">
-              <h3>55 zł / 45 min</h3>
-              <p>Pierwsze dziecko.</p>
-            </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>50 zł / 45 min</h3>
-              <p>Drugie i każde kolejne dziecko z rodzeństwa.</p>
-            </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Warunek startu</h3>
-              <p>
-                Grupa rozpoczyna zajęcia po zebraniu minimum 5 dzieci.
-                <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
-                <span data-temporary="nabor-2026">Planowany start: 1 października 2026.</span>
-                <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
+          <!--
+            Trzy czesci jednego poziomego gridu, nie trzy karty. Kolumny dzieli
+            wlosowa kreska w polowie rynny - par. 7 ustawia promien naroznika
+            na 0, a par. 8 wymienia siatke kart jako anty-wzorzec.
+          -->
+          <div class="rates__grid">
+            <div class="rates__tier" data-animation="fade-up">
+              <p class="rates__price rates__price--accent">
+                <span class="rates__figure">55</span>
+                <span class="rates__unit">
+                  <span class="rates__currency">zł</span>
+                  <span class="rates__per">/ 45 min</span>
+                </span>
               </p>
-            </li>
-          </ul>
+              <p class="rates__caption">Pierwsze dziecko</p>
+            </div>
 
-          <p class="u-mt-8" data-animation="fade-up">
+            <div class="rates__tier" data-animation="fade-up">
+              <p class="rates__price">
+                <span class="rates__figure">50</span>
+                <span class="rates__unit">
+                  <span class="rates__currency">zł</span>
+                  <span class="rates__per">/ 45 min</span>
+                </span>
+              </p>
+              <p class="rates__caption">Drugie i&nbsp;każde kolejne dziecko z&nbsp;rodzeństwa</p>
+            </div>
+
+            <div class="rates__tier rates__tier--condition" data-animation="fade-up">
+              <h3 class="rates__condition-title">Warunek startu</h3>
+              <p class="rates__condition-copy">
+                Grupa rozpoczyna zajęcia po zebraniu minimum 5&nbsp;dzieci.
+              </p>
+              <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
+              <p class="rates__condition-copy" data-temporary="nabor-2026">
+                Planowany start: 1&nbsp;października 2026.
+              </p>
+              <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
+            </div>
+          </div>
+
+          <p class="rates__more" data-animation="fade-up">
             <a class="u-link" href="/oferta/dzieci/">Zobacz zajęcia →</a>
           </p>
         </div>
       </section>
 
       <!-- ============================================================
-           02-04 CENY NIEUSTALONE
+           03 ZASADY ROZLICZEN — granatowy akt
+
+           Najwazniejsza sekcja merytoryczna strony. Nie upraszczamy jej do
+           "placisz tylko za odbyte zajecia": rozliczenie idzie Z GORY,
+           a korekta pojawia sie dopiero w kolejnym miesiacu.
            ============================================================ -->
       <section
-        class="section"
+        class="section rules"
+        data-animation="section"
+        data-theme="blue"
+        aria-labelledby="cennik-zasady"
+      >
+        <div class="container">
+          <div class="section__head">
+            <p class="u-label section__label"><span>Zasady rozliczeń</span></p>
+            <h2 class="u-display rules__title" id="cennik-zasady" data-animation="fade-up">
+              Płacisz za zajęcia,<br />
+              które są w&nbsp;kalendarzu.
+            </h2>
+          </div>
+
+          <ol class="rules__grid">
+            <li class="rules__rule" data-animation="fade-up">
+              <p class="rules__number" aria-hidden="true">01</p>
+              <h3 class="rules__name">Rozliczenie z&nbsp;góry</h3>
+              <p class="rules__copy">
+                Na początku miesiąca płacisz z&nbsp;góry za zajęcia zaplanowane w&nbsp;kalendarzu na
+                dany miesiąc.
+              </p>
+            </li>
+
+            <li class="rules__rule" data-animation="fade-up">
+              <p class="rules__number" aria-hidden="true">02</p>
+              <h3 class="rules__name">Bez stałego ryczałtu</h3>
+              <p class="rules__copy">
+                Kwota zależy od liczby zaplanowanych spotkań. Jeśli zajęcia przypadają w&nbsp;dzień
+                wolny, święto albo z&nbsp;góry wiadomo, że nie mogą się odbyć z&nbsp;przyczyn
+                organizacyjnych szkoły lub Terminalu Kultury, nie są wliczane do&nbsp;płatności.
+              </p>
+            </li>
+
+            <li class="rules__rule" data-animation="fade-up">
+              <p class="rules__number" aria-hidden="true">03</p>
+              <h3 class="rules__name">Korekta w&nbsp;kolejnym miesiącu</h3>
+              <p class="rules__copy">
+                Jeśli opłacone wcześniej zajęcia nie odbędą się z&nbsp;nieplanowanej przyczyny, ich
+                koszt odliczamy od&nbsp;płatności za kolejny miesiąc.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           04 POZOSTALE ZAJECIA — czarny akt
+           ============================================================ -->
+      <section
+        class="section offers"
         data-animation="section"
         data-theme="ink"
         aria-labelledby="cennik-pozostale"
       >
         <div class="container">
-          <p class="u-label section__label"><span>Pozostałe zajęcia</span></p>
+          <div class="section__head">
+            <p class="u-label section__label"><span>Pozostałe zajęcia</span></p>
+            <h2 class="u-display offers__title" id="cennik-pozostale" data-animation="fade-up">
+              Jedna stawka.<br />
+              Za jedne zajęcia.
+            </h2>
+          </div>
 
-          <h2 class="u-h2" id="cennik-pozostale" data-animation="fade-up">
-            Ceny jeszcze nieustalone.
-          </h2>
-
-          <!--
-            BRAK DANYCH. Zadna z tych trzech stawek nie zostala potwierdzona
-            przez wlasciciela, a par. 4 zabrania ich wymyslania. Kazda pozycja
-            kieruje do kontaktu zamiast podawac liczbe.
-            Lista brakow: docs/CONTENT_GAPS.md.
-          -->
-          <ul class="cols u-mt-8">
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Egzamin ósmoklasisty</h3>
-              <p>Cena kursu nie została jeszcze ustalona — zapytaj o nią przy kontakcie.</p>
-              <p><a class="u-link" href="/oferta/egzamin-osmoklasisty/">Zobacz kurs →</a></p>
-            </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Seniorzy</h3>
-              <p>
-                Zapisy i rozliczenie prowadzi Terminal Kultury Gocław, więc cenę potwierdzamy przy
-                kontakcie.
+          <div class="offers__grid">
+            <div class="offers__offer" data-animation="fade-up">
+              <h3 class="offers__name">Egzamin ósmoklasisty</h3>
+              <p class="offers__price">
+                <span class="offers__figure">80</span>
+                <span class="offers__unit">
+                  <span class="offers__currency">zł</span>
+                  <span class="offers__per">/ 90 min</span>
+                </span>
               </p>
-              <p><a class="u-link" href="/oferta/seniorzy/">Zobacz zajęcia →</a></p>
-            </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Online 1 na 1</h3>
-              <p>Stawka za lekcję indywidualną nie została jeszcze ustalona.</p>
-              <p><a class="u-link" href="/oferta/online/">Zobacz online →</a></p>
-            </li>
-          </ul>
+              <p class="offers__copy">
+                Zajęcia grupowe przygotowujące do&nbsp;egzaminu ósmoklasisty.
+              </p>
+              <p class="offers__note">
+                Płatność z&nbsp;góry za spotkania zaplanowane w&nbsp;danym miesiącu.
+              </p>
+              <p class="offers__more">
+                <a class="u-link" href="/oferta/egzamin-osmoklasisty/">Zobacz kurs →</a>
+              </p>
+            </div>
+
+            <div class="offers__offer" data-animation="fade-up">
+              <h3 class="offers__name">Angielski dla seniorów</h3>
+              <p class="offers__price">
+                <span class="offers__figure">45</span>
+                <span class="offers__unit">
+                  <span class="offers__currency">zł</span>
+                  <span class="offers__per">/ 60 min</span>
+                </span>
+              </p>
+              <p class="offers__copy">Kameralne zajęcia grupowe w&nbsp;Terminalu Kultury Gocław.</p>
+              <p class="offers__note">
+                Płatność z&nbsp;góry za spotkania zaplanowane w&nbsp;danym miesiącu.
+              </p>
+              <p class="offers__more">
+                <a class="u-link" href="/oferta/seniorzy/">Zobacz zajęcia →</a>
+              </p>
+            </div>
+
+            <div class="offers__offer" data-animation="fade-up">
+              <h3 class="offers__name">Online 1 na 1</h3>
+              <p class="offers__price">
+                <span class="offers__figure">120</span>
+                <span class="offers__unit">
+                  <span class="offers__currency">zł</span>
+                  <span class="offers__per">/ 60 min</span>
+                </span>
+              </p>
+              <p class="offers__copy">
+                Indywidualne lekcje online dopasowane do&nbsp;potrzeb, poziomu i&nbsp;celu nauki.
+              </p>
+              <p class="offers__note">
+                Płatność z&nbsp;góry za spotkania zaplanowane w&nbsp;danym miesiącu.
+              </p>
+              <p class="offers__more">
+                <a class="u-link" href="/oferta/online/">Zobacz online →</a>
+              </p>
+            </div>
+          </div>
+
+          <p class="offers__footnote" data-animation="fade-up">
+            Wszystkie zajęcia rozliczamy według liczby spotkań zaplanowanych na dany miesiąc.
+          </p>
         </div>
       </section>
 
+      <!-- ============================================================
+           05 WEZWANIE — czerwony akt, tuz nad stopka
+           ============================================================ -->
       <section
-        class="section closing"
+        class="section closing rate-cta"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="cennik-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="cennik-cta" data-animation="fade-up">Masz pytanie?</h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz albo zadzwoń — odpowiemy o cenie, terminie i dostępności miejsc.
-            </p>
-          </div>
+        <div class="container rate-cta__grid">
+          <h2 class="closing__title rate-cta__title" id="cennik-cta" data-animation="fade-up">
+            Masz pytanie<br />
+            o&nbsp;cennik?
+          </h2>
+
+          <p class="rate-cta__lead" data-animation="fade-up">
+            Napisz do nas — wyjaśnimy zasady rozliczeń i&nbsp;pomożemy wybrać odpowiednie zajęcia.
+          </p>
 
           <a class="cta cta--large cta--ink" href="/#kontakt" data-animation="fade-up">
-            Zapytaj o zajęcia
+            Skontaktuj się
             <span class="cta__arrow" aria-hidden="true">→</span>
           </a>
         </div>
