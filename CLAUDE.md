@@ -434,6 +434,9 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | **D11** | Sekcja 05 o High Five                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                               |
 | **D12** | Sekcja 07 cennik · klasy 1-7           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                   |
 | **D13** | Sekcja 12 kontakt                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                             |
+| **D14** | Sekcja 08 nabór 2026 · klasy 1-7       | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                           |
+| **D15** | Sekcja 09 lokalizacje                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                           |
+| **D16** | Sekcja 10 dodatkowo · seniorzy         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                               |
 
 ### D5 — konsekwencje
 
@@ -611,6 +614,88 @@ Co jest zamrożone — blok `#kontakt` w `index.html` i `src/css/sections/contac
 
 Pilnuje tego `tests/e2e/kontakt.spec.js`.
 
+### D14 — sekcja 08 nabór 2026 jest zamknięta
+
+Zatwierdzona **16.09.2026** po trzech przebudowach. Tag: `zatwierdzone/nabor`.
+
+Sekcja miała jeden warunek nadrzędny, postawiony przez właściciela wprost i powtórzony
+po drugiej nieudanej próbie: **cała sekcja — od etykiety, przez nagłówek i liczby, po
+wezwanie — ma mieścić się w jednym ekranie desktopowym.** Wezwanie nie może być ucięte
+dolną krawędzią. To nie estetyka, tylko warunek odbioru.
+
+Co jest zamrożone — blok `#nabor` w `index.html` i `src/css/sections/enrollment.css`:
+
+- nagłówek `5 dzieci i startujemy.` w **dwóch** wierszach, z czerwoną kropką jako jedynym
+  akcentem koloru w typografii sekcji. Brzmienie zastąpiło `Grupa rusza od piątego dziecka.`,
+  ale niesie ten sam **warunek stały** — sekcja zostaje na stronie po 1 października;
+- nagłówek bierze **własny** stopień, nie `--step-display`: tamten token niesie także
+  sekcje 11 i 12, a dwunastka jest zamknięta (D13);
+- kolumny są przypisane **wprost** (1 · 2 · 3). Element z definitywnym wierszem jest
+  układany przed elementami bez niego, więc przy `grid-column: auto` kolumna statusu
+  lądowała pierwsza od lewej — to już wystąpiło;
+- kreski pod podpisami liczb stoją na **jednej osi** dzięki `grid-template-rows: subgrid`.
+  Równość wynika z układu, nie z dobranego marginesu, więc przetrwa zmianę stopnia pisma;
+- rok `2026` jest podporządkowany dacie: połowa stopnia, 48% krycia;
+- pionowe krawędzie mają 12% bieli, nie pełną moc `--color-rule` — przy pełnej sekcja
+  czytała się jak arkusz kalkulacyjny.
+
+**Interlinia nagłówka nie schodzi poniżej `--leading-caps`.** Stała tu przez chwilę na
+0.95 i wyglądała zwarcie, ale padding anty-clippingowy broni tylko pierwszego wiersza
+przed maską reveal — nie ma nic wspólnego z odległością **między** wierszami. Wyłapał to
+`tests/e2e/polish-caps.spec.js` i miał rację.
+
+Pilnuje tego `tests/e2e/nabor.spec.js` na macierzy 1280–1920 px.
+
+### D15 — sekcja 09 lokalizacje jest zamknięta
+
+Zatwierdzona **16.09.2026**. Tag: `zatwierdzone/lokalizacje`.
+
+Co jest zamrożone — blok `#lokalizacja` w `index.html`:
+
+- wezwanie `Wyznacz trasę` używa wariantu **`cta--ink`**, tego samego co `Sprawdź grupy
+i ceny` w hero: czarne tło, jasna czcionka marki, czerwień sygnałowa po najechaniu.
+  Wcześniej był to przycisk obrysowy `cta--ghost`;
+- to **ten sam wariant komponentu**, a nie skopiowane style — dzięki temu oba przyciski
+  nie mogą się rozjechać. Wariantu `cta--ink` nie wolno zmieniać: niesie także hero (D7);
+- `cta--ghost` **zostaje** w arkuszu, bo stoi jeszcze w pięciu miejscach na podstronach.
+  Na stronie głównej nie ma już żadnego przycisku obrysowego;
+- odnośnik prowadzi do trasy Google Maps na adres SP 402 i otwiera się w nowej karcie
+  z `rel="noopener"`.
+
+Pilnuje tego `tests/e2e/lokalizacja.spec.js`.
+
+### D16 — sekcja 10 dodatkowo · seniorzy jest zamknięta
+
+Zatwierdzona **16.09.2026** po przebudowie z jednej grupy na trzy poziomy, według obrazu
+referencyjnego właściciela. Tag: `zatwierdzone/seniorzy`.
+
+Dwie rzeczy są w tej sekcji wrażliwe i obie wynikają z wyraźnego polecenia:
+
+1. **Nigdzie nie wolno podać granicy wieku.** Nazwa oferty zostaje — `Angielski dla
+seniorów` — ale `60+` i każda inna dolna granica są zakazane. Kurs ma być czytelny
+   także dla osoby po pięćdziesiątce; „seniorzy" to nazwa oferty, nie kategoria wiekowa.
+2. **Trzy poziomy są równorzędne.** Żaden nie jest domyślny, żaden nie dostaje własnego
+   tła, obrysu ani koloru. Wyróżnienie jednego czytałoby się jak sugestia wyboru.
+
+Co jest zamrożone — blok `#seniorzy` w `index.html` i `src/css/sections/seniors.css`:
+
+- nagłówek `Angielski dla / seniorów.` w dwóch wierszach, we własnym stopniu;
+- trzy poziomy w tej kolejności i brzmieniu: `Początkująca`, `Podstawowa`,
+  `Średniozaawansowana`, każdy jako numer → nazwa → cienka kreska → opis;
+- kolumny **równe co do piksela**: kreska dzieląca jest pseudoelementem w połowie rynny,
+  a nie obramowaniem z paddingiem, który zabierałby szerokość dwóm z trzech kolumn;
+- **zero kart.** Projekt referencyjny obrysowywał każdy poziom zaokrąglonym prostokątem —
+  tego świadomie nie przenieśliśmy: §7 ustawia promień narożnika na 0 i dopuszcza kapsułę
+  wyłącznie dla CTA, a §8 wymienia siatkę kart jako anty-wzorzec;
+- kadr Terminalu jest o **10% mniejszy** od pełnej prawej połowy siatki, ale zwężenie idzie
+  wyłącznie od lewej: prawa krawędź stoi na krawędzi okna, na wspólnej osi ze zdjęciami
+  hero i sekcji 02. Wysokość bloku pod kadrem wynika z tego automatycznie — kadr jest
+  wyższy od kolumny tekstowej, więc to on wyznacza wysokość górnego bloku;
+- sekcja ma **niższe niż domyślne** odstępy pionowe. Rytm sekcji jest w tym projekcie
+  celowo zmienny, a ten moduł niesie cztery piętra treści.
+
+Pilnuje tego `tests/e2e/seniorzy.spec.js`.
+
 ### D2 — mechanika i konsekwencje
 
 CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
@@ -689,21 +774,23 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
-- **Nie zmieniaj sekcji zamkniętych. Zamknięte są: 01 hero, 02 po lekcjach,
-  03 co dziecko zyskuje, 04 nasza oferta, 05 o High Five, 06 jak uczymy,
-  07 cennik · klasy 1-7, 12 kontakt** — patrz D7–D13 w §15. Dotyczy to również zmian
+- **Nie zmieniaj sekcji zamkniętych. Na stronie głównej zamknięte jest dziś wszystko
+  poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje, 04 nasza oferta,
+  05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026, 09 lokalizacje,
+  10 seniorzy, 12 kontakt** — patrz D7–D16 w §15. Dotyczy to również zmian
   pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
   wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
 
   ```
-  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/kontakt.spec.js --project=desktop-chromium
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js --project=desktop-chromium
   ```
 
   To około minuty i jedyna rzecz, która wyłapie zmianę pośrednią.
 
-- **Otwarte pozostają tylko sekcje 08 nabór, 09 lokalizacja, 10 seniorzy i 11 FAQ** oraz
-  wszystkie podstrony. Przy pracy nad nimi uważaj na `--step-display`: niesie nagłówki
-  sekcji 08, 11 i 12, a 12 jest już zamknięta.
+- **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz wszystkie podstrony.
+  Przy pracy nad nimi uważaj na `--step-display`: niesie nagłówki sekcji 11 i 12,
+  a dwunastka jest zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero
+  (D7) i wezwanie w sekcji 09 (D15), a `cta--ghost` stoi na pięciu podstronach.
 
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.

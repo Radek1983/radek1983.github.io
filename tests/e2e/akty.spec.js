@@ -76,25 +76,35 @@ test.describe('akty 09-12', () => {
     await expect(przypis).not.toHaveCSS('border-top-width', '0px')
   })
 
-  test('10 seniorzy: nagłówek wersalikami i trzy numerowane filary', async ({ page }) => {
+  /*
+   * Sekcja przeszla 16.09.2026 z jednej grupy poczatkujacej na TRZY rownorzedne
+   * poziomy - zlecil to wlasciciel wraz z obrazem referencyjnym. Tutaj pilnujemy
+   * tego, co sekcja ma jako AKT: plakatowy naglowek, numerowana sekwencja,
+   * kremowa kapsula i zero kart. Geometrie i brzmienie poziomow trzyma
+   * osobny zamek w tests/e2e/seniorzy.spec.js (CLAUDE.md §15, D16).
+   */
+  test('10 seniorzy: nagłówek wersalikami i trzy numerowane poziomy', async ({ page }) => {
     const tytul = page.locator('#seniorzy-title')
     await expect(tytul).toHaveCSS('text-transform', 'uppercase')
-    await expect(tytul).toHaveText('Angielski dla seniorów. Grupa początkująca.')
+    await expect(tytul).toHaveText('Angielski dla seniorów.')
 
-    const filary = page.locator('.seniors__point')
-    await expect(filary).toHaveCount(3)
+    const poziomy = page.locator('.seniors__level')
+    await expect(poziomy).toHaveCount(3)
     for (const [i, [numer, nazwa]] of [
-      ['01', 'Mała grupa'],
-      ['02', 'Tempo bez presji'],
-      ['03', 'Praktyczny język'],
+      ['01', 'Początkująca'],
+      ['02', 'Podstawowa'],
+      ['03', 'Średniozaawansowana'],
     ].entries()) {
-      await expect(filary.nth(i).locator('.seniors__number')).toHaveText(numer)
-      await expect(filary.nth(i).locator('strong')).toHaveText(nazwa)
-      await expect(filary.nth(i).locator('strong')).toHaveCSS('text-transform', 'uppercase')
+      await expect(poziomy.nth(i).locator('.seniors__level-number')).toHaveText(numer)
+      await expect(poziomy.nth(i).locator('.seniors__level-name')).toHaveText(nazwa)
+      await expect(poziomy.nth(i).locator('.seniors__level-name')).toHaveCSS(
+        'text-transform',
+        'uppercase',
+      )
     }
 
     // Lista jest numerowana semantycznie, nie tylko wizualnie.
-    await expect(page.locator('ol.seniors__points')).toHaveCount(1)
+    await expect(page.locator('ol.seniors__levels')).toHaveCount(1)
 
     /*
      * Kapsula pelna, ale NIE czerwona: czerwien niesie glowna konwersje
@@ -108,7 +118,7 @@ test.describe('akty 09-12', () => {
     // Zero kart: brak zaokraglen i cieni na modulach sekcji.
     const ozdoby = await page.evaluate(
       () =>
-        [...document.querySelectorAll('#seniorzy .seniors__point, #seniorzy .media')].filter(
+        [...document.querySelectorAll('#seniorzy .seniors__level, #seniorzy .media')].filter(
           (el) => {
             const cs = getComputedStyle(el)
             return parseFloat(cs.borderRadius) > 0 || cs.boxShadow !== 'none'
