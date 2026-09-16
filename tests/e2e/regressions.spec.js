@@ -47,7 +47,18 @@ test.describe('regresje tresci', () => {
         expect(tekst, `jednostka ceny na ${url}`).toMatch(/45\s*min/)
       }
       expect(tekst, `godzinowa jednostka na ${url}`).not.toMatch(/z[lł]\s*\/?\s*godz/i)
-      expect(tekst, `60 min na ${url}`).not.toMatch(/60\s*min/)
+
+      /*
+       * Zakaz jednostki 60-minutowej obowiazuje tam, gdzie stoi WYLACZNIE
+       * oferta dla klas 1-7. Na /cennik/ od 16.09.2026 stoja obok niej takze
+       * stawki seniorow i lekcji online - obie za 60 minut i obie przekazane
+       * przez wlasciciela, wiec tam jednostka godzinna jest poprawna.
+       * Ze stawkami 55 i 50 zl nadal nie moze sie zwiazac: pilnuje tego
+       * strukturalna asercja na `.rates__per` w tests/e2e/cennik.spec.js.
+       */
+      if (url !== '/cennik/') {
+        expect(tekst, `60 min na ${url}`).not.toMatch(/60\s*min/)
+      }
     }
   })
 

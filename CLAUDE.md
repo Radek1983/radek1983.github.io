@@ -86,9 +86,17 @@ To jedyne dane, które wolno publikować:
   brzmienie na stronie zmienił właściciel 15.09.2026 z „które są w kalendarzu” — rodzic na tym
   etapie żadnego kalendarza jeszcze nie widział.
 - **Kurs egzaminacyjny: 80 zł / 90 min.** Jedne zajęcia trwają 90 minut. Przekazane przez
-  właściciela 15.09.2026; wcześniej stawka była jawnym brakiem danych. **Uwaga:** `/cennik/`
-  nadal mówi „Cena kursu nie została jeszcze ustalona" — do uzgodnienia z właścicielem,
-  patrz `docs/CONTENT_GAPS.md`.
+  właściciela 15.09.2026; wcześniej stawka była jawnym brakiem danych.
+- **Angielski dla seniorów: 45 zł / 60 min.** **Online 1 na 1: 120 zł / 60 min.** Obie
+  przekazane przez właściciela 16.09.2026 wraz z przebudową `/cennik/`; wcześniej były
+  jawnym brakiem danych. Stoją dziś **tylko na `/cennik/`** — podstrony produktowe ceny
+  nadal nie podają, co czeka na decyzję właściciela (`docs/CONTENT_GAPS.md`).
+- **Model rozliczenia: płatność z góry za zajęcia zaplanowane na dany miesiąc.** To nie
+  abonament i nie stały ryczałt. Spotkanie, o którym z góry wiadomo, że się nie odbędzie
+  (dzień wolny, święto, przyczyny organizacyjne szkoły lub Terminalu Kultury), nie jest
+  wliczane do płatności. Zajęcia opłacone, które nie odbędą się z nieplanowanej przyczyny,
+  odliczamy od płatności za kolejny miesiąc. Przekazane przez właściciela 16.09.2026.
+  **Nie upraszczaj tego do „płacisz tylko za odbyte zajęcia"** — rozliczenie idzie z góry.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
@@ -437,6 +445,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | **D14** | Sekcja 08 nabór 2026 · klasy 1-7       | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                           |
 | **D15** | Sekcja 09 lokalizacje                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                           |
 | **D16** | Sekcja 10 dodatkowo · seniorzy         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                               |
+| **D17** | Podstrona `/cennik/`                   | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian** poza podmianą odnośników. Zatwierdzona 16.09.2026 po przebudowie na cztery akty kolorystyczne. Szczegóły niżej                                                                        |
 
 ### D5 — konsekwencje
 
@@ -696,6 +705,48 @@ Co jest zamrożone — blok `#seniorzy` w `index.html` i `src/css/sections/senio
 
 Pilnuje tego `tests/e2e/seniorzy.spec.js`.
 
+### D17 — podstrona `/cennik/` jest zamknięta
+
+Zatwierdzona **16.09.2026** po przebudowie według obrazu referencyjnego właściciela.
+Tag: `zatwierdzone/cennik-podstrona` — **nie mylić z `zatwierdzone/cennik`**, który
+oznacza sekcję 07 strony głównej (D12).
+
+**Jedyny dopuszczony wyjątek: podmiana odnośników.** Jeżeli zmieni się adres którejś
+podstrony ofertowej, wolno poprawić `href` na cenniku i asercję w teście. Każda inna
+zmiana — treść, układ, stopnie pisma, kolory — wymaga decyzji właściciela.
+
+Co jest zamrożone — `cennik/index.html` i `src/css/pages/cennik.css`:
+
+- **cztery kolory marki jako sekwencja aktów:** beż (hero), beż (klasy 1-7),
+  granat (zasady rozliczeń), czerń (pozostałe zajęcia), czerwień (wezwanie).
+  To jedyna strona w serwisie, która używa całej palety;
+- **cztery stawki obok siebie** — `55` i `50` zł / 45 min, `80` zł / 90 min,
+  `45` zł / 60 min, `120` zł / 60 min. `55` jest jedynym akcentem czerwieni
+  w typografii cennika;
+- **nie wraca „cena nieustalona" ani „60+"** — obie frazy stały tu wcześniej;
+- **zasady rozliczeń w trzech punktach**: `Rozliczenie z góry`, `Bez stałego ryczałtu`,
+  `Korekta w kolejnym miesiącu`. Rozliczenie idzie **z góry** — nie upraszczaj tego
+  do „płacisz tylko za odbyte zajęcia", właściciel odrzucił to wprost;
+- **prawa kolumna hero** odwzorowana z projektu: etykieta, krótka kreska i hasło
+  z czerwoną kropką. Pionowa krawędź biegnie od pierwszego wiersza nagłówka do
+  ostatniego wiersza przypisu — nie dotyka poziomych krawędzi pasa. Wynika to
+  z **układu** (etykieta stoi w osobnym wierszu siatki), nie z dobranych wartości;
+- **zero kart** — żadnych zaokrągleń poza kapsułą wezwania;
+- kolumny w trzech gridach są **równe co do piksela**;
+- **stopka jest dokładnie ta sama co na pozostałych stronach.** Projekt referencyjny
+  miał własną — właściciel polecił ją zignorować w całości.
+
+Dwie pułapki zapisane w kodzie, żeby nikt ich nie powtórzył:
+
+1. `<hr>` dostaje od przeglądarki `margin-inline: auto`. Krótka kreska w hero stała
+   przez to na środku kolumny zamiast równo z lewą krawędzią liter — stąd jawne
+   `margin-inline: 0`.
+2. Nagłówek strony i nagłówek sekcji 01 mają być **tej samej wielkości**. Biorą
+   wartość z jednego tokenu `--step-cennik-claim`, a nie z dwóch clampów
+   ustawianych równolegle.
+
+Pilnuje tego `tests/e2e/cennik.spec.js`.
+
 ### D2 — mechanika i konsekwencje
 
 CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
@@ -774,23 +825,28 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
-- **Nie zmieniaj sekcji zamkniętych. Na stronie głównej zamknięte jest dziś wszystko
-  poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje, 04 nasza oferta,
-  05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026, 09 lokalizacje,
-  10 seniorzy, 12 kontakt** — patrz D7–D16 w §15. Dotyczy to również zmian
-  pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
-  wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
+- **Nie zmieniaj sekcji i stron zamkniętych. Na stronie głównej zamknięte jest dziś
+  wszystko poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje,
+  04 nasza oferta, 05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026,
+  09 lokalizacje, 10 seniorzy, 12 kontakt. Zamknięta jest też cała podstrona
+  `/cennik/`** — patrz D7–D17 w §15. Dotyczy to również zmian pośrednich: tokenów,
+  od których te sekcje zależą, i reguł globalnych, które na nie wpływają.
+  Po każdej zmianie w pozostałych sekcjach uruchom:
 
   ```
-  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js --project=desktop-chromium
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js tests/e2e/cennik.spec.js --project=desktop-chromium
   ```
 
   To około minuty i jedyna rzecz, która wyłapie zmianę pośrednią.
 
-- **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz wszystkie podstrony.
-  Przy pracy nad nimi uważaj na `--step-display`: niesie nagłówki sekcji 11 i 12,
-  a dwunastka jest zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero
-  (D7) i wezwanie w sekcji 09 (D15), a `cta--ghost` stoi na pięciu podstronach.
+- **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz podstrony poza
+  `/cennik/`. Przy pracy nad nimi uważaj na `--step-display`: niesie nagłówki sekcji 11
+  i 12, a dwunastka jest zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero
+  (D7), wezwanie w sekcji 09 (D15) i wezwanie na `/cennik/` (D17), a `cta--ghost` stoi
+  na pięciu podstronach.
+
+- **Podmiana odnośnika jest jedyną zmianą dopuszczoną w `/cennik/`** bez pytania —
+  gdy zmieni się adres podstrony ofertowej. Poprawiasz wtedy `href` i asercję w teście.
 
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.

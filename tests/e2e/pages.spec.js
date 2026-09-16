@@ -55,7 +55,12 @@ const STRONY = [
     url: '/cennik/',
     sekcja: 'cennik',
     title: 'Cennik zajęć z angielskiego | High Five Warszawa',
-    h1: /Prosto\. Bez niespodzianek/i,
+    /*
+     * Brzmienie zmienione przez wlasciciela 16.09.2026 wraz z przebudowa strony.
+     * `\s` zamiast spacji, bo "za zajecia" jest zwiazane twarda spacja (U+00A0)
+     * zgodnie z regula lamania wierszy z par. 5 - zwykla spacja jej nie dopasuje.
+     */
+    h1: /Płatność tylko za\s+zajęcia zaplanowane/i,
     cta: 'Zapytaj o zajęcia',
   },
   {

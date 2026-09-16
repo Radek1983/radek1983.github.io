@@ -107,15 +107,15 @@ Po dostarczeniu plików: wrzucić źródła do `src/assets/images/sections/`, ur
 
 ### Dane, których brakuje
 
-| Brak                               | Gdzie potrzebne      | Blokujący | Uwagi                                                                                                                                              |
-| ---------------------------------- | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cena zajęć dla seniorów**        | `/dla-seniorow/`     | nie       | ADR 0005 podaje 45 zł za zajęcia i abonament miesięczny, ale zapisy prowadzi Terminal Kultury. Strona celowo nie podaje ceny — kieruje do kontaktu |
-| **Cena lekcji online 1:1**         | `/online/`           | nie       | Nie ma potwierdzonej stawki. Strona nie podaje żadnej kwoty                                                                                        |
-| **Terminy i harmonogram**          | obie strony ofertowe | nie       | Żadna podstrona nie podaje dni ani godzin                                                                                                          |
-| **Osobna skrzynka rekrutacyjna**   | `/kariera/`          | nie       | Zgłoszenia idą tymczasowo na ten sam adres co kontakt ogólny (D6), z tematem „Rekrutacja"                                                          |
-| **Forma przyjmowania CV**          | `/kariera/`          | nie       | Dziś: załącznik do wiadomości. Formularza z uploadem nie da się zrobić bez warstwy serwerowej (D2)                                                 |
-| **Dokładny zakres zaświadczenia**  | `/kariera/`          | nie       | Strona mówi ogólnie „zgodnie z obowiązującymi wymaganiami". Doprecyzowanie wymaga decyzji właściciela                                              |
-| **`og:image` dla trzech podstron** | wszystkie            | nie       | Wspólny brak z G-03 — żadna strona serwisu nie ma jeszcze obrazka Open Graph                                                                       |
+| Brak                               | Gdzie potrzebne      | Blokujący     | Uwagi                                                                                                                              |
+| ---------------------------------- | -------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Cena zajęć dla seniorów**        | `/cennik/`           | **ZAMKNIĘTY** | Właściciel przekazał **45 zł / 60 min** 16.09.2026. Stoi na `/cennik/`. `/oferta/seniorzy/` nadal ceny nie podaje — do uzgodnienia |
+| **Cena lekcji online 1:1**         | `/cennik/`           | **ZAMKNIĘTY** | Właściciel przekazał **120 zł / 60 min** 16.09.2026. Stoi na `/cennik/`. `/oferta/online/` nadal ceny nie podaje — do uzgodnienia  |
+| **Terminy i harmonogram**          | obie strony ofertowe | nie           | Żadna podstrona nie podaje dni ani godzin                                                                                          |
+| **Osobna skrzynka rekrutacyjna**   | `/kariera/`          | nie           | Zgłoszenia idą tymczasowo na ten sam adres co kontakt ogólny (D6), z tematem „Rekrutacja"                                          |
+| **Forma przyjmowania CV**          | `/kariera/`          | nie           | Dziś: załącznik do wiadomości. Formularza z uploadem nie da się zrobić bez warstwy serwerowej (D2)                                 |
+| **Dokładny zakres zaświadczenia**  | `/kariera/`          | nie           | Strona mówi ogólnie „zgodnie z obowiązującymi wymaganiami". Doprecyzowanie wymaga decyzji właściciela                              |
+| **`og:image` dla trzech podstron** | wszystkie            | nie           | Wspólny brak z G-03 — żadna strona serwisu nie ma jeszcze obrazka Open Graph                                                       |
 
 ### Fakty przekazane przez właściciela przy tej zmianie
 
@@ -151,15 +151,17 @@ wzorzec „liczba zł / liczba min".
   do sekcji o sposobie prowadzenia zajęć — to najbliższe temu, czym High Five jest. Prawdziwa
   sekcja o szkole wymaga faktów od właściciela: historii, kwalifikacji, ewentualnego zespołu.
   §4 zabrania ich wymyślania.
-- **Czas trwania zajęć dla seniorów i online** — strony nie podają ani długości lekcji,
-  ani harmonogramu. Dla kursu egzaminacyjnego brak został **zamknięty** 15.09.2026:
-  właściciel przekazał 80 zł za 90 minut i wartość stoi na `/oferta/egzamin-osmoklasisty/`.
-- **SPRZECZNOŚĆ DO ROZSTRZYGNIĘCIA — cena kursu egzaminacyjnego w dwóch miejscach.**
-  Podstrona kursu podaje `80 zł / 90 min`, a `/cennik/` nadal mówi „Cena kursu nie została
-  jeszcze ustalona — zapytaj o nią przy kontakcie". Rodzic porównujący obie strony zobaczy
-  dwie różne odpowiedzi na to samo pytanie. Poprawka to jeden akapit w `cennik/index.html`,
-  ale właściciel ograniczył zakres zadania wyłącznie do podstrony kursu, więc **czeka
-  na jego decyzję**. Do tego czasu nie zmieniaj `/cennik/` samodzielnie.
+- **Czas trwania zajęć dla seniorów i online** — brak **zamknięty** 16.09.2026 razem
+  z cenami: 60 minut dla obu. Harmonogram nadal nieznany.
+- **SPRZECZNOŚĆ CENY KURSU EGZAMINACYJNEGO — zamknięta 16.09.2026.** `/cennik/` mówiło
+  „Cena kursu nie została jeszcze ustalona", podczas gdy podstrona kursu podawała
+  `80 zł / 90 min`. Przebudowa `/cennik/` postawiła tam tę samą wartość.
+- **DO ROZSTRZYGNIĘCIA — ceny na podstronach produktowych.** `/cennik/` podaje dziś
+  cztery stawki, ale `/oferta/seniorzy/` i `/oferta/online/` nadal żadnej nie podają.
+  To nie jest sprzeczność — to niepełna informacja w jednym z dwóch miejsc, w których
+  rodzic jej szuka. §13 mówi, że **cena należy do produktu**, więc docelowo obie
+  podstrony powinny ją nieść. Właściciel ograniczył zakres przebudowy wyłącznie
+  do `/cennik/`, więc **czeka to na jego decyzję** — nie zmieniaj podstron samodzielnie.
 - **Osobna skrzynka rekrutacyjna** — zgłoszenia z `/kariera` idą na ten sam adres co kontakt
   ogólny, z tematem „Rekrutacja".
 - **`og:image`** — żadna z dziewięciu stron nie ma jeszcze obrazka Open Graph.
