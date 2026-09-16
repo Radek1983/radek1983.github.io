@@ -711,7 +711,7 @@
            Bez fikcyjnego licznika zapisanych dzieci.
            ============================================================ -->
       <section
-        class="section"
+        class="section enrollment"
         id="nabor"
         data-animation="section"
         data-theme="ink"
@@ -723,23 +723,28 @@
               <span>08</span>
               <span>Nabór 2026 · klasy 1-7</span>
             </p>
-            <h2 class="u-display" id="nabor-title" data-animation="reveal">
-              Grupa rusza od piątego dziecka.
+            <!--
+              Kropka w czerwieni - jedyny akcent koloru w typografii sekcji.
+              Osobny <span>, bo to zmiana KOLORU, nie kroju ani stopnia.
+            -->
+            <h2 class="u-display enrollment__claim" id="nabor-title" data-animation="reveal">
+              5 dzieci i&nbsp;startujemy<span class="enrollment__dot">.</span>
             </h2>
           </div>
 
           <div class="enrollment__grid">
             <div class="enrollment__fact">
               <p class="enrollment__figure">5</p>
-              <p class="enrollment__caption">
-                Tyle dzieci musi zebrać się w grupie, żeby zajęcia wystartowały.
-              </p>
+              <p class="enrollment__caption">Minimum 5 dzieci w grupie, żeby wystartować.</p>
             </div>
 
             <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
             <div class="enrollment__fact enrollment__fact--date" data-temporary="nabor-2026">
-              <p class="enrollment__figure">01.10</p>
-              <p class="enrollment__caption">Planowany start zajęć: 1 października 2026.</p>
+              <p class="enrollment__figure">
+                01.10
+                <span class="enrollment__year">2026</span>
+              </p>
+              <p class="enrollment__caption">Planowany start zajęć.</p>
             </div>
             <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
 
@@ -747,10 +752,17 @@
               <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
               <p class="enrollment__badge" data-temporary="nabor-2026">Zbieramy grupy</p>
               <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
-              <p class="u-lead">
-                Każda grupa rozpoczyna zajęcia po zebraniu minimum 5 dzieci. Po zgłoszeniu
-                skontaktujemy się w sprawie klasy, poziomu, terminu oraz aktualnego statusu grupy.
+
+              <!--
+                Zdanie o minimum 5 dzieci zeszlo stad: ta sama informacja stoi
+                juz w pierwszej kolumnie i w naglowku sekcji. Trzy razy to samo
+                w jednym ekranie czytalo sie jak zacinajaca sie plyta.
+              -->
+              <p class="enrollment__lead">
+                Po zgłoszeniu skontaktujemy się w&nbsp;sprawie klasy, poziomu, terminu
+                i&nbsp;aktualnego statusu grupy.
               </p>
+
               <a class="cta" href="#kontakt">
                 Zapisz się na zajęcia
                 <span class="cta__arrow" aria-hidden="true">→</span>

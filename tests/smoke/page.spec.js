@@ -187,8 +187,15 @@ test.describe('tresc i SEO', () => {
     })
     expect(nieoznaczone).toEqual([])
 
-    // Naglowek sekcji 07 opisuje warunek staly, nie date.
-    await expect(page.locator('#nabor-title')).toContainText(/piątego dziecka/i)
+    /*
+     * Naglowek sekcji 08 opisuje warunek STALY, nie date - dlatego zostaje
+     * na stronie takze po 1 pazdziernika. Brzmienie wlasciciel zmienil
+     * 16.09.2026 z "Grupa rusza od piątego dziecka." na "5 dzieci
+     * i startujemy."; warunek jest ten sam, wiec test pilnuje intencji
+     * (minimum grupy bez daty), a nie konkretnego zdania.
+     */
+    await expect(page.locator('#nabor-title')).toContainText(/5\s*dzieci/i)
+    await expect(page.locator('#nabor-title')).not.toContainText(/pa[zż]dziernik|2026/i)
 
     // Czerwony baner zostal usuniety - nabor nie ma wlasnego pasa na stronie.
     await expect(page.locator('.notice')).toHaveCount(0)
