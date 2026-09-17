@@ -3,134 +3,29 @@
  *
  * Każdy selektor jest zakotwiczony w `[data-page='dzieci']`, który stoi
  * na <body> tylko tutaj. `data-section="oferta"` noszą wszystkie cztery
- * strony produktowe, a `.section`, `.container` i `[data-theme]` są
- * wspólne dla całego serwisu — bez tego kotwiczenia zmiana sięgnęłaby
- * poza tę stronę.
+ * strony produktowe, więc bez tego kotwiczenia zmiana sięgnęłaby poza
+ * tę stronę.
  *
- * Dotyczy jednej rzeczy: czerwonego aktu ZAPISÓW, który zamyka stronę.
- * Wcześniej stało tu zwykłe zamknięcie z kapsułą wezwania; właściciel
- * zastąpił je plakatem według obrazu referencyjnego.
- *
- * Zero ikon, zero zaokrągleń, zero cieni, zero kart — §7 i §8 kontraktu.
- * Cała kompozycja stoi na kolorze, skali typografii, kreskach i przestrzeni.
+ * Plik nie opisuje wyglądu sekcji zapisów — ten żyje w
+ * `components/enroll.css`, wspólnym z podstroną egzaminacyjną. Tutaj
+ * zostają wyłącznie WARTOŚCI, którymi ta strona różni się od tamtej.
+ * Obie zostały zatwierdzone osobno i mają celowo inne proporcje:
+ * tu nagłówek jest większy, a pas przestronniejszy.
  */
 
 [data-page='dzieci'] {
-  /* Odstęp pasa. Osobny token, bo odejmuje go scroll-margin kotwicy. */
-  --space-enroll-start: clamp(3rem, 7.5vw, 7.5rem);
-  --space-enroll-end: clamp(3rem, 7vw, 7rem);
-}
-
-[data-page='dzieci'] .enroll {
-  padding-block: var(--space-enroll-start) var(--space-enroll-end);
+  /* Nagłówek: największy na tej stronie, w jednym wierszu na pełną siatkę. */
+  --space-enroll-title: var(--space-6);
+  --step-enroll-title: clamp(2.5rem, 9.4vw, 9.25rem);
 
   /*
-   * Kotwica z mega-menu. Globalna reguła w base/reset.css zatrzymuje skok
-   * pod sticky headerem, ale nie wie nic o odstępie tej sekcji — bez
-   * odjęcia go etykieta „Zapisy" lądowała pół ekranu niżej niż krawędź
-   * czerwieni. Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
+   * Lead jest wyraźnie mniejszy od nagłówka, ale nadal duży - to drugi
+   * poziom hierarchii, nie tekst pomocniczy. Miara trzyma go z dala od
+   * prawej krawędzi, żeby nie czytał się jak akapit na całą szerokość.
    */
-  scroll-margin-block-start: calc(
-    var(--header-h, 4rem) + var(--space-4) - var(--space-enroll-start)
-  );
-}
-
-[data-page='dzieci'] .enroll__eyebrow {
-  opacity: 0.72;
-}
-
-/*
- * Nagłówek wypełnia szerokość siatki — to jest cała kompozycja górnej
- * części sekcji. WŁASNY stopień, nie --step-display: tamten niesie nagłówki
- * sekcji 11 i 12 strony głównej, a dwunastka jest zamknięta (D13).
- */
-[data-page='dzieci'] .enroll__title {
-  margin-block-start: var(--space-6);
-  font-size: clamp(2.5rem, 9.4vw, 9.25rem);
-  line-height: var(--leading-caps);
-  letter-spacing: var(--tracking-display);
-}
-
-/*
- * Lead jest wyraźnie mniejszy od nagłówka, ale nadal duży — to drugi
- * poziom hierarchii, nie tekst pomocniczy. Miara trzyma go z dala od
- * prawej krawędzi, żeby nie czytał się jak akapit na całą szerokość.
- */
-[data-page='dzieci'] .enroll__lead {
-  margin-block-start: var(--space-8);
-  max-inline-size: 30ch;
-  font-size: clamp(1.125rem, 2.05vw, 2rem);
-  line-height: 1.35;
-}
-
-/* --- Trzy drogi kontaktu ------------------------------------------------- */
-
-[data-page='dzieci'] .enroll__grid {
-  display: grid;
-  gap: var(--space-8) clamp(2rem, 3.6vw, 3.75rem);
-  margin-block-start: clamp(2.5rem, 5vw, 5rem);
-}
-
-/*
- * Kreska nad kolumną jest OBRAMOWANIEM elementu, nie osobnym <hr>.
- * Dzięki temu na wąskim ekranie schodzi razem ze swoją parą etykieta-wartość
- * i nie trzeba jej osobno ukrywać ani przestawiać.
- */
-[data-page='dzieci'] .enroll__item {
-  padding-block-start: var(--space-4);
-  border-block-start: 1px solid color-mix(in srgb, var(--color-text) 55%, transparent);
-}
-
-[data-page='dzieci'] .enroll__label {
-  font-size: clamp(0.75rem, 0.95vw, 0.875rem);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  opacity: 0.72;
-}
-
-[data-page='dzieci'] .enroll__value {
-  margin: var(--space-3) 0 0;
-  font-size: clamp(1.0625rem, 1.85vw, 1.625rem);
-  line-height: 1.2;
-
-  /*
-   * Adres e-mail jest najdłuższym nierozdzielnym ciągiem na stronie.
-   * Bez tego przy wąskiej kolumnie wychodził poza sekcję - `overflow-x: clip`
-   * na `.section` ukryłby nadmiar, ale adres byłby ucięty w połowie.
-   */
-  overflow-wrap: anywhere;
-}
-
-/*
- * Odnośnik bez kapsuły: w tej sekcji NIE MA przycisku, a dane kontaktowe
- * mają być dostępne wprost. Podkreślenie pojawia się dopiero przy kursorze,
- * żeby w spoczynku trzy kolumny czytały się jak jeden blok danych.
- */
-[data-page='dzieci'] .enroll__value a {
-  color: inherit;
-  text-decoration: none;
-}
-
-[data-page='dzieci'] .enroll__value a:hover,
-[data-page='dzieci'] .enroll__value a:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-}
-
-/* Jedna wspólna kreska pod kolumnami, przez całą szerokość siatki. */
-[data-page='dzieci'] .enroll__note {
-  margin-block-start: clamp(2rem, 3.6vw, 3.5rem);
-  padding-block-start: var(--space-4);
-  border-block-start: 1px solid color-mix(in srgb, var(--color-text) 55%, transparent);
-  max-inline-size: 70ch;
-  font-size: clamp(0.8125rem, 1vw, 0.9375rem);
-  line-height: 1.5;
-  opacity: 0.82;
-}
-
-@media (width >= 48rem) {
-  [data-page='dzieci'] .enroll__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  --space-enroll-lead: var(--space-8);
+  --measure-enroll-lead: 30ch;
+  --step-enroll-lead: clamp(1.125rem, 2.05vw, 2rem);
+  --space-enroll-grid: clamp(2.5rem, 5vw, 5rem);
+  --space-enroll-note: clamp(2rem, 3.6vw, 3.5rem);
 }

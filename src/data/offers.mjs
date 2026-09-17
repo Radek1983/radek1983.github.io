@@ -105,7 +105,11 @@ export const CTA = {
    * zachowuje swoje cele.
    */
   'oferta/dzieci/index.html': { label: 'Zapisz dziecko', href: '#zapisy-klasy-1-7' },
-  'oferta/egzamin-osmoklasisty/index.html': { label: 'Zapytaj o grupę', href: '/#kontakt' },
+  /* Ta strona ma WLASNA sekcje zapisow, wiec wezwanie zostaje na niej. */
+  'oferta/egzamin-osmoklasisty/index.html': {
+    label: 'Zapytaj o grupę',
+    href: '#zapisy-egzamin-osmoklasisty',
+  },
   'oferta/seniorzy/index.html': { label: 'Zapytaj o miejsce', href: '/#kontakt' },
   'oferta/online/index.html': { label: 'Umów lekcję', href: '/#kontakt' },
   'lokalizacje/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },

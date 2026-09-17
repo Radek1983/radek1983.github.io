@@ -81,10 +81,18 @@
                 zwiększają pewność przed egzaminem.
               </p>
 
-              <a class="cta" href="/#kontakt" data-animation="fade-up">
-                Zapytaj o grupę
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - swiadomie, decyzja wlasciciela z 17.09.2026.
+
+                Stalo tu drugie "Zapytaj o grupe", prowadzace na /#kontakt, czyli
+                w INNE miejsce niz to samo wezwanie w naglowku strony, ktore od
+                tej samej zmiany celuje w sekcje #zapisy-egzamin-osmoklasisty
+                na dole tej strony. Dwa przyciski o tej samej nazwie i dwoch
+                roznych celach to nie jest wybor, tylko pomylka do zrobienia.
+
+                Droga kontaktu zostaje jedna i jest widoczna przez caly czas:
+                wezwanie w sticky naglowku.
+              -->
             </div>
 
             <!--
@@ -397,28 +405,67 @@
       </section>
 
       <!-- ============================================================
-           06 CTA KONCOWE — zwarty czerwony pas
+           06 ZAPISY — czerwony akt zamykajacy podstrone egzaminacyjna
+
+           To NIE jest sekcja "Kontakt", tylko sekcja ZAPISOW: pyta wprost
+           o decyzje i od razu podaje trzy drogi kontaktu, bez przycisku.
+           Wezwanie w naglowku strony celuje w te kotwice, wiec przycisk
+           w tym miejscu bylby drugim wezwaniem do tej samej rzeczy.
+
+           Kotwica `#zapisy-egzamin-osmoklasisty` jest celem CTA z mega-menu
+           WYLACZNIE na tej podstronie - mapa CTA w src/data/offers.mjs jest
+           kluczowana sciezka pliku, wiec pozostale strony maja swoje cele.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="zapisy-egzamin-osmoklasisty"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="egzamin-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="egzamin-cta" data-animation="fade-up">
-              Chcesz dołączyć?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas — odezwiemy się w&nbsp;sprawie terminu, poziomu i&nbsp;statusu grupy.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kontakt · egzamin ósmoklasisty</span>
+          </p>
 
-          <a class="cta cta--large cta--ink" href="/#kontakt" data-animation="fade-up">
-            Zapytaj o grupę
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <h2 class="u-display enroll__title" id="egzamin-cta" data-animation="fade-up">
+            Masz pytanie o&nbsp;grupę?
+          </h2>
+
+          <!--
+            Lamanie jest kompozycyjne: dwa wiersze jak na projekcie. Nie wiaze
+            krotkiego slowa, wiec <br /> jest tu na miejscu (par. 5 kontraktu).
+          -->
+          <p class="enroll__lead" data-animation="fade-up">
+            Napisz lub zadzwoń. Odpowiemy w&nbsp;sprawie<br />
+            terminu, poziomu i&nbsp;statusu grupy.
+          </p>
+
+          <!--
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            W ciągu dnia lektor pracuje w&nbsp;szkole, dlatego preferujemy kontakt mailowy.
+          </p>
         </div>
       </section>
     </main>

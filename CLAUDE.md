@@ -770,7 +770,15 @@ właściciela. Tag: `zatwierdzone/dzieci`.
 Zamiast zwykłego bloku kontaktowego z kapsułą stoi tu **czerwony akt ZAPISÓW**, a wezwanie
 z nagłówka strony celuje w jego kotwicę zamiast odsyłać na stronę główną.
 
-Co jest zamrożone — `oferta/dzieci/index.html` i `src/css/pages/dzieci.css`:
+Co jest zamrożone — `oferta/dzieci/index.html`, `src/css/pages/dzieci.css`
+i **wspólny komponent `src/css/components/enroll.css`**:
+
+Wygląd sekcji przeniósł się do komponentu 18.09.2026, gdy podstrona
+egzaminacyjna dostała tę samą sekcję. Właściciel wyraził na to zgodę wprost.
+`pages/dzieci.css` trzyma odtąd wyłącznie WARTOŚCI, którymi ta strona różni
+się od tamtej — nagłówek jest tu większy. **Nie ujednolicaj tych wartości:
+obie strony zatwierdzono osobno.** Zmiana w komponencie dotyka dwóch stron
+naraz, więc po każdej uruchom oba zamki.
 
 - sekcja `#zapisy-klasy-1-7` na czerwieni marki, zamykająca `<main>` tuż nad stopką:
   etykieta → plakatowy nagłówek `Gotowi na start?` → dwuwierszowy lead → trzy drogi
@@ -902,8 +910,14 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 
 - **Mapa `CTA` w `src/data/offers.mjs` jest kluczowana ścieżką pliku.** Zmieniając cel
   wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości domyślnej i nigdy
-  kotwicy wpisanej na sztywno w partialu nagłówka. `/oferta/dzieci/` celuje w kotwicę
-  u siebie (D18), pozostałe osiem stron w `/#kontakt` albo `#aplikacja`.
+  kotwicy wpisanej na sztywno w partialu nagłówka. `/oferta/dzieci/` (D18)
+  i `/oferta/egzamin-osmoklasisty/` celują w kotwice u siebie, pozostałe siedem stron
+  w `/#kontakt` albo `#aplikacja`.
+
+- **`src/css/components/enroll.css` obsługuje DWIE strony naraz** — czerwony akt zapisów
+  na obu podstronach ofertowych. Jedna z nich jest zamknięta (D18), więc po każdej zmianie
+  w tym pliku uruchom `tests/e2e/dzieci.spec.js`. Wartości, którymi strony się różnią,
+  siedzą w ich własnych warstwach i **nie mają być ujednolicane**.
 
 - **Podmiana odnośnika jest jedyną zmianą dopuszczoną w `/cennik/`** bez pytania —
   gdy zmieni się adres podstrony ofertowej. Poprawiasz wtedy `href` i asercję w teście.

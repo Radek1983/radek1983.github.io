@@ -123,7 +123,8 @@ test.describe('/oferta/dzieci/ - strona zatwierdzona', () => {
     for (const [url, cel] of [
       ['/', '/#kontakt'],
       ['/oferta/', '/#kontakt'],
-      ['/oferta/egzamin-osmoklasisty/', '/#kontakt'],
+      // Strona egzaminacyjna dostala wlasna sekcje zapisow 17.09.2026.
+      ['/oferta/egzamin-osmoklasisty/', '#zapisy-egzamin-osmoklasisty'],
       ['/oferta/seniorzy/', '/#kontakt'],
       ['/oferta/online/', '/#kontakt'],
       ['/cennik/', '/#kontakt'],

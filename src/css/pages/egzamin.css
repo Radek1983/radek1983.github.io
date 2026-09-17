@@ -45,6 +45,30 @@
  */
 [data-page='egzamin'] {
   --step-egzamin-claim: clamp(2rem, 4.4vw, 4.25rem);
+
+  /*
+   * --- Sekcja zapisów (komponent `components/enroll.css`) ---
+   *
+   * Odstęp pasa jest wspólny dla obu stron i stoi w komponencie.
+   * Tutaj wyłącznie to, czym ta strona się od tamtej różni.
+   *
+   * Odstęp liczony do TUSZU, nie do pudełka: nagłówek nosi padding
+   * anty-clippingowy 0.18em z warstwy typografii, więc trzeba go odjąć,
+   * inaczej realna przerwa jest o tyle większa od zadanej. `em` rozwiąże
+   * się przy UŻYCIU tokenu, czyli względem stopnia nagłówka — o to chodzi.
+   */
+  --space-enroll-title: calc(var(--space-6) - 0.18em);
+
+  /*
+   * Nagłówek mniejszy niż na stronie klas 1-7: zdanie jest dłuższe o pięć
+   * znaków, a ma stać w JEDNYM wierszu na pełną szerokość siatki.
+   */
+  --step-enroll-title: clamp(1.875rem, 6.95vw, 6.5rem);
+  --space-enroll-lead: var(--space-6);
+  --measure-enroll-lead: 34ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+  --space-enroll-grid: clamp(2rem, 4vw, 4rem);
+  --space-enroll-note: clamp(1.75rem, 3.2vw, 3rem);
 }
 
 /*
@@ -431,12 +455,40 @@
 }
 
 /* ============================================================
-   06 CTA końcowe
+   06 ZAPISY — czerwony akt zamykający stronę
    ============================================================ */
 
-/* Zwarty pas, nie ekran - ta sama zasada co przy czarnym pasie. */
-[data-page='egzamin'] .closing {
-  padding-block: clamp(2.25rem, 3.5vw, 3.5rem);
+/*
+ * Wygląd sekcji żyje w `components/enroll.css`, wspólnym z podstroną
+ * klas 1-7. Zastąpiła ona 17.09.2026 zwykłe zamknięcie z kapsułą, którego
+ * jedyną regułą było tu zwężenie pasa.
+ *
+ * Zerujemy DOLNY margines etykiety. Wspólna reguła `.section__label` tej
+ * podstrony daje 32 px, a marginesy sąsiadujących bloków SIĘ SKLEJAJĄ —
+ * wygrywa większa z dwóch wartości. Dlatego samo zmniejszanie marginesu
+ * nagłówka nie mogło zadziałać: cały odstęp pochodził stąd. Teraz ustawia
+ * go wyłącznie nagłówek, jednym miejscem. Reguła zostaje tutaj, a nie
+ * w komponencie, bo naprawia zachowanie właściwe tej stronie.
+ */
+
+/*
+ * Odstęp pasa MUSI zostać powtórzony pod kotwicą strony.
+ *
+ * Ta sama pułapka co przy hero wyżej: scoped `[data-page='egzamin'] .section`
+ * ma wyższą specyficzność niż `.enroll` z komponentu i cicho go nadpisywał —
+ * pas trzymał 57.6 px zamiast zadanych 43 px, a skok z menu zatrzymywał się
+ * 73 px pod nagłówkiem zamiast 16 px, bo scroll-margin odejmował wartość,
+ * której padding faktycznie nie miał.
+ *
+ * Wartości biorą te same tokeny co komponent, więc nie ma tu drugiego
+ * źródła prawdy — jest wyłącznie podbicie specyficzności.
+ */
+[data-page='egzamin'] .enroll {
+  padding-block: var(--space-enroll-start) var(--space-enroll-end);
+}
+
+[data-page='egzamin'] .enroll__eyebrow {
+  margin-block-end: 0;
 }
 
 /* ============================================================
