@@ -59,12 +59,17 @@ test.describe('higiena językowa', () => {
    * Serwis pisze wtrącenia myślnikiem (—). Półpauza (–) wchodziła przez
    * autokorektę edytora i to samo zdanie na dwóch stronach miało dwa różne
    * znaki. Konsekwencja jest tu tańsza niż dyskusja o typografii.
+   *
+   * WYJĄTEK: półpauza między cyframi to ZAKRES, nie wtrącenie — `17:00–21:00`
+   * w sekcji zapisów na /oferta/dzieci/ jest typograficznie poprawne i zostało
+   * tak zamówione przez właściciela wprost. Zakaz dotyczy więc półpauzy, która
+   * nie ma cyfry po obu stronach.
    */
   test('wtrącenia zapisujemy jednym znakiem', async ({ page }) => {
     for (const url of STRONY) {
       await page.goto(url)
       const t = await tekst(page)
-      expect(t, `półpauza zamiast myślnika na ${url}`).not.toMatch(/–/)
+      expect(t, `półpauza zamiast myślnika na ${url}`).not.toMatch(/(?<!\d)–|–(?!\d)/)
     }
   })
 

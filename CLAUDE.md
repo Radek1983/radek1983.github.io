@@ -97,6 +97,10 @@ To jedyne dane, które wolno publikować:
   wliczane do płatności. Zajęcia opłacone, które nie odbędą się z nieplanowanej przyczyny,
   odliczamy od płatności za kolejny miesiąc. Przekazane przez właściciela 16.09.2026.
   **Nie upraszczaj tego do „płacisz tylko za odbyte zajęcia"** — rozliczenie idzie z góry.
+- **Godziny kontaktu telefonicznego: 17:00–21:00.** W ciągu dnia lektor pracuje w szkole,
+  więc najszybszą drogą jest e-mail. Przekazane przez właściciela 17.09.2026 wraz
+  z przebudową sekcji zapisów na `/oferta/dzieci/` — jedyne miejsce, gdzie te godziny
+  są publikowane. To **nie jest** grafik zajęć, którego §4 zabrania wymyślać.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
@@ -427,25 +431,26 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #       | Temat                                  | Decyzja                                                                                                                                                                                                                          |
-| ------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1**  | Środowisko lokalne                     | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                              |
-| **D2**  | Konwersja                              | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                     |
-| **D3**  | Adres                                  | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                      |
-| **D4**  | Fotografia                             | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                            |
-| **D5**  | Wersje narzędzi                        | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                            |
-| **D6**  | Dane kontaktowe                        | **Docelowe:** e-mail `highfive.zapisy@gmail.com`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
-| **D7**  | Sekcja 01 hero                         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                  |
-| **D8**  | Sekcja 02 po lekcjach                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                   |
-| **D9**  | Sekcja 03 co dziecko zyskuje           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                             |
-| **D10** | Sekcje 04 nasza oferta i 06 jak uczymy | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                             |
-| **D11** | Sekcja 05 o High Five                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                               |
-| **D12** | Sekcja 07 cennik · klasy 1-7           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                   |
-| **D13** | Sekcja 12 kontakt                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                             |
-| **D14** | Sekcja 08 nabór 2026 · klasy 1-7       | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                           |
-| **D15** | Sekcja 09 lokalizacje                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                           |
-| **D16** | Sekcja 10 dodatkowo · seniorzy         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                               |
-| **D17** | Podstrona `/cennik/`                   | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian** poza podmianą odnośników. Zatwierdzona 16.09.2026 po przebudowie na cztery akty kolorystyczne. Szczegóły niżej                                                                        |
+| #       | Temat                                  | Decyzja                                                                                                                                                                                                                         |
+| ------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1**  | Środowisko lokalne                     | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                             |
+| **D2**  | Konwersja                              | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                    |
+| **D3**  | Adres                                  | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                     |
+| **D4**  | Fotografia                             | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                           |
+| **D5**  | Wersje narzędzi                        | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                           |
+| **D6**  | Dane kontaktowe                        | **Docelowe:** e-mail `kontakt@highfive.academy`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7**  | Sekcja 01 hero                         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                 |
+| **D8**  | Sekcja 02 po lekcjach                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                  |
+| **D9**  | Sekcja 03 co dziecko zyskuje           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D10** | Sekcje 04 nasza oferta i 06 jak uczymy | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D11** | Sekcja 05 o High Five                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                              |
+| **D12** | Sekcja 07 cennik · klasy 1-7           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                  |
+| **D13** | Sekcja 12 kontakt                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D14** | Sekcja 08 nabór 2026 · klasy 1-7       | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                          |
+| **D15** | Sekcja 09 lokalizacje                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                          |
+| **D16** | Sekcja 10 dodatkowo · seniorzy         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                              |
+| **D17** | Podstrona `/cennik/`                   | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian** poza podmianą odnośników. Zatwierdzona 16.09.2026 po przebudowie na cztery akty kolorystyczne. Szczegóły niżej                                                                       |
+| **D18** | Podstrona `/oferta/dzieci/`            | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 17.09.2026 po przebudowie zamknięcia na czerwony akt zapisów. Szczegóły niżej                                                                                          |
 
 ### D5 — konsekwencje
 
@@ -458,15 +463,23 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 ### D6 — konsekwencje
 
 - Obie wartości trzymane w **jednym miejscu w kodzie** — `KONTAKT` w `src/data/offers.mjs`.
-  Podmiana z danych tymczasowych na docelowe była dzięki temu jedną zmianą w jednym pliku,
-  rozniesioną przy budowaniu na wszystkie dziewięć stron.
+  Adres zmieniano dzięki temu dwa razy jedną linią, rozniesioną przy budowaniu na
+  wszystkie dziewięć stron, do stopki, do JSON-LD i do szkiców `mailto:`.
 - Wyświetlanie `+48 790 266 517`, atrybut `tel:+48790266517`.
-- Content gap „dane kontaktowe" jest **zamknięty**. Otwarta zostaje wyłącznie skrzynka
-  we własnej domenie (G-17): adres jest firmowy, ale stoi u publicznego dostawcy.
-  Przejście na `kontakt@<domena>` po zakupie domeny (D3). **Domeny nie wymyślamy.**
+- **Skrzynka we własnej domenie — załatwione 16.09.2026.** Adres zszedł z publicznego
+  dostawcy na `kontakt@highfive.academy`; domenę przekazał właściciel, nie została
+  wymyślona. To zamyka G-17. **Uwaga: domena poczty nie jest domeną serwisu** — strona
+  nadal stoi pod `radek1983.github.io` (D3) i adres kanoniczny zostaje bez zmian.
+- **Jeden wyjątek od „jednego źródła": sekcja zapisów na `/oferta/dzieci/`.** Niesie
+  osobny adres zapisowy `highfive.zapisy@gmail.com`, wpisany wprost w HTML, nie przez
+  `{{EMAIL}}`. Decyzja właściciela z 17.09.2026. To **nie jest pozostałość** po starej
+  wartości — skrzynka zapisowa jest czymś innym niż ogólny adres kontaktowy, który stoi
+  w stopce i w sekcji 12. Zakaz powrotu gmaila obowiązuje więc na ośmiu stronach,
+  nie na dziewięciu.
 - Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko.
-- Stare wartości nie mogą wrócić: pilnuje tego test w `tests/e2e/regressions.spec.js`,
-  który skanuje wszystkie dziewięć stron.
+- **Żadna stara wartość nie może wrócić** — ani konto prywatne z czasu budowy, ani
+  skrzynka na gmailu. Pilnuje tego test w `tests/e2e/regressions.spec.js`, który
+  skanuje wszystkie dziewięć stron.
 
 ### D7 — sekcja 01 hero jest zamknięta
 
@@ -588,9 +601,11 @@ właściciela. Tag: `zatwierdzone/cennik`.
 
 Co jest zamrożone — blok `#cennik` w `index.html` i `src/css/sections/pricing.css`:
 
-- **panel A:** nagłówek `Prosta cena. Bez abonamentu.`, ceny `55` i `50` w jednostce
+- **panel A:** nagłówek `Prosta cena.`, ceny `55` i `50` w jednostce
   `zł / 45 min`, przypis `Podane ceny dotyczą regularnych zajęć grupowych dla klas 1-7
-w SP 402.` — **bez odnośnika**;
+w SP 402.` — **bez odnośnika**. Nagłówek skrócił się 16.09.2026: właściciel zdjął
+  `Bez abonamentu.` mimo zamknięcia sekcji i wyraził na to zgodę wprost. Zdanie o braku
+  stałej opłaty niesie dalej panel B, więc treść niczego nie straciła;
 - **panel B:** nagłówek `Płacisz za zajęcia, które się odbywają.` i trzy zasady z tytułem
   oraz jednym zdaniem wyjaśnienia (`Bez stałej miesięcznej opłaty`, `Bez opłat za dni wolne`,
   `Grupa rusza od 5 osób`);
@@ -747,6 +762,46 @@ Dwie pułapki zapisane w kodzie, żeby nikt ich nie powtórzył:
 
 Pilnuje tego `tests/e2e/cennik.spec.js`.
 
+### D18 — podstrona `/oferta/dzieci/` jest zamknięta
+
+Zatwierdzona **17.09.2026** po przebudowie zamknięcia strony według obrazu referencyjnego
+właściciela. Tag: `zatwierdzone/dzieci`.
+
+Zamiast zwykłego bloku kontaktowego z kapsułą stoi tu **czerwony akt ZAPISÓW**, a wezwanie
+z nagłówka strony celuje w jego kotwicę zamiast odsyłać na stronę główną.
+
+Co jest zamrożone — `oferta/dzieci/index.html` i `src/css/pages/dzieci.css`:
+
+- sekcja `#zapisy-klasy-1-7` na czerwieni marki, zamykająca `<main>` tuż nad stopką:
+  etykieta → plakatowy nagłówek `Gotowi na start?` → dwuwierszowy lead → trzy drogi
+  kontaktu → jedna wspólna kreska → zdanie o odpowiadaniu mailem;
+- **w tej sekcji NIE MA przycisku.** Dane kontaktowe mają być dostępne od razu, a nie
+  za kolejnym klikiem — warunek postawiony przez właściciela wprost;
+- nagłówek **wypełnia szerokość siatki** i stoi w jednym wierszu. Poniżej 85 % przestaje
+  być plakatem, powyżej 100 % ucina go `overflow-x: clip` sekcji;
+- trzy kolumny **równe co do piksela**, każda z własną kreską u góry; kreska jest
+  obramowaniem elementu, nie osobnym `<hr>`, więc na wąskim ekranie schodzi razem
+  ze swoją parą etykieta–wartość;
+- **osobny adres zapisowy** `highfive.zapisy@gmail.com`, wpisany wprost, nie przez
+  `{{EMAIL}}` — patrz wyjątek w D6. Ogólny adres serwisu stoi dalej w stopce tej samej
+  strony i **nie wolno ich ujednolicać**;
+- godziny `17:00–21:00` z **półpauzą** — to zakres, nie łącznik.
+
+**Droga zapisu jest jedna.** W hero stało drugie wezwanie o tej samej nazwie
+(`Zapisz dziecko`) prowadzące na `/#kontakt`, czyli w zupełnie inne miejsce niż wezwanie
+z nagłówka. Właściciel kazał je zdjąć 17.09.2026 — **nie przywracaj go**. Wszystkie
+wezwania `Zapisz dziecko` na tej stronie celują dziś w `#zapisy-klasy-1-7`.
+
+**Cel wezwania zmienił się WYŁĄCZNIE tutaj.** Mapa `CTA` w `src/data/offers.mjs` jest
+kluczowana ścieżką pliku, więc wystarczyła jedna wartość. Nie wpisuj tej kotwicy globalnie:
+pozostałe osiem stron celowałoby w sekcję, której u siebie nie ma.
+
+`scroll-margin-block-start` sekcji **odejmuje jej własny odstęp** od globalnej wartości
+z `base/reset.css` — bez tego etykieta lądowała pół ekranu niżej niż czerwona krawędź.
+Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
+
+Pilnuje tego `tests/e2e/dzieci.spec.js`.
+
 ### D2 — mechanika i konsekwencje
 
 CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
@@ -828,22 +883,27 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie zmieniaj sekcji i stron zamkniętych. Na stronie głównej zamknięte jest dziś
   wszystko poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje,
   04 nasza oferta, 05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026,
-  09 lokalizacje, 10 seniorzy, 12 kontakt. Zamknięta jest też cała podstrona
-  `/cennik/`** — patrz D7–D17 w §15. Dotyczy to również zmian pośrednich: tokenów,
-  od których te sekcje zależą, i reguł globalnych, które na nie wpływają.
-  Po każdej zmianie w pozostałych sekcjach uruchom:
+  09 lokalizacje, 10 seniorzy, 12 kontakt. Zamknięte są też całe podstrony
+  `/cennik/` i `/oferta/dzieci/`** — patrz D7–D18 w §15. Dotyczy to również zmian
+  pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
+  wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
 
   ```
-  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js tests/e2e/cennik.spec.js --project=desktop-chromium
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js tests/e2e/cennik.spec.js tests/e2e/dzieci.spec.js --project=desktop-chromium
   ```
 
   To około minuty i jedyna rzecz, która wyłapie zmianę pośrednią.
 
 - **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz podstrony poza
-  `/cennik/`. Przy pracy nad nimi uważaj na `--step-display`: niesie nagłówki sekcji 11
-  i 12, a dwunastka jest zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero
-  (D7), wezwanie w sekcji 09 (D15) i wezwanie na `/cennik/` (D17), a `cta--ghost` stoi
-  na pięciu podstronach.
+  `/cennik/` i `/oferta/dzieci/`. Przy pracy nad nimi uważaj na `--step-display`: niesie
+  nagłówki sekcji 11 i 12, a dwunastka jest zamknięta. Uważaj też na warianty `.cta`:
+  `cta--ink` niesie hero (D7), wezwanie w sekcji 09 (D15) i wezwanie na `/cennik/` (D17),
+  a `cta--ghost` stoi na pięciu podstronach.
+
+- **Mapa `CTA` w `src/data/offers.mjs` jest kluczowana ścieżką pliku.** Zmieniając cel
+  wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości domyślnej i nigdy
+  kotwicy wpisanej na sztywno w partialu nagłówka. `/oferta/dzieci/` celuje w kotwicę
+  u siebie (D18), pozostałe osiem stron w `/#kontakt` albo `#aplikacja`.
 
 - **Podmiana odnośnika jest jedyną zmianą dopuszczoną w `/cennik/`** bez pytania —
   gdy zmieni się adres podstrony ofertowej. Poprawiasz wtedy `href` i asercję w teście.
