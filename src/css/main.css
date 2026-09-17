@@ -32,6 +32,7 @@
  */
 @import './pages/egzamin.css';
 @import './pages/cennik.css';
+@import './pages/dzieci.css';
 @import './animations/reveal.css';
 @import './animations/editorial.css';
 @import './utilities/helpers.css';

@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="/src/css/main.css" />
   </head>
 
-  <body data-section="oferta">
+  <body data-section="oferta" data-page="dzieci">
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
     <!--#include partials/header.html -->
@@ -61,10 +61,18 @@
                 grupy, dużo praktycznego angielskiego i spokojna, przyjazna atmosfera.
               </p>
 
-              <a class="cta" href="/#kontakt" data-animation="fade-up">
-                Zapisz dziecko
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - swiadomie, decyzja wlasciciela z 17.09.2026.
+
+                Stalo tu drugie "Zapisz dziecko", prowadzace na /#kontakt, czyli
+                w INNE miejsce niz to samo wezwanie w naglowku strony, ktore od
+                tej samej zmiany celuje w sekcje #zapisy-klasy-1-7 na dole tej
+                strony. Dwa przyciski o tej samej nazwie i dwoch roznych celach
+                to nie jest wybor, tylko pomylka do zrobienia.
+
+                Droga zapisu zostaje jedna i jest widoczna przez caly czas:
+                wezwanie w sticky naglowku.
+              -->
             </div>
 
             <figure class="media page-hero__media" data-animation="fade-up">
@@ -233,27 +241,78 @@
           </ul>
         </div>
       </section>
+      <!-- ============================================================
+           ZAPISY — czerwony akt zamykajacy podstrone klas 1-7
 
+           To NIE jest sekcja "Kontakt", tylko sekcja ZAPISOW: pyta wprost
+           o decyzje i od razu podaje trzy drogi kontaktu, bez przycisku.
+           Wezwanie w naglowku strony celuje w te kotwice, wiec przycisk
+           w tym miejscu byl juz drugim wezwaniem do tej samej rzeczy.
+
+           Kotwica `#zapisy-klasy-1-7` jest celem CTA z mega-menu WYLACZNIE
+           na tej podstronie - mapa CTA w src/data/offers.mjs jest kluczowana
+           sciezka pliku, wiec pozostale osiem stron zachowuje swoje cele.
+           ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="zapisy-klasy-1-7"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="dzieci-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="dzieci-cta" data-animation="fade-up">
-              Gotowi na start?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz albo zadzwoń — odezwiemy się w sprawie klasy, poziomu i terminu.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Zapisy · klasy 1-7</span>
+          </p>
 
-          <a class="cta cta--large cta--ink" href="/#kontakt" data-animation="fade-up">
-            Zapisz dziecko
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <h2 class="u-display enroll__title" id="dzieci-cta" data-animation="fade-up">
+            Gotowi na start?
+          </h2>
+
+          <!--
+            Lamanie jest kompozycyjne: dwa zdania, dwa wiersze. Nie wiaze
+            krotkiego slowa, wiec <br /> jest tu na miejscu (par. 5 kontraktu).
+          -->
+          <p class="enroll__lead" data-animation="fade-up">
+            Preferowany kontakt: e-mail.<br />
+            Telefon odbieramy po zajęciach.
+          </p>
+
+          <!--
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <!--
+                ADRES WPISANY WPROST, nie {{EMAIL}}.
+
+                To jedyne miejsce w serwisie, ktore NIE bierze adresu
+                z KONTAKT w src/data/offers.mjs. Wlasciciel polecil to
+                17.09.2026: skrzynka zapisowa jest inna niz ogolny adres
+                kontaktowy, ktory stoi w stopce i w sekcji 12.
+              -->
+              <dd class="enroll__value">
+                <a href="mailto:highfive.zapisy@gmail.com">highfive.zapisy@gmail.com</a>
+              </dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            W ciągu dnia lektor pracuje w&nbsp;szkole, dlatego najszybciej odpowiadamy mailowo.
+          </p>
         </div>
       </section>
     </main>

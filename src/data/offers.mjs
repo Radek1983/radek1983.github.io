@@ -98,7 +98,13 @@ export const CTA = {
    */
   'index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'oferta/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
-  'oferta/dzieci/index.html': { label: 'Zapisz dziecko', href: '/#kontakt' },
+  /*
+   * Ta strona ma WLASNA sekcje zapisow, wiec wezwanie zostaje na niej
+   * zamiast odsylac na strone glowna. Mapa jest kluczowana sciezka pliku,
+   * wiec zmiana dotyczy wylacznie tego adresu - pozostale osiem stron
+   * zachowuje swoje cele.
+   */
+  'oferta/dzieci/index.html': { label: 'Zapisz dziecko', href: '#zapisy-klasy-1-7' },
   'oferta/egzamin-osmoklasisty/index.html': { label: 'Zapytaj o grupę', href: '/#kontakt' },
   'oferta/seniorzy/index.html': { label: 'Zapytaj o miejsce', href: '/#kontakt' },
   'oferta/online/index.html': { label: 'Umów lekcję', href: '/#kontakt' },
@@ -133,14 +139,17 @@ export const LINK_CENNIK = CENY_KOMPLETNE ? 'Porównaj ceny' : 'Cennik'
  * OBIE WARTOSCI SA DOCELOWE. Wlasciciel przekazal je bezposrednio i zastapily
  * tymczasowe konto prywatne z decyzji D6 - patrz CLAUDE.md par. 15.
  *
- * TODO - SKRZYNKA WE WLASNEJ DOMENIE: adres dziala i jest firmowy, ale stoi
- *        u publicznego dostawcy. Po zakupie domeny (decyzja D3) warto przejsc
- *        na kontakt@<domena>. Domeny NIE wymyslamy.
+ * SKRZYNKA WE WLASNEJ DOMENIE - ZALATWIONE 17.09.2026. Adres zszedl
+ * z publicznego dostawcy na kontakt@highfive.academy; domene przekazal
+ * wlasciciel, nie zostala wymyslona. To zamyka brak G-17.
+ *
+ * Uwaga: domena poczty NIE jest domena serwisu. Strona nadal stoi pod
+ * radek1983.github.io (decyzja D3) i adres kanoniczny zostaje bez zmian.
  */
 export const KONTAKT = {
   /** Postac wyswietlana, z niełamliwymi spacjami. */
   telefon: '+48&nbsp;790&nbsp;266&nbsp;517',
   /** Postac dla protokolu tel: - bez spacji i znakow formatujacych. */
   telefonHref: '+48790266517',
-  email: 'highfive.zapisy@gmail.com',
+  email: 'kontakt@highfive.academy',
 }
