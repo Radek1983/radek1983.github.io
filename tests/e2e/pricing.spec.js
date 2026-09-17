@@ -49,13 +49,16 @@ test.describe('07 cennik - struktura', () => {
   /*
    * Brzmienie zatwierdzone przez wlasciciela 15.09.2026 (D12 w CLAUDE.md).
    *
-   * Oba naglowki zmienily sens, nie tylko slowa: "bez abonamentu" nazywa
-   * przewage wprost zamiast mowic o jawnosci ceny, a "ktore sie odbywaja"
+   * Naglowek panelu B zmienil sens, nie tylko slowa: "ktore sie odbywaja"
    * mowi to samo co dawne "ktore sa w kalendarzu", bez odwolania do
    * kalendarza, ktorego rodzic na tym etapie nie widzial.
+   *
+   * Panel A skrocil sie 17.09.2026 do samego "Prosta cena." - wlasciciel
+   * zdjal "Bez abonamentu." mimo zamkniecia sekcji i wyrazil na to zgode
+   * wprost. Zdanie o braku stalej oplaty niesie dalej panel B.
    */
   test('oba naglowki maja zatwierdzone brzmienie', async ({ page }) => {
-    await expect(page.locator('#cennik-title')).toHaveText('Prosta cena. Bez abonamentu.')
+    await expect(page.locator('#cennik-title')).toHaveText('Prosta cena.')
     await expect(page.locator('.billing__claim')).toHaveText(
       'Płacisz za zajęcia, które się odbywają.',
     )

@@ -185,8 +185,10 @@
 /*
  * Telefon i e-mail: na waskim ekranie etykieta schodzi POD wartosc.
  *
- * W jednym wierszu "highfive.zapisy@gmail.com" i "E-MAIL" walczyly o 350 px:
- * adres lamal sie w srodku wyrazu, a sama etykieta na dwie linie ("E-" / "MAIL").
+ * W jednym wierszu dlugi adres i "E-MAIL" walczyly o 350 px: adres lamal sie
+ * w srodku wyrazu, a sama etykieta na dwie linie ("E-" / "MAIL"). Powod nie
+ * znikl razem ze zmiana skrzynki - "kontakt@highfive.academy" jest praktycznie
+ * tej samej dlugosci co poprzedni adres.
  * Ukladu poziomego bronic nie warto - to ten sam komplet informacji, tylko
  * ustawiony jedna pod druga.
  */

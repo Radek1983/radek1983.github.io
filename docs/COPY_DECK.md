@@ -158,9 +158,11 @@ Brzmienie poniżej zostało przebudowane na polecenie właściciela 15.09.2026.
 
 ### Panel A — ile kosztuje
 
-**Nagłówek:** `Prosta cena. Bez abonamentu.`
-Wcześniej `Prosta cena. Bez ukrywania.` Nowe brzmienie nazywa przewagę wprost: nie chodzi
-o jawność ceny, tylko o brak stałej opłaty miesięcznej.
+**Nagłówek:** `Prosta cena.`
+Brzmienie zmieniano dwa razy: z `Prosta cena. Bez ukrywania.` na `Prosta cena. Bez
+abonamentu.` (15.09.2026), a 16.09.2026 właściciel zdjął drugie zdanie w całości.
+Informacja o braku stałej opłaty miesięcznej nie znikła ze strony — niesie ją panel B
+(`Bez stałej miesięcznej opłaty`), więc nagłówek nie musiał jej powtarzać.
 
 - **55 zł / 45 min** — pierwsze dziecko
 - **50 zł / 45 min** — drugie i każde kolejne dziecko z rodzeństwa

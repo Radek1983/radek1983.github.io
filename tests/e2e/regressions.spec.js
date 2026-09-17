@@ -97,16 +97,27 @@ test.describe('regresje tresci', () => {
   })
 
   /*
-   * Dane kontaktowe zmieniono raz - z prywatnego konta z czasu budowy na
-   * firmowe. Stare wartosci nie moga wrocic zadna droga: ani przez cofniety
-   * merge, ani przez skopiowany fragment starego HTML-a.
+   * Adres kontaktowy zmieniano DWA razy: najpierw z prywatnego konta z czasu
+   * budowy na firmowe u publicznego dostawcy, potem - 17.09.2026 - na skrzynke
+   * we wlasnej domenie. Konto prywatne nie moze wrocic zadna droga: ani przez
+   * cofniety merge, ani przez skopiowany fragment starego HTML-a.
+   *
+   * WYJATEK: /oferta/dzieci/ niesie w sekcji zapisow OSOBNY adres zapisowy
+   * `highfive.zapisy@gmail.com`. Nie jest to pozostalosc po starej wartosci,
+   * tylko swiadoma decyzja wlasciciela z 17.09.2026 - skrzynka zapisowa jest
+   * inna niz ogolny adres kontaktowy ze stopki i sekcji 12. Dlatego zakaz
+   * gmaila obowiazuje na osmiu stronach, a nie na dziewieciu.
    */
-  test('nigdzie nie zostaly stare dane kontaktowe z czasu budowy', async ({ page }) => {
+  test('nigdzie nie zostaly stare dane kontaktowe', async ({ page }) => {
     for (const url of STRONY) {
       await page.goto(url)
       const html = await page.content()
       expect(html, `stary telefon na ${url}`).not.toMatch(/789\D*789\D*789/)
-      expect(html, `stary e-mail na ${url}`).not.toMatch(/janek\.gitara/)
+      expect(html, `konto prywatne na ${url}`).not.toMatch(/janek\.gitara/)
+
+      if (url !== '/oferta/dzieci/') {
+        expect(html, `skrzynka u publicznego dostawcy na ${url}`).not.toMatch(/zapisy@gmail/i)
+      }
     }
   })
 
@@ -114,7 +125,7 @@ test.describe('regresje tresci', () => {
     for (const url of STRONY) {
       await page.goto(url)
       await expect(
-        page.locator('a[href="mailto:highfive.zapisy@gmail.com"]').first(),
+        page.locator('a[href="mailto:kontakt@highfive.academy"]').first(),
         url,
       ).toBeVisible()
     }

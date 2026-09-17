@@ -42,7 +42,7 @@ test.describe('12 kontakt', () => {
 
     await expect(kanaly.nth(1).locator('a')).toHaveAttribute(
       'href',
-      'mailto:highfive.zapisy@gmail.com',
+      'mailto:kontakt@highfive.academy',
     )
 
     // Wezwanie stoi PO danych kontaktowych, blok formalny PO wezwaniu.
