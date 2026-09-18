@@ -152,9 +152,21 @@ test.describe('oferta dla seniorow', () => {
     const tresc = page.locator('main')
 
     await expect(tresc).toContainText('Terminal Kultury Gocław')
-    await expect(tresc).toContainText('45 zł')
-    await expect(tresc).toContainText(/rozliczenie jest .{0,20}miesięczne/i)
-    await expect(tresc).toContainText(/nie ma możliwości wykupienia pojedynczych zajęć/i)
+
+    /*
+     * Cena z JEDNOSTKA, nie sama kwota: "45 zl" bez "za 60 min" czytaloby sie
+     * jak tansza wersja zajec dla dzieci (55 zl za 45 min).
+     */
+    await expect(tresc).toContainText(/45\s*zł\s*\/\s*60\s*min/i)
+
+    /*
+     * Zdanie o rozliczeniu miesiecznym zeszlo stad 19.09.2026 na polecenie
+     * wlasciciela - zasady organizacyjne prowadzi Terminal i to jego strona
+     * ma byc ich zrodlem. Strona musi wiec powiedziec WPROST, ze zapisy
+     * i szczegoly sa po stronie Terminala.
+     */
+    await expect(tresc).toContainText(/zapisy na\s+zajęcia prowadzi Terminal Kultury Gocław/i)
+    await expect(tresc).toContainText(/szczegóły organizacyjne znajdziesz na\s+stronie Terminala/i)
   })
 
   test('konwersja senioralna nie konkuruje z primary CTA', async ({ page }) => {

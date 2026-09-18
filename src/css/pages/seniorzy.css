@@ -26,3 +26,238 @@
   --measure-enroll-lead: 64ch;
   --step-enroll-lead: clamp(1.0625rem, 1.5vw, 1.375rem);
 }
+
+/*
+ * ODSTĘPY NAD BLOKAMI Z KRESKAMI — ta sama usterka co na `/oferta/dzieci/`
+ * i `/oferta/online/`, zgłoszona przez właściciela 19.09.2026.
+ *
+ * Cztery bloki na tej stronie noszą w HTML klasę `u-mt-8`, która MIAŁA dać
+ * im margines u góry: kroki, kolumny „Zajęcia w liczbach" oraz dwa akapity
+ * pod nimi. **Tej klasy nie ma w żadnym arkuszu serwisu** — nigdy nie
+ * powstała, więc wszystkie cztery przylegały do poprzedzającego tekstu:
+ * nagłówek wchodził na kreski kolumn o 5 px, a akapity stały 0 px pod listą.
+ *
+ * Klasy nie ożywiam globalnie: stoi w jedenastu miejscach na sześciu
+ * stronach, w tym w zamkniętej sekcji 04 strony głównej (D10). Wartość jest
+ * ta sama co na dwóch pozostałych podstronach — przy oknie 1440 to 41,8 px,
+ * czyli około centymetra.
+ */
+[data-page='seniorzy'] .u-mt-8 {
+  margin-block-start: clamp(1.5rem, 2.9vw, 2.75rem);
+}
+
+/*
+ * ODSTĘP MIĘDZY ETYKIETĄ A NAGŁÓWKIEM w sekcjach „Jak wyglądają zajęcia"
+ * i „Szczegóły".
+ *
+ * Nagłówki mają w serwisie wyzerowane marginesy, a etykieta i nagłówek są
+ * tam bezpośrednimi dziećmi `.container`, bez kolumny flex z `gap`. Stały
+ * przez to tusz w tusz — realnie z minusem sześciu pikseli, bo wersaliki
+ * etykiety sięgają niżej niż jej pudełko.
+ *
+ * `>` wyklucza parę z sekcji „Nasza lokalizacja": ta siedzi w `.split__text`
+ * i ma już swoje 16 px z `gap`.
+ */
+[data-page='seniorzy'] .container > .section__label + .u-h2 {
+  margin-block-start: var(--space-6);
+}
+
+/*
+ * STOPKA SEKCJI ZAPISÓW — przypis po lewej, wezwanie w prawym dolnym rogu.
+ *
+ * Przycisk stał wcześniej w wierszu z leadem, u góry sekcji. Właściciel
+ * przeniósł go tutaj 19.09.2026. Układ żyje w warstwie strony, a nie
+ * w `components/enroll.css`, bo **to jedyna z trzech sekcji zapisów, która
+ * w ogóle ma przycisk** — dwie pozostałe nie mają w HTML czego układać.
+ *
+ * Rytmu to nie rusza: przypis zachowuje swój `margin-block-start` i kreskę,
+ * a kontener siatki nie dokłada własnego odstępu. Test porównujący trzy
+ * strony mierzy dystans od dołu kolumn do góry przypisu i ten zostaje.
+ */
+[data-page='seniorzy'] .enroll__foot {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/*
+ * Na telefonie kapsuła zostaje przy lewej krawędzi - to `justify-self: start`
+ * z `components/enroll.css`, więc nie powtarzam tu tej deklaracji. Poniżej
+ * 62rem przycisk i tak zajmuje całą szerokość pasa, bo etykieta jest dłuższa
+ * niż 350 px dostępne przy oknie 390 px i łamie się na dwa wiersze.
+ */
+
+/*
+ * Ten sam próg co reszta układów dwukolumnowych w serwisie. Poniżej niego
+ * przycisk schodzi pod przypis i zostaje przy lewej krawędzi - kapsuła ma
+ * stałą szerokość, więc obok wąskiego przypisu nie miałaby gdzie stanąć.
+ */
+@media (width >= 62rem) {
+  [data-page='seniorzy'] .enroll__foot {
+    grid-template-columns: 1fr auto;
+    column-gap: clamp(2rem, 4vw, 4rem);
+
+    /*
+     * `end`, nie `center`: wezwanie ma siedzieć w ROGU pasa, na wspólnej
+     * linii z ostatnim wierszem przypisu, a nie na jego osi.
+     */
+    align-items: end;
+  }
+
+  [data-page='seniorzy'] .enroll__foot .enroll__action {
+    justify-self: end;
+  }
+}
+
+/* ============================================================
+   SZCZEGÓŁY · ZAJĘCIA W LICZBACH — trzy poziomy
+   ============================================================ */
+
+/*
+ * Pełna rozpiska grup zeszła tutaj ze strony głównej (D16), gdzie właściciel
+ * zostawił po niej jedną linię. Przebudowa z 19.09.2026 według projektu
+ * referencyjnego: metryka w trzech kolumnach, pod nią trzy równorzędne bloki
+ * poziomów, na końcu zdanie pomocnicze, informacja o Terminalu i odnośnik.
+ *
+ * ODSTĘPSTWO OD PAR. 7 KONTRAKTU, świadome i polecone wprost: moduły mają
+ * tu cienki obrys i ledwie zauważalne zaokrąglenie 4 px. Design system
+ * ustawia promień na 0 i dopuszcza kapsułę wyłącznie dla CTA, a par. 8
+ * wymienia siatkę kart jako anty-wzorzec - dlatego przy sekcji 10 strony
+ * głównej tych ramek świadomie NIE przenosiliśmy. Właściciel poprosił
+ * o nie na tej jednej podstronie; obrys jest w kolorze kreski, więc czyta
+ * się jak linia, a nie jak karta z interfejsu.
+ */
+[data-page='seniorzy'] .levels {
+  display: grid;
+  gap: var(--space-6);
+  margin-block-start: clamp(2rem, 3.6vw, 3.5rem);
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * KRESKA U GÓRY zamiast obrysowanego prostokąta.
+ *
+ * Projekt referencyjny obrysowywał każdy poziom zaokrąglonym pudełkiem
+ * i przez chwilę tak tu stało, na wyraźne polecenie. Właściciel cofnął to
+ * 19.09.2026: moduły mają wyglądać jak kroki i kolumny na pozostałych
+ * podstronach, czyli nieść wyłącznie kreskę nad treścią.
+ *
+ * To jest też powrót do par. 7 i par. 8 kontraktu - promień narożnika 0
+ * i zakaz siatki kart jako języka layoutu.
+ */
+[data-page='seniorzy'] .levels__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Numer w rejestrze KROKÓW z `/oferta/dzieci/` - duży i przygaszony,
+ * nie mały i granatowy. Właściciel wskazał tamten wzorzec wprost
+ * 19.09.2026; projekt referencyjny proponował akcent kolorem.
+ *
+ * Wartości są przepisane z `.steps__number` w `components/page-sections.css`,
+ * a nie do niego podpięte: tamta reguła stoi na czterech stronach, a ta
+ * sekcja ma własną, węższą kolumnę. Gdyby kiedyś miały się rozjechać,
+ * lepiej, żeby stało się to jawnie, a nie przy zmianie cudzej sekcji.
+ *
+ * Numer BUDUJE SEKWENCJĘ, nie konkuruje z nazwą poziomu - stąd 40% krycia.
+ */
+[data-page='seniorzy'] .levels__number {
+  margin-block-end: var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+/*
+ * Nazwa poziomu bez własnej kreski - jedynym separatorem w module jest
+ * linia nad blokiem, tak jak w krokach i kolumnach reszty serwisu.
+ *
+ * Górna granica stopnia wynika z NAJDŁUŻSZEJ nazwy: „Średniozaawansowana"
+ * to dwadzieścia znaków bez miejsca na złamanie i przy większym stopniu
+ * wychodzi poza swoją kolumnę.
+ */
+[data-page='seniorzy'] .levels__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+
+  /* Zabezpieczenie: lepiej złamać słowo niż je przyciąć. */
+  overflow-wrap: anywhere;
+}
+
+[data-page='seniorzy'] .levels__copy {
+  margin: 0;
+  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+/* --- Zamknięcie sekcji -------------------------------------------------- */
+
+/*
+ * Kreska nad blokiem jest OBRAMOWANIEM, nie osobnym <hr>: nie niesie treści,
+ * więc nie ma po co stać w DOM.
+ */
+[data-page='seniorzy'] .levels-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-block-start: clamp(2rem, 3.6vw, 3.5rem);
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+[data-page='seniorzy'] .levels-foot p {
+  margin: 0;
+}
+
+/*
+ * Zdanie stoi w JEDNYM wierszu na całą szerokość sekcji - życzenie
+ * właściciela z 19.09.2026. Stała tu miara `70ch`, czyli o włos za mało:
+ * zdanie ma 86 znaków i łamało się tuż przed końcem. Miary nie zastępuję
+ * większą liczbą, bo granicę i tak wyznacza szerokość siatki; na telefonie
+ * tekst łamie się naturalnie i tak ma zostać.
+ */
+[data-page='seniorzy'] .levels-foot__hint {
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.5;
+}
+
+/* Waga 500, bo z tekstowego Intera self-hostujemy tylko 400 i 500 (par. 7). */
+[data-page='seniorzy'] .levels-foot__hint strong {
+  font-weight: 500;
+}
+
+[data-page='seniorzy'] .levels-foot__note {
+  max-inline-size: 64ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+/* Odnośnik editorialowy, nie przycisk: wersaliki, trakt i sama kreska. */
+[data-page='seniorzy'] .levels-foot__link {
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+@media (width >= 48rem) {
+  [data-page='seniorzy'] .levels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--grid-gutter);
+  }
+}

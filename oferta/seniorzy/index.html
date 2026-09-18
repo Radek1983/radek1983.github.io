@@ -198,35 +198,89 @@
           <p class="u-label section__label"><span>Szczegóły</span></p>
           <h2 class="u-h2" id="seniorzy-fakty" data-animation="fade-up">Zajęcia w liczbach</h2>
 
+          <!--
+            METRYKA: trzy rowne kolumny z kreska u gory. "Poziom / Grupa
+            poczatkujaca" zastapilo "Dostepne grupy / 3 poziomy" - oferta
+            ma dzis trzy grupy, wiec jedna nazwa wprowadzala w blad.
+            Koszt podany w jednostce zgodnej z par. 3 kontraktu.
+          -->
           <ul class="cols u-mt-8">
             <li class="cols__item" data-animation="fade-up">
               <h3>Prowadzi</h3>
               <p>Magdalena Germel</p>
             </li>
             <li class="cols__item" data-animation="fade-up">
-              <h3>Poziom</h3>
-              <p>Grupa początkująca</p>
+              <h3>Dostępne grupy</h3>
+              <p>3&nbsp;poziomy</p>
             </li>
             <li class="cols__item" data-animation="fade-up">
               <h3>Koszt</h3>
-              <p>45 zł za zajęcia</p>
+              <p>45 zł / 60 min</p>
             </li>
           </ul>
 
-          <p class="u-lead u-mt-8" data-animation="fade-up">
-            Rozliczenie jest <strong>miesięczne</strong> — odpłatność zależy od liczby dni zajęć w
-            danym miesiącu. Nie ma możliwości wykupienia pojedynczych zajęć.
-          </p>
+          <!--
+            TRZY POZIOMY - pelna rozpiska zeszla tutaj ze strony glownej,
+            gdzie zostala z niej jedna linia. <ol>, bo kolejnosc niesie sens:
+            od zaczynajacych do mowiacych swobodnie. Zaden poziom nie jest
+            domyslny - rozni je wylacznie tresc opisu.
+          -->
+          <ol class="levels" data-animation="fade-up">
+            <li class="levels__item">
+              <p class="levels__number" aria-hidden="true">01</p>
+              <h3 class="levels__name">Początkująca</h3>
+              <p class="levels__copy">
+                Dla osób, które zaczynają naukę lub chcą spokojnie wrócić do&nbsp;podstaw.
+              </p>
+            </li>
 
-          <p class="u-mt-8" data-animation="fade-up">
-            <a
-              class="u-link"
-              href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Zapisy i szczegóły w Terminalu Kultury ↗</a
-            >
-          </p>
+            <li class="levels__item">
+              <p class="levels__number" aria-hidden="true">02</p>
+              <h3 class="levels__name">Podstawowa</h3>
+              <p class="levels__copy">
+                Dla osób, które już trochę rozumieją i&nbsp;mówią, ale chcą nabrać większej swobody.
+              </p>
+            </li>
+
+            <li class="levels__item">
+              <p class="levels__number" aria-hidden="true">03</p>
+              <h3 class="levels__name">Średniozaawansowana</h3>
+              <p class="levels__copy">
+                Dla osób, które chcą mówić pewniej, poszerzać słownictwo i&nbsp;ćwiczyć naturalną
+                komunikację.
+              </p>
+            </li>
+          </ol>
+
+          <!--
+            ZAMKNIECIE SEKCJI. Kreska jest obramowaniem bloku, nie osobnym
+            <hr> - nie niesie tresci, wiec nie ma po co stac w DOM.
+
+            Zdanie o rozliczeniu miesiecznym zostalo stad zdjete na polecenie
+            wlasciciela: zasady organizacyjne prowadzi Terminal i to jego
+            strona ma byc ich zrodlem.
+          -->
+          <div class="levels-foot">
+            <p class="levels-foot__hint" data-animation="fade-up">
+              <strong>Nie wiesz, która grupa będzie odpowiednia?</strong> Pomożemy dobrać poziom
+              po&nbsp;krótkiej rozmowie.
+            </p>
+
+            <p class="levels-foot__note" data-animation="fade-up">
+              Zapisy na&nbsp;zajęcia prowadzi Terminal Kultury Gocław. Aktualne terminy, dostępność
+              miejsc i&nbsp;szczegóły organizacyjne znajdziesz na&nbsp;stronie Terminala.
+            </p>
+
+            <p data-animation="fade-up">
+              <a
+                class="u-link levels-foot__link"
+                href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Zapisy i&nbsp;szczegóły w&nbsp;Terminalu ↗</a
+              >
+            </p>
+          </div>
         </div>
       </section>
 
@@ -261,7 +315,7 @@
               </p>
 
               <a
-                class="cta cta--ghost"
+                class="cta cta--ink"
                 href="https://www.google.com/maps/dir/?api=1&amp;destination=Terminal+Kultury+Goc%C5%82aw%2C+Jana+Nowaka-Jezioranskiego+24%2C+Warszawa"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -339,21 +393,6 @@
               W sprawie zapisów przejdź na stronę Terminala Kultury Gocław.<br />
               Pytania organizacyjne możesz też zadać telefonicznie.
             </p>
-
-            <!--
-              Adres NIE jest wymyslony - to ten sam odnosnik, ktory stoi juz
-              wyzej na tej stronie, przy opisie zasad rozliczenia.
-            -->
-            <a
-              class="cta cta--large cta--ink enroll__action"
-              href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-animation="fade-up"
-            >
-              Zapisy w&nbsp;Terminalu Kultury
-              <span class="cta__arrow" aria-hidden="true">→</span>
-            </a>
           </div>
 
           <!--
@@ -378,10 +417,34 @@
             </div>
           </dl>
 
-          <p class="enroll__note" data-animation="fade-up">
-            Telefon najlepiej traktować jako wsparcie. W&nbsp;sprawie zapisów decydująca jest strona
-            Terminala.
-          </p>
+          <!--
+            STOPKA SEKCJI: przypis po lewej, wezwanie w prawym dolnym rogu.
+
+            Przycisk stal wczesniej w wierszu z leadem, u gory sekcji.
+            Wlasciciel przeniosl go 19.09.2026 na dol - prawa strona pasa
+            byla pusta pod trzema kolumnami, a decyzja "przejdz do Terminala"
+            zapada po przeczytaniu danych kontaktowych, nie przed.
+
+            Adres NIE jest wymyslony - to ten sam odnosnik, ktory stoi juz
+            wyzej na tej stronie, przy opisie zasad rozliczenia.
+          -->
+          <div class="enroll__foot">
+            <p class="enroll__note" data-animation="fade-up">
+              Telefon najlepiej traktować jako wsparcie. W&nbsp;sprawie zapisów decydująca jest
+              strona Terminala.
+            </p>
+
+            <a
+              class="cta cta--large cta--ink enroll__action"
+              href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-animation="fade-up"
+            >
+              Zapisy w&nbsp;Terminalu Kultury
+              <span class="cta__arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>

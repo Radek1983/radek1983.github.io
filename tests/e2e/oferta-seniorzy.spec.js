@@ -116,6 +116,84 @@ test.describe('/oferta/seniorzy/ - strona zatwierdzona', () => {
     await expect(page.locator('.page-hero .cta')).toHaveCount(0)
   })
 
+  /*
+   * SZCZEGOLY - ZAJECIA W LICZBACH, przebudowane 19.09.2026.
+   *
+   * Pelna rozpiska trzech grup zeszla tutaj ze strony glownej, gdzie
+   * zostala po niej jedna linia. Metryka mowi o TRZECH poziomach, a nie
+   * o jednej grupie poczatkujacej, i podaje stawke z jednostka z par. 3.
+   */
+  test('metryka i trzy poziomy w zatwierdzonym brzmieniu', async ({ page }) => {
+    const metryka = page.locator('.cols.u-mt-8 .cols__item')
+    await expect(metryka).toHaveCount(3)
+
+    for (const [i, [etykieta, wartosc]] of [
+      ['Prowadzi', 'Magdalena Germel'],
+      ['Dostępne grupy', /3\s+poziomy/],
+      ['Koszt', /45 zł \/ 60 min/],
+    ].entries()) {
+      await expect(metryka.nth(i).locator('h3')).toHaveText(etykieta)
+      await expect(metryka.nth(i).locator('p')).toHaveText(wartosc)
+    }
+
+    const poziomy = page.locator('.levels__item')
+    await expect(poziomy).toHaveCount(3)
+
+    for (const [i, [numer, nazwa]] of [
+      ['01', 'Początkująca'],
+      ['02', 'Podstawowa'],
+      ['03', 'Średniozaawansowana'],
+    ].entries()) {
+      await expect(poziomy.nth(i).locator('.levels__number')).toHaveText(numer)
+      await expect(poziomy.nth(i).locator('.levels__name')).toHaveText(nazwa)
+    }
+
+    /*
+     * Stara metryka mowila o jednej grupie i o cenie bez jednostki. Obie
+     * wersje wprowadzalyby w blad, wiec pilnujemy, zeby nie wrocily.
+     */
+    await expect(page.locator('main')).not.toContainText('Grupa początkująca')
+    await expect(page.locator('main')).not.toContainText('45 zł za zajęcia')
+  })
+
+  /*
+   * Moduly poziomow NIE sa kartami: zero obrysu, zero zaokraglen, zero tla.
+   * Przez chwile mialy cienka ramke z projektu referencyjnego - wlasciciel
+   * cofnal to tego samego dnia. Zostaje sama kreska u gory, jak w krokach.
+   */
+  test('poziomy nie sa kartami - zostaje sama kreska u gory', async ({ page }) => {
+    const styl = await page.evaluate(() =>
+      [...document.querySelectorAll('.levels__item')].map((el) => {
+        const c = getComputedStyle(el)
+        return {
+          promien: parseFloat(c.borderTopLeftRadius),
+          gora: parseFloat(c.borderTopWidth),
+          boki: parseFloat(c.borderLeftWidth) + parseFloat(c.borderRightWidth),
+          dol: parseFloat(c.borderBottomWidth),
+          cien: c.boxShadow,
+        }
+      }),
+    )
+
+    for (const s of styl) {
+      expect(s.promien, 'bez zaokraglen').toBe(0)
+      expect(s.gora, 'kreska u gory').toBeGreaterThan(0)
+      expect(s.boki + s.dol, 'bez ramki').toBe(0)
+      expect(s.cien, 'bez cienia').toBe('none')
+    }
+  })
+
+  /*
+   * Wezwanie do trasy zeszlo z obrysowego wariantu na czarny 18.09.2026 -
+   * to byl ostatni przycisk obrysowy w calym serwisie.
+   */
+  test('wezwanie do trasy jest czarne', async ({ page }) => {
+    const trasa = page.locator('a.cta[href*="google.com/maps"]')
+    await expect(trasa).toHaveCount(1)
+    await expect(trasa).toHaveClass(/cta--ink/)
+    await expect(trasa).toHaveCSS('background-color', INK)
+  })
+
   test('stopka jest dokladnie ta sama co na stronie glownej', async ({ page }) => {
     const zPodstrony = await page.locator('.site-footer').innerHTML()
     await page.goto('/')
