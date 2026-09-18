@@ -49,26 +49,16 @@
   /*
    * --- Sekcja zapisów (komponent `components/enroll.css`) ---
    *
-   * Odstęp pasa jest wspólny dla obu stron i stoi w komponencie.
-   * Tutaj wyłącznie to, czym ta strona się od tamtej różni.
+   * Odstępy pasa i cały rytm wewnętrzny są wspólne dla trzech podstron
+   * i stoją w komponencie — to WŁAŚNIE ta strona jest ich wzorcem.
+   * Tutaj zostaje wyłącznie skala typografii.
    *
-   * Odstęp liczony do TUSZU, nie do pudełka: nagłówek nosi padding
-   * anty-clippingowy 0.18em z warstwy typografii, więc trzeba go odjąć,
-   * inaczej realna przerwa jest o tyle większa od zadanej. `em` rozwiąże
-   * się przy UŻYCIU tokenu, czyli względem stopnia nagłówka — o to chodzi.
-   */
-  --space-enroll-title: calc(var(--space-6) - 0.18em);
-
-  /*
    * Nagłówek mniejszy niż na stronie klas 1-7: zdanie jest dłuższe o pięć
    * znaków, a ma stać w JEDNYM wierszu na pełną szerokość siatki.
    */
   --step-enroll-title: clamp(1.875rem, 6.95vw, 6.5rem);
-  --space-enroll-lead: var(--space-6);
   --measure-enroll-lead: 34ch;
   --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
-  --space-enroll-grid: clamp(2rem, 4vw, 4rem);
-  --space-enroll-note: clamp(1.75rem, 3.2vw, 3rem);
 }
 
 /*

@@ -6,16 +6,14 @@
  * strony produktowe, więc bez tego kotwiczenia zmiana sięgnęłaby poza
  * tę stronę.
  *
- * Plik nie opisuje wyglądu sekcji zapisów — ten żyje w
- * `components/enroll.css`, wspólnym z podstroną egzaminacyjną. Tutaj
- * zostają wyłącznie WARTOŚCI, którymi ta strona różni się od tamtej.
- * Obie zostały zatwierdzone osobno i mają celowo inne proporcje:
- * tu nagłówek jest większy, a pas przestronniejszy.
+ * Plik nie opisuje ani wyglądu, ani rytmu sekcji zapisów — oba żyją
+ * w `components/enroll.css`, wspólnym z podstronami egzaminacyjną
+ * i senioralną. Tutaj zostaje wyłącznie SKALA TYPOGRAFII, czyli jedyne,
+ * czym ta strona naprawdę się od nich różni: nagłówek jest tu największy
+ * w całej trójce, bo zdanie ma tylko szesnaście znaków.
  */
 
 [data-page='dzieci'] {
-  /* Nagłówek: największy na tej stronie, w jednym wierszu na pełną siatkę. */
-  --space-enroll-title: var(--space-6);
   --step-enroll-title: clamp(2.5rem, 9.4vw, 9.25rem);
 
   /*
@@ -23,9 +21,6 @@
    * poziom hierarchii, nie tekst pomocniczy. Miara trzyma go z dala od
    * prawej krawędzi, żeby nie czytał się jak akapit na całą szerokość.
    */
-  --space-enroll-lead: var(--space-8);
   --measure-enroll-lead: 30ch;
   --step-enroll-lead: clamp(1.125rem, 2.05vw, 2rem);
-  --space-enroll-grid: clamp(2.5rem, 5vw, 5rem);
-  --space-enroll-note: clamp(2rem, 3.6vw, 3.5rem);
 }

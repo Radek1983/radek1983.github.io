@@ -40,6 +40,27 @@
   --space-enroll-start: clamp(1.375rem, 3vw, 3rem);
   --space-enroll-end: clamp(1.375rem, 2.75vw, 2.75rem);
 
+  /*
+   * RYTM WEWNĘTRZNY — również wspólny, wyrównany 18.09.2026.
+   *
+   * Każda z trzech stron miała go początkowo własny i sekcje czytały się
+   * jak trzy różne moduły mimo identycznej budowy. Właściciel wskazał
+   * podstronę egzaminacyjną jako wzorzec i pozwolił dociągnąć do niej
+   * pozostałe dwie — łącznie z zamkniętą `/oferta/dzieci/` (D18).
+   *
+   * Warstwy stron ustawiają odtąd wyłącznie SKALĘ TYPOGRAFII, bo tym
+   * naprawdę się różnią. Odstępy pochodzą stąd i mają tak zostać.
+   *
+   * Odstęp nad nagłówkiem liczy się do TUSZU, nie do pudełka: nagłówek
+   * nosi padding anty-clippingowy 0.18em z warstwy typografii i bez
+   * odjęcia go realna przerwa jest o tyle większa od zadanej. `em`
+   * rozwiązuje się przy użyciu tokenu, czyli względem stopnia nagłówka.
+   */
+  --space-enroll-title: calc(var(--space-6) - 0.18em);
+  --space-enroll-lead: var(--space-6);
+  --space-enroll-grid: clamp(2rem, 4vw, 4rem);
+  --space-enroll-note: clamp(1.75rem, 3.2vw, 3rem);
+
   padding-block: var(--space-enroll-start) var(--space-enroll-end);
 
   /*
@@ -75,6 +96,54 @@
   max-inline-size: var(--measure-enroll-lead);
   font-size: var(--step-enroll-lead);
   line-height: 1.35;
+}
+
+/*
+ * Wiersz z leadem i wezwaniem — używa go WYŁĄCZNIE podstrona senioralna.
+ *
+ * Tamta sekcja jako jedyna z trzech ma przycisk i jest to decyzja
+ * merytoryczna, nie estetyczna: zapisów na te zajęcia nie prowadzi High Five,
+ * tylko Terminal Kultury. Wezwanie nie jest więc drugim „napisz do nas",
+ * tylko przejściem do miejsca, gdzie decyzja faktycznie zapada.
+ *
+ * Pozostałe dwie strony nie mają tego elementu w HTML, więc reguły poniżej
+ * ich nie dotyczą.
+ */
+.enroll__head {
+  margin-block-start: var(--space-enroll-lead);
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Odstęp niesie już wiersz, więc lead nie dokłada własnego. */
+.enroll__head > .enroll__lead {
+  margin-block-start: 0;
+}
+
+.enroll__action {
+  justify-self: start;
+}
+
+/*
+ * Ten sam próg co reszta układu dwukolumnowego w serwisie.
+ *
+ * Kapsuła ma stałą szerokość, więc jest tu granica: przy dłuższej etykiecie
+ * zabierała leadowi tyle miejsca, że ten rozpadał się z dwóch wierszy na
+ * cztery, i próg trzeba było podnosić. Przy obecnym brzmieniu lead trzyma
+ * dwa wiersze od 1024 px w górę; dokładnie na progu, przy 992 px, bierze
+ * trzeci wiersz i to jest najciaśniejszy punkt układu. Gdyby etykieta znów
+ * urosła, to jest pierwsze miejsce do sprawdzenia.
+ */
+@media (width >= 62rem) {
+  .enroll__head {
+    grid-template-columns: 1fr auto;
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+
+  .enroll__action {
+    justify-self: end;
+  }
 }
 
 /* --- Trzy drogi kontaktu ------------------------------------------------- */
