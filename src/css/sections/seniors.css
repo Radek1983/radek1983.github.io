@@ -9,9 +9,14 @@
  * Sekcja stoi daleko od granatowego modulu klasy 8, wiec kolor nie powtarza sie
  * w polu widzenia.
  *
- * Uklad: gora dwukolumnowa (tekst + kadr do krawedzi okna), pod nia etykieta
- * z kreskami, trzy ROWNORZEDNE poziomy w jednym plakatowym gridzie i stopka
- * z wezwaniem po lewej oraz zdaniem pomocniczym po prawej.
+ * UKLAD (przebudowa 19.09.2026, na polecenie wlasciciela): siatka o dwoch
+ * wierszach. Gora to tekst po lewej i kadr Terminalu po prawej, dochodzacy
+ * do krawedzi okna; dol to wezwanie po lewej i dopisek o zapisach po prawej.
+ *
+ * Z tej sekcji zniknely TRZY KARTY POZIOMOW. Rozpiska grup zyje na
+ * /oferta/seniorzy/, a strona glowna ma byc zapowiedzia oferty, nie jej
+ * katalogiem - zostala z nich jedna linia "3 poziomy - od podstaw do
+ * sredniozaawansowanego". Nie przywracaj ich tutaj.
  *
  * Wszystko ponizej dotyczy WYLACZNIE tej sekcji - klasy `.seniors*` nie
  * wystepuja nigdzie indziej w serwisie.
@@ -19,18 +24,17 @@
 
 /*
  * Sekcja jest NIZSZA niz domyslny rytm --space-section. Rytm pionowy jest
- * w tym projekcie celowo zmienny (patrz komentarz przy tokenie), a ten modul
- * niesie cztery pietra tresci - naglowek, lead, trzy poziomy i stopke -
- * wiec przy pelnym oddechu sekcji uroslby ponad ekran. Wartosc jest liczona
- * z proporcji projektu referencyjnego, nie dobierana na oko.
+ * w tym projekcie celowo zmienny (patrz komentarz przy tokenie), a modul
+ * niesie kilka pieter tresci, wiec przy pelnym oddechu sekcji uroslby ponad
+ * ekran. Wartosc jest liczona z proporcji projektu referencyjnego.
  */
 .seniors {
   padding-block: clamp(2.25rem, 3.4vw, 4rem);
 }
 
-/* --- GORA: tekst i kadr ------------------------------------------------- */
+/* --- SIATKA SEKCJI ------------------------------------------------------ */
 
-.seniors__top {
+.seniors__grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   gap: var(--space-8) var(--grid-gutter);
@@ -64,111 +68,81 @@
 }
 
 .seniors__lead {
-  max-inline-size: 48ch;
+  max-inline-size: 44ch;
   font-size: clamp(1.0625rem, 1.3vw, 1.375rem);
   line-height: 1.45;
 }
 
+/*
+ * Proporcja kadru = proporcja PLIKU (750x518), więc `object-fit: cover`
+ * nie ma czego przyciąć. Stała tu klasa `media--16-9`, czyli 1.78 wobec
+ * 1.45 źródła - zdejmowała górę i dół kadru razem z literą „T" neonu
+ * w lewym górnym rogu. Zgłosił to właściciel 19.09.2026.
+ *
+ * Wartość jest zapisana ułamkiem ze źródła, a nie zaokrąglona do 3/2:
+ * przy 1.5 wracałoby przycinanie, tym razem z lewej i prawej krawędzi -
+ * czyli znowu po neonie.
+ */
 .seniors__media {
   grid-column: 1 / -1;
+  aspect-ratio: 750 / 518;
 }
 
-/* --- ETYKIETA "DOSTEPNE GRUPY" ------------------------------------------ */
+/* --- DOL: linia o poziomach, wezwanie, dopisek -------------------------- */
 
 /*
- * Kreska z lewej jest krotka, z prawej biegnie do konca siatki. Obie siedza
- * w pseudoelementach, bo nie niosa tresci - warunek z par. 10 kontraktu.
+ * Linia o poziomach i wezwanie stoją TUŻ POD LEADEM, w tym samym stosie co
+ * reszta tekstu. Przez chwilę były osobnym wierszem wspólnej siatki i wyższy
+ * kadr spychał je w dół razem ze sobą - właściciel zgłosił to 19.09.2026.
+ * Teraz lewa i prawa kolumna są niezależnymi stosami: zdjęcie może rosnąć,
+ * a tekst zostaje na swojej wysokości.
  */
-.seniors__groups {
+.seniors__action {
   display: flex;
-  gap: var(--space-4);
-  align-items: center;
-  margin-block-start: var(--space-8);
-  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: flex-start;
+  margin-block-start: var(--space-4);
 }
 
-.seniors__groups::before,
-.seniors__groups::after {
-  content: '';
-  block-size: 1px;
-  background-color: var(--color-rule);
-}
-
-.seniors__groups::before {
-  inline-size: var(--space-12);
-  flex: none;
-}
-
-.seniors__groups::after {
-  flex: 1;
-}
-
-/* --- TRZY POZIOMY ------------------------------------------------------- */
-
-.seniors__levels {
-  display: grid;
-  gap: var(--space-8) var(--grid-gutter);
-  margin: var(--space-6) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.seniors__level {
-  position: relative;
+/* Prawa kolumna: kadr, a pod nim dopisek. */
+.seniors__aside {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
 /*
- * Numer jest duzy, ale przygaszony: ma budowac sekwencje, a nie konkurowac
- * z nazwa poziomu. Zaden poziom nie jest domyslny, wiec rozni je wylacznie
- * tresc opisu - zadnego wyroznienia kolorem, tlem ani ramka.
+ * JEDNA linia zamiast trzech kart. Krotka kreska przed tekstem jest
+ * pseudoelementem, bo nie niesie tresci - warunek z par. 10 kontraktu.
+ * Linia nie biegnie do konca siatki: ma otwierac zdanie, a nie dzielic pas.
  */
-.seniors__level-number {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.6vw, 1.625rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: color-mix(in srgb, var(--color-text) 52%, transparent);
-}
-
-.seniors__level-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.05vw, 2.0625rem);
-  font-weight: 800;
-  line-height: var(--leading-caps);
-  letter-spacing: var(--tracking-heading);
-  text-transform: uppercase;
-
-  /*
-   * Kreska pod nazwa - jedyny separator w module. Bez kart, bez ramek,
-   * bez cieni: par. 7 i par. 8 kontraktu.
-   */
-  padding-block-end: var(--space-6);
-  border-block-end: 1px solid var(--color-rule);
-}
-
-.seniors__level-copy {
-  max-inline-size: 29ch;
-  font-size: clamp(1rem, 1.18vw, 1.125rem);
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--color-text) 86%, transparent);
-}
-
-/* --- STOPKA: wezwanie i zdanie pomocnicze ------------------------------- */
-
-.seniors__foot {
+.seniors__meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-6);
+  gap: var(--space-4);
   align-items: center;
-  margin-block-start: var(--space-8);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 
-.seniors__hint {
+.seniors__meta::before {
+  content: '';
+  inline-size: var(--space-12);
+  block-size: 1px;
+  flex: none;
+  background-color: var(--color-rule);
+}
+
+/*
+ * Dopisek, nie drugie wezwanie. Cichszy od reszty tresci i oddzielony
+ * pionowa kreska - to obramowanie elementu, nie osobny <hr>, wiec na waskim
+ * ekranie znika razem z ukladem dwukolumnowym.
+ */
+.seniors__note {
+  grid-column: 1 / -1;
+  max-inline-size: 34ch;
   font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
   color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 
@@ -178,70 +152,44 @@
   }
 
   /*
-   * Kadr zajmuje prawa polowe siatki i dochodzi do krawedzi okna.
+   * Prawa kolumna dochodzi do krawedzi okna.
    *
-   * Proporcja 16:9 zamiast 4:3 - na projekcie kadr jest wyraznie szerszy
-   * niz wysoki i konczy sie mniej wiecej na wysokosci leadu. Zrodlo ma
-   * 750x500 px, wiec kadrowanie do 16:9 zdejmuje gore i dol, a nie
-   * powieksza obrazu bardziej, niz robila to poprzednia wersja. Wieksze
-   * zrodlo pozwoli zejsc z powiekszeniem - odnotowane w docs/CONTENT_GAPS.md.
-   *
-   * Kadr jest o 10% mniejszy od pelnej prawej polowy siatki, ale zwezenie
+   * Kadr jest o 10% wezszy od pelnej prawej polowy siatki, ale zwezenie
    * idzie WYLACZNIE od lewej: prawa krawedz zostaje na krawedzi okna, bo to
    * wspolna os ze zdjeciami hero, sekcji 02 i portretem w sekcji 05.
    *
-   * Przy stalej proporcji 10% szerokosci to rowniez 10% wysokosci, a kadr
-   * jest wyzszy od kolumny tekstowej, wiec to ON wyznacza wysokosc gornego
-   * bloku. Etykieta "Dostepne grupy", poziomy i stopka podnosza sie zatem
-   * o dokladnie tyle, ile kadr stracil - bez ruszania jednego marginesu.
+   * Szerokosc siedzi na kolumnie, a nie na samym kadrze, zeby dopisek pod
+   * nim konczyl sie dokladnie tam, gdzie zdjecie.
    */
-  .seniors__media {
+  .seniors__aside {
     grid-column: 7 / -1;
-    inline-size: calc((100% + var(--bleed-inline)) * 0.9);
+    inline-size: calc((100% + var(--bleed-inline)) * 0.82);
     margin-inline: auto calc(-1 * var(--bleed-inline));
   }
 
-  .seniors__levels {
-    --space-seniors-col: clamp(2.5rem, 4.5vw, 4.5rem);
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: var(--space-seniors-col);
-  }
-
   /*
-   * Pionowa krawedz zamiast karty. Projekt referencyjny obrysowuje kazdy
-   * poziom zaokraglonym prostokatem - tego nie przenosimy: par. 7 kontraktu
-   * ustawia promien naroznika na 0 i dopuszcza kapsule wylacznie dla CTA,
-   * a par. 8 wymienia siatke kart jako anty-wzorzec. Wlosowa kreska dzieli
-   * kolumny tak samo czytelnie i jest jezykiem, ktory strona niesie juz
-   * w sekcji 08 i na podstronie egzaminacyjnej.
+   * Dopisek stoi w JEDNYM wierszu, przy prawej krawedzi kadru, a kreska
+   * tuz przy tekscie - tak jak na projekcie referencyjnym.
    *
-   * Kreska jest PSEUDOELEMENTEM w polowie rynny, a nie obramowaniem
-   * elementu. Obramowanie z paddingiem zabieraloby szerokosc dwóm z trzech
-   * kolumn i poziomy przestalyby byc rownorzedne - a maja byc, bo zaden
-   * z nich nie jest domyslny.
+   * Wyrownanie do konca kolumny zweza pudelko do samego zdania. Bez tego
+   * element kolumny rozciaga sie na cala jej szerokosc i kreska stoi 151 px od
+   * tekstu, mimo kilkunastopikselowego paddingu. Miara z ukladu mobilnego
+   * jest tu zdejmowana, bo przy 34ch zdanie lamalo sie na dwa wiersze.
    */
-  .seniors__level + .seniors__level::before {
-    content: '';
-    position: absolute;
-    inset-block: 0;
-    inset-inline-start: calc(var(--space-seniors-col) / -2);
-    inline-size: 1px;
-    background-color: var(--color-rule);
-  }
+  .seniors__note {
+    align-self: flex-end;
 
-  .seniors__foot {
-    flex-wrap: nowrap;
-    justify-content: space-between;
-  }
-
-  /*
-   * Zdanie pomocnicze jest cichsze od wezwania i oddzielone od niego
-   * pionowa kreska, tak jak na projekcie. Wyrownanie do prawej stawia je
-   * rowno z prawa krawedzia siatki.
-   */
-  .seniors__hint {
-    padding-inline-start: clamp(2rem, 3.5vw, 3.5rem);
+    /*
+     * Dopisek konczy sie na krawedzi SIATKI, nie na krawedzi okna.
+     *
+     * Kadr nad nim wychodzi poza kontener o `--bleed-inline` - to jego
+     * wspolna os z pozostalymi duzymi zdjeciami serwisu. Zdanie tej osi
+     * nie dzieli: tekst przy samej krawedzi ekranu czyta sie jak uciety,
+     * a nie jak wyrownany. Margines oddaje dokladnie tyle, ile kadr wziął.
+     */
+    margin-inline-end: var(--bleed-inline);
+    max-inline-size: none;
+    padding-inline-start: clamp(0.875rem, 1.2vw, 1.25rem);
     border-inline-start: 1px solid var(--color-rule);
     text-align: end;
   }

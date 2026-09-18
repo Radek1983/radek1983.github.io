@@ -3,32 +3,28 @@ import { expect, test } from '@playwright/test'
 /**
  * 10 DODATKOWO · ANGIELSKI DLA SENIORÓW — układ zatwierdzony przez właściciela.
  *
- * Sekcja została przebudowana z jednej grupy na trzy równorzędne poziomy,
- * według obrazu referencyjnego właściciela. Dwie rzeczy są w niej wrażliwe
- * i obie wynikają z wyraźnego polecenia:
+ * Sekcja jest ZAPOWIEDZIĄ oferty senioralnej, nie jej katalogiem. Jedna
+ * rzecz jest w niej wrażliwa i wynika z wyraźnego polecenia:
  *
  *   - NIGDZIE nie wolno podać granicy wieku. Nazwa oferty zostaje
  *     ("dla seniorów"), ale "60+" i każda inna dolna granica są zakazane:
  *     kurs ma być czytelny także dla osoby po pięćdziesiątce.
- *   - Poziomy są RÓWNORZĘDNE. Żaden nie jest domyślny, żaden nie dostaje
- *     własnego tła, obrysu ani koloru.
  *
  * Czego pilnujemy poza tym:
- *   1. trzy poziomy w zatwierdzonym brzmieniu i kolejności,
- *   2. kolumny równe co do piksela,
- *   3. kadr Terminalu prawą krawędzią na krawędzi okna,
- *   4. sekcja nie rośnie ponad budżet wysokości - kadr jest o 10% mniejszy
- *      od pełnej prawej połowy i tekst pod nim jest o tyle podciągnięty,
- *   5. zero kart: w sekcji nie ma zaokrąglonych prostokątów poza kapsułą CTA.
+ *   1. rozpiska poziomow NIE wraca - strona glowna ma jedna linie o nich,
+ *   2. kadr Terminalu prawa krawedzia na krawedzi okna,
+ *   3. kadr nie jest przycinany - proporcja pudelka rowna proporcji pliku,
+ *   4. linia o poziomach i wezwanie stoja tuz pod leadem, niezaleznie od
+ *      wysokosci kadru,
+ *   5. sekcja nie rosnie ponad budzet wysokosci,
+ *   6. zero kart: w sekcji nie ma zaokraglonych prostokatow poza kapsula CTA.
+ *
+ * Uklad przebudowany 19.09.2026 na polecenie wlasciciela: trzy karty
+ * poziomow zeszly na podstrone /oferta/seniorzy/, a tutaj zostala jedna
+ * linia informacyjna, wezwanie i dopisek o zapisach w Terminalu.
  *
  * Zmiana któregokolwiek punktu wymaga decyzji właściciela (CLAUDE.md §15, D16).
  */
-
-const POZIOMY = [
-  ['01', 'Początkująca'],
-  ['02', 'Podstawowa'],
-  ['03', 'Średniozaawansowana'],
-]
 
 test.describe('10 seniorzy - uklad zatwierdzony', () => {
   test('nigdzie nie ma granicy wieku', async ({ page }) => {
@@ -45,41 +41,39 @@ test.describe('10 seniorzy - uklad zatwierdzony', () => {
     expect(tekst).toMatch(/ANGIELSKI DLA\s+SENIORÓW/i)
   })
 
-  test('trzy poziomy w zatwierdzonym brzmieniu i kolejnosci', async ({ page }) => {
-    await page.goto('/')
-
-    const poziomy = page.locator('.seniors__level')
-    await expect(poziomy).toHaveCount(3)
-
-    for (const [i, [numer, nazwa]] of POZIOMY.entries()) {
-      await expect(poziomy.nth(i).locator('.seniors__level-number')).toHaveText(numer)
-      await expect(poziomy.nth(i).locator('.seniors__level-name')).toHaveText(nazwa)
-    }
-  })
-
-  test('zaden poziom nie jest wyrozniony', async ({ page }) => {
+  test('rozpiska poziomow nie wraca na strone glowna', async ({ page }) => {
     await page.goto('/')
 
     /*
-     * Rownorzednosc jest warunkiem tresciowym, nie estetycznym: wyroznienie
-     * jednej grupy czytaloby sie jak sugestia, ktora rodzic ma wybrac.
+     * Karty poziomow zeszly stad 19.09.2026 na podstrone /oferta/seniorzy/.
+     * Strona glowna ma byc ZAPOWIEDZIA oferty: jedna linia zamiast katalogu.
      */
-    const style = await page.evaluate(() =>
-      [...document.querySelectorAll('.seniors__level')].map((el) => {
-        const s = getComputedStyle(el)
-        return {
-          tlo: s.backgroundColor,
-          obrys: s.borderTopWidth + s.borderRightWidth + s.borderBottomWidth + s.borderLeftWidth,
-          kolorNazwy: getComputedStyle(el.querySelector('.seniors__level-name')).color,
-        }
-      }),
+    await expect(page.locator('#seniorzy .seniors__level')).toHaveCount(0)
+    await expect(page.locator('#seniorzy')).not.toContainText(
+      /Początkująca|Podstawowa|Średniozaawansowana/,
     )
 
-    for (const s of style.slice(1)) {
-      expect(s.tlo, 'to samo tlo').toBe(style[0].tlo)
-      expect(s.obrys, 'ten sam obrys').toBe(style[0].obrys)
-      expect(s.kolorNazwy, 'ten sam kolor nazwy').toBe(style[0].kolorNazwy)
-    }
+    const meta = page.locator('#seniorzy .seniors__meta')
+    await expect(meta).toHaveCount(1)
+    await expect(meta).toHaveText(/3\s+poziomy · od\s+podstaw do\s+średniozaawansowanego/i)
+    await expect(meta).toHaveCSS('text-transform', 'uppercase')
+  })
+
+  test('dopisek mowi o zapisach w Terminalu i nie jest przyciskiem', async ({ page }) => {
+    await page.goto('/')
+
+    /*
+     * Zapisy na te zajecia prowadzi Terminal Kultury, nie High Five. Strona
+     * glowna moze o tym powiedziec, ale nie ma czego obiecywac - stad zdanie
+     * bez odnosnika i bez drugiego wezwania.
+     */
+    const nota = page.locator('#seniorzy .seniors__note')
+    await expect(nota).toHaveCount(1)
+    await expect(nota).toContainText(/Zapisy i\s+szczegóły na\s+stronie Terminala/i)
+    await expect(nota.locator('a')).toHaveCount(0)
+
+    // Jedno wezwanie w calej sekcji.
+    await expect(page.locator('#seniorzy .cta')).toHaveCount(1)
   })
 
   test('w sekcji nie ma kart ani zaokraglonych ramek', async ({ page }) => {
@@ -115,30 +109,52 @@ test.describe('10 seniorzy - uklad zatwierdzony', () => {
 
         const m = await page.evaluate(() => {
           const kadr = document.querySelector('.seniors__media').getBoundingClientRect()
+          const obraz = document.querySelector('.seniors__media img')
           const tekst = document.querySelector('.seniors__intro').getBoundingClientRect()
+          const meta = document.querySelector('.seniors__meta').getBoundingClientRect()
+          const lead = document.querySelector('.seniors__lead').getBoundingClientRect()
           return {
-            szerokosci: [...document.querySelectorAll('.seniors__level')].map((el) =>
-              Math.round(el.getBoundingClientRect().width),
-            ),
             odPrawej: Math.round(document.documentElement.clientWidth - kadr.right),
             odstepOdTekstu: Math.round(kadr.left - tekst.right),
             proporcjaKadru: kadr.width / kadr.height,
+
+            /*
+             * Proporcja z ATRYBUTOW, nie z `naturalWidth`: kadr jest daleko
+             * w dole strony i ma `loading="lazy"`, wiec w chwili pomiaru plik
+             * czesto nie jest jeszcze wczytany i wymiary naturalne sa zerowe.
+             * Atrybuty niosa te sama liczbe i rezerwuja miejsce w ukladzie.
+             */
+            proporcjaPliku: Number(obraz.width) / Number(obraz.height),
+            metaPodLeadem: Math.round(meta.top - lead.bottom),
           }
         })
-
-        expect(new Set(m.szerokosci).size, `kolumny ${m.szerokosci}`).toBe(1)
 
         // Prawa krawedz na krawedzi okna - wspolna os ze zdjeciami hero i sekcji 02.
         expect(m.odPrawej, 'kadr przy krawedzi okna').toBeLessThanOrEqual(0)
 
         /*
-         * Kadr zostal zmniejszony o 10% od lewej, wiec miedzy nim a kolumna
-         * tekstowa musi zostac widoczna przerwa. Bez tego zmniejszenie
-         * cofneloby sie niezauwazone.
+         * Kadr jest wezszy od pelnej prawej polowy siatki, wiec miedzy nim
+         * a kolumna tekstowa musi zostac widoczna przerwa.
          */
         expect(m.odstepOdTekstu, 'przerwa miedzy tekstem a kadrem').toBeGreaterThanOrEqual(60)
 
-        expect(Math.abs(m.proporcjaKadru - 16 / 9), 'proporcja 16:9').toBeLessThan(0.05)
+        /*
+         * KADR NIE JEST PRZYCINANY. Stala tu proporcja 16:9 wobec 1.45 pliku
+         * i `object-fit: cover` zdejmowal gore kadru razem z litera "T" neonu.
+         * Wlasciciel zglosil to 19.09.2026 - proporcja pudelka ma sie rownac
+         * proporcji zrodla.
+         */
+        expect(
+          Math.abs(m.proporcjaKadru - m.proporcjaPliku),
+          `pudelko ${m.proporcjaKadru.toFixed(3)} vs plik ${m.proporcjaPliku.toFixed(3)}`,
+        ).toBeLessThan(0.02)
+
+        /*
+         * Linia o poziomach stoi TUZ POD LEADEM, a nie pod kadrem. Lewa
+         * i prawa kolumna sa osobnymi stosami: wyzszy kadr nie ma prawa
+         * spychac tekstu w dol (zgloszenie wlasciciela z 19.09.2026).
+         */
+        expect(m.metaPodLeadem, 'linia o poziomach tuz pod leadem').toBeLessThanOrEqual(120)
       })
     }
 

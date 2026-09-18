@@ -893,7 +893,13 @@
             dochodzi do krawedzi okna - ta sama os co zdjecia hero, sekcji 02
             i portretu w sekcji 05.
           -->
-          <div class="seniors__top">
+          <!--
+            UKLAD: po lewej tekst, po prawej kadr Terminalu dochodzacy do
+            krawedzi okna - ta sama os co zdjecia hero, sekcji 02 i portretu
+            w sekcji 05. Pod nimi drugi wiersz: wezwanie po lewej, dopisek
+            o zapisach po prawej.
+          -->
+          <div class="seniors__grid">
             <div class="seniors__intro">
               <p class="u-label section__label">
                 <span>10</span>
@@ -912,87 +918,78 @@
               </h2>
 
               <p class="seniors__lead" data-animation="fade-up">
-                Kameralne zajęcia dla osób, które chcą uczyć się angielskiego spokojnie, praktycznie
-                i&nbsp;bez presji. Dużo rozmowy, codzienne sytuacje i&nbsp;tempo dopasowane
-                do&nbsp;grupy.
+                Kameralne zajęcia dla seniorów. Spokojne tempo, dużo rozmowy i&nbsp;praktyczny
+                angielski do&nbsp;codziennych sytuacji.
               </p>
+
+              <div class="seniors__action">
+                <!--
+                  JEDNA linia o poziomach zamiast trzech kart.
+                  Rozpiska grup zyje na /oferta/seniorzy/ - strona glowna ma
+                  byc zapowiedzia oferty, nie jej katalogiem. Kreska przed
+                  tekstem jest pseudoelementem, bo nie niesie tresci.
+                -->
+                <p class="u-label seniors__meta" data-animation="fade-up">
+                  3&nbsp;poziomy · od&nbsp;podstaw do&nbsp;średniozaawansowanego
+                </p>
+
+                <a class="cta" href="/oferta/seniorzy/" data-animation="fade-up">
+                  Zobacz zajęcia dla seniorów
+                  <span class="cta__arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
 
-            <figure class="media media--16-9 seniors__media" data-animation="mask-up">
-              <picture>
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/sections/terminal-kultury-480.avif 480w,
-                    /src/assets/images/sections/terminal-kultury-750.avif 750w
-                  "
-                  sizes="(min-width: 62rem) 52vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/sections/terminal-kultury-750.webp"
-                  srcset="
-                    /src/assets/images/sections/terminal-kultury-480.webp 480w,
-                    /src/assets/images/sections/terminal-kultury-750.webp 750w
-                  "
-                  sizes="(min-width: 62rem) 52vw, 100vw"
-                  alt="Budynek Terminalu Kultury Gocław w Warszawie"
-                  width="750"
-                  height="500"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
-          </div>
+            <!--
+              PRAWA KOLUMNA: kadr i dopisek pod nim.
 
-          <!--
-            Etykieta z kreskami po obu stronach - jedyna dekoracja, jaka
-            design system dopuszcza. Kreski sa w pseudoelementach, bo nie
-            niosa tresci.
-          -->
-          <p class="u-label seniors__groups" data-animation="fade-up">Dostępne grupy</p>
+              Obie kolumny sa osobnymi stosami, a nie wierszami wspolnej
+              siatki. Przy wierszach wyzszy kadr spychal linie o poziomach
+              i wezwanie w dol - a te maja stac tuz pod leadem, niezaleznie
+              od tego, ile miejsca zajmie zdjecie.
+            -->
+            <div class="seniors__aside">
+              <!--
+                KADR W NATURALNEJ PROPORCJI 750x518, bez klasy proporcji.
+              Wcześniej stało tu `media--16-9`, czyli 1.78 wobec 1.45 źródła -
+              `object-fit: cover` zdejmował przez to górę i dół kadru razem
+              z literą "T" neonu w lewym górnym rogu. Teraz nic nie jest
+              ucinane, a proporcja jest bliższa projektowi referencyjnemu.
 
-          <!--
-            Trzy POZIOMY, nie trzy zalety - dlatego <ol>: kolejnosc niesie
-            sens, od zaczynajacych do mowiacych swobodnie. Zadna z grup nie
-            jest wyrozniona; roznicuje je wylacznie tresc opisu.
-          -->
-          <ol class="seniors__levels">
-            <li class="seniors__level" data-animation="fade-up">
-              <p class="seniors__level-number" aria-hidden="true">01</p>
-              <h3 class="seniors__level-name">Początkująca</h3>
-              <p class="seniors__level-copy">
-                Dla osób, które zaczynają naukę lub chcą wrócić do&nbsp;podstaw w&nbsp;spokojnym
-                tempie.
+              Ze `srcset` znikły warianty 480w: takie pliki nie istnieją
+              i nigdy nie powstały - generator robi dla tego źródła jedną
+              szerokość 750 px. Te same martwe odnośniki stoją jeszcze
+              na /lokalizacje/ i /oferta/seniorzy/.
+            -->
+              <figure class="media seniors__media" data-animation="mask-up">
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcset="/src/assets/images/sections/terminal-kultury-750.avif 750w"
+                    sizes="(min-width: 62rem) 52vw, 100vw"
+                  />
+                  <img
+                    src="/src/assets/images/sections/terminal-kultury-750.webp"
+                    srcset="/src/assets/images/sections/terminal-kultury-750.webp 750w"
+                    sizes="(min-width: 62rem) 52vw, 100vw"
+                    alt="Budynek Terminalu Kultury Gocław w Warszawie"
+                    width="750"
+                    height="518"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
+
+              <!--
+                Dopisek, nie drugie wezwanie: zapisy prowadzi Terminal Kultury,
+                wiec strona glowna moze o tym powiedziec, ale nie ma czego
+                obiecywac. Pionowa kreska jest obramowaniem, nie osobnym <hr>.
+              -->
+              <p class="seniors__note" data-animation="fade-up">
+                Zapisy i&nbsp;szczegóły na&nbsp;stronie Terminala.
               </p>
-            </li>
-
-            <li class="seniors__level" data-animation="fade-up">
-              <p class="seniors__level-number" aria-hidden="true">02</p>
-              <h3 class="seniors__level-name">Podstawowa</h3>
-              <p class="seniors__level-copy">
-                Dla osób, które już trochę rozumieją i&nbsp;mówią, ale chcą nabrać większej swobody
-                w&nbsp;codziennej komunikacji.
-              </p>
-            </li>
-
-            <li class="seniors__level" data-animation="fade-up">
-              <p class="seniors__level-number" aria-hidden="true">03</p>
-              <h3 class="seniors__level-name">Średniozaawansowana</h3>
-              <p class="seniors__level-copy">
-                Dla osób, które chcą mówić pewniej, poszerzać słownictwo i&nbsp;ćwiczyć bardziej
-                naturalne rozmowy.
-              </p>
-            </li>
-          </ol>
-
-          <div class="seniors__foot">
-            <a class="cta" href="/oferta/seniorzy/" data-animation="fade-up">
-              Zobacz zajęcia dla seniorów
-              <span class="cta__arrow" aria-hidden="true">→</span>
-            </a>
-
-            <p class="seniors__hint">Pomożemy dobrać właściwy poziom po krótkiej rozmowie.</p>
+            </div>
           </div>
         </div>
       </section>

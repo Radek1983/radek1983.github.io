@@ -83,28 +83,26 @@ test.describe('akty 09-12', () => {
    * kremowa kapsula i zero kart. Geometrie i brzmienie poziomow trzyma
    * osobny zamek w tests/e2e/seniorzy.spec.js (CLAUDE.md §15, D16).
    */
-  test('10 seniorzy: nagłówek wersalikami i trzy numerowane poziomy', async ({ page }) => {
+  test('10 seniorzy: nagłówek wersalikami i jedna linia o poziomach', async ({ page }) => {
     const tytul = page.locator('#seniorzy-title')
     await expect(tytul).toHaveCSS('text-transform', 'uppercase')
     await expect(tytul).toHaveText('Angielski dla seniorów.')
 
-    const poziomy = page.locator('.seniors__level')
-    await expect(poziomy).toHaveCount(3)
-    for (const [i, [numer, nazwa]] of [
-      ['01', 'Początkująca'],
-      ['02', 'Podstawowa'],
-      ['03', 'Średniozaawansowana'],
-    ].entries()) {
-      await expect(poziomy.nth(i).locator('.seniors__level-number')).toHaveText(numer)
-      await expect(poziomy.nth(i).locator('.seniors__level-name')).toHaveText(nazwa)
-      await expect(poziomy.nth(i).locator('.seniors__level-name')).toHaveCSS(
-        'text-transform',
-        'uppercase',
-      )
-    }
+    /*
+     * ROZPISKA POZIOMOW ZESZLA Z TEJ SEKCJI 19.09.2026.
+     *
+     * Stały tu trzy karty z nazwami grup i opisami; wlasciciel zastapil je
+     * jedna linia informacyjna, a pelna rozpiske przeniosl na podstrone
+     * /oferta/seniorzy/ (pilnuje jej tests/e2e/oferta-seniorzy.spec.js).
+     * Strona glowna ma byc zapowiedzia oferty, nie jej katalogiem.
+     */
+    await expect(page.locator('#seniorzy .seniors__level')).toHaveCount(0)
+    await expect(page.locator('#seniorzy .seniors__meta')).toHaveText(
+      /3\s+poziomy · od\s+podstaw do\s+średniozaawansowanego/i,
+    )
 
-    // Lista jest numerowana semantycznie, nie tylko wizualnie.
-    await expect(page.locator('ol.seniors__levels')).toHaveCount(1)
+    // Granica wieku pozostaje zakazana w calej sekcji (D16).
+    await expect(page.locator('#seniorzy')).not.toContainText('60+')
 
     /*
      * Kapsula pelna, ale NIE czerwona: czerwien niesie glowna konwersje
@@ -118,7 +116,7 @@ test.describe('akty 09-12', () => {
     // Zero kart: brak zaokraglen i cieni na modulach sekcji.
     const ozdoby = await page.evaluate(
       () =>
-        [...document.querySelectorAll('#seniorzy .seniors__level, #seniorzy .media')].filter(
+        [...document.querySelectorAll('#seniorzy .media, #seniorzy .seniors__note')].filter(
           (el) => {
             const cs = getComputedStyle(el)
             return parseFloat(cs.borderRadius) > 0 || cs.boxShadow !== 'none'
