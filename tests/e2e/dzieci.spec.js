@@ -125,7 +125,8 @@ test.describe('/oferta/dzieci/ - strona zatwierdzona', () => {
       ['/oferta/', '/#kontakt'],
       // Strona egzaminacyjna dostala wlasna sekcje zapisow 17.09.2026.
       ['/oferta/egzamin-osmoklasisty/', '#zapisy-egzamin-osmoklasisty'],
-      ['/oferta/seniorzy/', '/#kontakt'],
+      // Strona senioralna dostala wlasna sekcje zapisow 18.09.2026.
+      ['/oferta/seniorzy/', '#zapisy-seniorzy'],
       ['/oferta/online/', '/#kontakt'],
       ['/cennik/', '/#kontakt'],
       ['/kariera/', '#aplikacja'],

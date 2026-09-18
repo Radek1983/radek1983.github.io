@@ -431,26 +431,28 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #       | Temat                                  | Decyzja                                                                                                                                                                                                                         |
-| ------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1**  | Środowisko lokalne                     | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                             |
-| **D2**  | Konwersja                              | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                    |
-| **D3**  | Adres                                  | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                     |
-| **D4**  | Fotografia                             | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                           |
-| **D5**  | Wersje narzędzi                        | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                           |
-| **D6**  | Dane kontaktowe                        | **Docelowe:** e-mail `kontakt@highfive.academy`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
-| **D7**  | Sekcja 01 hero                         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                 |
-| **D8**  | Sekcja 02 po lekcjach                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                  |
-| **D9**  | Sekcja 03 co dziecko zyskuje           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                            |
-| **D10** | Sekcje 04 nasza oferta i 06 jak uczymy | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                            |
-| **D11** | Sekcja 05 o High Five                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                              |
-| **D12** | Sekcja 07 cennik · klasy 1-7           | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                  |
-| **D13** | Sekcja 12 kontakt                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                            |
-| **D14** | Sekcja 08 nabór 2026 · klasy 1-7       | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                          |
-| **D15** | Sekcja 09 lokalizacje                  | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                          |
-| **D16** | Sekcja 10 dodatkowo · seniorzy         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                              |
-| **D17** | Podstrona `/cennik/`                   | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian** poza podmianą odnośników. Zatwierdzona 16.09.2026 po przebudowie na cztery akty kolorystyczne. Szczegóły niżej                                                                       |
-| **D18** | Podstrona `/oferta/dzieci/`            | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 17.09.2026 po przebudowie zamknięcia na czerwony akt zapisów. Szczegóły niżej                                                                                          |
+| #       | Temat                                     | Decyzja                                                                                                                                                                                                                         |
+| ------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1**  | Środowisko lokalne                        | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                             |
+| **D2**  | Konwersja                                 | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                    |
+| **D3**  | Adres                                     | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                     |
+| **D4**  | Fotografia                                | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                           |
+| **D5**  | Wersje narzędzi                           | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                           |
+| **D6**  | Dane kontaktowe                           | **Docelowe:** e-mail `kontakt@highfive.academy`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7**  | Sekcja 01 hero                            | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                 |
+| **D8**  | Sekcja 02 po lekcjach                     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                  |
+| **D9**  | Sekcja 03 co dziecko zyskuje              | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D10** | Sekcje 04 nasza oferta i 06 jak uczymy    | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D11** | Sekcja 05 o High Five                     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                              |
+| **D12** | Sekcja 07 cennik · klasy 1-7              | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                  |
+| **D13** | Sekcja 12 kontakt                         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D14** | Sekcja 08 nabór 2026 · klasy 1-7          | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                          |
+| **D15** | Sekcja 09 lokalizacje                     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                          |
+| **D16** | Sekcja 10 dodatkowo · seniorzy            | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                              |
+| **D17** | Podstrona `/cennik/`                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian** poza podmianą odnośników. Zatwierdzona 16.09.2026 po przebudowie na cztery akty kolorystyczne. Szczegóły niżej                                                                       |
+| **D18** | Podstrona `/oferta/dzieci/`               | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 17.09.2026 po przebudowie zamknięcia na czerwony akt zapisów. Szczegóły niżej                                                                                          |
+| **D19** | Podstrona `/oferta/egzamin-osmoklasisty/` | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 18.09.2026. Jest **wzorcem rytmu** dla wszystkich trzech sekcji zapisów. Szczegóły niżej                                                                               |
+| **D20** | Podstrona `/oferta/seniorzy/`             | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 18.09.2026. Jedyna sekcja zapisów z przyciskiem — bo zapisy prowadzi Terminal. Szczegóły niżej                                                                         |
 
 ### D5 — konsekwencje
 
@@ -773,12 +775,15 @@ z nagłówka strony celuje w jego kotwicę zamiast odsyłać na stronę główn�
 Co jest zamrożone — `oferta/dzieci/index.html`, `src/css/pages/dzieci.css`
 i **wspólny komponent `src/css/components/enroll.css`**:
 
-Wygląd sekcji przeniósł się do komponentu 18.09.2026, gdy podstrona
-egzaminacyjna dostała tę samą sekcję. Właściciel wyraził na to zgodę wprost.
-`pages/dzieci.css` trzyma odtąd wyłącznie WARTOŚCI, którymi ta strona różni
-się od tamtej — nagłówek jest tu większy. **Nie ujednolicaj tych wartości:
-obie strony zatwierdzono osobno.** Zmiana w komponencie dotyka dwóch stron
-naraz, więc po każdej uruchom oba zamki.
+Wygląd **i rytm** sekcji przeniosły się do komponentu 18.09.2026, gdy tę samą
+sekcję dostały podstrony egzaminacyjna i senioralna. Właściciel wyraził zgodę
+na obie operacje wprost, mimo że ta strona była już zamknięta.
+
+`pages/dzieci.css` trzyma odtąd wyłącznie **skalę typografii** — nagłówek jest
+tu największy w trójce, bo zdanie ma tylko szesnaście znaków. **Odstępów nie
+ustawia się już w warstwie strony**: wszystkie trzy sekcje mają wspólny rytm,
+którego wzorcem jest podstrona egzaminacyjna (D19). Zmiana w komponencie
+dotyka trzech stron naraz, więc po każdej uruchom wszystkie trzy zamki.
 
 - sekcja `#zapisy-klasy-1-7` na czerwieni marki, zamykająca `<main>` tuż nad stopką:
   etykieta → plakatowy nagłówek `Gotowi na start?` → dwuwierszowy lead → trzy drogi
@@ -809,6 +814,74 @@ z `base/reset.css` — bez tego etykieta lądowała pół ekranu niżej niż cze
 Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
 
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
+
+### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
+
+Zatwierdzona **18.09.2026**. Tag: `zatwierdzone/egzamin`.
+
+Zamknięcie strony przebudowane z bloku „Chcesz dołączyć?" na **czerwony akt
+ZAPISÓW** `#zapisy-egzamin-osmoklasisty`, a wezwanie z nagłówka celuje w jego
+kotwicę zamiast odsyłać na stronę główną.
+
+**Ta strona jest WZORCEM RYTMU dla wszystkich trzech sekcji zapisów.**
+Właściciel wskazał ją wprost i kazał dociągnąć do niej pozostałe dwie. Odstępy
+żyją w `components/enroll.css`; warstwy stron ustawiają wyłącznie skalę
+typografii. Test `trzy sekcje zapisow maja ten sam rytm wewnetrzny`
+w `tests/e2e/egzamin.spec.js` porównuje trzy strony między sobą.
+
+Co jest zamrożone — `oferta/egzamin-osmoklasisty/index.html` i część
+„06 ZAPISY" w `src/css/pages/egzamin.css`:
+
+- sekcja zamyka `<main>` tuż nad stopką, **bez przycisku**;
+- nagłówek `Masz pytanie o grupę?` w **jednym wierszu** na pełną szerokość
+  siatki; stopień jest mniejszy niż na stronie klas 1-7, bo zdanie jest dłuższe;
+- trzy drogi kontaktu z **ogólnym** adresem serwisu — w odróżnieniu od
+  `/oferta/dzieci/`, która ma własny adres zapisowy (D6, D18);
+- w hero **nie ma** drugiego wezwania; wszystkie `Zapytaj o grupę` na tej
+  stronie celują w tę samą kotwicę.
+
+Dwie pułapki zapisane w kodzie:
+
+1. **Padding pasa musi być powtórzony pod kotwicą strony.** Scoped
+   `[data-page='egzamin'] .section` ma wyższą specyficzność niż klasa
+   komponentu i cicho go nadpisywał — pas trzymał 57,6 px zamiast 43 px,
+   a skok z menu zatrzymywał się 73 px pod nagłówkiem zamiast 16 px.
+2. **Dolny margines etykiety jest wyzerowany.** Wspólna reguła
+   `.section__label` tej podstrony daje 32 px, a marginesy sąsiadów się
+   sklejają — wygrywa większa z dwóch wartości, więc zmniejszanie marginesu
+   nagłówka nie mogło zadziałać.
+
+Pilnuje tego `tests/e2e/egzamin.spec.js`.
+
+### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
+
+Zatwierdzona **18.09.2026**. Tag: `zatwierdzone/seniorzy-podstrona` —
+**nie mylić z `zatwierdzone/seniorzy`**, który oznacza sekcję 10 strony
+głównej (D16). Z tego samego powodu zamek nazywa się
+`tests/e2e/oferta-seniorzy.spec.js`, a nie `seniorzy.spec.js`.
+
+**To jedyna z trzech sekcji zapisów, która MA przycisk** — i jest to decyzja
+merytoryczna, nie estetyczna: zapisów na te zajęcia **nie prowadzi High Five,
+tylko Terminal Kultury**. Wezwanie nie jest więc drugim „napisz do nas", tylko
+przejściem tam, gdzie decyzja faktycznie zapada.
+
+Co jest zamrożone — `oferta/seniorzy/index.html` i `src/css/pages/seniorzy.css`:
+
+- sekcja `#zapisy-seniorzy` zamyka `<main>` tuż nad stopką;
+- nagłówek `Zapisy prowadzi Terminal.` w jednym wierszu, lead w dwóch;
+- **jeden przycisk**, prowadzący na stronę Terminala Kultury w nowej karcie
+  z `rel="noopener noreferrer"`. Adres nie został wymyślony — to ten sam
+  odnośnik, który stoi wyżej na tej stronie. **Nie kieruj go na kontakt
+  High Five**: strona obiecywałaby zapisy, których nie przyjmuje;
+- pierwsza kolumna jest **tekstem, nie odnośnikiem** (`przez stronę Terminala
+Kultury Gocław`) — w sprawie zapisów ma być jeden cel kliknięcia;
+- **w sekcji nie ma adresu e-mail.** Ogólny adres serwisu stoi dalej w stopce;
+- wezwanie w nagłówku brzmi **`Zapytaj o zajęcia`**, nie `Zapytaj o miejsce`:
+  obietnica miejsca była mocniejsza, niż ta strona może dowieźć;
+- w hero **nie ma** wezwania — stało tam `Zapytaj o miejsce` prowadzące na
+  `/#kontakt`, czyli do High Five.
+
+Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 
 ### D2 — mechanika i konsekwencje
 
@@ -892,32 +965,39 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   wszystko poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje,
   04 nasza oferta, 05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026,
   09 lokalizacje, 10 seniorzy, 12 kontakt. Zamknięte są też całe podstrony
-  `/cennik/` i `/oferta/dzieci/`** — patrz D7–D18 w §15. Dotyczy to również zmian
+  `/cennik/`, `/oferta/dzieci/`, `/oferta/egzamin-osmoklasisty/`
+  i `/oferta/seniorzy/`** — patrz D7–D20 w §15. Dotyczy to również zmian
   pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
   wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
 
   ```
-  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js tests/e2e/cennik.spec.js tests/e2e/dzieci.spec.js --project=desktop-chromium
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js tests/e2e/cennik.spec.js tests/e2e/dzieci.spec.js tests/e2e/egzamin.spec.js tests/e2e/oferta-seniorzy.spec.js --project=desktop-chromium
   ```
 
   To około minuty i jedyna rzecz, która wyłapie zmianę pośrednią.
 
-- **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz podstrony poza
-  `/cennik/` i `/oferta/dzieci/`. Przy pracy nad nimi uważaj na `--step-display`: niesie
-  nagłówki sekcji 11 i 12, a dwunastka jest zamknięta. Uważaj też na warianty `.cta`:
-  `cta--ink` niesie hero (D7), wezwanie w sekcji 09 (D15) i wezwanie na `/cennik/` (D17),
+- **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz podstrony
+  `/oferta/`, `/oferta/online/`, `/lokalizacje/` i `/kariera/`. Przy pracy nad nimi
+  uważaj na `--step-display`: niesie nagłówki sekcji 11 i 12, a dwunastka jest
+  zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero (D7), wezwanie
+  w sekcji 09 (D15), wezwanie na `/cennik/` (D17) i przycisk do Terminala (D20),
   a `cta--ghost` stoi na pięciu podstronach.
 
 - **Mapa `CTA` w `src/data/offers.mjs` jest kluczowana ścieżką pliku.** Zmieniając cel
-  wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości domyślnej i nigdy
-  kotwicy wpisanej na sztywno w partialu nagłówka. `/oferta/dzieci/` (D18)
-  i `/oferta/egzamin-osmoklasisty/` celują w kotwice u siebie, pozostałe siedem stron
+  albo etykietę wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości
+  domyślnej i nigdy kotwicy wpisanej na sztywno w partialu nagłówka. Trzy podstrony
+  ofertowe (D18, D19, D20) celują w kotwice u siebie, pozostałe sześć stron
   w `/#kontakt` albo `#aplikacja`.
 
-- **`src/css/components/enroll.css` obsługuje DWIE strony naraz** — czerwony akt zapisów
-  na obu podstronach ofertowych. Jedna z nich jest zamknięta (D18), więc po każdej zmianie
-  w tym pliku uruchom `tests/e2e/dzieci.spec.js`. Wartości, którymi strony się różnią,
-  siedzą w ich własnych warstwach i **nie mają być ujednolicane**.
+- **`src/css/components/enroll.css` obsługuje TRZY strony naraz** — czerwony akt zapisów
+  na wszystkich podstronach ofertowych poza `/oferta/online/`. **Wszystkie trzy są
+  zamknięte**, więc po każdej zmianie w tym pliku uruchom `dzieci.spec.js`,
+  `egzamin.spec.js` i `oferta-seniorzy.spec.js`.
+
+  Komponent trzyma **strukturę i rytm**; warstwy stron wyłącznie **skalę typografii**.
+  Odstępów nie ustawiaj w warstwie strony — wzorcem jest podstrona egzaminacyjna (D19),
+  a równości pilnuje osobny test porównujący trzy strony. Stopnie pisma **mają** się
+  różnić i nie wolno ich ujednolicać.
 
 - **Podmiana odnośnika jest jedyną zmianą dopuszczoną w `/cennik/`** bez pytania —
   gdy zmieni się adres podstrony ofertowej. Poprawiasz wtedy `href` i asercję w teście.

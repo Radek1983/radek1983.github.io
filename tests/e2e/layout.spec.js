@@ -174,10 +174,21 @@ test.describe('oferta dla seniorow', () => {
     await expect(zajawka).not.toHaveCSS('background-color', 'rgb(242, 59, 47)')
     await expect(zajawka).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
 
+    /*
+     * Na podstronie odnosnik zewnetrzny MUSI byc - to tam zapadaja zapisy.
+     * Liczba nie jest juz sztywna: od 18.09.2026 stoi tam takze przycisk
+     * w sekcji zapisow (D20), obok starszego odnosnika przy zasadach
+     * rozliczenia. Warunkiem jest natomiast, zeby KAZDY z nich otwieral sie
+     * bezpiecznie - `rel="noopener"` na linku z `target="_blank"`.
+     */
     await page.goto('/oferta/seniorzy/')
-    const zewnetrzny = page.locator('main a[href^="https://terminalkultury.pl"]')
-    await expect(zewnetrzny).toHaveCount(1)
-    await expect(zewnetrzny).toHaveAttribute('rel', /noopener/)
+    const zewnetrzne = page.locator('main a[href^="https://terminalkultury.pl"]')
+    expect(await zewnetrzne.count()).toBeGreaterThan(0)
+
+    for (let i = 0; i < (await zewnetrzne.count()); i += 1) {
+      await expect(zewnetrzne.nth(i)).toHaveAttribute('rel', /noopener/)
+      await expect(zewnetrzne.nth(i)).toHaveAttribute('target', '_blank')
+    }
   })
 
   test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {

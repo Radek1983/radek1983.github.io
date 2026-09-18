@@ -35,7 +35,8 @@ const STRONY = [
     sekcja: 'oferta',
     title: 'Angielski dla seniorów Gocław | High Five',
     h1: /Angielski dla seniorów/i,
-    cta: 'Zapytaj o miejsce',
+    // Etykieta zmieniona 18.09.2026: zapisy prowadzi Terminal, nie High Five.
+    cta: 'Zapytaj o zajęcia',
   },
   {
     url: '/oferta/online/',
