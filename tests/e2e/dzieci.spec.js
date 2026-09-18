@@ -144,6 +144,60 @@ test.describe('/oferta/dzieci/ - strona zatwierdzona', () => {
     expect(zPodstrony, 'stopka bez zmian').toBe(zGlownej)
   })
 
+  /*
+   * DOPISEK O WSPOLPRACY pod leadem hero - dodany 18.09.2026.
+   *
+   * Ma byc PRZYPISEM, a nie druga czescia leadu: osobny akapit, mniejszy
+   * stopien, wyciszony kolor, zero ramki, tla, ikony i kursywy. Bez danych
+   * rejestrowych partnera - to informacja o wspolpracy, nie metryczka firmy.
+   */
+  test('dopisek o wspolpracy jest przypisem, nie druga czescia leadu', async ({ page }) => {
+    const lead = page.locator('.page-hero__lead')
+    const nota = page.locator('.page-hero__note')
+
+    await expect(nota).toHaveCount(1)
+    await expect(nota).toContainText(/realizujemy we\s+współpracy z\s+High Five/i)
+
+    // Osobny akapit, nie ciag dalszy leadu.
+    await expect(lead).not.toContainText(/współpracy/i)
+
+    const m = await page.evaluate(() => {
+      const c = (s) => getComputedStyle(document.querySelector(s))
+      const l = c('.page-hero__lead')
+      const n = c('.page-hero__note')
+      return {
+        stopienLeadu: parseFloat(l.fontSize),
+        stopienNoty: parseFloat(n.fontSize),
+        wagaNoty: n.fontWeight,
+        kursywa: n.fontStyle,
+        ramka: n.borderTopWidth + n.borderInlineStartWidth,
+        tlo: n.backgroundColor,
+      }
+    })
+
+    expect(m.stopienNoty, 'dopisek mniejszy od leadu').toBeLessThan(m.stopienLeadu)
+    expect(Number(m.wagaNoty), 'bez pogrubienia').toBeLessThanOrEqual(500)
+    expect(m.kursywa).toBe('normal')
+    expect(m.ramka, 'bez obramowania').toBe('0px0px')
+    expect(m.tlo, 'bez tla').toMatch(/rgba\(0, 0, 0, 0\)|transparent/)
+
+    // Bez danych rejestrowych partnera.
+    await expect(nota).not.toContainText(/NIP|REGON/i)
+  })
+
+  /*
+   * Wezwanie do lokalizacji uzywa wariantu `cta--ink`, tak jak hero strony
+   * glownej (D7) i pozostale czarne przyciski serwisu. Zszedl z obrysowego
+   * `cta--ghost` na polecenie wlasciciela z 18.09.2026.
+   */
+  test('wezwanie do lokalizacji jest czarne', async ({ page }) => {
+    const cta = page.locator('a.cta[href="/lokalizacje/"]')
+
+    await expect(cta).toHaveCount(1)
+    await expect(cta).toHaveClass(/cta--ink/)
+    await expect(cta).toHaveCSS('background-color', 'rgb(10, 10, 10)')
+  })
+
   test.describe('geometria desktopowa', () => {
     test.skip(({ isMobile }) => isMobile, 'trzy kolumny dzialaja od 48rem')
 
