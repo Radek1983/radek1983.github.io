@@ -99,8 +99,13 @@ test.describe('higiena językowa', () => {
     expect(t).not.toMatch(/osobny przygotowanie/)
     expect(t).toMatch(/osobne przygotowanie do egzaminu/)
 
-    // Czasownik zwrotny: "przekłada SIĘ na".
-    expect(t).toMatch(/przekłada się na High Five/)
+    /*
+     * Czasownik zwrotny: "przekłada SIĘ na". Zdanie prowadzi dalej inaczej
+     * niż w audycie - właściciel przepisał cały akapit 18.09.2026 i zamiast
+     * "przekłada się na High Five" stoi tam "przekłada się na sposób, w jaki
+     * pracujemy w High Five". Pilnujemy samego zwrotu, nie reszty zdania.
+     */
+    expect(t).toMatch(/przekłada się na/)
     expect(t).not.toMatch(/doświadczenie przekłada na/)
   })
 

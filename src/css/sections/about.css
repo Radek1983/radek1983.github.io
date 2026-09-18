@@ -80,14 +80,56 @@
   max-inline-size: 75ch;
 }
 
+/*
+ * Odstep MIEDZY AKAPITAMI, nie miedzy wszystkimi blokami kolumny.
+ *
+ * Kolumna jest flexem z `gap: var(--space-4)`, ktory rzadzi takze odlegloscia
+ * etykieta-naglowek-pierwszy akapit i jest wliczony w ujemny margines paska
+ * faktow (D11, 2 px). Zmiana samego `gap` ruszylaby wiec cala sekcje razem
+ * z zatwierdzona geometria kadru. Doklejamy zatem roznice tylko tam, gdzie
+ * akapit stoi po akapicie: 16 px z `gap` + 8 px = 24 px, czyli --space-6.
+ *
+ * Etykieta sekcji jest tez akapitem, ale miedzy nia a pierwszym opisem stoi
+ * naglowek, wiec `p + p` jej nie dotyczy.
+ */
+.about__text p + p {
+  margin-block-start: calc(var(--space-6) - var(--space-4));
+}
+
+/*
+ * Lead sekcji - pierwszy akapit czyta sie mocniej niz reszta.
+ *
+ * Waga 500, nie 600: z tekstowego Intera self-hostujemy wylacznie Regular 400
+ * i Medium 500 (par. 7). Przy 600 przegladarka pogrubialaby piatke sztucznie,
+ * a to rozmywa litery i przestaje byc Interem. Mocniejsza waga wymagalaby
+ * dolozenia pliku Inter-SemiBold.woff2, czyli nowego zasobu i decyzji.
+ *
+ * Stopien rosnie o 7%, czyli tyle, zeby lead bral pierwsze spojrzenie,
+ * ale nie zaczynal konkurowac z naglowkiem sekcji.
+ */
+.about__lead {
+  font-size: calc(var(--step-body) * 1.07);
+  font-weight: 500;
+  line-height: 1.42;
+}
+
 .about__media {
   grid-column: 1 / -1;
   aspect-ratio: 4 / 5;
   margin-block-start: var(--space-8);
 }
 
+/*
+ * Naglowek w JEDNYM wierszu - zyczenie wlasciciela z 18.09.2026.
+ *
+ * Stalo tu `14ch`, czyli miara krotsza niz zdanie, wiec "Dużo uwagi."
+ * schodzilo do drugiego wiersza przy kazdej szerokosci. Bez limitu naglowek
+ * bierze tyle, ile ma kolumna tekstowa: na desktopie miesci sie w jednej
+ * linii, a na telefonie lamie sie naturalnie - i tak ma byc, bo na 390 px
+ * nie ma dla niego innego wyjscia niz dwa wiersze.
+ */
 .about__title {
-  max-inline-size: 14ch;
+  max-inline-size: none;
 }
 
 /*

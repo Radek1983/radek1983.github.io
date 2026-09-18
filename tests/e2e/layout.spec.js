@@ -1103,7 +1103,12 @@ test.describe('05 o high five', () => {
      */
     await expect(sekcja).toContainText(/od\s+ponad\s+20\s+lat/i)
     await expect(sekcja).toContainText(/w\s+szkole\s+podstawowej/i)
-    await expect(sekcja).toContainText(/nauczycielką\s+dyplomowaną/i)
+    /*
+     * Szyk odwrocony przez wlasciciela 18.09.2026 razem z przepisaniem calej
+     * sekcji: "dyplomowana nauczycielka", nie "nauczycielka dyplomowana".
+     * Kwalifikacja ma stac w tekscie - kolejnosc slow jest jego decyzja.
+     */
+    await expect(sekcja).toContainText(/dyplomowaną\s+nauczycielką/i)
     await expect(sekcja).toContainText(/Okręgowej\s+Komisji\s+Egzaminacyjnej/i)
 
     /*
