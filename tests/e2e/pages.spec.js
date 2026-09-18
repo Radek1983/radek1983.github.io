@@ -42,7 +42,11 @@ const STRONY = [
     url: '/oferta/online/',
     sekcja: 'oferta',
     title: 'Indywidualne lekcje angielskiego online | High Five',
-    h1: /1 na 1/i,
+    /*
+     * Naglowek rozbity na trzy wiersze 18.09.2026; cyfry w drugim wiaze
+     * twarda spacja, wiec `\s+` zamiast zwyklej spacji (par. 5).
+     */
+    h1: /1\s+na\s+1/i,
     cta: 'Umów lekcję',
   },
   {

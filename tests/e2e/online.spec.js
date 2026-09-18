@@ -76,24 +76,33 @@ test.describe('online 1 na 1', () => {
   })
 
   /*
-   * Naglowek w DWOCH wierszach i bez kropek - decyzja wlasciciela.
-   * "Indywidualnie" wypadlo, bo z nim drugi wiersz mial 28 znakow i lamal
-   * sie na trzeci przy kazdej szerokosci desktopu.
+   * Naglowek w TRZECH wierszach i bez kropek - decyzja wlasciciela
+   * z 18.09.2026. Wczesniej byly dwa: "Online 1 na 1 / W Twoim tempie".
+   * Podzial ma byc SWIADOMY, wiec niosa go <br /> w HTML, a nie szerokosc
+   * kolumny - dlatego test liczy wiersze, a nie sprawdza samego tekstu.
+   *
+   * `\s+` zamiast spacji: cyfry w drugim wierszu wiaze twarda spacja (par. 5),
+   * ktorej zwykla spacja w asercji nie dopasuje.
    */
-  test('naglowek ma dwa wiersze, bez kropek i bez powtorzenia etykiety', async ({ page }) => {
+  test('naglowek ma trzy wiersze, bez kropek i bez powtorzenia etykiety', async ({ page }) => {
     const tytul = page.locator('.page-hero__title')
-    await expect(tytul).toHaveText('Online 1 na 1 W Twoim tempie')
+    await expect(tytul).toHaveText(/Angielski online\s+1\s+na\s+1\s+W Twoim tempie/)
     await expect(tytul).not.toContainText('.')
 
     const linie = await tytul.evaluate((el) =>
       Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)),
     )
-    expect(linie).toBe(2)
+    expect(linie).toBe(3)
 
-    // Etykieta niesie sam kontekst - nie powtarza pierwszego wiersza naglowka.
+    /*
+     * Etykieta niesie sam kontekst - nie powtarza zadnego wiersza naglowka.
+     * Brzmienie zwezone przez wlasciciela: kurs jest dla dzieci i mlodziezy,
+     * dorosli z niego wypadli.
+     */
     const etykieta = page.locator('.page-hero .section__label')
-    await expect(etykieta).toHaveText('Dzieci, młodzież, dorośli')
-    await expect(etykieta).not.toContainText(/Online 1 na 1/i)
+    await expect(etykieta).toHaveText(/Dzieci i\s+młodzież/)
+    await expect(etykieta).not.toContainText(/doros/i)
+    await expect(etykieta).not.toContainText(/1 na 1/i)
   })
 
   test('hero niesie trzy korzysci w jednym rzedzie', async ({ page }) => {

@@ -458,6 +458,16 @@
  * To ten sam uklad, ktory niesie metryczka firmy w sekcji kontaktu.
  */
 .perks {
+  /*
+   * Pół centymetra powietrza ponad `gap` kolumny hero - właściciel poprosił
+   * o to 18.09.2026, po zdjęciu z hero przycisku, pod którym ten blok stał.
+   * Przy oknie 1440 to 18,7 px, czyli dokładnie te 0,5 cm; na telefonie
+   * dokładka topnieje do 8 px, bo par. 9 każe zmniejszać amplitudę układu.
+   *
+   * Reguła stoi w komponencie, a nie w warstwie strony, bo `.perks`
+   * występuje WYŁĄCZNIE na /oferta/online/.
+   */
+  margin-block: clamp(0.5rem, 1.3vw, 1.25rem) 0;
   display: grid;
 
   /*
@@ -468,7 +478,9 @@
   inline-size: 100%;
   grid-template-columns: 1fr;
   gap: var(--space-6);
-  margin: 0;
+
+  /* Tylko poziomo - pionowy margines ustawia deklaracja wyżej. */
+  margin-inline: 0;
   padding: 0;
   list-style: none;
 }
@@ -549,4 +561,37 @@
   content: '✓';
   color: var(--color-accent);
   font-weight: 700;
+}
+
+/* ============================================================
+   /oferta/online/ — dwa odstępy w sekcji „Jak wygląda współpraca"
+   ============================================================ */
+
+/*
+ * Reguły są zakotwiczone w [data-page='online'], więc dotyczą JEDNEJ strony,
+ * mimo że stoją w komponencie. Właściwym miejscem byłaby warstwa strony,
+ * ale ta podstrona takiej nie miała, a dołożenie nowego pliku do main.css
+ * wywraca serwer deweloperski: postcss-import zapamiętuje brak pliku
+ * i oddaje 500 na cały arkusz do czasu restartu. Przy najbliższym restarcie
+ * te dwie reguły można przenieść do pages/online.css bez żadnej zmiany treści.
+ *
+ * ODSTĘP NAD KROKAMI. Lista nosi w HTML klasę u-mt-8, która miała dać jej
+ * margines u góry — tej klasy nie ma w żadnym arkuszu serwisu, nigdy nie
+ * powstała. Ten sam brak zgłosił właściciel dzień wcześniej na /oferta/dzieci/.
+ * Klasy nie ożywiam globalnie: stoi w jedenastu miejscach na sześciu stronach,
+ * w tym w zamkniętej sekcji 04 strony głównej (D10).
+ */
+[data-page='online'] .steps.u-mt-8 {
+  margin-block-start: clamp(1.5rem, 2.9vw, 2.75rem);
+}
+
+/*
+ * ODSTĘP MIĘDZY ETYKIETĄ A NAGŁÓWKIEM. Nagłówki mają w serwisie wyzerowane
+ * marginesy, a etykieta i nagłówek są tu bezpośrednimi dziećmi .container,
+ * bez kolumny flex z gap, którą ma hero. Bez tego stoją tusz w tusz.
+ * Dziecko bezpośrednie w selektorze wyklucza pary siedzące w blokach,
+ * które własny odstęp już mają.
+ */
+[data-page='online'] .container > .section__label + .u-h2 {
+  margin-block-start: var(--space-6);
 }
