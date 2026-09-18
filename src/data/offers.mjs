@@ -110,7 +110,13 @@ export const CTA = {
     label: 'Zapytaj o grupę',
     href: '#zapisy-egzamin-osmoklasisty',
   },
-  'oferta/seniorzy/index.html': { label: 'Zapytaj o miejsce', href: '/#kontakt' },
+  /*
+   * Ta strona ma WLASNA sekcje zapisow, wiec wezwanie zostaje na niej.
+   * Etykieta zeszla z "Zapytaj o miejsce": zapisow na te zajecia nie
+   * prowadzi High Five, tylko Terminal Kultury, wiec obietnica miejsca
+   * byla mocniejsza, niz ta strona moze dowiezc.
+   */
+  'oferta/seniorzy/index.html': { label: 'Zapytaj o zajęcia', href: '#zapisy-seniorzy' },
   'oferta/online/index.html': { label: 'Umów lekcję', href: '/#kontakt' },
   'lokalizacje/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'cennik/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },

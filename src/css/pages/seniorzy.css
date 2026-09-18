@@ -1,0 +1,28 @@
+/*
+ * /oferta/seniorzy/ — warstwa WYŁĄCZNIE tej podstrony.
+ *
+ * Każdy selektor jest zakotwiczony w `[data-page='seniorzy']`, który stoi
+ * na <body> tylko tutaj. `data-section="oferta"` noszą wszystkie cztery
+ * strony produktowe, więc bez tego kotwiczenia zmiana sięgnęłaby poza
+ * tę stronę.
+ *
+ * Plik nie opisuje ani wyglądu, ani rytmu sekcji zapisów — oba żyją
+ * w `components/enroll.css`. Tutaj zostaje wyłącznie SKALA TYPOGRAFII.
+ */
+
+[data-page='seniorzy'] {
+  /*
+   * Nagłówek stoi w JEDNYM wierszu na pełną szerokość siatki. Zdanie ma
+   * 24 znaki, czyli więcej niż na pozostałych dwóch stronach, więc stopień
+   * musi zejść odpowiednio niżej.
+   */
+  --step-enroll-title: clamp(1.75rem, 6.1vw, 5.75rem);
+
+  /*
+   * Miara jest szersza, niż mogłoby się wydawać po tym, że lead dzieli
+   * wiersz z przyciskiem do Terminala: każde z dwóch zdań ma stać
+   * w jednym wierszu, a dłuższe ma 61 znaków.
+   */
+  --measure-enroll-lead: 64ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.5vw, 1.375rem);
+}

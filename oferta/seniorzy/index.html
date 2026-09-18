@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="/src/css/main.css" />
   </head>
 
-  <body data-section="oferta">
+  <body data-section="oferta" data-page="seniorzy">
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
     <!--#include partials/header.html -->
@@ -64,10 +64,15 @@
                 mówienia, przyjazna atmosfera i tempo dopasowane do grupy.
               </p>
 
-              <a class="cta cta--ink" href="/#kontakt" data-animation="fade-up">
-                Zapytaj o miejsce
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - swiadomie, decyzja wlasciciela z 18.09.2026.
+
+                Stalo tu "Zapytaj o miejsce" prowadzace na /#kontakt, czyli
+                do High Five - a zapisow na te zajecia High Five nie prowadzi.
+                Przycisk obiecywal wiec cos, czego nie mogl dowiezc. Droga
+                jest jedna i wprost: wezwanie w naglowku strony celuje w sekcje
+                zapisow na dole, a stamtad prowadzi odnosnik do Terminala.
+              -->
             </div>
 
             <!--
@@ -287,34 +292,88 @@
           </div>
         </div>
       </section>
-
       <!-- ============================================================
-           CTA KOŃCOWE — czerwony pas
+           ZAPISY — czerwony akt zamykajacy podstrone senioralna
+
+           Jedyna z trzech sekcji zapisow, ktora MA przycisk. Powod jest
+           merytoryczny, nie estetyczny: zapisow na te zajecia nie prowadzi
+           High Five, tylko Terminal Kultury. Wezwanie nie jest wiec drugim
+           "napisz do nas", tylko przejsciem do miejsca, gdzie decyzja
+           faktycznie zapada. Telefon zostaje wsparciem.
+
+           Kotwica `#zapisy-seniorzy` jest celem CTA z mega-menu WYLACZNIE
+           na tej podstronie - mapa CTA w src/data/offers.mjs jest kluczowana
+           sciezka pliku, wiec pozostale strony maja swoje cele i etykiety.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="zapisy-seniorzy"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="seniorzy-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="seniorzy-cta" data-animation="fade-up">
-              Chcesz dołączyć?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas i zapytaj o miejsce w grupie dla seniorów.
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kontakt · seniorzy</span>
+          </p>
+
+          <h2 class="u-display enroll__title" id="seniorzy-cta" data-animation="fade-up">
+            Zapisy prowadzi Terminal.
+          </h2>
+
+          <div class="enroll__head">
+            <!--
+              Lamanie jest kompozycyjne: dwa zdania, dwa wiersze jak na
+              projekcie. Nie wiaze krotkiego slowa, wiec <br /> jest tu
+              na miejscu (par. 5 kontraktu).
+            -->
+            <p class="enroll__lead" data-animation="fade-up">
+              W sprawie zapisów przejdź na stronę Terminala Kultury Gocław.<br />
+              Pytania organizacyjne możesz też zadać telefonicznie.
             </p>
+
+            <!--
+              Adres NIE jest wymyslony - to ten sam odnosnik, ktory stoi juz
+              wyzej na tej stronie, przy opisie zasad rozliczenia.
+            -->
+            <a
+              class="cta cta--large cta--ink enroll__action"
+              href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-animation="fade-up"
+            >
+              Zapisy w&nbsp;Terminalu Kultury
+              <span class="cta__arrow" aria-hidden="true">→</span>
+            </a>
           </div>
 
-          <a
-            class="cta cta--large cta--ink"
-            href="mailto:{{EMAIL}}?subject=Angielski%20dla%20senior%C3%B3w%20-%20Terminal%20Kultury%20Goc%C5%82aw&amp;body=Imi%C4%99%20i%20nazwisko%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0APytanie%3A%0A"
-            data-animation="fade-up"
-          >
-            Skontaktuj się
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <!--
+            <dl>, bo to pary etykieta-wartosc. Pierwsza kolumna jest TEKSTEM,
+            nie odnosnikiem: zapisy prowadzi Terminal i to jego strona ma byc
+            jedynym celem klikniecia w tej sprawie.
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Zapisy</dt>
+              <dd class="enroll__value">przez stronę Terminala Kultury Gocław</dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            Telefon najlepiej traktować jako wsparcie. W&nbsp;sprawie zapisów decydująca jest strona
+            Terminala.
+          </p>
         </div>
       </section>
     </main>
