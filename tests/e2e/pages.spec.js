@@ -304,10 +304,14 @@ test.describe('architektura - mega-menu', () => {
 test.describe('architektura - tresc i uczciwosc materialu', () => {
   test('zadna cena nie jest zmyslona', async ({ page }) => {
     /*
-     * Potwierdzone sa DWIE stawki: klasy 1-7 (55/50 zl za 45 min) oraz kurs
-     * egzaminacyjny (80 zl za 90 min, przekazany przez wlasciciela 15.09.2026).
-     * Seniorzy i online nadal NIE moga podawac zadnej kwoty, dopoki wlasciciel
-     * jej nie ustali (CLAUDE.md par. 4). Lista brakow: docs/CONTENT_GAPS.md.
+     * Potwierdzone stawki (CLAUDE.md par. 3): klasy 1-7 (55/50 zl za 45 min),
+     * kurs egzaminacyjny (80 zl za 90 min), seniorzy (45 zl za 60 min)
+     * i online 1 na 1 (120 zl za 60 min) - dwie ostatnie przekazal wlasciciel
+     * 16.09.2026 wraz z przebudowa cennika.
+     *
+     * Stawka senioralna weszla na wlasna podstrone 19.09.2026, tez na jego
+     * polecenie. Strona online nadal ceny NIE podaje - i dopoki wlasciciel
+     * nie zdecyduje inaczej, ma jej nie podawac.
      */
     await page.goto('/cennik/')
     await expect(page.locator('body')).toContainText('55 zł / 45 min')
@@ -316,11 +320,16 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
     await page.goto('/oferta/egzamin-osmoklasisty/')
     await expect(page.locator('.exam-price')).toHaveText('80 zł / 90 minut')
 
-    for (const url of ['/oferta/seniorzy/', '/oferta/online/']) {
-      await page.goto(url)
-      const tekst = await page.locator('main').innerText()
-      expect(tekst, url).not.toMatch(/\d+\s*z[lł]\s*\/\s*\d+\s*min/i)
-    }
+    await page.goto('/oferta/seniorzy/')
+    const senior = await page.locator('main').innerText()
+    expect(senior, 'stawka senioralna zgodna z par. 3').toMatch(/45\s*zł\s*\/\s*60\s*min/i)
+    expect(senior, 'zadna inna kwota za minuty').not.toMatch(
+      /(?!45\s*zł\s*\/\s*60)\b(?!45\b)\d+\s*zł\s*\/\s*\d+\s*min/i,
+    )
+
+    await page.goto('/oferta/online/')
+    const online = await page.locator('main').innerText()
+    expect(online, 'strona online nadal bez ceny').not.toMatch(/\d+\s*z[lł]\s*\/\s*\d+\s*min/i)
   })
 
   test('kurs egzaminacyjny nie obiecuje wyniku', async ({ page }) => {
@@ -392,10 +401,18 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
       expect(etykieta, 'CTA sprzedazowe w tresci kariery').not.toMatch(/zapisz dziecko/i)
     }
 
-    await expect(page.locator('main a[href^="mailto:"]')).toHaveAttribute(
-      'href',
-      /subject=Rekrutacja/,
-    )
+    /*
+     * Droga rekrutacyjna musi byc na stronie dostepna WPROST.
+     *
+     * Do 19.09.2026 niosla ja kapsula ze szkicem maila (`subject=Rekrutacja`).
+     * Wlasciciel zastapil ja sekcja kontaktowa bez przycisku: adres i telefon
+     * stoja teraz w tresci, a czego oczekujemy w zgloszeniu, mowi lead.
+     * Pilnujemy wiec ISTNIENIA drogi kontaktu, nie jej formy.
+     */
+    const mail = page.locator('#aplikacja a[href^="mailto:"]')
+    await expect(mail).toHaveCount(1)
+    await expect(mail).toHaveAttribute('href', 'mailto:kontakt@highfive.academy')
+    await expect(page.locator('#aplikacja a[href^="tel:"]')).toHaveCount(1)
   })
 
   test('zaden link wewnetrzny nie prowadzi donikad', async ({ page, request }) => {

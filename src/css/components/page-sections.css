@@ -595,3 +595,56 @@
 [data-page='online'] .container > .section__label + .u-h2 {
   margin-block-start: var(--space-6);
 }
+
+/*
+ * Skala typografii czerwonej sekcji kontaktowej na /oferta/online/.
+ *
+ * Sekcja korzysta ze wspólnego komponentu `components/enroll.css`, który
+ * trzyma strukturę i rytm; warstwy stron ustawiają wyłącznie stopnie pisma.
+ * Zdanie ma dziewiętnaście znaków - mniej niż na stronie egzaminacyjnej
+ * (21) i seniorskiej (24), więc stopień idzie odpowiednio wyżej, żeby
+ * nagłówek wypełnił szerokość siatki w jednym wierszu.
+ *
+ * Reguła stoi tutaj, a nie w `pages/online.css`, z tego samego powodu co
+ * dwie wyżej: dołożenie nowego pliku do `main.css` wywraca serwer
+ * deweloperski do czasu restartu.
+ */
+[data-page='online'] {
+  --step-enroll-title: clamp(1.875rem, 7.6vw, 7.25rem);
+  --measure-enroll-lead: 34ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+}
+
+/*
+ * ODSTĘP NAD KROKAMI na /kariera/ — sekcja „Co będziesz robić?".
+ *
+ * Ta sama usterka co na trzech podstronach ofertowych: lista nosi w HTML
+ * klasę `u-mt-8`, której nie ma w żadnym arkuszu serwisu, więc etykieta
+ * sekcji przylegała do kresek nad kolumnami. Wartość i uzasadnienie jak
+ * tam - przy oknie 1440 to 41,8 px, czyli około centymetra.
+ *
+ * Zakres bierze `[data-section='kariera']`, bo ta strona jako jedyna nie
+ * ma własnego `data-page`; atrybut sekcji jest tu równie jednoznaczny -
+ * niesie go wyłącznie ta jedna strona.
+ */
+[data-section='kariera'] .steps.u-mt-8 {
+  margin-block-start: clamp(1.5rem, 2.9vw, 2.75rem);
+}
+
+/*
+ * Skala typografii czarnej sekcji kontaktowej na /kariera/.
+ *
+ * Strona zamyka się tym samym komponentem `components/enroll.css`, co cztery
+ * podstrony ofertowe - różni ją wyłącznie motyw (`ink` zamiast `signal`)
+ * i stopnie pisma. Nagłówek ma siedemnaście znaków, czyli najmniej z całej
+ * piątki, więc stopień idzie najwyżej: przy 1440 px daje to jeden wiersz
+ * wypełniający szerokość siatki.
+ *
+ * Zakres bierze `[data-section='kariera']` - ta strona nie ma własnego
+ * `data-page`, a atrybut sekcji niesie wyłącznie ona.
+ */
+[data-section='kariera'] {
+  --step-enroll-title: clamp(2rem, 8.6vw, 8rem);
+  --measure-enroll-lead: 44ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+}

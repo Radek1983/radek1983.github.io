@@ -74,10 +74,16 @@
                 20-letnim doświadczeniem.
               </p>
 
-              <a class="cta" href="#ogloszenie" data-animation="fade-up">
-                Zobacz ogłoszenie
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - wlasciciel zdjal je 19.09.2026.
+
+                Stalo tu "Zobacz ogloszenie" celujace w sekcje #ogloszenie
+                nizej na tej samej stronie, czyli w tresc, do ktorej czytelnik
+                i tak dojezdza scrollem. Prawdziwa droga rekrutacyjna prowadzi
+                przez wezwanie "Aplikuj" w naglowku strony i przez kapsule
+                "Wyslij zgloszenie" na dole. Kotwica #ogloszenie zostaje -
+                celuje w nia menu.
+              -->
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
@@ -257,38 +263,69 @@
       </section>
 
       <!-- ============================================================
-           CTA KOŃCOWE — czerń
+           KONTAKT REKRUTACYJNY — czarny akt zamykający stronę
+
+           Ten sam komponent, ktory zamyka cztery podstrony ofertowe, tylko
+           w motywie `ink` zamiast `signal`: etykieta, plakatowy naglowek,
+           lead, trzy drogi kontaktu i zdanie na dole.
+
+           Stala tu wczesniej kapsula "Wyslij zgloszenie" ze szkicem maila
+           rekrutacyjnego (imie, kierunek studiow, doswiadczenie, CV
+           w zalaczniku). Wlasciciel zdjal ja 19.09.2026: dane kontaktowe
+           maja byc dostepne od razu, a nie za kolejnym klikiem. Czego
+           oczekujemy w zgloszeniu, mowi teraz lead.
+
+           Adres rekrutacyjny jest nadal TYMCZASOWY - to samo konto co
+           kontakt ogolny. Osobna skrzynka rekrutacyjna czeka na decyzje
+           wlasciciela, zapisana w docs/CONTENT_GAPS.md.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
         id="aplikacja"
         data-animation="section"
-        data-theme="ink"
+        data-theme="signal"
         aria-labelledby="kariera-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="kariera-cta" data-animation="fade-up">
-              Chcesz aplikować?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Wyślij kilka słów o sobie, swoje CV i napisz, dlaczego chcesz uczyć w High Five.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kariera · dołącz do zespołu</span>
+          </p>
+
+          <h2 class="u-display enroll__title" id="kariera-cta" data-animation="fade-up">
+            Chcesz aplikować?
+          </h2>
+
+          <p class="enroll__lead" data-animation="fade-up">
+            Wyślij kilka słów o sobie, swoje CV i&nbsp;napisz, dlaczego chcesz uczyć w&nbsp;High
+            Five.
+          </p>
 
           <!--
-            Adres rekrutacyjny jest TYMCZASOWY - to samo konto co kontakt ogolny.
-            Osobna skrzynka rekrutacyjna czeka na decyzje wlasciciela,
-            zapisana w docs/CONTENT_GAPS.md.
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
           -->
-          <a
-            class="cta cta--large"
-            href="mailto:{{EMAIL}}?subject=Rekrutacja%20-%20lektor%20High%20Five&amp;body=Imi%C4%99%20i%20nazwisko%3A%0AKierunek%20i%20rok%20studiow%3A%0ADoswiadczenie%20w%20pracy%20z%20dziecmi%3A%0ADlaczego%20High%20Five%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0A%0A(CV%20prosimy%20dolaczyc%20jako%20zalacznik)%0A"
-            data-animation="fade-up"
-          >
-            Wyślij zgłoszenie
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            Odpowiadamy na&nbsp;wszystkie zgłoszenia. Jeśli masz pytania, również śmiało napisz lub
+            zadzwoń.
+          </p>
         </div>
       </section>
     </main>

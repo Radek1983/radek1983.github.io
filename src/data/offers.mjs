@@ -117,7 +117,12 @@ export const CTA = {
    * byla mocniejsza, niz ta strona moze dowiezc.
    */
   'oferta/seniorzy/index.html': { label: 'Zapytaj o zajęcia', href: '#zapisy-seniorzy' },
-  'oferta/online/index.html': { label: 'Umów lekcję', href: '/#kontakt' },
+  /*
+   * Cel zmieniony 19.09.2026: strona ma wlasna sekcje kontaktowa na dole,
+   * wiec wezwanie prowadzi do niej, a nie na strone glowna. Ta sama zasada
+   * co przy trzech pozostalych podstronach ofertowych (D18, D19, D20).
+   */
+  'oferta/online/index.html': { label: 'Umów lekcję', href: '#kontakt-online' },
   'lokalizacje/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'cennik/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'kariera/index.html': { label: 'Aplikuj', href: '#aplikacja' },

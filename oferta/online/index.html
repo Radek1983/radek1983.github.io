@@ -279,30 +279,66 @@
       </section>
 
       <!-- ============================================================
-           CTA KOŃCOWE — czerwony pas
+           KONTAKT — czerwony akt zamykający stronę
+
+           Ten sam komponent, ktory zamyka trzy pozostale podstrony
+           ofertowe: etykieta, plakatowy naglowek, lead, trzy drogi
+           kontaktu i zdanie o odpowiadaniu mailem.
+
+           Stal tu wczesniej pas "Chcesz zaczac?" z kapsula "Napisz do nas",
+           ktora otwierala szkic maila. Wlasciciel zastapil go 19.09.2026
+           sekcja kontaktowa BEZ przycisku: dane maja byc dostepne od razu,
+           a nie za kolejnym klikiem. Wezwanie w naglowku strony celuje
+           od tej samej zmiany w kotwice tej sekcji, nie na /#kontakt.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="kontakt-online"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="online-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="online-cta" data-animation="fade-up">Chcesz zacząć?</h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas — zaproponujemy termin pierwszego spotkania.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kontakt · online 1 na 1</span>
+          </p>
 
-          <a
-            class="cta cta--large cta--ink"
-            href="mailto:{{EMAIL}}?subject=Lekcja%20online%201%3A1%20-%20High%20Five&amp;body=Imi%C4%99%20i%20nazwisko%3A%0AUczen%20(wiek%20lub%20klasa)%3A%0ACel%20nauki%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0A"
-            data-animation="fade-up"
-          >
-            Napisz do nas
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <h2 class="u-display enroll__title" id="online-cta" data-animation="fade-up">
+            Umów lekcję online.
+          </h2>
+
+          <p class="enroll__lead" data-animation="fade-up">
+            Opisz poziom, cel i&nbsp;dostępność. Wrócimy z&nbsp;propozycją terminu.
+          </p>
+
+          <!--
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
+
+            Adres OGOLNY serwisu, nie skrzynka zapisowa z /oferta/dzieci/:
+            tamta obsluguje wylacznie klasy 1-7 (D6).
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            W ciągu dnia lektor pracuje w&nbsp;szkole, dlatego preferujemy kontakt mailowy.
+          </p>
         </div>
       </section>
     </main>

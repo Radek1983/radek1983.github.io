@@ -149,6 +149,64 @@ test.describe('online 1 na 1', () => {
   })
 
   /*
+   * CZERWONA SEKCJA KONTAKTOWA zamyka strone od 19.09.2026.
+   *
+   * Zastapila pas "Chcesz zaczac?" z kapsula "Napisz do nas". Warunek
+   * wlasciciela byl ten sam co przy trzech pozostalych podstronach:
+   * dane kontaktowe maja byc dostepne od razu, a nie za kolejnym klikiem.
+   */
+  test('czerwona sekcja kontaktowa zamyka strone i nie ma przycisku', async ({ page }) => {
+    const sekcja = page.locator('#kontakt-online')
+    await expect(sekcja).toHaveCount(1)
+    await expect(sekcja).toHaveCSS('background-color', 'rgb(242, 59, 47)')
+
+    await expect(page.locator('#online-cta')).toHaveText('Umów lekcję online.')
+    await expect(sekcja.locator('.enroll__eyebrow')).toContainText('Kontakt')
+    await expect(sekcja.locator('.cta')).toHaveCount(0)
+
+    const ostatnia = await page.evaluate(
+      () => document.querySelector('main > section:last-of-type').id,
+    )
+    expect(ostatnia).toBe('kontakt-online')
+  })
+
+  /*
+   * Trzy drogi kontaktu z OGOLNYM adresem serwisu. Skrzynka zapisowa
+   * z /oferta/dzieci/ obsluguje wylacznie klasy 1-7 (D6, D18).
+   */
+  test('trzy drogi kontaktu w zatwierdzonym brzmieniu', async ({ page }) => {
+    const pozycje = page.locator('.enroll__item')
+    await expect(pozycje).toHaveCount(3)
+
+    for (const [i, [etykieta, wartosc]] of [
+      ['E-mail', 'kontakt@highfive.academy'],
+      ['Telefon', '+48 790 266 517'],
+      ['Godziny kontaktu tel.', '17:00–21:00'],
+    ].entries()) {
+      await expect(pozycje.nth(i).locator('.enroll__label')).toHaveText(etykieta)
+      await expect(pozycje.nth(i).locator('.enroll__value')).toContainText(wartosc)
+    }
+
+    await expect(pozycje.nth(0).locator('a')).toHaveAttribute(
+      'href',
+      'mailto:kontakt@highfive.academy',
+    )
+    await expect(pozycje.nth(1).locator('a')).toHaveAttribute('href', 'tel:+48790266517')
+    await expect(page.locator('main')).not.toContainText('highfive.zapisy')
+  })
+
+  /*
+   * Wezwanie z naglowka celuje w kotwice TEJ strony, nie na strone glowna.
+   * Mapa CTA jest kluczowana sciezka pliku, wiec zmiana dotyczyla jednego
+   * wpisu - pozostale strony pilnuje tests/e2e/dzieci.spec.js.
+   */
+  test('wezwanie z naglowka jest kotwica do sekcji kontaktowej', async ({ page }) => {
+    const cta = page.locator('.site-header__cta')
+    await expect(cta).toHaveText(/Umów lekcję/i)
+    await expect(cta).toHaveAttribute('href', '#kontakt-online')
+  })
+
+  /*
    * Wymog wlasciciela powtorzony dwa razy w brief. Kursywa nie wystepuje
    * w jezyku typograficznym High Five w zadnym elemencie.
    */
