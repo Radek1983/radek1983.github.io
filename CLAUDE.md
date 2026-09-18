@@ -101,6 +101,18 @@ To jedyne dane, które wolno publikować:
   więc najszybszą drogą jest e-mail. Przekazane przez właściciela 17.09.2026 wraz
   z przebudową sekcji zapisów na `/oferta/dzieci/` — jedyne miejsce, gdzie te godziny
   są publikowane. To **nie jest** grafik zajęć, którego §4 zabrania wymyślać.
+- **Kwalifikacje osoby prowadzącej.** Magdalena Germel: lingwistyka stosowana na
+  Uniwersytecie Warszawskim, studia podyplomowe z tłumaczeń przysięgłych w SWPS,
+  ponad 20 lat nauczania, w tym w szkole podstawowej, **dyplomowana nauczycielka
+  i egzaminatorka Okręgowej Komisji Egzaminacyjnej**. Przekazane przez właściciela;
+  publikowane w sekcji 05. Bez tego §4 zabraniałby publikowania kwalifikacji.
+- **Współpraca przy klasach 1-7: `High Five Agnieszka Karolewska`.** Zajęcia prowadzą
+  również zweryfikowani lektorzy z doświadczeniem w pracy z dziećmi. Przekazane przez
+  właściciela 18.09.2026. W tekście narracyjnym zapis **zwykłą kapitalizacją**, bez NIP,
+  REGON i pozostałych danych rejestrowych — to informacja o współpracy, nie metryczka
+  firmy. Stoi w sekcji 05 strony głównej i jako dopisek w hero `/oferta/dzieci/`.
+  Dane rejestrowe HIGH FIVE w sekcji 12 i w JSON-LD **zostają bez zmian** — partner nie
+  jest stroną umowy z rodzicem.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
@@ -594,6 +606,26 @@ Trzy pułapki zapisane w `about.css`, żeby nikt ich nie powtórzył:
    bywa niższy niż kolumna i dolne krawędzie się nie spotykają. To świadomy kompromis —
    nachodzenie na treść jest gorsze niż nierówna krawędź.
 
+**Opis przepisany 18.09.2026 na polecenie właściciela** — sekcja była zamknięta,
+zgoda padła wprost. Co się zmieniło i co z tego wynika:
+
+- **cztery akapity zamiast trzech:** lead → wykształcenie i doświadczenie → sposób
+  pracy → zespół i współpraca. Treść pochodzi od właściciela co do słowa;
+- **mocniejszy jest WYŁĄCZNIE lead** (waga 500, stopień +7%). Przez chwilę stały
+  w akapitach 2–4 pogrubione fragmenty, ale właściciel je zdjął tego samego dnia:
+  cztery akcenty pod rząd czytały się jak katalog kwalifikacji, a nie jak opowieść.
+  **Nie przywracaj ich;**
+- **waga 500, nie 600:** z tekstowego Intera self-hostujemy tylko Regular 400
+  i Medium 500 (§7). Każda wyższa wartość to sztuczne pogrubienie przez przeglądarkę;
+- **odstęp między akapitami 24 px** dokładany tylko tam, gdzie akapit stoi po akapicie.
+  `gap` kolumny zostaje 16 px, bo jest wliczony w ujemny margines paska faktów;
+- **nagłówek `Lokalna szkoła. Dużo uwagi.` stoi w JEDNYM wierszu** na desktopie —
+  miara `14ch` zniknęła;
+- **miara akapitów zostaje 75ch.** Właściciel prosił o 55–65 znaków w wierszu, ale
+  przy 60ch kolumna rośnie o cztery wiersze i **kadr Magdaleny kończy się 117 px nad
+  dołem tekstu** — a to jest właśnie ta geometria, która jest tu zatwierdzona. Wybór
+  między długim wierszem a nierówną krawędzią należy do właściciela i nadal czeka.
+
 Pilnuje tego `tests/e2e/o-high-five.spec.js` na macierzy 1280–1920 px.
 
 ### D12 — sekcja 07 cennik · klasy 1-7 jest zamknięta
@@ -813,6 +845,18 @@ pozostałe osiem stron celowałoby w sekcję, której u siebie nie ma.
 z `base/reset.css` — bez tego etykieta lądowała pół ekranu niżej niż czerwona krawędź.
 Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
 
+**Trzy zmiany z 18.09.2026, wszystkie na polecenie właściciela:**
+
+- **dopisek o współpracy pod leadem hero** — osobny akapit, mniejszy stopień,
+  62% krycia, bez ramki, tła, ikony i kursywy. Odstęp 16 px na desktopie liczony
+  **z odjęciem** 24-pikselowego `gap` kolumny hero. Bez danych rejestrowych partnera;
+- **wezwanie `Zobacz lokalizacje` zeszło na wariant `cta--ink`** (czarne tło);
+- **odstępy nad blokami z kreskami.** Listy kroków i cennika noszą w HTML klasę
+  `u-mt-8`, **której nie ma w żadnym arkuszu serwisu** — nigdy nie powstała. Etykieta
+  stała 0 px nad kreskami, a nagłówek cennika wchodził na nie o 5 px. Odstęp dostały
+  te dwa bloki i tylko na tej stronie; osobna reguła daje też 24 px między etykietą
+  `CENNIK` a nagłówkiem, bo nagłówki mają w serwisie wyzerowane marginesy.
+
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
 
 ### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
@@ -851,6 +895,18 @@ Dwie pułapki zapisane w kodzie:
    sklejają — wygrywa większa z dwóch wartości, więc zmniejszanie marginesu
    nagłówka nie mogło zadziałać.
 
+**Dwie zmiany z 18.09.2026, obie na polecenie właściciela:**
+
+- **nagłówek hero bierze wspólny stopień** `clamp(2rem, 5.4vw, 4.25rem)`, ten sam co
+  podstrona senioralna — 68 px przy oknie 1440 zamiast wcześniejszych 52 px. Hasło ma
+  pięć wierszy i mieści się w ekranie (hero kończy się na 701 px przy oknie 900).
+  `Next step.` **zostaje**: właściciel zdjął je i tego samego dnia przywrócił;
+- **etykiety sekcji straciły poziomą kreskę.** Ta strona była jedynym miejscem
+  w serwisie, gdzie etykieta zamieniała się w siatkę `auto 1fr`, a pseudoelement
+  ciągnął linię 1 px do prawej krawędzi. Zdejmowanie jej połowicznie — najpierw
+  w hero — dało stronie dwa rodzaje etykiet naraz, więc kreska zniknęła wszędzie.
+  **Odstęp 32 px pod etykietami został**: tworzył go margines, nie kreska.
+
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
 ### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
@@ -880,6 +936,13 @@ Kultury Gocław`) — w sprawie zapisów ma być jeden cel kliknięcia;
   obietnica miejsca była mocniejsza, niż ta strona może dowieźć;
 - w hero **nie ma** wezwania — stało tam `Zapytaj o miejsce` prowadzące na
   `/#kontakt`, czyli do High Five.
+
+**Kadr hero podmieniony 18.09.2026** — nowe źródło `sections/seniors-class-1448.png`
+dostarczył właściciel. Te same wymiary 1448×1086 (4:3), więc `width`/`height` w HTML
+i geometria strony zostają bez zmian. **Pełna klatka 4:3 jest celowa:** na telefonie
+pas ma dokładnie tę proporcję i pokazuje ją w całości, a na desktopie pudełko ma
+702×736 px i `object-fit: cover` zabiera po ~14% szerokości z każdej strony. Plik
+przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i dołu.
 
 Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 
@@ -980,8 +1043,27 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   `/oferta/`, `/oferta/online/`, `/lokalizacje/` i `/kariera/`. Przy pracy nad nimi
   uważaj na `--step-display`: niesie nagłówki sekcji 11 i 12, a dwunastka jest
   zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero (D7), wezwanie
-  w sekcji 09 (D15), wezwanie na `/cennik/` (D17) i przycisk do Terminala (D20),
-  a `cta--ghost` stoi na pięciu podstronach.
+  w sekcji 09 (D15), wezwanie na `/cennik/` (D17), przycisk do Terminala (D20),
+  oba wezwania na `/lokalizacje/` i wezwanie do lokalizacji na `/oferta/dzieci/`
+  (D18). **Obrysowy `cta--ghost` stoi już tylko na `/oferta/seniorzy/`** — ostatnie
+  wystąpienie po zmianach z 18.09.2026. Zdjęcie go stamtąd zostawiłoby serwisowi
+  jeden język przycisków, ale to decyzja właściciela, nie porządki.
+
+- **`u-mt-8` w HTML NIE ISTNIEJE w żadnym arkuszu.** Klasa stoi w jedenastu miejscach
+  na sześciu stronach i miała dawać margines u góry — nigdy nie powstała, więc bloki,
+  które ją noszą, przylegają do poprzedzającego tekstu. Właściciel zgłosił to jako
+  usterkę na `/oferta/dzieci/` i `/oferta/online/`; tam odstęp dołożyły reguły
+  zakotwiczone w `[data-page='…']`. **Nie ożywiaj tej klasy globalnie bez decyzji** —
+  ruszyłaby także sekcję 04 strony głównej (D10) i strony `/kariera/`,
+  `/oferta/seniorzy/`, `/oferta/egzamin-osmoklasisty/`, których nikt o to nie prosił.
+
+- **Nowy plik w `src/css/` dodawaj PRZED dopisaniem go do `main.css`.** Odwrotna
+  kolejność wywraca serwer deweloperski: `postcss-import` zapamiętuje brak pliku
+  i oddaje 500 na cały arkusz aż do restartu — strony lecą wtedy zupełnie bez stylów,
+  mimo że build produkcyjny przechodzi. To już się zdarzyło 18.09.2026. Z tego powodu
+  reguły podstrony `/oferta/online/` stoją dziś na końcu `components/page-sections.css`,
+  zakotwiczone w `[data-page='online']`; przy najbliższym restarcie serwera można je
+  przenieść do `pages/online.css` bez żadnej zmiany treści.
 
 - **Mapa `CTA` w `src/data/offers.mjs` jest kluczowana ścieżką pliku.** Zmieniając cel
   albo etykietę wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości
