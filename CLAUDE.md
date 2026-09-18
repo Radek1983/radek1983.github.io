@@ -752,6 +752,26 @@ Co jest zamrożone — blok `#seniorzy` w `index.html` i `src/css/sections/senio
 - sekcja ma **niższe niż domyślne** odstępy pionowe. Rytm sekcji jest w tym projekcie
   celowo zmienny, a ten moduł niesie cztery piętra treści.
 
+**Przebudowa 19.09.2026 — sekcja jest ZAPOWIEDZIĄ, nie katalogiem.** Właściciel
+zlecił ją wprost wraz z projektem referencyjnym, mimo zamknięcia sekcji:
+
+- **trzy karty poziomów zeszły z tej sekcji** na `/oferta/seniorzy/` (D20).
+  Została po nich jedna linia `3 poziomy · od podstaw do średniozaawansowanego`,
+  wersalikami, z krótką kreską przed tekstem. **Nie przywracaj rozpiski tutaj;**
+- **lead nie mówi już o „60+"** — zastąpiło je brzmienie bez granicy wieku,
+  więc zakaz z tej decyzji jest dziś spełniony także w treści, nie tylko w duchu;
+- **kadr Terminalu nie jest przycinany:** proporcja pudełka równa się proporcji
+  pliku (750×518). Stała tu klasa `media--16-9`, czyli 1.78 wobec 1.45 źródła —
+  `object-fit: cover` zdejmował górę kadru razem z literą „T" neonu;
+- **lewa i prawa kolumna to OSOBNE STOSY**, nie wiersze wspólnej siatki. Przy
+  wierszach wyższy kadr spychał linię o poziomach i wezwanie w dół; teraz zdjęcie
+  może rosnąć, a tekst po lewej zostaje na swojej wysokości;
+- **dopisek `Zapisy i szczegóły na stronie Terminala.`** stoi pod kadrem, przy
+  prawej krawędzi siatki (nie okna), poprzedzony pionową kreską. To zdanie, nie
+  drugie wezwanie — zapisy prowadzi Terminal, więc strona główna nie ma czego
+  obiecywać;
+- **jedno wezwanie** `Zobacz zajęcia dla seniorów` prowadzące na `/oferta/seniorzy/`.
+
 Pilnuje tego `tests/e2e/seniorzy.spec.js`.
 
 ### D17 — podstrona `/cennik/` jest zamknięta
@@ -907,6 +927,13 @@ Dwie pułapki zapisane w kodzie:
   w hero — dało stronie dwa rodzaje etykiet naraz, więc kreska zniknęła wszędzie.
   **Odstęp 32 px pod etykietami został**: tworzył go margines, nie kreska.
 
+**19.09.2026 — numery i kreski w „Co obejmuje kurs?".** Numery obszarów zeszły
+z drobnego stopnia etykiety na rejestr kroków (43 px, 40% krycia), a moduły
+dostały **poziomą kreskę u góry** i **straciły pionowe kreski** między kolumnami.
+Właściciel rozstrzygnął, że wyliczenia na kremowym tle mają w całym serwisie
+wyglądać tak samo. **Wyliczenia na innych tłach zostają nietknięte** — czarny pas
+„Jak pracujemy?" ma nadal własne, większe numery i kreski pionowe.
+
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
 ### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
@@ -943,6 +970,29 @@ i geometria strony zostają bez zmian. **Pełna klatka 4:3 jest celowa:** na tel
 pas ma dokładnie tę proporcję i pokazuje ją w całości, a na desktopie pudełko ma
 702×736 px i `object-fit: cover` zabiera po ~14% szerokości z każdej strony. Plik
 przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i dołu.
+
+**Zmiany z 19.09.2026, wszystkie na polecenie właściciela:**
+
+- **sekcja „Szczegóły · Zajęcia w liczbach" przebudowana.** Metryka mówi dziś
+  `Prowadzi · Dostępne grupy · Koszt` zamiast `Prowadzi · Poziom · Koszt`,
+  bo oferta ma trzy grupy, a nie jedną początkującą; koszt podany z jednostką
+  `45 zł / 60 min` zgodnie z §3. Pod metryką stoi **pełna rozpiska trzech
+  poziomów**, która zeszła tu ze strony głównej (D16);
+- **poziomy NIE są kartami.** Projekt referencyjny obrysowywał je zaokrąglonym
+  prostokątem i przez chwilę tak stało — właściciel cofnął to tego samego dnia.
+  Została sama kreska u góry, jak w krokach i kolumnach reszty serwisu (§7, §8);
+- **numery poziomów są duże i przygaszone** (40% krycia), w rejestrze kroków
+  z `/oferta/dzieci/`, a nie małe i granatowe;
+- **zdanie o rozliczeniu miesięcznym zostało zdjęte.** Zasady organizacyjne
+  prowadzi Terminal i to jego strona ma być ich źródłem. Ten fakt z §3 nie stoi
+  już nigdzie w serwisie — jeśli ma wrócić, to na `/cennik/`;
+- **wezwanie do Terminala przeniesione w prawy dolny róg sekcji zapisów**,
+  na wspólną linię z przypisem. Układ żyje w warstwie strony, bo to jedyna
+  z sekcji zapisów, która ma przycisk;
+- **przycisk „Zobacz jak dojechać" na czarnym wariancie** `cta--ink`. To było
+  ostatnie wystąpienie obrysowego `cta--ghost` w całym serwisie;
+- **odstępy nad blokami z kreskami** — ta sama martwa klasa `u-mt-8` co na
+  pozostałych podstronach, poprawiona w czterech miejscach na tej stronie.
 
 Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 
@@ -1071,10 +1121,17 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   ofertowe (D18, D19, D20) celują w kotwice u siebie, pozostałe sześć stron
   w `/#kontakt` albo `#aplikacja`.
 
-- **`src/css/components/enroll.css` obsługuje TRZY strony naraz** — czerwony akt zapisów
-  na wszystkich podstronach ofertowych poza `/oferta/online/`. **Wszystkie trzy są
-  zamknięte**, więc po każdej zmianie w tym pliku uruchom `dzieci.spec.js`,
-  `egzamin.spec.js` i `oferta-seniorzy.spec.js`.
+- **`src/css/components/enroll.css` obsługuje PIĘĆ stron naraz** — czerwony akt
+  zapisów na czterech podstronach ofertowych oraz, od 19.09.2026, sekcje
+  kontaktowe na `/oferta/online/` (czerwień) i `/kariera/` (też czerwień, po
+  zmianie zdania właściciela: czarna sekcja zlewała się z czarną stopką).
+  Po każdej zmianie w tym pliku uruchom `dzieci.spec.js`, `egzamin.spec.js`,
+  `oferta-seniorzy.spec.js` i `online.spec.js`.
+
+  **Sekcje kontaktowe na `/oferta/online/` i `/kariera/` NIE MAJĄ przycisku** —
+  ten sam warunek co na trzech podstronach ofertowych. Na karierze zniknął przy
+  tym szkic maila rekrutacyjnego (`subject=Rekrutacja` z polami do wypełnienia);
+  czego oczekujemy w zgłoszeniu, mówi dziś lead sekcji.
 
   Komponent trzyma **strukturę i rytm**; warstwy stron wyłącznie **skalę typografii**.
   Odstępów nie ustawiaj w warstwie strony — wzorcem jest podstrona egzaminacyjna (D19),
