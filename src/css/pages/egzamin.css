@@ -250,31 +250,50 @@
 }
 
 /*
- * Moduły NIE mają własnej kreski u góry.
+ * Kreska u GÓRY każdego modułu — ten sam znak co w krokach i kolumnach
+ * na pozostałych podstronach.
  *
- * Wcześniej każdy z nich kreskował się od góry, więc pod ciągłą linią
- * etykiety sekcji pojawiał się drugi rząd - trzy krótkie odcinki z przerwami
- * w rynnach. Dwie linie jedna pod drugą, w dodatku jedna ciągła i jedna
- * przerywana, czytały się jak usterka składu. Zostaje jedna ciągła, ta przy
- * etykiecie; moduły rozdzielają kreski PIONOWE, tak jak na projekcie.
+ * Wcześniej moduły jej NIE miały i było to uzasadnione: pod ciągłą linią
+ * biegnącą od etykiety sekcji pojawiał się drugi rząd krótkich odcinków
+ * z przerwami w rynnach, więc dwie linie jedna pod drugą czytały się jak
+ * usterka składu. Tamta ciągła linia zniknęła 19.09.2026 razem z kreską
+ * przy etykietach, więc powód sam się rozwiązał.
+ *
+ * Właściciel rozstrzygnął tego samego dnia, że wyliczenia na kremowym tle
+ * mają w całym serwisie mieć kreskę poziomą nad elementem - i tylko ją.
+ * Pionowe kreski, które stały tu wcześniej, zostały zdjęte: razem
+ * z poziomymi moduły czytały się jak komórki tabeli.
+ *
+ * Wyliczenia na INNYCH tłach - jak czarny pas „Jak pracujemy?" niżej -
+ * zostają nietknięte. To była wyraźna granica postawiona przez właściciela.
  */
 [data-page='egzamin'] .exam-scope__item {
   grid-column: 1 / -1;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
 }
 
 /*
- * Numer jest drobny i wyciszony. Na tej stronie rejestr plakatowy niosą
- * kroki niżej; gdyby numery obszarów też były wielkie, dwie sąsiednie
- * sekcje mówiłyby tym samym głosem.
+ * Numer w rejestrze KROKÓW — duży i przygaszony.
+ *
+ * Stał tu drobny numer w stopniu etykiety, z uzasadnieniem, że rejestr
+ * plakatowy niosą kroki niżej i dwie sąsiednie sekcje nie powinny mówić
+ * tym samym głosem. Właściciel rozstrzygnął to inaczej 19.09.2026: numery
+ * w całym serwisie mają wyglądać tak samo, bo czytelnik ogląda strony
+ * obok siebie, a nie sekcję obok sekcji.
+ *
+ * Wartości są te same co w `.steps__number` i w poziomach na podstronie
+ * senioralnej: stopień z tego samego clampa, 40% krycia, trakt display.
  */
 [data-page='egzamin'] .exam-scope__number {
   display: block;
   margin-block-end: var(--space-2);
   font-family: var(--font-display);
-  font-size: var(--step-label);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
   font-weight: 800;
-  letter-spacing: var(--tracking-label);
-  color: color-mix(in srgb, var(--color-text) 45%, transparent);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
 }
 
 [data-page='egzamin'] .exam-scope__title {
@@ -317,16 +336,16 @@
 }
 
 @media (width >= 62rem) {
+  /*
+   * BEZ kresek pionowych. Moduły rozdziela wyłącznie linia u góry - ta sama,
+   * którą niosą wyliczenia na trzech pozostałych podstronach ofertowych.
+   *
+   * Pionowe kreski stały tu wcześniej zamiast poziomych. Gdy 19.09.2026
+   * doszły poziome, przez chwilę działały obie naraz i moduły zaczęły
+   * czytać się jak komórki tabeli. Właściciel kazał zostawić same poziome.
+   */
   [data-page='egzamin'] .exam-scope__item {
     grid-column: span 4;
-    padding-inline-start: var(--space-8);
-    border-inline-start: 1px solid var(--color-rule);
-  }
-
-  /* Pierwszy w rzędzie nie ma czego rozdzielać - jego kreska udawałaby ramkę. */
-  [data-page='egzamin'] .exam-scope__item:nth-child(3n + 1) {
-    padding-inline-start: 0;
-    border-inline-start: 0;
   }
 }
 
