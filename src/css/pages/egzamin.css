@@ -80,25 +80,27 @@
 }
 
 /* ============================================================
-   Etykieta sekcji z linią do prawej krawędzi
+   Etykieta sekcji
    ============================================================ */
 
 /*
- * Ta sama kreska 1 px co w całym serwisie, tylko ułożona poziomo obok
- * tekstu zamiast nad blokiem. Żaden nowy element języka wizualnego.
+ * BEZ poziomej kreski obok tekstu.
+ *
+ * Stała tu przez cały czas istnienia tej podstrony i była jej jedynym
+ * odstępstwem od reszty serwisu: etykieta zamieniała się w siatkę
+ * `auto 1fr`, a pseudoelement ciągnął linię 1 px do prawej krawędzi.
+ * Właściciel kazał ją zdjąć 18.09.2026 — najpierw w hero, potem wszędzie,
+ * bo po połowicznej zmianie strona miała dwa rodzaje etykiet naraz.
+ *
+ * Żadna z pozostałych trzech podstron ofertowych — klasy 1-7, seniorzy,
+ * online — takiej kreski nie ma, a te cztery strony porównuje się ze sobą
+ * najczęściej. Etykiety biorą teraz układ wspólny z `layout/sections.css`.
+ *
+ * Zostaje WYŁĄCZNIE odstęp pod etykietą: rytm pionowy tej strony jest
+ * zatwierdzony (D19) i kreska go nie tworzyła.
  */
 [data-page='egzamin'] .section__label {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--space-6);
-  align-items: center;
   margin-block-end: var(--space-8);
-}
-
-[data-page='egzamin'] .section__label::after {
-  content: '';
-  block-size: 1px;
-  background-color: var(--color-rule);
 }
 
 /*
@@ -121,12 +123,18 @@
    ============================================================ */
 
 /*
- * Nagłówek ma pięć wierszy razem z "Next step.", więc stopień musi zejść
- * niżej niż wspólne 5.4vw - inaczej samo hasło ma 400 px i hero przestaje
- * mieścić się w ekranie razem z leadem i wezwaniem.
+ * Stopień RÓWNY hero podstrony senioralnej — właściciel poprosił o to
+ * wprost 18.09.2026, mimo że strona jest zamknięta (D19). Podstrona
+ * senioralna nie ma własnego nadpisania, więc bierze wartość wspólną
+ * z `components/page-sections.css`; tutaj jest ona powtórzona wprost,
+ * a nie usunięta, bo miara `13ch` zostaje własna.
+ *
+ * Wcześniej stało tu `clamp(1.875rem, 3.6vw, 3.25rem)`: nagłówek ma pięć
+ * wierszy razem z "Next step.", więc przy wspólnym stopniu rośnie i hero
+ * robi się wyższe. To świadoma zmiana proporcji, nie przeoczenie.
  */
 [data-page='egzamin'] .page-hero__title {
-  font-size: clamp(1.875rem, 3.6vw, 3.25rem);
+  font-size: clamp(2rem, 5.4vw, 4.25rem);
   max-inline-size: 13ch;
 }
 

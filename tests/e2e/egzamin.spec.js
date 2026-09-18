@@ -93,6 +93,30 @@ test.describe('/oferta/egzamin-osmoklasisty/ - strona zatwierdzona', () => {
     )
   })
 
+  /*
+   * ZADNA etykieta na tej stronie nie ma juz poziomej kreski.
+   *
+   * Ta podstrona byla jedynym miejscem w serwisie, gdzie etykieta sekcji
+   * zamieniala sie w siatke, a pseudoelement ciagnal linie 1 px do prawej
+   * krawedzi. Wlasciciel kazal ja zdjac 18.09.2026 - najpierw w hero, potem
+   * wszedzie, bo po polowicznej zmianie strona miala dwa rodzaje etykiet.
+   * Pozostale trzy podstrony ofertowe takiej kreski nigdy nie mialy.
+   */
+  test('etykiety sekcji nie maja poziomej kreski', async ({ page }) => {
+    const etykiety = await page.evaluate(() =>
+      [...document.querySelectorAll('.section__label')].map((el) => ({
+        display: getComputedStyle(el).display,
+        kreska: getComputedStyle(el, '::after').content,
+      })),
+    )
+
+    expect(etykiety.length).toBeGreaterThan(1)
+    for (const [i, e] of etykiety.entries()) {
+      expect(e.kreska, `kreska przy etykiecie ${i}`).toBe('none')
+      expect(e.display, `uklad etykiety ${i}`).toBe('flex')
+    }
+  })
+
   test('stopka jest dokladnie ta sama co na stronie glownej', async ({ page }) => {
     const zPodstrony = await page.locator('.site-footer').innerHTML()
     await page.goto('/')
