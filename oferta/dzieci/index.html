@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Angielski dla dzieci klas 1-7 | High Five Warszawa</title>
+    <title>Angielski dla klas 1-7 na Gocławiu | High Five</title>
     <meta
       name="description"
-      content="Zajęcia z angielskiego dla uczniów klas 1-7 po lekcjach w SP 402 w Warszawie. Małe grupy, praktyczny język, 55 zł za lekcję 45 minut."
+      content="Zajęcia z angielskiego dla uczniów klas 1-7 po lekcjach w SP 402 na Gocławiu. Małe grupy, praktyczny język i przyjazna atmosfera."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
@@ -17,10 +17,10 @@
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:url" content="https://www.highfive.academy/oferta/dzieci/" />
-    <meta property="og:title" content="Angielski dla dzieci klas 1-7 | High Five Warszawa" />
+    <meta property="og:title" content="Angielski dla klas 1-7 na Gocławiu | High Five" />
     <meta
       property="og:description"
-      content="Zajęcia z angielskiego dla uczniów klas 1-7 po lekcjach w SP 402 w Warszawie. Małe grupy, praktyczny język, 55 zł za lekcję 45 minut."
+      content="Zajęcia z angielskiego dla uczniów klas 1-7 po lekcjach w SP 402 na Gocławiu. Małe grupy, praktyczny język i przyjazna atmosfera."
     />
 
     <!--
@@ -44,6 +44,12 @@
 
     <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Angielski dla klas 1-7 na Gocławiu | High Five" />
+    <meta
+      name="twitter:description"
+      content="Zajęcia z angielskiego dla uczniów klas 1-7 po lekcjach w SP 402 na Gocławiu. Małe grupy, praktyczny język i przyjazna atmosfera."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -57,6 +63,34 @@
     />
 
     <link rel="stylesheet" href="/src/css/main.css" />
+
+    <!-- Okruszki: / -> /oferta/ -> produkt. Odwzorowuja rzeczywista strukture adresow. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "High Five",
+            "item": "https://www.highfive.academy/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Oferta",
+            "item": "https://www.highfive.academy/oferta/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Klasy 1-7",
+            "item": "https://www.highfive.academy/oferta/dzieci/"
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body data-section="oferta" data-page="dzieci">
@@ -132,9 +166,10 @@
                   "
                   sizes="(min-width: 62rem) 45vw, 100vw"
                   alt="Dzieci pracujące w małej grupie podczas zajęć z angielskiego"
-                  width="1200"
-                  height="900"
+                  width="1122"
+                  height="1402"
                   loading="eager"
+                  fetchpriority="high"
                   decoding="async"
                 />
               </picture>
@@ -240,7 +275,7 @@
                   sizes="(min-width: 62rem) 45vw, 100vw"
                   alt="Budynek Szkoły Podstawowej nr 402 w Warszawie"
                   width="1536"
-                  height="1024"
+                  height="833"
                   loading="lazy"
                   decoding="async"
                 />

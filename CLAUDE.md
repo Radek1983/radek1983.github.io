@@ -410,10 +410,16 @@ inicjalizacji albo przez klasę `js` na `<html>`.
 
 **SEO.** Na start jeden kompletny one-page.
 
-- `title`: `High Five - angielski dla dzieci w SP 402 Warszawa`
-- `meta description`: `Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października.`
-  `1-8` zamienione na `1-7 + osobny kurs`, bo tak brzmi menu i treść stron po ADR 0008.
-  Sam `title` pozostaje dosłownym cytatem z briefu.
+- `title`: `Angielski na Gocławiu i online | High Five`
+- `meta description`: `Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1.`
+
+  **Oba brzmienia zmienił właściciel 19.09.2026 w ramach audytu SEO — ADR 0013.**
+  Poprzedni `title` był dosłownym cytatem z briefu (`High Five - angielski dla dzieci
+w SP 402 Warszawa`), a opis mówił wyłącznie o klasach 1-7. Serwis ma dziś cztery
+  produkty i własną domenę, więc oba zawężały ofertę do jednej grupy odbiorców.
+  **Tytuły wszystkich podstron pochodzą z tego samego zlecenia** i niosą lokalizację
+  (Gocław) zamiast dopisku `Warszawa`.
+
 - `h1`: `Angielski po lekcjach. W tej samej szkole.`
 - Wymagane: canonical, Open Graph, favicon, `sitemap.xml`, `robots.txt`, poprawny `lang`,
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.
@@ -1133,6 +1139,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                         |
 | Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                            |
 | Polityka prywatności — ADR 0011                 | Dziesiąty adres serwisu, zlecony przez właściciela. Pełna treść jako HTML, PDF tylko do pobrania. Treść co do słowa z dokumentu właściciela — **zmiana danych na stronie oznacza zmianę PDF-a, nie odwrotnie**. Jeden widoczny odnośnik: stopka, kolumna `Informacje`, pod `Kontakt`                                                                                                                                                                                       |
+| Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                   |
 | Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                    |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 

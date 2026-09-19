@@ -8,6 +8,11 @@ import { expect, test } from '@playwright/test'
  * naglowka oraz tego, ze wezwanie do dzialania pasuje do odbiorcy strony.
  */
 
+/*
+ * Tytuly zmienione 19.09.2026 w ramach audytu SEO zleconego przez wlasciciela.
+ * Teksty pochodza wprost od niego: niosa lokalizacje (Goclaw) i zakres oferty,
+ * a marka stoi na koncu jako `| High Five`, bez dopisku `Warszawa`.
+ */
 const STRONY = [
   {
     url: '/oferta/',
@@ -19,21 +24,21 @@ const STRONY = [
   {
     url: '/oferta/dzieci/',
     sekcja: 'oferta',
-    title: 'Angielski dla dzieci klas 1-7 | High Five Warszawa',
+    title: 'Angielski dla klas 1-7 na Gocławiu | High Five',
     h1: /Po lekcjach/i,
     cta: 'Zapisz dziecko',
   },
   {
     url: '/oferta/egzamin-osmoklasisty/',
     sekcja: 'oferta',
-    title: 'Angielski - egzamin ósmoklasisty | High Five Warszawa',
+    title: 'Egzamin ósmoklasisty z angielskiego - Gocław | High Five',
     h1: /Przygotuj się do egzaminu/i,
     cta: 'Zapytaj o grupę',
   },
   {
     url: '/oferta/seniorzy/',
     sekcja: 'oferta',
-    title: 'Angielski dla seniorów Gocław | High Five',
+    title: 'Angielski dla seniorów na Gocławiu | High Five',
     h1: /Angielski dla seniorów/i,
     // Etykieta zmieniona 18.09.2026: zapisy prowadzi Terminal, nie High Five.
     cta: 'Zapytaj o zajęcia',
@@ -41,7 +46,7 @@ const STRONY = [
   {
     url: '/oferta/online/',
     sekcja: 'oferta',
-    title: 'Indywidualne lekcje angielskiego online | High Five',
+    title: 'Angielski online 1 na 1 dla dzieci i młodzieży | High Five',
     /*
      * Naglowek rozbity na trzy wiersze 18.09.2026; cyfry w drugim wiaze
      * twarda spacja, wiec `\s+` zamiast zwyklej spacji (par. 5).
@@ -52,14 +57,14 @@ const STRONY = [
   {
     url: '/lokalizacje/',
     sekcja: 'lokalizacje',
-    title: 'Lokalizacje zajęć | High Five Warszawa',
+    title: 'Lokalizacje zajęć z angielskiego - Gocław | High Five',
     h1: /Nasze lokalizacje/i,
     cta: 'Zapytaj o zajęcia',
   },
   {
     url: '/cennik/',
     sekcja: 'cennik',
-    title: 'Cennik zajęć z angielskiego | High Five Warszawa',
+    title: 'Cennik zajęć z angielskiego | High Five',
     /*
      * Brzmienie zmienione przez wlasciciela 16.09.2026 wraz z przebudowa strony.
      * `\s` zamiast spacji, bo "za zajecia" jest zwiazane twarda spacja (U+00A0)
@@ -71,7 +76,7 @@ const STRONY = [
   {
     url: '/kariera/',
     sekcja: 'kariera',
-    title: 'Kariera - lektor języka angielskiego | High Five Warszawa',
+    title: 'Kariera - lektor języka angielskiego | High Five',
     h1: /Uczysz angielskiego/i,
     cta: 'Aplikuj',
   },

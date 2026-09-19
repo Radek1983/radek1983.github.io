@@ -22,7 +22,12 @@ test.describe('tresc i SEO', () => {
   })
 
   test('metadane SEO sa zgodne z copy deckiem', async ({ page }) => {
-    await expect(page).toHaveTitle('High Five - angielski dla dzieci w SP 402 Warszawa')
+    /*
+     * Title zmieniony 19.09.2026 na polecenie wlasciciela w ramach audytu SEO.
+     * Poprzednie brzmienie bylo doslownym cytatem z briefu; nowe niesie
+     * lokalizacje i pelny zakres oferty, a nie sama oferte dla dzieci.
+     */
+    await expect(page).toHaveTitle('Angielski na Gocławiu i online | High Five')
 
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
@@ -30,14 +35,18 @@ test.describe('tresc i SEO', () => {
     )
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',
-      /klas 1-7 po lekcjach w SP 402/,
+      /klas 1-7.*egzaminu ósmoklasisty.*seniorów.*online/,
     )
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
     await expect(page.locator('html')).toHaveAttribute('lang', 'pl')
   })
 
   test('dane strukturalne opisuja SP 402 jako miejsce zajec, nie adres firmy', async ({ page }) => {
-    const raw = await page.locator('script[type="application/ld+json"]').textContent()
+    /*
+     * Strona glowna niesie DWA obiekty: organizacje i witryne. Bierzemy
+     * pierwszy - drugi sprawdza osobny test nizej.
+     */
+    const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
     const data = JSON.parse(raw)
 
     expect(data['@type']).toBe('EducationalOrganization')
@@ -48,12 +57,31 @@ test.describe('tresc i SEO', () => {
     // Od dodania oferty senioralnej `location` jest tablica dwoch miejsc zajec.
     const places = Array.isArray(data.location) ? data.location : [data.location]
     const sp402 = places.find((place) => place.name.includes('402'))
-    expect(sp402.address.streetAddress).toContain('Nowaka-Jeziorańskiego')
-    expect(data.address).toBeUndefined()
+    expect(sp402.address.streetAddress).toContain('Nowaka-Jeziorańskiego 22')
+
+    /*
+     * Organizacja MA wlasny adres - rejestrowy, dodany 19.09.2026 przy audycie
+     * SEO. Musi byc inny niz adres SP 402: ta sama ulica, inny numer.
+     */
+    expect(data.address.streetAddress).toContain('Nowaka-Jeziorańskiego 7 lok. 199')
+    expect(data.address.postalCode).toBe('03-984')
+    expect(data.address.streetAddress).not.toContain('22')
 
     // Zakaz wymyslonych ocen i opinii.
     expect(data.aggregateRating).toBeUndefined()
     expect(data.review).toBeUndefined()
+  })
+
+  test('witryna ma wlasny obiekt WebSite z nazwa marki', async ({ page }) => {
+    const bloki = await page.locator('script[type="application/ld+json"]').allTextContents()
+    const website = bloki.map((b) => JSON.parse(b)).find((b) => b['@type'] === 'WebSite')
+
+    expect(website, 'strona glowna musi miec obiekt WebSite').toBeDefined()
+    expect(website.name, 'nazwa marki, nie nazwa dzialalnosci').toBe('High Five')
+    expect(website.url).toBe('https://www.highfive.academy/')
+
+    /* Bez SearchAction - serwis nie ma wyszukiwarki. */
+    expect(website.potentialAction).toBeUndefined()
   })
 
   test('wszystkie potwierdzone fakty sa w DOM, nie doczytywane przez JS', async ({ page }) => {

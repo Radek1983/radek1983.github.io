@@ -204,7 +204,11 @@ test.describe('oferta dla seniorow', () => {
   })
 
   test('dane strukturalne wymieniaja oba miejsca zajec', async ({ page }) => {
-    const raw = await page.locator('script[type="application/ld+json"]').textContent()
+    /*
+     * Od 19.09.2026 strona glowna niesie dwa obiekty: organizacje i witryne.
+     * Miejsca zajec opisuje pierwszy z nich.
+     */
+    const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
     const data = JSON.parse(raw)
 
     expect(Array.isArray(data.location)).toBe(true)

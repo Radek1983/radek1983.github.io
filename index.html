@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>High Five - angielski dla dzieci w SP 402 Warszawa</title>
+    <title>Angielski na Gocławiu i online | High Five</title>
     <meta
       name="description"
-      content="Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października."
+      content="Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
@@ -17,10 +17,10 @@
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:url" content="https://www.highfive.academy/" />
-    <meta property="og:title" content="High Five - angielski dla dzieci w SP 402 Warszawa" />
+    <meta property="og:title" content="Angielski na Gocławiu i online | High Five" />
     <meta
       property="og:description"
-      content="Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października."
+      content="Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1."
     />
 
     <!--
@@ -44,6 +44,12 @@
 
     <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Angielski na Gocławiu i online | High Five" />
+    <meta
+      name="twitter:description"
+      content="Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -73,6 +79,13 @@
         "email": "{{EMAIL}}",
         "telephone": "{{TEL_HREF}}",
         "areaServed": "Warszawa",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 7 lok. 199",
+          "postalCode": "03-984",
+          "addressLocality": "Warszawa",
+          "addressCountry": "PL"
+        },
         "location": [
           {
             "@type": "Place",
@@ -95,6 +108,23 @@
             }
           }
         ]
+      }
+    </script>
+
+    <!--
+      WebSite jako osobny obiekt, a nie pole w organizacji: to dwie rozne
+      rzeczy. Organizacja jest podmiotem, witryna zasobem. Bez SearchAction -
+      serwis nie ma wyszukiwarki, a deklarowanie jej byloby obietnica bez
+      pokrycia. Nazwa `High Five`, nie `High Five Magdalena Germel`: pelna
+      nazwa dzialalnosci stoi w `legalName` organizacji i w sekcji kontaktu.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "High Five",
+        "url": "https://www.highfive.academy/",
+        "inLanguage": "pl-PL"
       }
     </script>
   </head>
