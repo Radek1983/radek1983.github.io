@@ -635,3 +635,16 @@
     transition: none;
   }
 }
+
+/*
+ * Pusta przegrodka po wezwaniu - wylacznie na stronie, ktora go nie ma
+ * (wpis null w mapie CTA, patrz htmlPartials w vite.config.js).
+ *
+ * Pasek naglowka rozklada dzieci przez space-between, wiec bez trzeciego
+ * elementu menu odjezdza na prawy skraj. Przegrodka trzyma slot przycisku
+ * i nic wiecej: jest wygaszona, wiec nie da sie jej kliknac, nie wchodzi
+ * w kolejnosc focusu i nie czyta jej czytnik ekranu.
+ */
+.site-header .site-header__cta--slot {
+  visibility: hidden;
+}

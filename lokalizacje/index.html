@@ -257,6 +257,113 @@
           </a>
         </div>
       </section>
+
+      <!-- ============================================================
+           NOWA GRUPA — czerwony akt zamykajacy strone
+
+           Ten sam plakat co sekcja zapisow na czterech podstronach
+           ofertowych i sekcja kontaktowa na /kariera/: etykieta ->
+           naglowek -> lead -> kolumny z kreska u gory -> nota.
+           Komponent `components/enroll.css` zostaje NIETKNIETY - ta
+           strona wnosi wylacznie skale typografii, jak pozostale piec.
+
+           Roznica wobec tamtych: miedzy leadem a danymi kontaktowymi
+           stoi drugi wiersz kolumn - trzy kroki. Bierze te sama siatke
+           i te same kreski, wiec nie jest nowym jezykiem wizualnym.
+
+           BEZ PRZYCISKU - ten sam warunek co w pozostalych pieciu
+           sekcjach: dane kontaktowe maja byc dostepne od razu.
+           ============================================================ -->
+      <section
+        class="section enroll"
+        id="nowa-grupa"
+        data-animation="section"
+        data-theme="signal"
+        aria-labelledby="lokalizacje-nowa-grupa"
+      >
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Nowa grupa · Twoja szkoła</span>
+          </p>
+
+          <!--
+            Lamanie po "jeszcze" jest KOMPOZYCYJNE - dwa wiersze plakatu,
+            a nie efekt szerokosci kolumny. To ten sam przypadek co
+            naglowki na /cennik/: par. 5 zabrania <br /> w tresci ciaglej,
+            nie w typografii plakatowej. Na waskim ekranie kazdy z dwoch
+            wierszy lamie sie dalej sam.
+          -->
+          <h2 class="u-display enroll__title" id="lokalizacje-nowa-grupa" data-animation="fade-up">
+            Nie ma nas jeszcze<br />
+            w&nbsp;Twojej szkole?
+          </h2>
+
+          <p class="enroll__lead" data-animation="fade-up">
+            To nie musi być przeszkodą. Jeśli szkoła udostępnia sale po&nbsp;lekcjach i&nbsp;uda się
+            zebrać co&nbsp;najmniej 5&nbsp;dzieci na&nbsp;zbliżonym poziomie, napisz do&nbsp;nas.
+            Sprawdzimy możliwość wynajęcia sali i&nbsp;skontaktujemy się z&nbsp;dyrekcją
+            w&nbsp;sprawie organizacji zajęć.
+          </p>
+
+          <!--
+            <ol>, bo kolejnosc krokow jest trescia: najpierw pytanie
+            w szkole, potem grupa, dopiero potem zgloszenie. Numer stoi
+            w etykiecie, a nie jako osobna wielka cyfra - to spokojne
+            wyjasnienie, nie procedura.
+          -->
+          <ol class="enroll__grid new-group__steps">
+            <li class="enroll__item" data-animation="fade-up">
+              <p class="enroll__label">01 · Sprawdź w&nbsp;szkole</p>
+              <p class="new-group__text">
+                Dowiedz się, czy po&nbsp;lekcjach istnieje możliwość wynajęcia sali na&nbsp;zajęcia
+                dodatkowe.
+              </p>
+            </li>
+
+            <li class="enroll__item" data-animation="fade-up">
+              <p class="enroll__label">02 · Zbierz grupę</p>
+              <p class="new-group__text">
+                Potrzebujemy co&nbsp;najmniej 5&nbsp;dzieci na&nbsp;zbliżonym poziomie językowym.
+              </p>
+            </li>
+
+            <li class="enroll__item" data-animation="fade-up">
+              <p class="enroll__label">03 · Napisz do&nbsp;nas</p>
+              <p class="new-group__text">
+                My skontaktujemy się z&nbsp;dyrekcją i&nbsp;sprawdzimy warunki wynajmu oraz
+                możliwość uruchomienia zajęć.
+              </p>
+            </li>
+          </ol>
+
+          <!--
+            <dl>, bo to pary etykieta-wartosc. Adres i numer ida przez
+            {{EMAIL}} i {{TEL}}, czyli jedno zrodlo z src/data/offers.mjs
+            (D6) - nie wpisuj ich tutaj na sztywno.
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            Samo zgłoszenie nie oznacza jeszcze uruchomienia grupy — najpierw sprawdzamy możliwości
+            organizacyjne szkoły i&nbsp;warunki wynajmu sali.
+          </p>
+        </div>
+      </section>
     </main>
 
     <!--#include partials/footer.html -->

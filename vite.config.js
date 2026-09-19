@@ -149,9 +149,37 @@ function htmlPartials() {
          * normalizujemy ja do postaci uzywanej jako klucz w src/data/offers.mjs.
          */
         const klucz = ctx.filename.slice(root.length + 1).replace(/\\/g, '/')
-        const cta = CTA[klucz] ?? CTA_DOMYSLNE
+        const cta = klucz in CTA ? CTA[klucz] : CTA_DOMYSLNE
 
-        return wynik
+        /*
+         * Strona BEZ wezwania w naglowku - wpis `null` w mapie CTA.
+         *
+         * W SZUFLADZIE blok znika w calosci: pozycje stoja tam w pionie,
+         * wiec brak przycisku niczego nie przesuwa.
+         *
+         * W PASKU zostaje pusta przegrodka. Pasek jest rozkladany przez
+         * `justify-content: space-between`, wiec usuniecie przycisku odeslaloby
+         * menu na sam prawy skraj - o 460 px dalej niz na pozostalych stronach.
+         * Przegrodka niesie etykiete domyslnego wezwania i jest wygaszona
+         * `visibility: hidden`, wiec ma DOKLADNIE szerokosc przycisku bez
+         * wpisywania jej jako liczby. Zmiana etykiety albo odstepow kapsuly
+         * przesunie ja sama.
+         *
+         * `visibility: hidden` zdejmuje element z drzewa dostepnosci i
+         * z kolejnosci focusu, wiec przegrodka nie jest ani klikalna,
+         * ani zapowiadana - to sam kawalek miejsca.
+         */
+        const przegrodka =
+          `<span class="cta site-header__cta site-header__cta--slot" aria-hidden="true">` +
+          `${CTA_DOMYSLNE.label}<span class="cta__arrow">→</span></span>`
+
+        const bezWezwania = wynik
+          .replace(/<!--CTA-PASEK-->[\s\S]*?<!--\/CTA-PASEK-->/g, przegrodka)
+          .replace(/[ \t]*<!--CTA-SZUFLADA-->[\s\S]*?<!--\/CTA-SZUFLADA-->\n?/g, '')
+
+        const zWezwaniem = wynik.replace(/[ \t]*<!--\/?CTA-(?:PASEK|SZUFLADA)-->\n?/g, '')
+
+        return (cta === null ? bezWezwania : zWezwaniem)
           .replaceAll('{{MOTYW_NAGLOWKA}}', MOTYW_NAGLOWKA[klucz] ?? '')
           .replaceAll('{{MEGA_MENU}}', megaMenu(`/${klucz.replace(/index\.html$/, '')}`))
           .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
@@ -160,8 +188,8 @@ function htmlPartials() {
           .replaceAll('{{TEL}}', KONTAKT.telefon)
           .replaceAll('{{TEL_HREF}}', KONTAKT.telefonHref)
           .replaceAll('{{EMAIL}}', KONTAKT.email)
-          .replaceAll('{{CTA_LABEL}}', cta.label)
-          .replaceAll('{{CTA_HREF}}', cta.href)
+          .replaceAll('{{CTA_LABEL}}', cta?.label ?? '')
+          .replaceAll('{{CTA_HREF}}', cta?.href ?? '')
       },
     },
   }
@@ -236,6 +264,7 @@ export default defineConfig(({ mode }) => ({
         lokalizacje: resolve(root, 'lokalizacje/index.html'),
         cennik: resolve(root, 'cennik/index.html'),
         kariera: resolve(root, 'kariera/index.html'),
+        polityka: resolve(root, 'polityka-prywatnosci/index.html'),
 
         /*
          * Stare adresy zostaja jako strony przekierowujace. GitHub Pages nie

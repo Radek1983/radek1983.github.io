@@ -415,11 +415,12 @@ inicjalizacji albo przez klasę `js` na `<html>`.
   Na obrazku **nie ma adresu WWW**: `highfive.academy` obsługuje dziś tylko pocztę (D3).
 - JSON-LD `EducationalOrganization`/`LocalBusiness` **tylko z prawdziwymi danymi**. Bez ratingów.
   Adres SP 402 jako miejsce zajęć, nie adres rejestrowy firmy.
-- **Serwis ma dziewięć adresów** (ADR 0007, 0008). Hierarchia: `/` (one-page), `/oferta`
+- **Serwis ma dziesięć adresów** (ADR 0007, 0008, 0011). Hierarchia: `/` (one-page), `/oferta`
   jako hub czterech produktów (`/oferta/dzieci`, `/oferta/egzamin-osmoklasisty`,
   `/oferta/seniorzy`, `/oferta/online`), `/lokalizacje`, `/cennik` oraz `/kariera` jako osobna
-  ścieżka dla innego odbiorcy. Każdy adres to katalog z `index.html` i wejście w konfiguracji
-  Vite - bez routera po stronie klienta.
+  ścieżka dla innego odbiorcy. Dziesiąta jest `/polityka-prywatnosci` — dokument prawny,
+  nie strona ofertowa (ADR 0011). Każdy adres to katalog z `index.html` i wejście
+  w konfiguracji Vite - bez routera po stronie klienta.
 - **Cena należy do produktu.** `/cennik` jest stroną porównawczą osiągalną z mega-menu
   i ze stopki, ale **nie** z pierwszego poziomu menu.
 - **Jedno źródło danych oferty:** `src/data/offers.mjs` zasila mega-menu, szufladę, stopkę
@@ -476,6 +477,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | **D18** | Podstrona `/oferta/dzieci/`               | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 17.09.2026 po przebudowie zamknięcia na czerwony akt zapisów. Szczegóły niżej                                                                                          |
 | **D19** | Podstrona `/oferta/egzamin-osmoklasisty/` | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 18.09.2026. Jest **wzorcem rytmu** dla wszystkich trzech sekcji zapisów. Szczegóły niżej                                                                               |
 | **D20** | Podstrona `/oferta/seniorzy/`             | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 18.09.2026. Jedyna sekcja zapisów z przyciskiem — bo zapisy prowadzi Terminal. Szczegóły niżej                                                                         |
+| **D21** | Podstrona `/polityka-prywatnosci/`        | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 19.09.2026. Treść jest dokumentem prawnym i pochodzi z PDF-a właściciela — ADR 0011. Szczegóły niżej                                                                   |
 
 ### D5 — konsekwencje
 
@@ -663,6 +665,13 @@ w SP 402.` — **bez odnośnika**. Nagłówek skrócił się 16.09.2026: właśc
 
 `--step-cennik` jest **osobnym** tokenem, nie `--step-display`: tamten niesie także nagłówki
 sekcji 08, 11 i 12, więc jego zmiana ruszyłaby cztery sekcje naraz.
+
+**Zmiana z 19.09.2026 — kreski pod cenami zdjęte.** Nad podpisami `Pierwsze dziecko`
+i `Drugie i każde kolejne dziecko z rodzeństwa` stała cienka linia; dzieliła cenę
+i jej opis na dwa bloki, przez co panel czytał się jak tabela, a nie jak plakat.
+Właściciel polecił ją zdjąć mimo zamknięcia sekcji. **Odstęp 16 px został bez zmian** —
+to on trzymał podpis pod cyfrą, nie kreska, więc geometria panelu się nie ruszyła.
+**Kreska nad przypisem cenowym zostaje**: oddziela cały panel od drobnego druku.
 
 Pilnuje tego `tests/e2e/pricing.spec.js`.
 
@@ -1007,6 +1016,52 @@ przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i
 
 Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 
+### D21 — podstrona `/polityka-prywatnosci/` jest zamknięta
+
+Zatwierdzona **19.09.2026**. Szczegóły decyzji: **ADR 0011**.
+
+**Treść jest dokumentem prawnym, nie copy.** Pochodzi co do słowa
+z `Polityka_prywatnosci_High_Five_v1.0.pdf`. Nie skracaj jej, nie parafrazuj
+i nie poprawiaj stylistycznie — nawet tam, gdzie brzmi nietypowo (wtrącenia mają
+w źródle dywiz zamiast półpauzy; zostawiamy). **Zmiana treści na stronie oznacza
+zmianę dokumentu źródłowego, nie odwrotnie.**
+
+Co jest zamrożone — `polityka-prywatnosci/index.html`, blok `.policy*`
+w `components/page-sections.css` i `src/js/modules/policy-toc.js`:
+
+- **osiemnaście sekcji** z numerem w tytule (`1. Kto jest administratorem danych?`).
+  Nad nagłówkiem **nie stoi drugi, drobny numer** — właściciel kazał go zdjąć jako
+  powtórzenie;
+- **spis treści jest nawigatorem, nie listą w pudełku:** zero ramki, tła i poziomych
+  kresek między pozycjami. Porządek niesie **pionowa oś** z drobnymi punktami
+  podziałki, a czytana sekcja zapala na niej **czerwony odcinek 3 px**. Dwa piksele
+  czytały się jak pogrubiona kreska osi, a nie jak kolor;
+- **etykieta `SPIS TREŚCI` nie przewija się razem z listą** — przewijanie siedzi
+  na `.policy-toc__nav`, nie na całym spisie. Suwak jest ukryty, ale działa;
+- rejestr dokumentu jest **cichszy niż reszta serwisu**: tekst 17 px / 1.65,
+  nagłówek rozdziału 28 px, śródtytuł 21 px, kolumna czytania 1120 px.
+
+Trzy pułapki zapisane w kodzie, żeby nikt ich nie powtórzył:
+
+1. Globalna reguła `p:not([class])` z `base/typography.css` narzuca akapitom
+   `--measure`, czyli 544 px. Dla dokumentu czytanego ciągiem to o połowę za wąsko —
+   stąd jawne `max-inline-size: none` w warstwie strony.
+2. Reset `ul[class]` zeruje punktory i wcięcie, a ma **wyższą specyficzność**
+   niż sama klasa. Wyliczenia czytały się przez to jak luźne akapity; selektor
+   musi brać nazwę elementu (`ul.policy__list`).
+3. Znacznik czytanej sekcji **nie może pozycjonować się przez `offsetTop`** —
+   ten odnosi się do najbliższego przodka z `position`, a każda pozycja listy jest
+   `relative`. Wychodziły stałe 2 px zamiast kilkuset. Liczymy względem obszaru
+   przewijania.
+
+**Spis sam dosuwa czytaną pozycję do kadru** — przewijając `scrollTop` listy,
+nigdy przez `scrollIntoView`: tamto przesuwa każdego przewijalnego przodka, więc
+razem ze spisem skakałaby cała strona.
+
+**Strona nie ma wezwania w nagłówku** (`CTA: null` w `src/data/offers.mjs`).
+W pasku zostaje po nim pusta przegrodka o szerokości przycisku — bez niej
+`space-between` odsyła menu o 463 px na prawy skraj.
+
 ### D2 — mechanika i konsekwencje
 
 CTA `Zapisz się na zajęcia` jest zwykłym `<a href="#kontakt">`, **nie** przyciskiem odsłaniającym
@@ -1057,6 +1112,8 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                           |
 | Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                         |
 | Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                            |
+| Polityka prywatności — ADR 0011                 | Dziesiąty adres serwisu, zlecony przez właściciela. Pełna treść jako HTML, PDF tylko do pobrania. Treść co do słowa z dokumentu właściciela — **zmiana danych na stronie oznacza zmianę PDF-a, nie odwrotnie**. Jeden widoczny odnośnik: stopka, kolumna `Informacje`, pod `Kontakt`                                                                                                                                                                                       |
+| Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                    |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 
 ## 17. Kryteria odbioru
@@ -1090,8 +1147,8 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   wszystko poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje,
   04 nasza oferta, 05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026,
   09 lokalizacje, 10 seniorzy, 12 kontakt. Zamknięte są też całe podstrony
-  `/cennik/`, `/oferta/dzieci/`, `/oferta/egzamin-osmoklasisty/`
-  i `/oferta/seniorzy/`** — patrz D7–D20 w §15. Dotyczy to również zmian
+  `/cennik/`, `/oferta/dzieci/`, `/oferta/egzamin-osmoklasisty/`,
+  `/oferta/seniorzy/` i `/polityka-prywatnosci/`** — patrz D7–D21 w §15. Dotyczy to również zmian
   pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
   wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
 
@@ -1130,8 +1187,15 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Mapa `CTA` w `src/data/offers.mjs` jest kluczowana ścieżką pliku.** Zmieniając cel
   albo etykietę wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości
   domyślnej i nigdy kotwicy wpisanej na sztywno w partialu nagłówka. Trzy podstrony
-  ofertowe (D18, D19, D20) celują w kotwice u siebie, pozostałe sześć stron
+  ofertowe (D18, D19, D20) celują w kotwice u siebie, pozostałe strony
   w `/#kontakt` albo `#aplikacja`.
+
+  **Wpis `null` zdejmuje wezwanie z nagłówka.** Korzysta z tego wyłącznie
+  `/polityka-prywatnosci/` (D21): `htmlPartials` usuwa wtedy blok w szufladzie
+  i zastępuje go w pasku pustą przegrodką o szerokości przycisku. Przegrodka jest
+  konieczna — pasek rozkłada dzieci przez `space-between`, więc bez trzeciego
+  elementu menu odjeżdża o 463 px na prawy skraj. Nie ukrywaj przycisku stylem:
+  schowany przez CSS zostaje w kolejności focusu i czytnik ekranu go zapowiada.
 
 - **`src/css/components/enroll.css` obsługuje PIĘĆ stron naraz** — czerwony akt
   zapisów na czterech podstronach ofertowych oraz, od 19.09.2026, sekcje

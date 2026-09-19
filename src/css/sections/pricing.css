@@ -75,9 +75,16 @@
   white-space: nowrap;
 }
 
+/*
+ * BEZ KRESKI NAD PODPISEM. Linia pod liczba dzielila cene i jej opis na
+ * dwa osobne bloki, przez co panel czytal sie jak tabela. Bez niej liczba
+ * i podpis sa jednym znakiem plakatowym - decyzja wlasciciela z 19.09.2026,
+ * mimo zamkniecia sekcji (D12).
+ *
+ * Odstep zostaje bez zmian: to on, a nie kreska, trzymal podpis pod cyfra.
+ */
 .price__who {
   padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-rule);
 }
 
 /* Pierwsze dziecko: liczba w kolorze sygnalowym. Drugie: w kolorze tekstu.

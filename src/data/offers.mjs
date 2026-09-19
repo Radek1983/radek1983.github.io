@@ -127,6 +127,13 @@ export const CTA = {
   'cennik/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'kariera/index.html': { label: 'Aplikuj', href: '#aplikacja' },
   '404.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
+  /*
+   * Polityka prywatnosci NIE MA wezwania w naglowku. To dokument prawny,
+   * a nie strona ofertowa - przycisk zapisu obok tytulu polityki czytalby
+   * sie jak sprzedaz przy okazji czytania klauzuli. Wartosc null usuwa
+   * blok w pasku i w szufladzie naraz (patrz htmlPartials w vite.config.js).
+   */
+  'polityka-prywatnosci/index.html': null,
 }
 
 export const CTA_DOMYSLNE = { label: 'Zapisz dziecko', href: '/oferta/dzieci/' }
