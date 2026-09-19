@@ -187,6 +187,7 @@ function htmlPartials() {
           .replaceAll('{{TEL}}', KONTAKT.telefon)
           .replaceAll('{{TEL_HREF}}', KONTAKT.telefonHref)
           .replaceAll('{{EMAIL}}', KONTAKT.email)
+          .replaceAll('{{FACEBOOK}}', KONTAKT.facebook)
           .replaceAll('{{CTA_LABEL}}', cta?.label ?? '')
           .replaceAll('{{CTA_HREF}}', cta?.href ?? '')
       },

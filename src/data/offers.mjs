@@ -177,4 +177,10 @@ export const KONTAKT = {
   /** Postac dla protokolu tel: - bez spacji i znakow formatujacych. */
   telefonHref: '+48790266517',
   email: 'kontakt@highfive.academy',
+  /*
+   * Oficjalny profil marki. Stoi TU, a nie w stopce, bo ten sam adres
+   * niesie takze `sameAs` w danych strukturalnych strony glownej - dwa
+   * wpisane recznie URL-e rozjechalyby sie przy pierwszej zmianie.
+   */
+  facebook: 'https://www.facebook.com/highfive.goclaw',
 }
