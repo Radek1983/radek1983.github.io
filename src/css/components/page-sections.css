@@ -262,42 +262,6 @@
   max-inline-size: 40ch;
 }
 
-/*
- * --- Brakujaca fotografia ---
- *
- * Widoczny, celowo nieatrakcyjny blok z opisem potrzebnego kadru. NIE jest to
- * przypadkowe zdjecie ze stocka ani obraz z zewnetrznego adresu: CLAUDE.md
- * par. 4 zabrania udawania, ze placeholder pokazuje rzeczywiste zajecia,
- * a CSP i tak nie wpuscilaby obcego hosta.
- *
- * Blok trzyma docelowa proporcje, wiec podmiana na prawdziwy kadr nie zmieni
- * geometrii strony i nie wywola przesuniecia layoutu.
- */
-.photo-todo {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-2);
-  padding: var(--space-6);
-  background-color: color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
-  border: 1px dashed var(--color-rule);
-  color: var(--color-text);
-}
-
-.photo-todo__label {
-  font-size: var(--step-label);
-  font-weight: 700;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.photo-todo__brief {
-  margin: 0;
-  max-inline-size: 40ch;
-  font-size: var(--step-label);
-  line-height: 1.5;
-}
-
 /* --- Skrot oferty na stronie glownej: cztery sciezki --- */
 
 /*
