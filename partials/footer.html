@@ -41,6 +41,17 @@
       <p class="u-label">Kontakt</p>
       <a class="u-link" href="tel:{{TEL_HREF}}">{{TEL}}</a>
       <a class="u-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+      <!--
+        Profil marki jako zwykly odnosnik tekstowy, w tym samym stylu co
+        telefon i adres - bez ikony i bez zmiany ukladu stopki. Adres idzie
+        z `KONTAKT` w src/data/offers.mjs, zeby nie rozjechal sie z `sameAs`
+        w danych strukturalnych strony glownej.
+
+        `rel="noopener"` bo cel otwiera sie w nowej karcie; `me` mowi
+        wyszukiwarkom, ze to profil TEJ SAMEJ marki, a nie dowolny odnosnik
+        zewnetrzny.
+      -->
+      <a class="u-link" href="{{FACEBOOK}}" target="_blank" rel="me noopener">Facebook</a>
     </div>
 
     <p class="site-footer__note">
