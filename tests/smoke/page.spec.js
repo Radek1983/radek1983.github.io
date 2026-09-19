@@ -143,7 +143,7 @@ test.describe('tresc i SEO', () => {
   test('relacja ze SP 402 jest opisana bez sugerowania oficjalnego partnerstwa', async ({
     page,
   }) => {
-    await expect(page.locator('body')).toContainText(/nie jest oficjalnym serwisem/i)
+    await expect(page.locator('body')).toContainText(/nie\s+jest oficjalnym serwisem/i)
   })
 
   /*

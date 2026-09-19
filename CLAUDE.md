@@ -126,6 +126,10 @@ Karolewska`, także po przyimku („we współpracy z High Five Agnieszka Karole
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
+- Adres drugiego miejsca zajęć: Terminal Kultury Gocław,
+  ul. Jana Nowaka-Jeziorańskiego 24, **03-982** Warszawa. Kod pocztowy przekazał
+  właściciel 19.09.2026; wcześniej adres stał bez niego, bo §4 zabrania zgadywania.
+  Publikowany na `/lokalizacje/`.
 - **Dane rejestrowe:** `High Five Magdalena Germel`, NIP `8241730595`,
   REGON `523281712`, działalność od `2022`. Przekazane przez właściciela;
   publikowane w sekcji `#kontakt` i w JSON-LD (`legalName`, `taxID`, `foundingDate`).
@@ -185,9 +189,61 @@ Sprawdzaj to po **każdej** zmianie tekstu, szerokości kolumny i stopnia pisma 
 zależy od wszystkich trzech naraz. Właściciel zgłasza takie miejsca wzrokowo, więc nie czekaj
 na zgłoszenie: przy zmianie copy przejrzyj cały akapit, nie tylko zdanie, które zmieniałeś.
 
-Reguła ma dziś charakter redakcyjny — twarde spacje wstawiamy ręcznie w treści. Automat
+Reguła ma dziś charakter redakcyjny — twarde spacje stoją **w plikach źródłowych**. Automat
 wstawiający je przy budowaniu byłby możliwy w `htmlPartials`, ale to zmiana architektury
-i wymaga osobnej decyzji właściciela oraz ADR.
+i wymaga osobnej decyzji właściciela oraz ADR. Nadal go **nie ma**.
+
+**19.09.2026 serwis przeszedł hurtową korektę.** Właściciel zgłaszał wiszące słowa jedno
+po drugim, więc zamiast poprawiać je pojedynczo zmierzyliśmy faktyczne łamanie wierszy
+w przeglądarce na 375, 768 i 1440 px: **122 miejsca na dziesięciu stronach**. Twarde spacje
+wstawił jednorazowy skrypt redakcyjny pisany wprost do plików — to nie jest automat w build
+i niczego w architekturze nie zmienia. Po korekcie zostało **zero** wiszących słów.
+
+Trzy rzeczy, które trzeba zrobić po każdej większej korekcie tego typu:
+
+1. **Zmierz łamanie, nie czytaj HTML-a.** Wiszące słowo widać dopiero w przeglądarce,
+   bo zależy od szerokości kolumny i stopnia pisma. Pomiar idzie przez `Range`
+   i `getClientRects()` na węźle tekstowym.
+2. **Sprawdź przepełnienia.** Twarda spacja skleja wyrazy w blok nierozerwalny; jeśli
+   blok jest szerszy od kolumny, tekst wychodzi poza nią albo pojawia się poziome
+   przewijanie. Kontrola na 320 px, nie tylko 375.
+3. **Udowodnij, że treść jest nietknięta.** Po zamianie twardych spacji z powrotem
+   na zwykłe renderowany tekst każdej strony musi być znak w znak taki sam jak przed
+   korektą. Dotyczy to zwłaszcza `/polityka-prywatnosci/`, gdzie D21 zabrania zmian treści.
+
+**Twardych spacji NIE wstawiamy w krótkich etykietach** — w nawigacji, w tytułach
+ofert, w podpisach zasad i w `u-label`. Nie łamią się, więc nic nie dają, a mogą
+zaszkodzić: etykiety w sekcji 04 muszą brzmieć **dokładnie** tak samo jak w mega-menu,
+a mega-menu powstaje z `src/data/offers.mjs`, którego korekta HTML nie dotyka. Hurtowy
+przebieg 19.09.2026 wszedł tam mimo to, w 19 miejscach na siedmiu plikach, i rozjechał
+dwa źródła jednej etykiety. Złapał to `oferta-metoda.spec.js` — słusznie, bo od tego
+ten test jest. Twarde spacje z etykiet zostały cofnięte.
+
+**Asercje w testach mają pilnować treści, nie rodzaju spacji.** Po korekcie padło
+50 testów, wszystkie na tym samym: dosłowna spacja we wzorcu nie dopasowuje `U+00A0`.
+Wzorce porównujące zdania używają dziś `\s+` zamiast spacji, więc przetrwają kolejną
+zmianę łamania wierszy. **Nie normalizuj tak porównań etykiet** — tam różnica jest
+sygnałem, nie szumem.
+
+**Gdy właściciel prosi o konkretne złamanie wiersza, a nie o zszycie dwóch słów** —
+najczęściej o adres schodzący do następnego wiersza w całości — służy do tego klasa
+`.u-nowrap-md` z `utilities/helpers.css`. Fragment jest nierozerwalny **od 48rem w górę**,
+a niżej nie, bo kolumna na telefonie ma około 335 px, a adres szkoły czy Terminalu jest
+od niej szerszy — `nowrap` wypchnąłby tekst poza kolumnę. **To nie jest `<br />`**, który
+§5 zabrania wprost. Stoi dziś w dwóch miejscach: adres SP 402 na `/oferta/dzieci/`
+i adres Terminalu na `/oferta/seniorzy/`. Przed użyciem **zmierz szerokość bloku**
+i porównaj z najwęższą kolumną, w której ma stanąć.
+
+**Gdy fragment ma zaczynać własny wiersz na każdej szerokości** — jak zdanie
+o planowanym starcie w kaflu `Start grupy` na `/oferta/dzieci/` — służy do tego
+`.u-own-line` (`display: block` na elemencie liniowym). Też **nie `<br />`**: zdanie
+zostaje jednym akapitem dla czytnika ekranu, a po usunięciu bloku czasowego
+`data-temporary` nie zostaje sierocy znacznik łamania.
+
+**Myślnik wtrącenia działa ODWROTNIE niż krótkie słowo.** Ma się odrywać od poprzedniego
+wyrazu i schodzić do następnego wiersza razem z tym, co po nim — więc zwykła spacja przed
+i twarda po: `na co dzień —&nbsp;w podróży`. Wiązanie go z poprzednim wyrazem zostawia
+go wiszącego na końcu wiersza, czyli daje dokładnie to, czego właściciel nie chce.
 
 ## 6. Architektura treści: 9 aktów, jeden scroll
 
@@ -586,11 +642,20 @@ Co jest zamrożone — `src/css/sections/after-school.css` i blok `#po-lekcjach`
 Wymóg „zdanie kończące sekcję mieści się w dwóch wierszach” **już nie obowiązuje** — zniknął
 razem z krótszą treścią, którą właściciel wymienił. Nie przywracaj go.
 
-**Kadr podmieniony 19.09.2026 na polecenie właściciela.** Nowe źródło ma dokładnie
-te same wymiary co poprzednie — 1122 × 1402, proporcja 4:5 — więc `srcset`, `sizes`,
-atrybuty `width`/`height` i cała geometria sekcji zostają bez zmian. Zmieniło się
-wyłącznie zdjęcie; treść sekcji jest nietknięta. Poprzedni kadr leży
-w `src/assets/images/archiwum/` (§11).
+**Kadr podmieniany 19.09.2026 dwukrotnie, oba razy na polecenie właściciela.** Rano
+wszedł kadr z jasnowłosą uczennicą, po południu właściciel wrócił do poprzedniego —
+ciemnowłosej uczennicy na tym samym korytarzu. **Na stronie stoi dziś ten wcześniejszy.**
+
+Oba źródła mają identyczne wymiary — 1122 × 1402, proporcja 4:5 — więc `srcset`,
+`sizes`, atrybuty `width`/`height`, `alt` i cała geometria sekcji zostają bez zmian.
+Zmieniło się wyłącznie zdjęcie; treść sekcji jest nietknięta.
+
+**Powrót do kadru z archiwum to ZAMIANA MIEJSC, nie kopiowanie.** §11 mówi
+o skopiowaniu pliku pod oryginalną nazwę, ale wtedy w archiwum zostawałaby kopia
+kadru, który stoi na stronie — a archiwum ma trzymać to, czego na stronie **nie ma**.
+Pliki zamieniły się miejscami, więc nazwa `after-school-corridor-zastapione-2026-09-19.png`
+zwolniła się dla kadru zdejmowanego i nie było kolizji mimo tej samej daty.
+Po zamianie: `npm run images`.
 
 Pilnuje tego `tests/e2e/po-lekcjach.spec.js` na macierzy 1280–1920 px. Czerwony test w tym
 pliku oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
@@ -987,6 +1052,16 @@ Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
   te dwa bloki i tylko na tej stronie; osobna reguła daje też 24 px między etykietą
   `CENNIK` a nagłówkiem, bo nagłówki mają w serwisie wyzerowane marginesy.
 
+**Dwie poprawki układu z 19.09.2026, obie na polecenie właściciela:**
+
+- **adres SP 402 schodzi do drugiego wiersza w całości** — człon `ul. Jana…`
+  nosi `.u-nowrap-md` (§5). Wcześniej wiersz kończył się na `ul. Jana`, a nazwa
+  ulicy rozpadała się między wiersze;
+- **`Planowany start: 1 października 2026.` zaczyna własny wiersz** w kaflu
+  `Start grupy` — przez `.u-own-line`, nie `<br />`. Zdanie nadal siedzi w tym
+  samym bloku czasowym `data-temporary="nabor-2026"`, więc zniknie razem z nim
+  po 1 października.
+
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
 
 ### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
@@ -1043,6 +1118,13 @@ dostały **poziomą kreskę u góry** i **straciły pionowe kreski** między kol
 Właściciel rozstrzygnął, że wyliczenia na kremowym tle mają w całym serwisie
 wyglądać tak samo. **Wyliczenia na innych tłach zostają nietknięte** — czarny pas
 „Jak pracujemy?" ma nadal własne, większe numery i kreski pionowe.
+
+**19.09.2026 — zastrzeżenie o wyniku egzaminu stoi w JEDNYM wierszu.** Polecenie
+właściciela. Zdanie potrzebuje 581 px, a `.exam-price__note` trzymał globalną miarę
+`--measure` (544 px), więc w drugim wierszu zostawało samo słowo `zależy.`. Miara
+podniesiona do `39rem` — to jednozdaniowy drobny druk, nie blok tekstu do czytania
+ciągiem, więc dłuższy wiersz niczego tu nie utrudnia. **Treść zastrzeżenia zostaje
+bez zmian**: §6 i `docs/COPY_DECK.md` zabraniają obiecywania wyniku, a test tego pilnuje.
 
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 

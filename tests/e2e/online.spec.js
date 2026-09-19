@@ -86,7 +86,7 @@ test.describe('online 1 na 1', () => {
    */
   test('naglowek ma trzy wiersze, bez kropek i bez powtorzenia etykiety', async ({ page }) => {
     const tytul = page.locator('.page-hero__title')
-    await expect(tytul).toHaveText(/Angielski online\s+1\s+na\s+1\s+W Twoim tempie/)
+    await expect(tytul).toHaveText(/Angielski online\s+1\s+na\s+1\s+W\s+Twoim tempie/)
     await expect(tytul).not.toContainText('.')
 
     const linie = await tytul.evaluate((el) =>

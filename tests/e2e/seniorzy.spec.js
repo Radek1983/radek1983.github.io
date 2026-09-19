@@ -178,7 +178,7 @@ test.describe('10 seniorzy - uklad zatwierdzony', () => {
     await page.goto('/')
 
     const cta = page.locator('#seniorzy .cta')
-    await expect(cta).toHaveText(/ZOBACZ ZAJĘCIA DLA SENIORÓW/i)
+    await expect(cta).toHaveText(/ZOBACZ ZAJĘCIA DLA\s+SENIORÓW/i)
     await expect(cta).toHaveAttribute('href', '/oferta/seniorzy/')
   })
 })

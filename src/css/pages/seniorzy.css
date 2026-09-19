@@ -261,3 +261,33 @@
     gap: var(--grid-gutter);
   }
 }
+
+/* ------------------------------------------------------------------
+   DEKLARACJA — czwarta kolumna
+   ------------------------------------------------------------------ */
+
+/*
+ * Wspolny komponent `.cols` daje `span 4` z dwunastu, czyli trzy kolumny
+ * w wierszu, i niesie piec list na trzech stronach. Czwarta kolumna dotyczy
+ * WYLACZNIE tej jednej sekcji, wiec nadpisanie jest zakotwiczone w stronie
+ * i w `.statement__cols`. Poza ta lista nic sie nie zmienia - ani druga lista
+ * `.cols` na tej samej stronie, ani `/oferta/dzieci/`, ani `/oferta/online/`.
+ *
+ * Tablet dostaje 2 x 2, a nie cztery waskie slupki: przy dwunastu kolumnach
+ * `span 6` daje dwie rowne polowy. Cztery kolumny wchodza dopiero od 75rem,
+ * bo nizej opis "Praktyczny jezyk" rozjezdza sie na kilkanascie wierszy.
+ *
+ * Mobile zostaje bez zmian - `grid-column: 1 / -1` z komponentu, czyli
+ * cztery pozycje jedna pod druga, kazda z wlasna kreska u gory.
+ */
+@media (width >= 48rem) {
+  [data-page='seniorzy'] .statement__cols .cols__item {
+    grid-column: span 6;
+  }
+}
+
+@media (width >= 75rem) {
+  [data-page='seniorzy'] .statement__cols .cols__item {
+    grid-column: span 3;
+  }
+}

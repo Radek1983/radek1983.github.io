@@ -25,21 +25,21 @@ const STRONY = [
     url: '/oferta/dzieci/',
     sekcja: 'oferta',
     title: 'Angielski dla klas 1-7 na Gocławiu | High Five',
-    h1: /Po lekcjach/i,
+    h1: /Po\s+lekcjach/i,
     cta: 'Zapisz dziecko',
   },
   {
     url: '/oferta/egzamin-osmoklasisty/',
     sekcja: 'oferta',
     title: 'Egzamin ósmoklasisty z angielskiego - Gocław | High Five',
-    h1: /Przygotuj się do egzaminu/i,
+    h1: /Przygotuj się do\s+egzaminu/i,
     cta: 'Zapytaj o grupę',
   },
   {
     url: '/oferta/seniorzy/',
     sekcja: 'oferta',
     title: 'Angielski dla seniorów na Gocławiu | High Five',
-    h1: /Angielski dla seniorów/i,
+    h1: /Angielski dla\s+seniorów/i,
     // Etykieta zmieniona 18.09.2026: zapisy prowadzi Terminal, nie High Five.
     cta: 'Zapytaj o zajęcia',
   },
@@ -390,7 +390,7 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
     await page.goto('/oferta/egzamin-osmoklasisty/')
 
     // Wymog briefu - zastrzezenie stoi tam, gdzie opis kursu.
-    await expect(page.locator('body')).toContainText(/nie obiecujemy wyniku/i)
+    await expect(page.locator('body')).toContainText(/nie\s+obiecujemy wyniku/i)
   })
 
   /*

@@ -97,7 +97,7 @@ test.describe('higiena językowa', () => {
 
     // Rodzaj: "przygotowanie" jest nijakie, więc "osobne", nie "osobny".
     expect(t).not.toMatch(/osobny przygotowanie/)
-    expect(t).toMatch(/osobne przygotowanie do egzaminu/)
+    expect(t).toMatch(/osobne przygotowanie do\s+egzaminu/)
 
     /*
      * Czasownik zwrotny: "przekłada SIĘ na". Zdanie prowadzi dalej inaczej

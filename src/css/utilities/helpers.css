@@ -57,3 +57,30 @@
     display: none;
   }
 }
+
+/*
+ * Fragment nierozerwalny OD TABLETU W GORE - dla adresow i innych calostek,
+ * ktore maja schodzic do nastepnego wiersza w jednym kawalku.
+ *
+ * Nie robimy tego przez <br />: par. 5 zabrania go wprost, bo wymuszalby
+ * to samo lamanie na kazdej szerokosci i na telefonie zostawial poszarpane
+ * wiersze. Ponizej 48rem regula nie obowiazuje, bo kolumna ma tam ok. 335 px,
+ * a adres szkoly czy Terminalu jest od niej szerszy - `nowrap` wypchnalby
+ * tekst poza kolumne. Tam lamanie pilnuja same twarde spacje w srodku.
+ */
+@media (width >= 48rem) {
+  .u-nowrap-md {
+    white-space: nowrap;
+  }
+}
+
+/*
+ * Fragment akapitu zaczynajacy WLASNY wiersz - na kazdej szerokosci.
+ *
+ * Inline element z `display: block` zamiast <br />: zdanie zostaje jednym
+ * akapitem dla czytnika ekranu i dla wyszukiwarki, a przy usunieciu bloku
+ * czasowego (`data-temporary`) nie zostaje po nim sierocy znacznik lamania.
+ */
+.u-own-line {
+  display: block;
+}

@@ -444,9 +444,19 @@
   text-transform: uppercase;
 }
 
+/*
+ * Miara SZERSZA niz globalne `--measure` (544 px) - polecenie wlasciciela
+ * z 19.09.2026: zastrzezenie o wyniku egzaminu ma stac w jednym wierszu.
+ * Zdanie potrzebuje 581 px, wiec przy 544 px lamalo sie tak, ze w drugim
+ * wierszu zostawalo samo slowo "zależy.".
+ *
+ * To jednozdaniowy drobny druk, a nie blok tekstu do czytania ciagiem,
+ * wiec dluzszy wiersz niczego tu nie utrudnia. Ponizej tej szerokosci
+ * akapit zawija sie normalnie - to gorna granica, nie stala szerokosc.
+ */
 [data-page='egzamin'] .exam-price__note {
   margin-block-start: var(--space-6);
-  max-inline-size: var(--measure);
+  max-inline-size: 39rem;
   font-size: 0.9375rem;
   color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
