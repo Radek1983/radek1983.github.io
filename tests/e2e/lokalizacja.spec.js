@@ -25,18 +25,32 @@ const kolory = (page, selektor) =>
   }, selektor)
 
 test.describe('09 lokalizacje - wezwanie zatwierdzone', () => {
+  /*
+   * INK i PAPER z palety marki - nie czerń przeglądarki i nie czysta biel.
+   *
+   * Oba przyciski mają przypisane te same konkretne wartości zamiast być
+   * porównywane ze sobą. Równość nadal jest pilnowana, tylko mocniej:
+   * porównanie `trasa === hero` przeszłoby także wtedy, gdyby oba naraz
+   * zjechały na inny kolor.
+   *
+   * `toHaveCSS` zamiast ręcznego `getComputedStyle`, bo ponawia odczyt.
+   * `.cta` jest jedynym elementem w serwisie z `transition: background-color`
+   * (components/buttons.css), a WebKit potrafi oddać wartość w połowie
+   * interpolacji - w CI wyszło z tego `rgba(10, 10, 10, 0.996)` zamiast
+   * `rgb(10, 10, 10)` i zatrzymało wydanie. Ten sam problem rozwiązuje
+   * `expect.poll` w teście hovera niżej.
+   */
+  const INK = 'rgb(10, 10, 10)'
+  const PAPER = 'rgb(242, 239, 232)'
+
   test('wyznacz trase ma te same kolory co wezwanie w hero', async ({ page }) => {
     await page.goto('/')
 
-    const trasa = await kolory(page, '#lokalizacja .cta')
-    const hero = await kolory(page, '.hero .cta')
-
-    expect(trasa.tlo, 'tlo jak w hero').toBe(hero.tlo)
-    expect(trasa.tekst, 'tekst jak w hero').toBe(hero.tekst)
-
-    // INK i PAPER z palety marki - nie czerń przeglądarki i nie czysta biel.
-    expect(trasa.tlo).toBe('rgb(10, 10, 10)')
-    expect(trasa.tekst).toBe('rgb(242, 239, 232)')
+    for (const selektor of ['#lokalizacja .cta', '.hero .cta']) {
+      const cta = page.locator(selektor)
+      await expect(cta, `tło ${selektor}`).toHaveCSS('background-color', INK)
+      await expect(cta, `tekst ${selektor}`).toHaveCSS('color', PAPER)
+    }
   })
 
   test('po najechaniu tlo zmienia sie na kolor sygnalowy', async ({ page }, testInfo) => {
