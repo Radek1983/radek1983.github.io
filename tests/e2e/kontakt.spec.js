@@ -45,11 +45,19 @@ test.describe('12 kontakt', () => {
       'mailto:kontakt@highfive.academy',
     )
 
-    // Wezwanie stoi PO danych kontaktowych, blok formalny PO wezwaniu.
+    /*
+     * W sekcji NIE MA przycisku otwierajacego program pocztowy - wlasciciel
+     * kazal go zdjac 19.09.2026. Adres jest odnoskiem, wiec droga kontaktu
+     * zostaje; znika tylko kapsula, ktora podstawiala gotowy szkic wiadomosci
+     * i na komputerze uruchamiala Outlooka.
+     */
+    await expect(sekcja.locator('.cta')).toHaveCount(0)
+    await expect(sekcja.locator('a[href*="mailto:"][href*="subject"]')).toHaveCount(0)
+
+    // Blok formalny stoi PO danych kontaktowych.
     const y = async (s) => (await sekcja.locator(s).boundingBox()).y
     expect(await y('.contact__channels')).toBeGreaterThan(await y('.u-lead'))
-    expect(await y('.cta--large')).toBeGreaterThan(await y('.contact__channels'))
-    expect(await y('.legal')).toBeGreaterThan(await y('.cta--large'))
+    expect(await y('.legal')).toBeGreaterThan(await y('.contact__channels'))
   })
 
   /*

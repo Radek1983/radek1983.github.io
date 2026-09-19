@@ -298,10 +298,17 @@
   color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 
+/*
+ * BEZ KRESKI nad podpisem - polecenie wlasciciela z 19.09.2026, to samo
+ * co w sekcji 07 strony glownej (D12).
+ *
+ * Linia dzielila cene i jej opis na dwa bloki, wiec panel czytal sie jak
+ * tabela, a nie jak plakat. Odstep 16 px ZOSTAJE: to on trzyma podpis pod
+ * cyfra, nie kreska, wiec geometria sekcji sie nie rusza.
+ */
 [data-page='cennik'] .rates__caption {
   max-inline-size: 28ch;
   padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-rule);
   font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
   line-height: 1.5;
 }

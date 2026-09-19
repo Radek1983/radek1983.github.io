@@ -539,8 +539,8 @@ test.describe('mega-menu - dopracowanie', () => {
         numer: '03',
         etykieta: 'Dla seniorów',
         opis: 'Angielski dla seniorów',
-        // Prog wiekowy zszedl z etykiety, wiec musi stac tutaj.
-        kontekst: '60+ · Terminal Kultury Gocław',
+        // Prog wiekowy zszedl z calego serwisu 19.09.2026 (par. 3, D16).
+        kontekst: 'Seniorzy · Terminal Kultury Gocław',
         cta: 'Zobacz zajęcia →',
         href: '/oferta/seniorzy/',
       },

@@ -47,16 +47,19 @@ export const OFFERS = [
     id: 'seniorzy',
     numer: '03',
     skrot: 'Dla seniorów',
-    etykietaStopki: 'Seniorzy 60+',
+    etykietaStopki: 'Seniorzy',
     tytul: 'Angielski dla seniorów',
     opis: 'Angielski dla seniorów',
     /*
-     * Wiek zszedl z etykiety, wiec musi zostac TU. Inaczej pozycja "Dla
-     * seniorow" nie mowilaby juz, do kogo sa te zajecia - a to jedyna
-     * oferta w serwisie z progiem wiekowym.
+     * Prog wiekowy zszedl STAD na polecenie wlasciciela z 19.09.2026 - par. 3
+     * i D16 zabranialy go od poczatku, a stal jeszcze w czterech miejscach.
+     *
+     * W jego miejsce wchodzi rzeczownik, a nie sam adres: podpis ma tu tak
+     * samo jak w pozostalych kaflach nazwac ODBIORCE i MIEJSCE, oddzielone
+     * kropka. Wlasciciel rozstrzygnal to wprost.
      */
-    kontekst: '60+ · Terminal Kultury Gocław',
-    odbiorca: '60+',
+    kontekst: 'Seniorzy · Terminal Kultury Gocław',
+    odbiorca: 'Seniorzy',
     miejsce: 'Terminal Kultury Gocław',
     url: '/oferta/seniorzy/',
     ctaMenu: 'Zobacz zajęcia',

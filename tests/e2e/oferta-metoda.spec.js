@@ -22,7 +22,7 @@ const SIGNAL = 'rgb(242, 59, 47)'
 const OFERTA = [
   ['01', 'Dla dzieci', 'Klasy 1-7 · SP 402', '/oferta/dzieci/'],
   ['02', 'Klasa 8', 'Egzamin ósmoklasisty · SP 402', '/oferta/egzamin-osmoklasisty/'],
-  ['03', 'Dla seniorów', '60+ · Terminal Kultury Gocław', '/oferta/seniorzy/'],
+  ['03', 'Dla seniorów', 'Seniorzy · Terminal Kultury Gocław', '/oferta/seniorzy/'],
   ['04', 'Online 1 na 1', 'Indywidualnie · zdalnie', '/oferta/online/'],
 ]
 

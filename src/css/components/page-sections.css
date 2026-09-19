@@ -277,7 +277,18 @@
   list-style: none;
 }
 
+/*
+ * Siatka, a nie zwykly blok: odnosnik ma sie ROZCIAGNAC na cala wysokosc
+ * modulu. Sam <li> jest elementem siatki sekcji, wiec rosnie do wysokosci
+ * najwyzszej kolumny w wierszu - ale odnosnik w srodku zostawal przy swojej
+ * tresci i w nizszych kolumnach ostatnie ~20 px modulu nie bylo klikalne.
+ *
+ * Wyszlo dopiero 19.09.2026, gdy podpis oferty 03 urosl do dwoch wierszy
+ * (`Seniorzy · Terminal Kultury Gocław`). Wczesniej wszystkie cztery podpisy
+ * mialy po jednym wierszu, wiec kolumny byly rowne i roznicy nie bylo widac.
+ */
 .paths__item {
+  display: grid;
   grid-column: 1 / -1;
   border-block-start: 1px solid var(--color-rule);
 }
@@ -316,8 +327,21 @@
   color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
 
+/*
+ * Wezwanie siada na DOLE modulu, nie pod ostatnim wierszem podpisu.
+ *
+ * Podpisy maja rozna dlugosc i od 19.09.2026 jeden z nich lamie sie na dwa
+ * wiersze, wiec przy stalym marginesie cztery czerwone wezwania staly na
+ * dwoch roznych wysokosciach. `auto` w kolumnie flex zbiera cala nadwyzke
+ * wysokosci nad wezwaniem, wiec rownosc wynika z ukladu i przetrwa kazda
+ * kolejna zmiane dlugosci podpisu.
+ *
+ * Dziala tylko dlatego, ze odnosnik rozciaga sie na cala wysokosc modulu
+ * (patrz .paths__item wyzej) - bez tego nie bylo czego rozdzielac.
+ */
 .paths__cta {
-  margin-block-start: var(--space-2);
+  margin-block-start: auto;
+  padding-block-start: var(--space-2);
   font-size: var(--step-label);
   font-weight: 700;
   letter-spacing: var(--tracking-label);

@@ -85,6 +85,12 @@ To jedyne dane, które wolno publikować:
   liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane. Fakt bez zmian;
   brzmienie na stronie zmienił właściciel 15.09.2026 z „które są w kalendarzu” — rodzic na tym
   etapie żadnego kalendarza jeszcze nie widział.
+  **Serwis niesie dziś trzy brzmienia tego samego faktu i to jest w porządku.**
+  Sekcja 07: `Płacisz za zajęcia, które się odbywają.` FAQ: `Płacisz za zajęcia
+zaplanowane w kalendarzu` — brzmienie wybrane przez właściciela 19.09.2026, bo
+  odpowiedź o cenie mówi o **rozliczeniu z góry**, a nie o samej regule ogólnej.
+  `/cennik/`: `Płacisz za zajęcia, które są w kalendarzu.` — najstarsze brzmienie,
+  zostaje, bo strona jest zamknięta (D17) i nikt nie polecił go ruszać.
 - **Kurs egzaminacyjny: 80 zł / 90 min.** Jedne zajęcia trwają 90 minut. Przekazane przez
   właściciela 15.09.2026; wcześniej stawka była jawnym brakiem danych.
 - **Angielski dla seniorów: 45 zł / 60 min.** **Online 1 na 1: 120 zł / 60 min.** Obie
@@ -111,6 +117,10 @@ To jedyne dane, które wolno publikować:
   właściciela 18.09.2026. W tekście narracyjnym zapis **zwykłą kapitalizacją**, bez NIP,
   REGON i pozostałych danych rejestrowych — to informacja o współpracy, nie metryczka
   firmy. Stoi w sekcji 05 strony głównej i jako dopisek w hero `/oferta/dzieci/`.
+  **Nazwy nie odmieniamy** — w obu miejscach stoi mianownik `High Five Agnieszka
+Karolewska`, także po przyimku („we współpracy z High Five Agnieszka Karolewska").
+  Sekcja 05 miała przez chwilę narzędnik `Agnieszką Karolewską`; właściciel ujednolicił
+  to 19.09.2026 na formę nieodmienianą, bo to nazwa firmy, nie osoba w zdaniu.
   Dane rejestrowe HIGH FIVE w sekcji 12 i w JSON-LD **zostają bez zmian** — partner nie
   jest stroną umowy z rodzicem.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
@@ -613,6 +623,24 @@ Co jest zamrożone:
   pięć kroków lekcji w tej kolejności; czarny akt bez fotografii; odstęp między etykietą
   sekcji a pierwszym czasownikiem.
 
+**Zmiana z 19.09.2026 — podpis oferty 03 stracił próg wiekowy.** Stało tu
+`60+ · Terminal Kultury Gocław`, wbrew zakazowi z D16. Dziś jest
+`Seniorzy · Terminal Kultury Gocław` — próg zastąpiony rzeczownikiem, a nie
+skasowany razem z pierwszym członem. To samo brzmienie co w mega-menu, bo
+sekcja 04 i panel mówią jednym językiem. **Nie skracaj tego do samego adresu.**
+
+Dłuższy podpis łamie się na desktopie na **dwa wiersze** i odsłonił dwie
+usterki, które siedziały tu od początku — obie naprawione tą samą zmianą:
+
+1. **Odnośnik nie obejmował całego modułu.** `<li>` rośnie do wysokości
+   najwyższej kolumny w wierszu, ale `<a>` w środku zostawał przy swojej
+   treści, więc w niższych kolumnach ostatnie ~20 px nie było klikalne.
+   Dopóki wszystkie cztery podpisy miały po jednym wierszu, kolumny były
+   równe i różnicy nie było widać. Wyłapał to `offer-state.spec.js`.
+2. **Cztery czerwone wezwania stały na dwóch wysokościach.** Dziś siedzą
+   na dole modułu (`margin-block-start: auto`), więc równość wynika
+   z układu i przetrwa każdą kolejną zmianę długości podpisu.
+
 **Otwarte, do decyzji właściciela:** pierwsza pozycja oferty nazywa się inaczej w menu
 (`Klasy 1-7`) niż w sekcji 04 (`Dla dzieci`). Pozostałe trzy zostały kiedyś ujednolicone
 na polecenie właściciela. Test porównuje adresy i trzy ujednolicone etykiety, ale **nie
@@ -664,6 +692,14 @@ zgoda padła wprost. Co się zmieniło i co z tego wynika:
   przy 60ch kolumna rośnie o cztery wiersze i **kadr Magdaleny kończy się 117 px nad
   dołem tekstu** — a to jest właśnie ta geometria, która jest tu zatwierdzona. Wybór
   między długim wierszem a nierówną krawędzią należy do właściciela i nadal czeka.
+
+**Dwie poprawki redakcyjne z 19.09.2026, obie na polecenie właściciela:**
+
+- **nazwa partnera przestała być odmieniana** — `we współpracy z High Five Agnieszka
+Karolewska` zamiast `z High Five Agnieszką Karolewską`. Ta sama forma co w hero
+  `/oferta/dzieci/`, więc obie strony mówią dziś identycznie (§3);
+- **`klas 1–7` zapisane półpauzą** poprawione na dywiz. To było jedyne takie miejsce
+  w serwisie: w pozostałych 53 wystąpieniach stoi `1-7`.
 
 Pilnuje tego `tests/e2e/o-high-five.spec.js` na macierzy 1280–1920 px.
 
@@ -778,6 +814,23 @@ Dwie rzeczy są w tej sekcji wrażliwe i obie wynikają z wyraźnego polecenia:
 1. **Nigdzie nie wolno podać granicy wieku.** Nazwa oferty zostaje — `Angielski dla
 seniorów` — ale `60+` i każda inna dolna granica są zakazane. Kurs ma być czytelny
    także dla osoby po pięćdziesiątce; „seniorzy" to nazwa oferty, nie kategoria wiekowa.
+
+   **Zakaz obowiązuje w całym serwisie i od 19.09.2026 jest wreszcie spełniony.**
+   Przez cały czas czytaliśmy go jako regułę tej jednej sekcji, więc `60+` stało
+   jeszcze w czterech miejscach: w podpisie oferty 03 w sekcji 04, w podpisie kafla
+   mega-menu, w etykiecie stopki (`Seniorzy 60+`) i w leadzie hero `/oferta/seniorzy/`.
+   Komentarze w `src/data/offers.mjs` i `vite.config.js` broniły tego wprost, a dwa
+   testy to brzmienie **blokowały**. Właściciel rozstrzygnął: próg schodzi wszędzie.
+
+   W miejsce progu wchodzi **rzeczownik, nie sam adres**: mega-menu i sekcja 04
+   mówią dziś `Seniorzy · Terminal Kultury Gocław`. Zostawiłem tam przez chwilę
+   sam adres, żeby uniknąć powtórzenia słowa w kaflu — właściciel to cofnął tego
+   samego dnia: podpis ma w każdym kaflu nazywać **odbiorcę i miejsce**, oddzielone
+   kropką, tak jak `Klasy 1-7 · SP 402`. **Nie skracaj go ponownie.** W stopce stoi
+   sam rzeczownik `Seniorzy`, bo to kolumna samych linków. Lead hero podstrony mówi
+   `dla osób dorosłych` — **nie** `dla seniorów`, bo nazwa oferty stoi wiersz wyżej
+   w nagłówku.
+
 2. **Trzy poziomy są równorzędne.** Żaden nie jest domyślny, żaden nie dostaje własnego
    tła, obrysu ani koloru. Wyróżnienie jednego czytałoby się jak sugestia wyboru.
 
@@ -859,6 +912,17 @@ Dwie pułapki zapisane w kodzie, żeby nikt ich nie powtórzył:
 2. Nagłówek strony i nagłówek sekcji 01 mają być **tej samej wielkości**. Biorą
    wartość z jednego tokenu `--step-cennik-claim`, a nie z dwóch clampów
    ustawianych równolegle.
+
+**Zmiana z 19.09.2026 — kreski pod cenami zdjęte w sekcji 01.** Nad podpisami
+`Pierwsze dziecko` i `Drugie i każde kolejne dziecko z rodzeństwa` stała cienka
+linia; dzieliła cenę i jej opis na dwa bloki, przez co panel czytał się jak tabela,
+a nie jak plakat. Ta sama poprawka co w sekcji 07 strony głównej i z tego samego
+powodu (D12). **Odstęp 16 px został bez zmian** — to on trzyma podpis pod cyfrą,
+nie kreska, więc geometria sekcji się nie ruszyła. **Pozostałe kreski zostają:**
+pionowe w rynnach gridów i pozioma nad przypisem cenowym.
+
+To druga — obok podmiany odnośników — zmiana dopuszczona na tej stronie; jak
+tamtą, poleconą wprost przez właściciela.
 
 Pilnuje tego `tests/e2e/cennik.spec.js`.
 
@@ -1038,7 +1102,11 @@ przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i
 - **przycisk „Zobacz jak dojechać" na czarnym wariancie** `cta--ink`. To było
   ostatnie wystąpienie obrysowego `cta--ghost` w całym serwisie;
 - **odstępy nad blokami z kreskami** — ta sama martwa klasa `u-mt-8` co na
-  pozostałych podstronach, poprawiona w czterech miejscach na tej stronie.
+  pozostałych podstronach, poprawiona w czterech miejscach na tej stronie;
+- **lead hero mówi `dla osób dorosłych`**, nie `dla osób 60+`. Brzmienie podał
+  właściciel; to ostatnie miejsce, w którym stał próg wiekowy zakazany przez D16.
+  **Nie zastępuj tego zwrotem `dla seniorów`** — nazwa oferty stoi wiersz wyżej,
+  w nagłówku strony.
 
 Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 

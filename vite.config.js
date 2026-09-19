@@ -104,8 +104,7 @@ function htmlPartials() {
   /*
    * I w stopce - ale z wlasna etykieta, nie skrotem z mega-menu.
    * "Dla seniorow" dziala w panelu, gdzie stoi pod numerem i opisem;
-   * w kolumnie linkow stopki lepiej niesie sens "Seniorzy 60+", bo prog
-   * wiekowy nie ma tam gdzie indziej wybrzmiec.
+   * w kolumnie samych linkow czyta sie lepiej rzeczownik: "Seniorzy".
    */
   const stopkaOferta = OFFERS.map(
     (o) => `      <a class="u-link" href="${o.url}">${o.etykietaStopki}</a>`,
