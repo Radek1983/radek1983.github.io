@@ -4,9 +4,9 @@
 
 | Parametr      | Stan                                                                  |
 | ------------- | --------------------------------------------------------------------- |
-| Hosting       | GitHub Pages, **user site** (`radek1983.github.io`)                   |
+| Hosting       | GitHub Pages, **user site** (repozytorium `radek1983.github.io`)      |
 | Źródło        | GitHub Actions (`.github/workflows/deploy-production.yml`)            |
-| Domena        | `radek1983.github.io` — własna domena planowana, decyzja D3           |
+| Domena        | `www.highfive.academy` — podpięta 19.09.2026, decyzja D3              |
 | `base` w Vite | `/` — user site serwuje z korzenia. **Nigdy** `/radek1983.github.io/` |
 | HTTPS         | Automatyczne, certyfikat odnawiany przez GitHuba                      |
 | HTTP → HTTPS  | Wymaga włączenia „Enforce HTTPS" w Settings → Pages                   |
@@ -60,7 +60,9 @@ Nie ma żadnego nagłówka bezpieczeństwa i nie istnieje mechanizm ich dodania 
 Docelowa polityka nagłówków i cache jest zapisana w `ops/headers.example.conf` w trzech
 dialektach. Żaden nie jest dziś wykonywany.
 
-Dwie drogi, gdy pojawi się własna domena (decyzja D3):
+Domena jest od 19.09.2026 podpięta (ADR 0010), więc obie drogi są **dostępne od zaraz** —
+brakuje wyłącznie decyzji właściciela. Dopóki jej nie ma, odstępstwa z ADR 0003 obowiązują
+bez zmian: sama domena żadnego nagłówka nie dokłada.
 
 **1. Cloudflare przed GitHub Pages** — Pages zostaje hostem, domena idzie przez Cloudflare,
 jedna reguła Response Header Transform ustawia CSP, HSTS, `nosniff`, `Referrer-Policy`
@@ -74,10 +76,22 @@ Wybór wymaga decyzji właściciela i osobnego ADR.
 
 ## DNS
 
-Domena nie jest jeszcze kupiona. Gdy będzie:
+`www.highfive.academy` — domena kupiona przez właściciela, rekordy ustawione i podpięte
+po stronie GitHuba **19.09.2026** (ADR 0010). Ta sama domena obsługuje pocztę od 16.09.2026
+(decyzja D6).
+
+Stan i zasady:
 
 - Właścicielem domeny i konta u rejestratora pozostaje Zamawiający.
-- Rekordy DNS i procedura migracji zostaną dopisane w tym pliku.
-- Przed migracją obniżyć TTL z wyprzedzeniem.
+- Wariant **z `www`**, nie apex: jeden `CNAME` zamiast czterech rekordów A na adresy
+  GitHuba, które bywają zmieniane. Ten sam wariant stoi w grafice Open Graph.
+- **Publikacja w GitHub Pages jest dziś wyłączona** decyzją właściciela. Po jej włączeniu:
+  potwierdzić „Enforce HTTPS" — przy własnej domenie certyfikat Let's Encrypt wystawia się
+  dopiero po propagacji DNS i do tego czasu opcja bywa wyszarzona.
+- Pliku `CNAME` repozytorium nie wersjonuje; przy wdrożeniu przez GitHub Actions domena
+  żyje w konfiguracji Pages. Gdyby odpięła się przy kolejnym wdrożeniu — `public/CNAME`
+  z jedną linią `www.highfive.academy`, zgodną z ustawieniem co do znaku.
 - HSTS włączać dopiero po stabilnym HTTPS; `preload` wymaga osobnej świadomej decyzji.
-- Adres kanoniczny jest w jednym miejscu — podmiana domeny to jedna zmiana (decyzja D3).
+- Adres kanoniczny stoi w jedenastu plikach HTML, `sitemap.xml`, `robots.txt` i w dwóch
+  plikach testów. Kontrola przy zmianie: `grep` po starym adresie ma nie dawać trafień
+  poza ADR-ami, które są zapisem historii.

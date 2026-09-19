@@ -26,7 +26,7 @@ test.describe('tresc i SEO', () => {
 
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      'https://radek1983.github.io/',
+      'https://www.highfive.academy/',
     )
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',

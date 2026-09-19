@@ -1,7 +1,7 @@
 # CLAUDE.md — HIGH FIVE / kontrakt projektowy
 
 Strona WWW szkoły języka angielskiego **HIGH FIVE**: statyczny one-page, hostowany na GitHub Pages
-w repozytorium `Radek1983/radek1983.github.io`.
+w repozytorium `Radek1983/radek1983.github.io`, pod adresem `https://www.highfive.academy`.
 
 Ten plik jest trwałym zapisem założeń. Czytaj go przed każdą zmianą w kodzie i aktualizuj, gdy
 zmienia się ustalenie, a nie tylko implementacja.
@@ -366,7 +366,8 @@ Dokumenty obowiązkowe poza techniczną dokumentacją: `docs/BUSINESS_REQUIREMEN
 
 Twarde fakty wdrożeniowe dla tego repozytorium:
 
-- To **user site** — `base` w Vite = `/`. Nigdy `/radek1983.github.io/`.
+- To **user site** — `base` w Vite = `/`. Nigdy `/radek1983.github.io/`. Własna domena tego
+  nie zmienia: serwis stoi w korzeniu i przy zmianie hostingu też ma tam stać.
 - Node przypięty na `24.20.0` (nie samo `24` — narzędzia lintujące mają wyższy floor niż 24.0).
 - Źródło GitHub Pages musi zostać **ręcznie** przestawione na „GitHub Actions” w ustawieniach
   repozytorium. Tego nie da się zrobić z workflow.
@@ -457,7 +458,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | ------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **D1**  | Środowisko lokalne                        | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                             |
 | **D2**  | Konwersja                                 | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                    |
-| **D3**  | Adres                                     | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                                                                     |
+| **D3**  | Adres                                     | **`https://www.highfive.academy` — podpięte 19.09.2026** (ADR 0010). Wcześniej `https://radek1983.github.io/`. Publikacja w GitHub Pages wstrzymana decyzją właściciela                                                         |
 | **D4**  | Fotografia                                | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                           |
 | **D5**  | Wersje narzędzi                           | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                           |
 | **D6**  | Dane kontaktowe                           | **Docelowe:** e-mail `kontakt@highfive.academy`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
@@ -492,8 +493,8 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 - Wyświetlanie `+48 790 266 517`, atrybut `tel:+48790266517`.
 - **Skrzynka we własnej domenie — załatwione 16.09.2026.** Adres zszedł z publicznego
   dostawcy na `kontakt@highfive.academy`; domenę przekazał właściciel, nie została
-  wymyślona. To zamyka G-17. **Uwaga: domena poczty nie jest domeną serwisu** — strona
-  nadal stoi pod `radek1983.github.io` (D3) i adres kanoniczny zostaje bez zmian.
+  wymyślona. To zamyka G-17. **Od 19.09.2026 domena poczty jest też domeną serwisu** —
+  strona stoi pod `www.highfive.academy` (D3, ADR 0010).
 - **Jeden wyjątek od „jednego źródła": sekcja zapisów na `/oferta/dzieci/`.** Niesie
   osobny adres zapisowy `highfive.zapisy@gmail.com`, wpisany wprost w HTML, nie przez
   `{{EMAIL}}`. Decyzja właściciela z 17.09.2026. To **nie jest pozostałość** po starej
@@ -1055,6 +1056,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                          |
 | Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                           |
 | Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                         |
+| Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                            |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 
 ## 17. Kryteria odbioru

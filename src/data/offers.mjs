@@ -158,8 +158,8 @@ export const LINK_CENNIK = CENY_KOMPLETNE ? 'Porównaj ceny' : 'Cennik'
  * z publicznego dostawcy na kontakt@highfive.academy; domene przekazal
  * wlasciciel, nie zostala wymyslona. To zamyka brak G-17.
  *
- * Uwaga: domena poczty NIE jest domena serwisu. Strona nadal stoi pod
- * radek1983.github.io (decyzja D3) i adres kanoniczny zostaje bez zmian.
+ * Od 19.09.2026 domena poczty jest TEZ domena serwisu: adres kanoniczny to
+ * https://www.highfive.academy (decyzja D3, ADR 0010).
  */
 export const KONTAKT = {
   /** Postac wyswietlana, z niełamliwymi spacjami. */

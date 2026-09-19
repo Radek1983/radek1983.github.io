@@ -89,11 +89,11 @@ test.describe('architektura - adresy i metadane', () => {
       await expect(page.locator('h1')).toHaveText(strona.h1)
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
-        `https://radek1983.github.io${strona.url}`,
+        `https://www.highfive.academy${strona.url}`,
       )
       await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
         'content',
-        `https://radek1983.github.io${strona.url}`,
+        `https://www.highfive.academy${strona.url}`,
       )
       await expect(page.locator('body')).toHaveAttribute('data-section', strona.sekcja)
 
@@ -105,7 +105,7 @@ test.describe('architektura - adresy i metadane', () => {
        */
       await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
         'content',
-        'https://radek1983.github.io/social/og-image.png',
+        'https://www.highfive.academy/social/og-image.png',
       )
       await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
         'content',
@@ -152,13 +152,13 @@ test.describe('architektura - adresy i metadane', () => {
     const xml = await (await request.get('/sitemap.xml')).text()
 
     for (const strona of STRONY) {
-      expect(xml, strona.url).toContain(`https://radek1983.github.io${strona.url}`)
+      expect(xml, strona.url).toContain(`https://www.highfive.academy${strona.url}`)
     }
-    expect(xml).toContain('https://radek1983.github.io/')
+    expect(xml).toContain('https://www.highfive.academy/')
 
     // Stare adresy sa przekierowaniami - nie wolno ich indeksowac.
     expect(xml).not.toContain('/dla-seniorow/')
-    expect(xml).not.toContain('https://radek1983.github.io/online/')
+    expect(xml).not.toContain('https://www.highfive.academy/online/')
   })
 })
 
@@ -178,7 +178,7 @@ test.describe('architektura - stare adresy', () => {
 
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
-        `https://radek1983.github.io${nowy}`,
+        `https://www.highfive.academy${nowy}`,
       )
     })
 
@@ -189,7 +189,7 @@ test.describe('architektura - stare adresy', () => {
 
       expect(odpowiedz.status()).toBe(200)
       expect(html).toContain('noindex')
-      expect(html).toContain(`https://radek1983.github.io${nowy}`)
+      expect(html).toContain(`https://www.highfive.academy${nowy}`)
     })
   }
 })

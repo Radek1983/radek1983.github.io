@@ -302,7 +302,7 @@ skanuje wszystkie dziewięć stron i wywala build, jeśli którakolwiek z nich z
 **G-17 — skrzynka we własnej domenie — ZAMKNIĘTY 16.09.2026.** Adres zszedł z publicznego
 dostawcy poczty na `kontakt@highfive.academy`. Domenę przekazał właściciel, nie została
 wymyślona. **Domena poczty nie jest domeną serwisu** — strona nadal stoi pod
-`radek1983.github.io` (decyzja D3), więc odstępstwa z ADR 0003 (nagłówki bezpieczeństwa,
+`www.highfive.academy` (decyzja D3), więc odstępstwa z ADR 0003 (nagłówki bezpieczeństwa,
 cache, HSTS) **zostają otwarte**: zdejmie je dopiero własna domena serwisu z Cloudflare.
 
 **Dane rejestrowe firmy (G-09)** nadal nieprzekazane — bez zmian.
