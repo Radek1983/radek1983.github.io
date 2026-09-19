@@ -31,3 +31,9 @@ src/assets/images/new to use/
 # znaki, wiec nie spelniaja par. 11 CLAUDE.md, a same pliki sa zrodlami, nie
 # zasobami produkcyjnymi - te powstaja z nich przez `npm run images`.
 src/assets/images/new to use/
+
+# Ustawienia Claude Code specyficzne dla maszyny. Dzis stoi tu wylacznie
+# `launch.json` z konfiguracja serwera deweloperskiego do podgladu w panelu
+# przegladarki - sciezki i porty sa lokalne, wiec plik nie ma czego wnosic
+# do repozytorium wspoldzielonego.
+.claude/
