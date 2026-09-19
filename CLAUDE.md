@@ -335,7 +335,15 @@ tests/             e2e/, smoke/
 ```
 
 `public/` służy tylko zasobom wymagającym stabilnego URL. Zdjęcia, ikony i fonty idą do
-`src/assets/`, żeby Vite nadał im fingerprint. Nazwy plików: małe litery, alfabet łaciński,
+`src/assets/`, żeby Vite nadał im fingerprint.
+
+**Podmiana kadru nie kasuje poprzedniego.** Zastąpione źródło ląduje
+w `src/assets/images/archiwum/` pod nazwą z datą zastąpienia
+(`course-exam-zastapione-2026-09-19.png`). `npm run images` ten katalog pomija —
+warianty AVIF i WebP powstają wyłącznie z kadrów, które stoją dziś na stronie.
+Powrót do poprzedniego zdjęcia to skopiowanie pliku pod oryginalną nazwę
+i ponowne uruchomienie skryptu. Nazwa w archiwum **kończy się słowem, nie liczbą**:
+skrypt odcina końcowy numer przy ustalaniu nazwy bazowej. Nazwy plików: małe litery, alfabet łaciński,
 cyfry i myślniki; bez spacji i polskich znaków; warianty rozmiaru liczbowo
 (`hero-school-768.avif`, `hero-school-1600.avif`).
 

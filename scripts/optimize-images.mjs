@@ -66,10 +66,26 @@ function baseName(file) {
   return basename(file, extname(file)).replace(/-\d+$/, '')
 }
 
+/*
+ * Katalog z poprzednimi wersjami kadrow. Leza tam zrodla ZASTAPIONE przez nowe,
+ * zeby dalo sie wrocic do poprzedniego zdjecia bez grzebania w historii gita.
+ * Skrypt go pomija: warianty AVIF i WebP maja powstawac wylacznie z kadrow,
+ * ktore stoja dzis na stronie.
+ *
+ * Nazwa niesie date zastapienia i konczy sie slowem, nie liczba - `baseName`
+ * odcina koncowy numer, wiec `...-2026-09-13.png` skrocilby sie do
+ * `...-2026-09` i przy pomylce dalby warianty o mylacej nazwie.
+ *
+ * Powrot do poprzedniego kadru: skopiuj plik pod oryginalna nazwe do katalogu
+ * docelowego i uruchom `npm run images`.
+ */
+const POMIJANE_KATALOGI = new Set(['archiwum'])
+
 async function collectSources(dir) {
   const out = []
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const path = join(dir, entry.name)
+    if (entry.isDirectory() && POMIJANE_KATALOGI.has(entry.name)) continue
     if (entry.isDirectory()) out.push(...(await collectSources(path)))
     else if (entry.isFile() && SOURCE_EXTENSIONS.has(extname(entry.name).toLowerCase()))
       out.push(path)
