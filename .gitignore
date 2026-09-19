@@ -25,7 +25,6 @@ Thumbs.db
 *.log
 npm-debug.log*
 PR_BODY.md
-src/assets/images/new to use/
 
 # Materialy wrzucone przez wlasciciela do obrobki. Nazwy maja spacje i polskie
 # znaki, wiec nie spelniaja par. 11 CLAUDE.md, a same pliki sa zrodlami, nie

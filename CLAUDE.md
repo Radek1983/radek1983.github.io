@@ -570,6 +570,12 @@ Co jest zamrożone — `src/css/sections/after-school.css` i blok `#po-lekcjach`
 Wymóg „zdanie kończące sekcję mieści się w dwóch wierszach” **już nie obowiązuje** — zniknął
 razem z krótszą treścią, którą właściciel wymienił. Nie przywracaj go.
 
+**Kadr podmieniony 19.09.2026 na polecenie właściciela.** Nowe źródło ma dokładnie
+te same wymiary co poprzednie — 1122 × 1402, proporcja 4:5 — więc `srcset`, `sizes`,
+atrybuty `width`/`height` i cała geometria sekcji zostają bez zmian. Zmieniło się
+wyłącznie zdjęcie; treść sekcji jest nietknięta. Poprzedni kadr leży
+w `src/assets/images/archiwum/` (§11).
+
 Pilnuje tego `tests/e2e/po-lekcjach.spec.js` na macierzy 1280–1920 px. Czerwony test w tym
 pliku oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
 

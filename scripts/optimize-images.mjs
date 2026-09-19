@@ -79,7 +79,14 @@ function baseName(file) {
  * Powrot do poprzedniego kadru: skopiuj plik pod oryginalna nazwe do katalogu
  * docelowego i uruchom `npm run images`.
  */
-const POMIJANE_KATALOGI = new Set(['archiwum'])
+/*
+ * `new to use` to katalog roboczy wlasciciela - wrzuca tam surowe pliki
+ * do obrobki. Jest w .gitignore i nie nalezy do zrodel serwisu, a skrypt
+ * robil z niego warianty AVIF i WebP obok oryginalow. Pomijamy go z tego
+ * samego powodu co archiwum: warianty maja powstawac z kadrow, ktore stoja
+ * na stronie, a nie z materialu przed obrobka.
+ */
+const POMIJANE_KATALOGI = new Set(['archiwum', 'new to use'])
 
 async function collectSources(dir) {
   const out = []
