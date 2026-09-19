@@ -96,8 +96,57 @@ test.describe('architektura - adresy i metadane', () => {
         `https://radek1983.github.io${strona.url}`,
       )
       await expect(page.locator('body')).toHaveAttribute('data-section', strona.sekcja)
+
+      /*
+       * PODGLAD LINKU. Bez tego wklejenie adresu na Facebooka, do WhatsAppa
+       * czy w wiadomosc szkolna pokazuje goly tekst zamiast kafelka.
+       * Adres MUSI byc bezwzgledny - czytniki Open Graph nie rozwiazuja
+       * sciezek wzglednych.
+       */
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+        'content',
+        'https://radek1983.github.io/social/og-image.png',
+      )
+      await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
+        'content',
+        '1200',
+      )
+      await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute(
+        'content',
+        '630',
+      )
+      await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+        'content',
+        'summary_large_image',
+      )
     })
   }
+
+  /*
+   * Sam plik grafiki. Meta moze wskazywac adres, ktorego nie ma - wtedy
+   * podglad jest pusty tak samo, jakby znacznika nie bylo wcale.
+   * Generuje go `node scripts/make-og-image.mjs`.
+   */
+  test('grafika Open Graph istnieje i ma wymagane 1200x630', async ({ request }) => {
+    const odpowiedz = await request.get('/social/og-image.png')
+    expect(odpowiedz.status()).toBe(200)
+    expect(odpowiedz.headers()['content-type']).toContain('image/png')
+
+    const bajty = await odpowiedz.body()
+
+    /*
+     * Wymiary czytane wprost z naglowka IHDR pliku PNG - bez dokladania
+     * biblioteki do testow. Po osmiu bajtach sygnatury i czterech bajtach
+     * dlugosci chunku stoi znacznik "IHDR", a po nim dwa slowa 32-bitowe:
+     * szerokosc i wysokosc.
+     */
+    expect(bajty.subarray(12, 16).toString('ascii'), 'to jest PNG z naglowkiem IHDR').toBe('IHDR')
+    expect(bajty.readUInt32BE(16)).toBe(1200)
+    expect(bajty.readUInt32BE(20)).toBe(630)
+
+    // Budzet: podglad ma sie wczytac natychmiast, nie wazyc jak zdjecie hero.
+    expect(bajty.length, 'grafika ponizej 200 kB').toBeLessThan(200 * 1024)
+  })
 
   test('sitemap wymienia wszystkie strony i zadnego starego adresu', async ({ request }) => {
     const xml = await (await request.get('/sitemap.xml')).text()

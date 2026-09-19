@@ -326,7 +326,7 @@ docs/              ARCHITECTURE, DESIGN_SYSTEM, CONTENT, SEO, ACCESSIBILITY, SEC
                    TESTING, HOSTING, DEPLOYMENT, MOTION + ADR/
 docs/              BUSINESS_REQUIREMENTS, COPY_DECK, CONTENT_GAPS, ART_DIRECTION, ANALYTICS
 ops/               README.md, headers.example.conf, redirects.example.conf
-public/            favicon.svg, robots.txt, sitemap.xml, site.webmanifest, social/og-image.jpg
+public/            favicon.svg, robots.txt, sitemap.xml, site.webmanifest, social/og-image.png
 src/assets/        fonts/, icons/, images/{hero,courses,backgrounds}/, video/
 src/css/           main.css + base/ layout/ components/ sections/ animations/ utilities/
 src/js/            main.js + modules/ + utils/
@@ -402,6 +402,16 @@ inicjalizacji albo przez klasę `js` na `<html>`.
 - `h1`: `Angielski po lekcjach. W tej samej szkole.`
 - Wymagane: canonical, Open Graph, favicon, `sitemap.xml`, `robots.txt`, poprawny `lang`,
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.
+- **`og:image` — jeden plik marki dla całego serwisu**, `public/social/og-image.png`
+  1200 × 630, PNG. Nie składa się go w edytorze graficznym: generuje go
+  `node scripts/make-og-image.mjs` z szablonu `scripts/og-image.html`, renderowanego
+  w Chromium z Playwrighta. Dzięki temu bierze **te same pliki WOFF2 i te same kolory**
+  co strona i nie rozjeżdża się z marką po zmianie copy. Skrypt przyjmuje `--haslo`
+  i `--plik`, więc warianty per podstrona to jedno wywołanie — dziś świadomie ich nie
+  robimy: jeden plik to jedno miejsce do podmiany.
+  **Adresy `og:image` są bezwzględne** i przy przeprowadzce na własną domenę zmieniają
+  się razem z `canonical` — obie wartości stoją w tym samym nagłówku każdej strony.
+  Na obrazku **nie ma adresu WWW**: `highfive.academy` obsługuje dziś tylko pocztę (D3).
 - JSON-LD `EducationalOrganization`/`LocalBusiness` **tylko z prawdziwymi danymi**. Bez ratingów.
   Adres SP 402 jako miejsce zajęć, nie adres rejestrowy firmy.
 - **Serwis ma dziewięć adresów** (ADR 0007, 0008). Hierarchia: `/` (one-page), `/oferta`
