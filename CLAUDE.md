@@ -349,6 +349,12 @@ Dokumenty obowiązkowe poza techniczną dokumentacją: `docs/BUSINESS_REQUIREMEN
 - Prefiksy branchy: `feature/`, `fix/`, `perf/`, `refactor/`, `docs/`, `chore/`.
 - **Conventional Commits**, z dopuszczonym dodatkowym typem `seo`. Jeden commit = jedna zmiana logiczna.
 - SemVer, tagi `vX.Y.Z`, `CHANGELOG.md` aktualizowany przed wydaniem.
+- **Tagi `zatwierdzone/*` są dwojakie i nie wolno ich mylić.** `zatwierdzone/<sekcja>`
+  znaczy moment, w którym właściciel zatwierdził daną sekcję po raz pierwszy, i **zostaje
+  tam, gdzie jest** — późniejsze zmiany na jego polecenie opisują decyzje D7–D21 w §15,
+  a nie przesuwanie tagu. Stan bieżący znaczy osobny tag z datą:
+  `zatwierdzone/serwis-2026-09-19`. Przy kolejnym odbiorze całości dokładasz następny
+  taki tag, zamiast ruszać poprzednie.
 - `npm run check` musi przechodzić lokalnie **przed** PR: format:check, lint:js, lint:css, build,
   validate:html, test:e2e.
 - **Pętla robocza przy zmianach wizualnych.** Pełny `npm run check` trwa około czterech minut
