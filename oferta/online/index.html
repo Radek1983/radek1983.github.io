@@ -4,24 +4,58 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Indywidualne lekcje angielskiego online | High Five</title>
+    <title>Angielski online 1 na 1 dla dzieci i młodzieży | High Five</title>
     <meta
       name="description"
-      content="Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Nauka 1:1, elastyczne terminy i program dopasowany do ucznia."
+      content="Indywidualne lekcje angielskiego online dla dzieci i młodzieży. Program dopasowany do poziomu, potrzeb i celu nauki."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
-    <link rel="canonical" href="https://radek1983.github.io/oferta/online/" />
+    <link rel="canonical" href="https://www.highfive.academy/oferta/online/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/oferta/online/" />
-    <meta property="og:title" content="Indywidualne lekcje angielskiego online | High Five" />
+    <meta property="og:url" content="https://www.highfive.academy/oferta/online/" />
+    <meta
+      property="og:title"
+      content="Angielski online 1 na 1 dla dzieci i młodzieży | High Five"
+    />
     <meta
       property="og:description"
-      content="Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Nauka 1:1, elastyczne terminy i program dopasowany do ucznia."
+      content="Indywidualne lekcje angielskiego online dla dzieci i młodzieży. Program dopasowany do poziomu, potrzeb i celu nauki."
     />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych. Przy przeprowadzce na wlasna domene zmienia sie
+      razem z canonical - obie wartosci stoja w tym samym naglowku.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Angielski online 1 na 1 dla dzieci i młodzieży | High Five"
+    />
+    <meta
+      name="twitter:description"
+      content="Indywidualne lekcje angielskiego online dla dzieci i młodzieży. Program dopasowany do poziomu, potrzeb i celu nauki."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -35,10 +69,38 @@
     />
 
     <link rel="stylesheet" href="/src/css/main.css" />
+
+    <!-- Okruszki: / -> /oferta/ -> produkt. Odwzorowuja rzeczywista strukture adresow. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "High Five",
+            "item": "https://www.highfive.academy/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Oferta",
+            "item": "https://www.highfive.academy/oferta/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Online 1 na 1",
+            "item": "https://www.highfive.academy/oferta/online/"
+          }
+        ]
+      }
+    </script>
   </head>
 
-  <body data-section="oferta">
-    <a class="skip-link" href="#main">Przejdź do treści</a>
+  <body data-section="oferta" data-page="online">
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
 
     <!--#include partials/header.html -->
 
@@ -50,35 +112,100 @@
         <div class="container">
           <div class="page-hero__grid">
             <div class="page-hero__text">
+              <!--
+                Etykieta niesie juz tylko kontekst. "Online 1 na 1" przenioslo
+                sie do pierwszego wiersza naglowka i powtorzone tu staloby
+                dwa razy w odleglosci dwudziestu pikselow.
+              -->
               <p class="u-label section__label">
-                <span>Online 1:1</span>
-                <span>Dzieci, młodzież, dorośli</span>
+                <span>Dzieci i&nbsp;młodzież</span>
               </p>
 
+              <!--
+                TRZY wymuszone wiersze - decyzja wlasciciela z 18.09.2026.
+                Podzial ma byc swiadomy, a nie wynikiem szerokosci kolumny,
+                wiec stoja tu <br />, a nie sama miara. Cyfry w drugim wierszu
+                wiaze twarda spacja: "1 na 1" nigdy nie ma sie rozpasc.
+              -->
               <h1 class="u-display page-hero__title" id="online-title" data-animation="fade-up">
-                1 na 1. Online. W Twoim tempie.
+                Angielski online<br />
+                1&nbsp;na&nbsp;1<br />
+                W&nbsp;Twoim tempie
               </h1>
 
               <p class="u-lead page-hero__lead" data-animation="fade-up">
-                Indywidualne lekcje angielskiego online dla dzieci, młodzieży i dorosłych. Jeden
-                uczeń, jeden lektor i plan dopasowany do poziomu, celu oraz tempa nauki.
+                Indywidualne lekcje angielskiego online dla&nbsp;dzieci i&nbsp;młodzieży. Jeden
+                uczeń, jeden lektor i&nbsp;program dopasowany do&nbsp;poziomu, potrzeb oraz celu
+                nauki.
               </p>
 
-              <a class="cta cta--ink" href="/#kontakt" data-animation="fade-up">
-                Umów lekcję
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                W HERO NIE MA WEZWANIA - ten sam uklad co na trzech pozostalych
+                podstronach ofertowych. Stalo tu "Umow lekcje" prowadzace na
+                /#kontakt, czyli dokladnie tam, gdzie celuje wezwanie w naglowku
+                strony. Dwa przyciski o tej samej nazwie i tym samym celu
+                w odleglosci ekranu to nie druga droga, tylko powtorzenie.
+                Wezwanie z naglowka zostaje - zdjal je wlasciciel 18.09.2026.
+              -->
+
+              <!--
+                Trzy korzysci bez ikon.
+
+                Referencja pokazywala je z ikonami line-art, ale par. 7 briefu
+                dopuszcza wylacznie ikony uzytkowe - strzalke, plus/minus w FAQ
+                i marker mapy - a par. 8 wymienia "szesc ikonek korzysci" jako
+                anty-wzorzec. Rozdzielenie cienka kreska pionowa to ten sam
+                jezyk, ktory niesie juz metryczka firmy i mega-menu.
+              -->
+              <ul class="perks" data-animation="fade-up">
+                <li class="perks__item">
+                  <p class="u-label perks__title">100% online</p>
+                  <p class="perks__text">Uczysz się z&nbsp;dowolnego miejsca.</p>
+                </li>
+                <li class="perks__item">
+                  <p class="u-label perks__title">Indywidualne podejście</p>
+                  <p class="perks__text">Program dopasowany do&nbsp;Ciebie.</p>
+                </li>
+                <li class="perks__item">
+                  <p class="u-label perks__title">Realne efekty</p>
+                  <p class="perks__text">Mierzymy postępy i&nbsp;osiągasz cele.</p>
+                </li>
+              </ul>
             </div>
 
-            <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: osoba prowadząca zajęcia, 25-35 lat, w słuchawkach przed laptopem
-                podczas lekcji online. Neutralne, proste wnętrze. Bez plakatów i kubków z
-                angielskimi hasłami, bez symboli brytyjskich. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <!--
+              Gora strony pokazuje, KTO prowadzi. Dol strony - DLA KOGO sa
+              zajecia. Wczesniej w obu miejscach stal ten sam kadr z podzialem
+              ekranu i oba mowily dokladnie to samo.
+            -->
+            <figure class="media page-hero__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/online-lesson-768.avif   768w,
+                    /src/assets/images/sections/online-lesson-1200.avif 1200w,
+                    /src/assets/images/sections/online-lesson-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/online-lesson-768.webp"
+                  srcset="
+                    /src/assets/images/sections/online-lesson-768.webp   768w,
+                    /src/assets/images/sections/online-lesson-1200.webp 1200w,
+                    /src/assets/images/sections/online-lesson-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Lektorka prowadząca indywidualną lekcję języka online"
+                  width="1448"
+                  height="1086"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
@@ -100,15 +227,18 @@
           <ul class="cols statement__cols">
             <li class="cols__item" data-animation="fade-up">
               <h3>Elastyczny grafik</h3>
-              <p>Uczysz się w terminie dopasowanym do Twojego planu.</p>
+              <p>Uczysz się w&nbsp;terminie dopasowanym do&nbsp;Twojego planu.</p>
             </li>
             <li class="cols__item" data-animation="fade-up">
-              <h3>Lekcja szyta na miarę</h3>
-              <p>Tempo, materiały i cele zajęć są dopasowane do jednej osoby.</p>
+              <h3>Lekcja szyta na&nbsp;miarę</h3>
+              <p>Tempo, materiały i&nbsp;cele zajęć są dopasowane do&nbsp;jednej osoby.</p>
             </li>
             <li class="cols__item" data-animation="fade-up">
               <h3>Komfort online</h3>
-              <p>Łączysz się z domu lub innego spokojnego miejsca — bez dodatkowych dojazdów.</p>
+              <p>
+                Łączysz się z&nbsp;domu lub innego spokojnego miejsca —&nbsp;bez dodatkowych
+                dojazdów.
+              </p>
             </li>
           </ul>
         </div>
@@ -117,8 +247,13 @@
       <!-- ============================================================
            JAK WYGLĄDA WSPÓŁPRACA
            ============================================================ -->
+      <!--
+        Sekcja gesta: trzy krotkie kroki nie potrzebuja pelnego odstepu
+        sekcyjnego. Przy 1440 px padding byl wiekszy niz polowa tresci
+        i miedzy krokami a "Dla kogo?" robila sie pusta plansza.
+      -->
       <section
-        class="section"
+        class="section section--tight"
         id="wspolpraca"
         data-animation="section"
         aria-labelledby="online-kroki"
@@ -127,7 +262,7 @@
           <p class="u-label section__label"><span>Jak wygląda współpraca</span></p>
 
           <h2 class="u-h2" id="online-kroki" data-animation="fade-up">
-            Trzy kroki do lekcji online.
+            Trzy kroki do&nbsp;lekcji online.
           </h2>
 
           <ol class="steps u-mt-8">
@@ -135,19 +270,19 @@
               <span class="steps__number" aria-hidden="true">01</span>
               <h3>Rozmowa wstępna</h3>
               <p>
-                Ustalamy poziom, potrzeby i cel nauki. W przypadku dziecka rozmawiamy również z
-                rodzicem o oczekiwaniach i organizacji zajęć.
+                Ustalamy poziom, potrzeby i&nbsp;cel nauki. W&nbsp;przypadku dziecka rozmawiamy
+                również z&nbsp;rodzicem o&nbsp;oczekiwaniach i&nbsp;organizacji zajęć.
               </p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">02</span>
               <h3>Plan zajęć</h3>
-              <p>Dobieramy zakres materiału, sposób pracy i rytm spotkań.</p>
+              <p>Dobieramy zakres materiału, sposób pracy i&nbsp;rytm spotkań.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">03</span>
               <h3>Regularna nauka</h3>
-              <p>Pracujemy systematycznie i obserwujemy postępy.</p>
+              <p>Pracujemy systematycznie i&nbsp;obserwujemy postępy.</p>
             </li>
           </ol>
         </div>
@@ -160,63 +295,117 @@
         <div class="container">
           <div class="split__grid">
             <div class="split__text">
-              <h2 class="u-h2" id="online-dla-kogo" data-animation="fade-up">Dla kogo?</h2>
+              <h2 class="u-h2" id="online-dla-kogo" data-animation="fade-up">Dla&nbsp;kogo?</h2>
 
               <p class="u-lead" data-animation="fade-up">
-                Dla uczniów, którzy potrzebują indywidualnego tempa i pełnej uwagi osoby
+                Dla&nbsp;uczniów, którzy potrzebują indywidualnego tempa i&nbsp;pełnej uwagi osoby
                 prowadzącej.
               </p>
 
               <p data-animation="fade-up">Możemy pracować między innymi nad:</p>
 
-              <ul class="split__list" data-animation="fade-up">
+              <ul class="split__list split__list--check" data-animation="fade-up">
                 <li>angielskim ogólnym,</li>
                 <li>konwersacją,</li>
                 <li>materiałem szkolnym,</li>
                 <li>uzupełnieniem zaległości,</li>
-                <li>przygotowaniem do sprawdzianów,</li>
+                <li>przygotowaniem do&nbsp;sprawdzianów,</li>
                 <li>konkretnym celem językowym.</li>
               </ul>
             </div>
 
-            <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media split__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: dziecko w wieku 9-13 lat w słuchawkach przed laptopem, na ekranie
-                widoczna osoba prowadząca lekcję. Dziecko nie patrzy w obiektyw. Zwykłe, polskie
-                wnętrze. Proporcja 3:2, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media split__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/online-student-768.avif   768w,
+                    /src/assets/images/sections/online-student-1200.avif 1200w,
+                    /src/assets/images/sections/online-student-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/online-student-768.webp"
+                  srcset="
+                    /src/assets/images/sections/online-student-768.webp   768w,
+                    /src/assets/images/sections/online-student-1200.webp 1200w,
+                    /src/assets/images/sections/online-student-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Uczeń uczestniczący w indywidualnej lekcji online"
+                  width="1448"
+                  height="1086"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-           CTA KOŃCOWE — czerwony pas
+           KONTAKT — czerwony akt zamykający stronę
+
+           Ten sam komponent, ktory zamyka trzy pozostale podstrony
+           ofertowe: etykieta, plakatowy naglowek, lead, trzy drogi
+           kontaktu i zdanie o odpowiadaniu mailem.
+
+           Stal tu wczesniej pas "Chcesz zaczac?" z kapsula "Napisz do nas",
+           ktora otwierala szkic maila. Wlasciciel zastapil go 19.09.2026
+           sekcja kontaktowa BEZ przycisku: dane maja byc dostepne od razu,
+           a nie za kolejnym klikiem. Wezwanie w naglowku strony celuje
+           od tej samej zmiany w kotwice tej sekcji, nie na /#kontakt.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="kontakt-online"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="online-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="online-cta" data-animation="fade-up">Chcesz zacząć?</h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas — zaproponujemy termin pierwszego spotkania.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kontakt · online 1 na&nbsp;1</span>
+          </p>
 
-          <a
-            class="cta cta--large cta--ink"
-            href="mailto:{{EMAIL}}?subject=Lekcja%20online%201%3A1%20-%20High%20Five&amp;body=Imi%C4%99%20i%20nazwisko%3A%0AUczen%20(wiek%20lub%20klasa)%3A%0ACel%20nauki%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0A"
-            data-animation="fade-up"
-          >
-            Napisz do nas
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <h2 class="u-display enroll__title" id="online-cta" data-animation="fade-up">
+            Umów lekcję online.
+          </h2>
+
+          <p class="enroll__lead" data-animation="fade-up">
+            Opisz poziom, cel i&nbsp;dostępność. Wrócimy z&nbsp;propozycją terminu.
+          </p>
+
+          <!--
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
+
+            Adres OGOLNY serwisu, nie skrzynka zapisowa z /oferta/dzieci/:
+            tamta obsluguje wylacznie klasy 1-7 (D6).
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            W&nbsp;ciągu dnia lektor pracuje w&nbsp;szkole, dlatego preferujemy kontakt mailowy.
+          </p>
         </div>
       </section>
     </main>

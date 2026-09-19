@@ -47,7 +47,18 @@ test.describe('regresje tresci', () => {
         expect(tekst, `jednostka ceny na ${url}`).toMatch(/45\s*min/)
       }
       expect(tekst, `godzinowa jednostka na ${url}`).not.toMatch(/z[lł]\s*\/?\s*godz/i)
-      expect(tekst, `60 min na ${url}`).not.toMatch(/60\s*min/)
+
+      /*
+       * Zakaz jednostki 60-minutowej obowiazuje tam, gdzie stoi WYLACZNIE
+       * oferta dla klas 1-7. Na /cennik/ od 16.09.2026 stoja obok niej takze
+       * stawki seniorow i lekcji online - obie za 60 minut i obie przekazane
+       * przez wlasciciela, wiec tam jednostka godzinna jest poprawna.
+       * Ze stawkami 55 i 50 zl nadal nie moze sie zwiazac: pilnuje tego
+       * strukturalna asercja na `.rates__per` w tests/e2e/cennik.spec.js.
+       */
+      if (url !== '/cennik/') {
+        expect(tekst, `60 min na ${url}`).not.toMatch(/60\s*min/)
+      }
     }
   })
 
@@ -57,10 +68,17 @@ test.describe('regresje tresci', () => {
    */
   test('model rozliczenia stoi przy cenie', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('.pricing__billing')).toContainText(
-      'Płacisz za zajęcia, które są w kalendarzu',
+
+    /*
+     * Model rozliczenia to drugi panel sekcji 07, nie osobna sekcja -
+     * dlatego szukamy go wewnatrz #cennik. Szczegolowa struktura panelu:
+     * tests/e2e/pricing.spec.js.
+     */
+    const cennik = page.locator('#cennik')
+    await expect(cennik.locator('.billing__claim')).toContainText(
+      'Płacisz za zajęcia, które się odbywają',
     )
-    await expect(page.locator('#cennik')).toContainText('Nie pobieramy stałej opłaty miesięcznej')
+    await expect(cennik).toContainText('Bez stałej miesięcznej opłaty')
   })
 
   /*
@@ -72,9 +90,44 @@ test.describe('regresje tresci', () => {
       await page.goto(url)
       await expect(page.locator('a[href^="tel:"]').first(), `tel na ${url}`).toHaveAttribute(
         'href',
-        'tel:+48789789789',
+        'tel:+48790266517',
       )
       await expect(page.locator('a[href^="mailto:"]').first(), `mail na ${url}`).toBeVisible()
+    }
+  })
+
+  /*
+   * Adres kontaktowy zmieniano DWA razy: najpierw z prywatnego konta z czasu
+   * budowy na firmowe u publicznego dostawcy, potem - 17.09.2026 - na skrzynke
+   * we wlasnej domenie. Konto prywatne nie moze wrocic zadna droga: ani przez
+   * cofniety merge, ani przez skopiowany fragment starego HTML-a.
+   *
+   * WYJATEK: /oferta/dzieci/ niesie w sekcji zapisow OSOBNY adres zapisowy
+   * `highfive.zapisy@gmail.com`. Nie jest to pozostalosc po starej wartosci,
+   * tylko swiadoma decyzja wlasciciela z 17.09.2026 - skrzynka zapisowa jest
+   * inna niz ogolny adres kontaktowy ze stopki i sekcji 12. Dlatego zakaz
+   * gmaila obowiazuje na osmiu stronach, a nie na dziewieciu.
+   */
+  test('nigdzie nie zostaly stare dane kontaktowe', async ({ page }) => {
+    for (const url of STRONY) {
+      await page.goto(url)
+      const html = await page.content()
+      expect(html, `stary telefon na ${url}`).not.toMatch(/789\D*789\D*789/)
+      expect(html, `konto prywatne na ${url}`).not.toMatch(/janek\.gitara/)
+
+      if (url !== '/oferta/dzieci/') {
+        expect(html, `skrzynka u publicznego dostawcy na ${url}`).not.toMatch(/zapisy@gmail/i)
+      }
+    }
+  })
+
+  test('e-mail i telefon sa wszedzie te same', async ({ page }) => {
+    for (const url of STRONY) {
+      await page.goto(url)
+      await expect(
+        page.locator('a[href="mailto:kontakt@highfive.academy"]').first(),
+        url,
+      ).toBeVisible()
     }
   })
 

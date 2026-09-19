@@ -22,22 +22,31 @@ test.describe('tresc i SEO', () => {
   })
 
   test('metadane SEO sa zgodne z copy deckiem', async ({ page }) => {
-    await expect(page).toHaveTitle('High Five - angielski dla dzieci w SP 402 Warszawa')
+    /*
+     * Title zmieniony 19.09.2026 na polecenie wlasciciela w ramach audytu SEO.
+     * Poprzednie brzmienie bylo doslownym cytatem z briefu; nowe niesie
+     * lokalizacje i pelny zakres oferty, a nie sama oferte dla dzieci.
+     */
+    await expect(page).toHaveTitle('Angielski na Gocławiu i online | High Five')
 
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      'https://radek1983.github.io/',
+      'https://www.highfive.academy/',
     )
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',
-      /klas 1-7 po lekcjach w SP 402/,
+      /klas 1-7.*egzaminu ósmoklasisty.*seniorów.*online/,
     )
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
     await expect(page.locator('html')).toHaveAttribute('lang', 'pl')
   })
 
   test('dane strukturalne opisuja SP 402 jako miejsce zajec, nie adres firmy', async ({ page }) => {
-    const raw = await page.locator('script[type="application/ld+json"]').textContent()
+    /*
+     * Strona glowna niesie DWA obiekty: organizacje i witryne. Bierzemy
+     * pierwszy - drugi sprawdza osobny test nizej.
+     */
+    const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
     const data = JSON.parse(raw)
 
     expect(data['@type']).toBe('EducationalOrganization')
@@ -48,12 +57,31 @@ test.describe('tresc i SEO', () => {
     // Od dodania oferty senioralnej `location` jest tablica dwoch miejsc zajec.
     const places = Array.isArray(data.location) ? data.location : [data.location]
     const sp402 = places.find((place) => place.name.includes('402'))
-    expect(sp402.address.streetAddress).toContain('Nowaka-Jeziorańskiego')
-    expect(data.address).toBeUndefined()
+    expect(sp402.address.streetAddress).toContain('Nowaka-Jeziorańskiego 22')
+
+    /*
+     * Organizacja MA wlasny adres - rejestrowy, dodany 19.09.2026 przy audycie
+     * SEO. Musi byc inny niz adres SP 402: ta sama ulica, inny numer.
+     */
+    expect(data.address.streetAddress).toContain('Nowaka-Jeziorańskiego 7 lok. 199')
+    expect(data.address.postalCode).toBe('03-984')
+    expect(data.address.streetAddress).not.toContain('22')
 
     // Zakaz wymyslonych ocen i opinii.
     expect(data.aggregateRating).toBeUndefined()
     expect(data.review).toBeUndefined()
+  })
+
+  test('witryna ma wlasny obiekt WebSite z nazwa marki', async ({ page }) => {
+    const bloki = await page.locator('script[type="application/ld+json"]').allTextContents()
+    const website = bloki.map((b) => JSON.parse(b)).find((b) => b['@type'] === 'WebSite')
+
+    expect(website, 'strona glowna musi miec obiekt WebSite').toBeDefined()
+    expect(website.name, 'nazwa marki, nie nazwa dzialalnosci').toBe('High Five')
+    expect(website.url).toBe('https://www.highfive.academy/')
+
+    /* Bez SearchAction - serwis nie ma wyszukiwarki. */
+    expect(website.potentialAction).toBeUndefined()
   })
 
   test('wszystkie potwierdzone fakty sa w DOM, nie doczytywane przez JS', async ({ page }) => {
@@ -115,12 +143,18 @@ test.describe('tresc i SEO', () => {
   test('relacja ze SP 402 jest opisana bez sugerowania oficjalnego partnerstwa', async ({
     page,
   }) => {
-    await expect(page.locator('body')).toContainText(/nie jest oficjalnym serwisem/i)
+    await expect(page.locator('body')).toContainText(/nie\s+jest oficjalnym serwisem/i)
   })
 
+  /*
+   * Telefon w sekcji kontaktu jest TEKSTEM - decyzja wlasciciela. Odnosnik
+   * `tel:` zostaje w stopce, na kazdej stronie, wiec dotkniecie numeru na
+   * telefonie nadal dzwoni, a wymog D2 jest spelniony bez JavaScriptu.
+   */
   test('dane kontaktowe sa klikalne i obecne w DOM', async ({ page }) => {
-    await expect(page.locator('#kontakt a[href^="tel:"]')).toHaveCount(1)
+    await expect(page.locator('#kontakt')).toContainText('+48 790 266 517')
     await expect(page.locator('#kontakt a[href^="mailto:"]').first()).toBeVisible()
+    await expect(page.locator('.site-footer a[href^="tel:"]')).toHaveCount(1)
   })
 
   test('kazdy link nawigacji prowadzi do istniejacej sekcji lub podstrony', async ({
@@ -181,8 +215,15 @@ test.describe('tresc i SEO', () => {
     })
     expect(nieoznaczone).toEqual([])
 
-    // Naglowek sekcji 07 opisuje warunek staly, nie date.
-    await expect(page.locator('#nabor-title')).toContainText(/piątego dziecka/i)
+    /*
+     * Naglowek sekcji 08 opisuje warunek STALY, nie date - dlatego zostaje
+     * na stronie takze po 1 pazdziernika. Brzmienie wlasciciel zmienil
+     * 16.09.2026 z "Grupa rusza od piątego dziecka." na "5 dzieci
+     * i startujemy."; warunek jest ten sam, wiec test pilnuje intencji
+     * (minimum grupy bez daty), a nie konkretnego zdania.
+     */
+    await expect(page.locator('#nabor-title')).toContainText(/5\s*dzieci/i)
+    await expect(page.locator('#nabor-title')).not.toContainText(/pa[zż]dziernik|2026/i)
 
     // Czerwony baner zostal usuniety - nabor nie ma wlasnego pasa na stronie.
     await expect(page.locator('.notice')).toHaveCount(0)

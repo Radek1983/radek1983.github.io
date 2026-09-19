@@ -1,0 +1,219 @@
+/*
+ * SEKCJA ZAPISÓW — czerwony akt zamykający podstronę ofertową.
+ *
+ * Używają jej dziś dwie strony: `/oferta/dzieci/` (D18) oraz
+ * `/oferta/egzamin-osmoklasisty/`, która czeka jeszcze na zatwierdzenie.
+ * Obie zamykają się tym samym
+ * plakatem: etykieta → nagłówek → lead → trzy drogi kontaktu → kreska
+ * → zdanie o odpowiadaniu mailem. **Bez przycisku** — dane kontaktowe mają
+ * być dostępne od razu, a nie za kolejnym klikiem.
+ *
+ * Przez chwilę te reguły istniały w dwóch kopiach, bo `/oferta/dzieci/`
+ * była już zamknięta i scalenie byłoby zmianą pośrednią w zamrożonej
+ * stronie. Właściciel otworzył obie naraz 17.09.2026 i pozwolił je połączyć.
+ *
+ * STRUKTURA jest tutaj, WARTOŚCI są w warstwie stron.
+ *
+ * Obie strony zostały zatwierdzone osobno i mają celowo różne proporcje:
+ * na stronie klas 1-7 nagłówek jest większy, a pas przestronniejszy.
+ * Dlatego wszystko, co je różni, przechodzi przez tokeny ustawiane
+ * w `pages/dzieci.css` i `pages/egzamin.css`. Nie ujednolicaj tych wartości
+ * — obie są osobną decyzją właściciela.
+ *
+ * Zero ikon, zero zaokrągleń, zero cieni, zero kart — par. 7 i par. 8.
+ */
+
+/*
+ * Selektor jest dwuklasowy CELOWO — ta sama konwencja co przy `.section.about`.
+ * Reguła ogólna w `base/reset.css` celuje w `section[id]`, czyli w selektor
+ * typu z atrybutem, który ma wyższą specyficzność niż pojedyncza klasa.
+ * Przy samym `.enroll` scroll-margin przegrywał i skok z kotwicy zatrzymywał
+ * się 43 px za nisko — dokładnie o odstęp, który miał zostać odjęty.
+ */
+.section.enroll {
+  /*
+   * Odstęp pasa — WSPÓLNY dla obu stron. Właściciel zrównał go 17.09.2026:
+   * czerwony akt ma przylegać do sąsiednich sekcji, a nie odsuwać się od
+   * nich. Stoi tutaj, a nie w warstwie stron, właśnie dlatego, że jest taki
+   * sam; token zostaje, bo tę samą wartość musi wziąć scroll-margin niżej.
+   */
+  --space-enroll-start: clamp(1.375rem, 3vw, 3rem);
+  --space-enroll-end: clamp(1.375rem, 2.75vw, 2.75rem);
+
+  /*
+   * RYTM WEWNĘTRZNY — również wspólny, wyrównany 18.09.2026.
+   *
+   * Każda z trzech stron miała go początkowo własny i sekcje czytały się
+   * jak trzy różne moduły mimo identycznej budowy. Właściciel wskazał
+   * podstronę egzaminacyjną jako wzorzec i pozwolił dociągnąć do niej
+   * pozostałe dwie — łącznie z zamkniętą `/oferta/dzieci/` (D18).
+   *
+   * Warstwy stron ustawiają odtąd wyłącznie SKALĘ TYPOGRAFII, bo tym
+   * naprawdę się różnią. Odstępy pochodzą stąd i mają tak zostać.
+   *
+   * Odstęp nad nagłówkiem liczy się do TUSZU, nie do pudełka: nagłówek
+   * nosi padding anty-clippingowy 0.18em z warstwy typografii i bez
+   * odjęcia go realna przerwa jest o tyle większa od zadanej. `em`
+   * rozwiązuje się przy użyciu tokenu, czyli względem stopnia nagłówka.
+   */
+  --space-enroll-title: calc(var(--space-6) - 0.18em);
+  --space-enroll-lead: var(--space-6);
+  --space-enroll-grid: clamp(2rem, 4vw, 4rem);
+  --space-enroll-note: clamp(1.75rem, 3.2vw, 3rem);
+
+  padding-block: var(--space-enroll-start) var(--space-enroll-end);
+
+  /*
+   * Kotwica z mega-menu. Globalna reguła w base/reset.css zatrzymuje skok
+   * pod sticky headerem, ale nie wie nic o odstępie tej sekcji — bez
+   * odjęcia go etykieta lądowała pół ekranu niżej niż krawędź czerwieni.
+   * Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
+   */
+  scroll-margin-block-start: calc(
+    var(--header-h, 4rem) + var(--space-4) - var(--space-enroll-start)
+  );
+}
+
+.enroll__eyebrow {
+  opacity: 0.72;
+}
+
+/*
+ * Nagłówek wypełnia szerokość siatki — to cała kompozycja górnej części
+ * sekcji. Stopień jest WŁASNY, nie --step-display: tamten niesie nagłówki
+ * sekcji 11 i 12 strony głównej, a dwunastka jest zamknięta (D13).
+ */
+.enroll__title {
+  margin-block-start: var(--space-enroll-title);
+  font-size: var(--step-enroll-title);
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  max-inline-size: none;
+}
+
+.enroll__lead {
+  margin-block-start: var(--space-enroll-lead);
+  max-inline-size: var(--measure-enroll-lead);
+  font-size: var(--step-enroll-lead);
+  line-height: 1.35;
+}
+
+/*
+ * Wiersz z leadem i wezwaniem — używa go WYŁĄCZNIE podstrona senioralna.
+ *
+ * Tamta sekcja jako jedyna z trzech ma przycisk i jest to decyzja
+ * merytoryczna, nie estetyczna: zapisów na te zajęcia nie prowadzi High Five,
+ * tylko Terminal Kultury. Wezwanie nie jest więc drugim „napisz do nas",
+ * tylko przejściem do miejsca, gdzie decyzja faktycznie zapada.
+ *
+ * Pozostałe dwie strony nie mają tego elementu w HTML, więc reguły poniżej
+ * ich nie dotyczą.
+ */
+.enroll__head {
+  margin-block-start: var(--space-enroll-lead);
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Odstęp niesie już wiersz, więc lead nie dokłada własnego. */
+.enroll__head > .enroll__lead {
+  margin-block-start: 0;
+}
+
+.enroll__action {
+  justify-self: start;
+}
+
+/*
+ * Ten sam próg co reszta układu dwukolumnowego w serwisie.
+ *
+ * Kapsuła ma stałą szerokość, więc jest tu granica: przy dłuższej etykiecie
+ * zabierała leadowi tyle miejsca, że ten rozpadał się z dwóch wierszy na
+ * cztery, i próg trzeba było podnosić. Przy obecnym brzmieniu lead trzyma
+ * dwa wiersze od 1024 px w górę; dokładnie na progu, przy 992 px, bierze
+ * trzeci wiersz i to jest najciaśniejszy punkt układu. Gdyby etykieta znów
+ * urosła, to jest pierwsze miejsce do sprawdzenia.
+ */
+@media (width >= 62rem) {
+  .enroll__head {
+    grid-template-columns: 1fr auto;
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+
+  .enroll__action {
+    justify-self: end;
+  }
+}
+
+/* --- Trzy drogi kontaktu ------------------------------------------------- */
+
+.enroll__grid {
+  display: grid;
+  gap: var(--space-8) clamp(2rem, 3.6vw, 3.75rem);
+  margin-block-start: var(--space-enroll-grid);
+}
+
+/*
+ * Kreska nad kolumną jest OBRAMOWANIEM elementu, nie osobnym <hr>.
+ * Dzięki temu na wąskim ekranie schodzi razem ze swoją parą etykieta-wartość
+ * i nie trzeba jej osobno ukrywać ani przestawiać.
+ */
+.enroll__item {
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+
+.enroll__label {
+  font-size: clamp(0.75rem, 0.95vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.enroll__value {
+  margin: var(--space-3) 0 0;
+  font-size: clamp(1.0625rem, 1.85vw, 1.625rem);
+  line-height: 1.2;
+
+  /*
+   * Adres e-mail jest najdłuższym nierozdzielnym ciągiem w tej sekcji.
+   * Bez tego przy wąskiej kolumnie wychodził poza nią - `overflow-x: clip`
+   * na `.section` ukryłby nadmiar, ale adres byłby ucięty w połowie.
+   */
+  overflow-wrap: anywhere;
+}
+
+/*
+ * Odnośnik bez kapsuły: w tej sekcji NIE MA przycisku, a dane kontaktowe
+ * mają być dostępne wprost. Podkreślenie pojawia się dopiero przy kursorze,
+ * żeby w spoczynku trzy kolumny czytały się jak jeden blok danych.
+ */
+.enroll__value a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.enroll__value a:hover,
+.enroll__value a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Jedna wspólna kreska pod kolumnami, przez całą szerokość siatki. */
+.enroll__note {
+  margin-block-start: var(--space-enroll-note);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid color-mix(in srgb, var(--color-text) 55%, transparent);
+  max-inline-size: 70ch;
+  font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+  line-height: 1.5;
+  opacity: 0.82;
+}
+
+@media (width >= 48rem) {
+  .enroll__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

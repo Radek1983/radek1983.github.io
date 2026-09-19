@@ -54,7 +54,7 @@ jobs:
           # Zapis przez output zamiast na sztywno - przetrwa zmiane nazwy repozytorium.
           VITE_BASE: ${{ steps.pages.outputs.base_path }}/
           VITE_ENV_NAME: production
-          VITE_SITE_URL: https://radek1983.github.io
+          VITE_SITE_URL: https://www.highfive.academy
 
       # Kontrole jakosci na dokladnie tym artefakcie, ktory zostanie opublikowany.
       - run: npm run lint:js

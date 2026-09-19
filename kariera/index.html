@@ -4,24 +4,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Kariera - lektor języka angielskiego | High Five Warszawa</title>
+    <title>Kariera - lektor języka angielskiego | High Five</title>
     <meta
       name="description"
-      content="Szukamy studentów i absolwentów anglistyki, lingwistyki i amerykanistyki do prowadzenia zajęć z dziećmi i lekcji online. Dołącz do High Five."
+      content="Chcesz uczyć w High Five? Sprawdź informacje o współpracy dla lektorów języka angielskiego i skontaktuj się z nami."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#0a0a0a" />
-    <link rel="canonical" href="https://radek1983.github.io/kariera/" />
+    <link rel="canonical" href="https://www.highfive.academy/kariera/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/kariera/" />
-    <meta property="og:title" content="Kariera - lektor języka angielskiego | High Five Warszawa" />
+    <meta property="og:url" content="https://www.highfive.academy/kariera/" />
+    <meta property="og:title" content="Kariera - lektor języka angielskiego | High Five" />
     <meta
       property="og:description"
-      content="Szukamy studentów i absolwentów anglistyki, lingwistyki i amerykanistyki do prowadzenia zajęć z dziećmi i lekcji online. Dołącz do High Five."
+      content="Chcesz uczyć w High Five? Sprawdź informacje o współpracy dla lektorów języka angielskiego i skontaktuj się z nami."
     />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych. Przy przeprowadzce na wlasna domene zmienia sie
+      razem z canonical - obie wartosci stoja w tym samym naglowku.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kariera - lektor języka angielskiego | High Five" />
+    <meta
+      name="twitter:description"
+      content="Chcesz uczyć w High Five? Sprawdź informacje o współpracy dla lektorów języka angielskiego i skontaktuj się z nami."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -38,7 +66,7 @@
   </head>
 
   <body data-section="kariera">
-    <a class="skip-link" href="#main">Przejdź do treści</a>
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
 
     <!--#include partials/header.html -->
 
@@ -59,37 +87,64 @@
 
               <h1 class="u-display page-hero__title" id="kariera-title" data-animation="fade-up">
                 Uczysz angielskiego?
-                <span class="statement__accent">Dołącz do High Five.</span>
+                <span class="statement__accent">Dołącz do&nbsp;High Five.</span>
               </h1>
 
               <p class="page-hero__lead" data-animation="fade-up">
-                Szukamy studentów i absolwentów anglistyki, lingwistyki lub amerykanistyki, którzy
-                chcą zdobywać doświadczenie w pracy z dziećmi i rozwijać się jako lektorzy.
+                Szukamy studentów i&nbsp;absolwentów anglistyki, lingwistyki lub amerykanistyki,
+                którzy chcą zdobywać doświadczenie w&nbsp;pracy z&nbsp;dziećmi i&nbsp;rozwijać się
+                jako lektorzy.
               </p>
 
               <p class="page-hero__lead" data-animation="fade-up">
-                Prowadzimy zajęcia dla uczniów klas 1-7 oraz wybrane lekcje indywidualne online. To
-                może być Twoja pierwsza poważna praca w zawodzie — zapewnimy wsparcie, wdrożenie i
-                możliwość uczenia się od doświadczonej lektorki i właścicielki szkoły z około
-                20-letnim doświadczeniem.
+                Prowadzimy zajęcia dla&nbsp;uczniów klas 1-7 oraz wybrane lekcje indywidualne
+                online. To&nbsp;może być Twoja pierwsza poważna praca w&nbsp;zawodzie
+                —&nbsp;zapewnimy wsparcie, wdrożenie i&nbsp;możliwość uczenia się
+                od&nbsp;doświadczonej lektorki i&nbsp;właścicielki szkoły z&nbsp;około 20-letnim
+                doświadczeniem.
               </p>
 
-              <a class="cta" href="#ogloszenie" data-animation="fade-up">
-                Zobacz ogłoszenie
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - wlasciciel zdjal je 19.09.2026.
+
+                Stalo tu "Zobacz ogloszenie" celujace w sekcje #ogloszenie
+                nizej na tej samej stronie, czyli w tresc, do ktorej czytelnik
+                i tak dojezdza scrollem. Prawdziwa droga rekrutacyjna prowadzi
+                przez wezwanie "Aplikuj" w naglowku strony i przez kapsule
+                "Wyslij zgloszenie" na dole. Kotwica #ogloszenie zostaje -
+                celuje w nia menu.
+              -->
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: rozmowa rekrutacyjna w zwykłej, współczesnej warszawskiej kawiarni.
-                Kandydatka lub kandydat w wieku 21-26 lat i osoba rekrutująca. Kawa, notes,
-                naturalna rozmowa, nikt nie patrzy w obiektyw. Bez sali lekcyjnej, bez angielskich
-                haseł na ścianach. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media page-hero__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/career-interview-768.avif   768w,
+                    /src/assets/images/sections/career-interview-1200.avif 1200w,
+                    /src/assets/images/sections/career-interview-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/career-interview-768.webp"
+                  srcset="
+                    /src/assets/images/sections/career-interview-768.webp   768w,
+                    /src/assets/images/sections/career-interview-1200.webp 1200w,
+                    /src/assets/images/sections/career-interview-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Rozmowa rekrutacyjna przy stole w kawiarni, kandydatka i osoba rekrutująca"
+                  width="1448"
+                  height="1086"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
@@ -114,23 +169,30 @@
               <span class="steps__number" aria-hidden="true">01</span>
               <h3>Kogo szukamy?</h3>
               <p>Studentów lub absolwentów anglistyki, lingwistyki albo amerykanistyki.</p>
-              <p>Doświadczenie w pracy z dziećmi lub w nauczaniu języka będzie dużym atutem.</p>
+              <p>
+                Doświadczenie w&nbsp;pracy z&nbsp;dziećmi lub w&nbsp;nauczaniu języka będzie dużym
+                atutem.
+              </p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">02</span>
-              <h3>Co jest dla nas ważne?</h3>
+              <h3>Co&nbsp;jest dla&nbsp;nas ważne?</h3>
               <p>
-                Odpowiedzialność, punktualność, dobra komunikacja, swoboda w pracy z dziećmi, chęć
-                uczenia się i zainteresowanie współpracą długoterminową.
+                Odpowiedzialność, punktualność, dobra komunikacja, swoboda w&nbsp;pracy
+                z&nbsp;dziećmi, chęć uczenia się i&nbsp;zainteresowanie współpracą długoterminową.
               </p>
-              <p>Pracujemy w rytmie roku szkolnego i zależy nam na stabilnej współpracy.</p>
+              <p>
+                Pracujemy w&nbsp;rytmie roku szkolnego i&nbsp;zależy nam na&nbsp;stabilnej
+                współpracy.
+              </p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">03</span>
               <h3>Ważne formalnie</h3>
               <p>
-                Do prowadzenia zajęć z dziećmi na terenie szkoły wymagane będzie przedstawienie
-                zaświadczenia o niekaralności, zgodnie z obowiązującymi wymaganiami.
+                Do&nbsp;prowadzenia zajęć z&nbsp;dziećmi na&nbsp;terenie szkoły wymagane będzie
+                przedstawienie zaświadczenia o&nbsp;niekaralności, zgodnie z&nbsp;obowiązującymi
+                wymaganiami.
               </p>
             </li>
           </ol>
@@ -148,22 +210,23 @@
           <ol class="steps u-mt-8">
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">01</span>
-              <h3>Prowadzić zajęcia dla klas 1-7</h3>
+              <h3>Prowadzić zajęcia dla&nbsp;klas 1-7</h3>
               <p>
-                Pracować z dziećmi w małych grupach, w oparciu o uzgodniony program i materiały.
+                Pracować z&nbsp;dziećmi w&nbsp;małych grupach, w&nbsp;oparciu o&nbsp;uzgodniony
+                program i&nbsp;materiały.
               </p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">02</span>
               <h3>Prowadzić wybrane lekcje indywidualne online</h3>
-              <p>Dopasowywać sposób pracy do poziomu, wieku i potrzeb ucznia.</p>
+              <p>Dopasowywać sposób pracy do&nbsp;poziomu, wieku i&nbsp;potrzeb ucznia.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">03</span>
               <h3>Budować długoterminową współpracę</h3>
               <p>
-                Pracujemy zgodnie z cyklem roku szkolnego i zależy nam na osobach, które chcą zostać
-                z nami na dłużej.
+                Pracujemy zgodnie z&nbsp;cyklem roku szkolnego i&nbsp;zależy nam na&nbsp;osobach,
+                które&nbsp;chcą zostać z&nbsp;nami na&nbsp;dłużej.
               </p>
             </li>
           </ol>
@@ -187,73 +250,121 @@
               </h2>
 
               <p data-animation="fade-up">
-                Jeśli dopiero zaczynasz swoją drogę jako lektor lub lektorka, to może być dobre
-                miejsce na pierwsze zawodowe doświadczenie. Nie zostajesz sam ani sama z grupą i
-                programem.
+                Jeśli dopiero zaczynasz swoją drogę jako lektor lub lektorka, to&nbsp;może być dobre
+                miejsce na&nbsp;pierwsze zawodowe doświadczenie. Nie&nbsp;zostajesz sam ani sama
+                z&nbsp;grupą i&nbsp;programem.
               </p>
 
               <p data-animation="fade-up">
-                Możesz korzystać z doświadczenia właścicielki i lektorki High Five, która od około
-                20 lat uczy języka i pracuje z uczniami.
+                Możesz korzystać z&nbsp;doświadczenia właścicielki i&nbsp;lektorki High Five, która
+                od&nbsp;około 20 lat uczy języka i&nbsp;pracuje z&nbsp;uczniami.
               </p>
 
-              <ul class="split__list" data-animation="fade-up">
+              <ul class="split__list split__list--dots" data-animation="fade-up">
                 <li>wdrożenie,</li>
                 <li>praktyczne wskazówki metodyczne,</li>
-                <li>wsparcie w planowaniu zajęć,</li>
-                <li>realne doświadczenie w zawodzie,</li>
-                <li>małe grupy i przyjazna atmosfera,</li>
+                <li>wsparcie w&nbsp;planowaniu zajęć,</li>
+                <li>realne doświadczenie w&nbsp;zawodzie,</li>
+                <li>małe grupy i&nbsp;przyjazna atmosfera,</li>
                 <li>krótka ścieżka komunikacji,</li>
                 <li>możliwość długoterminowej współpracy.</li>
               </ul>
             </div>
 
             <!-- BRAK ZDJECIA - patrz docs/CONTENT_GAPS.md -->
-            <div class="media split__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: młoda osoba prowadząca zajęcia z trójką lub czwórką dzieci z klas
-                1-7. Naturalna sala, dzieci wykonują zadanie lub rozmawiają przy stole. Nikt nie
-                pozuje. Bez plakatów z angielskimi hasłami. Proporcja 3:2, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media split__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/career-teaching-768.avif   768w,
+                    /src/assets/images/sections/career-teaching-1200.avif 1200w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/career-teaching-768.webp"
+                  srcset="
+                    /src/assets/images/sections/career-teaching-768.webp   768w,
+                    /src/assets/images/sections/career-teaching-1200.webp 1200w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Osoba prowadząca zajęcia z czwórką dzieci pracujących przy wspólnym stole"
+                  width="1292"
+                  height="1218"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-           CTA KOŃCOWE — czerń
+           KONTAKT REKRUTACYJNY — czarny akt zamykający stronę
+
+           Ten sam komponent, ktory zamyka cztery podstrony ofertowe, tylko
+           w motywie `ink` zamiast `signal`: etykieta, plakatowy naglowek,
+           lead, trzy drogi kontaktu i zdanie na dole.
+
+           Stala tu wczesniej kapsula "Wyslij zgloszenie" ze szkicem maila
+           rekrutacyjnego (imie, kierunek studiow, doswiadczenie, CV
+           w zalaczniku). Wlasciciel zdjal ja 19.09.2026: dane kontaktowe
+           maja byc dostepne od razu, a nie za kolejnym klikiem. Czego
+           oczekujemy w zgloszeniu, mowi teraz lead.
+
+           Adres rekrutacyjny jest nadal TYMCZASOWY - to samo konto co
+           kontakt ogolny. Osobna skrzynka rekrutacyjna czeka na decyzje
+           wlasciciela, zapisana w docs/CONTENT_GAPS.md.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
         id="aplikacja"
         data-animation="section"
-        data-theme="ink"
+        data-theme="signal"
         aria-labelledby="kariera-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="kariera-cta" data-animation="fade-up">
-              Chcesz aplikować?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Wyślij kilka słów o sobie, swoje CV i napisz, dlaczego chcesz uczyć w High Five.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kariera · dołącz do&nbsp;zespołu</span>
+          </p>
+
+          <h2 class="u-display enroll__title" id="kariera-cta" data-animation="fade-up">
+            Chcesz aplikować?
+          </h2>
+
+          <p class="enroll__lead" data-animation="fade-up">
+            Wyślij kilka słów o&nbsp;sobie, swoje CV i&nbsp;napisz, dlaczego chcesz uczyć
+            w&nbsp;High Five.
+          </p>
 
           <!--
-            Adres rekrutacyjny jest TYMCZASOWY - to samo konto co kontakt ogolny.
-            Osobna skrzynka rekrutacyjna czeka na decyzje wlasciciela,
-            zapisana w docs/CONTENT_GAPS.md.
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
           -->
-          <a
-            class="cta cta--large"
-            href="mailto:{{EMAIL}}?subject=Rekrutacja%20-%20lektor%20High%20Five&amp;body=Imi%C4%99%20i%20nazwisko%3A%0AKierunek%20i%20rok%20studiow%3A%0ADoswiadczenie%20w%20pracy%20z%20dziecmi%3A%0ADlaczego%20High%20Five%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0A%0A(CV%20prosimy%20dolaczyc%20jako%20zalacznik)%0A"
-            data-animation="fade-up"
-          >
-            Wyślij zgłoszenie
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            Odpowiadamy na&nbsp;wszystkie zgłoszenia. Jeśli masz pytania, również śmiało napisz lub
+            zadzwoń.
+          </p>
         </div>
       </section>
     </main>

@@ -8,6 +8,11 @@ import { expect, test } from '@playwright/test'
  * naglowka oraz tego, ze wezwanie do dzialania pasuje do odbiorcy strony.
  */
 
+/*
+ * Tytuly zmienione 19.09.2026 w ramach audytu SEO zleconego przez wlasciciela.
+ * Teksty pochodza wprost od niego: niosa lokalizacje (Goclaw) i zakres oferty,
+ * a marka stoi na koncu jako `| High Five`, bez dopisku `Warszawa`.
+ */
 const STRONY = [
   {
     url: '/oferta/',
@@ -19,49 +24,59 @@ const STRONY = [
   {
     url: '/oferta/dzieci/',
     sekcja: 'oferta',
-    title: 'Angielski dla dzieci klas 1-7 | High Five Warszawa',
-    h1: /Po lekcjach/i,
+    title: 'Angielski dla klas 1-7 na Gocławiu | High Five',
+    h1: /Po\s+lekcjach/i,
     cta: 'Zapisz dziecko',
   },
   {
     url: '/oferta/egzamin-osmoklasisty/',
     sekcja: 'oferta',
-    title: 'Angielski - egzamin ósmoklasisty | High Five Warszawa',
-    h1: /Przygotuj się do egzaminu/i,
+    title: 'Egzamin ósmoklasisty z angielskiego - Gocław | High Five',
+    h1: /Przygotuj się do\s+egzaminu/i,
     cta: 'Zapytaj o grupę',
   },
   {
     url: '/oferta/seniorzy/',
     sekcja: 'oferta',
-    title: 'Angielski dla seniorów Gocław | High Five',
-    h1: /Angielski dla seniorów/i,
-    cta: 'Zapytaj o miejsce',
+    title: 'Angielski dla seniorów na Gocławiu | High Five',
+    h1: /Angielski dla\s+seniorów/i,
+    // Etykieta zmieniona 18.09.2026: zapisy prowadzi Terminal, nie High Five.
+    cta: 'Zapytaj o zajęcia',
   },
   {
     url: '/oferta/online/',
     sekcja: 'oferta',
-    title: 'Indywidualne lekcje angielskiego online | High Five',
-    h1: /1 na 1/i,
+    title: 'Angielski online 1 na 1 dla dzieci i młodzieży | High Five',
+    /*
+     * Naglowek rozbity na trzy wiersze 18.09.2026; cyfry w drugim wiaze
+     * twarda spacja, wiec `\s+` zamiast zwyklej spacji (par. 5).
+     */
+    h1: /1\s+na\s+1/i,
     cta: 'Umów lekcję',
   },
   {
     url: '/lokalizacje/',
     sekcja: 'lokalizacje',
-    title: 'Lokalizacje zajęć | High Five Warszawa',
+    title: 'Lokalizacje zajęć z angielskiego - Gocław | High Five',
     h1: /Nasze lokalizacje/i,
     cta: 'Zapytaj o zajęcia',
   },
   {
     url: '/cennik/',
     sekcja: 'cennik',
-    title: 'Cennik zajęć z angielskiego | High Five Warszawa',
-    h1: /Prosto\. Bez niespodzianek/i,
+    title: 'Cennik zajęć z angielskiego | High Five',
+    /*
+     * Brzmienie zmienione przez wlasciciela 16.09.2026 wraz z przebudowa strony.
+     * `\s` zamiast spacji, bo "za zajecia" jest zwiazane twarda spacja (U+00A0)
+     * zgodnie z regula lamania wierszy z par. 5 - zwykla spacja jej nie dopasuje.
+     */
+    h1: /Płatność tylko za\s+zajęcia zaplanowane/i,
     cta: 'Zapytaj o zajęcia',
   },
   {
     url: '/kariera/',
     sekcja: 'kariera',
-    title: 'Kariera - lektor języka angielskiego | High Five Warszawa',
+    title: 'Kariera - lektor języka angielskiego | High Five',
     h1: /Uczysz angielskiego/i,
     cta: 'Aplikuj',
   },
@@ -79,27 +94,76 @@ test.describe('architektura - adresy i metadane', () => {
       await expect(page.locator('h1')).toHaveText(strona.h1)
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
-        `https://radek1983.github.io${strona.url}`,
+        `https://www.highfive.academy${strona.url}`,
       )
       await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
         'content',
-        `https://radek1983.github.io${strona.url}`,
+        `https://www.highfive.academy${strona.url}`,
       )
       await expect(page.locator('body')).toHaveAttribute('data-section', strona.sekcja)
+
+      /*
+       * PODGLAD LINKU. Bez tego wklejenie adresu na Facebooka, do WhatsAppa
+       * czy w wiadomosc szkolna pokazuje goly tekst zamiast kafelka.
+       * Adres MUSI byc bezwzgledny - czytniki Open Graph nie rozwiazuja
+       * sciezek wzglednych.
+       */
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+        'content',
+        'https://www.highfive.academy/social/og-image.png',
+      )
+      await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
+        'content',
+        '1200',
+      )
+      await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute(
+        'content',
+        '630',
+      )
+      await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+        'content',
+        'summary_large_image',
+      )
     })
   }
+
+  /*
+   * Sam plik grafiki. Meta moze wskazywac adres, ktorego nie ma - wtedy
+   * podglad jest pusty tak samo, jakby znacznika nie bylo wcale.
+   * Generuje go `node scripts/make-og-image.mjs`.
+   */
+  test('grafika Open Graph istnieje i ma wymagane 1200x630', async ({ request }) => {
+    const odpowiedz = await request.get('/social/og-image.png')
+    expect(odpowiedz.status()).toBe(200)
+    expect(odpowiedz.headers()['content-type']).toContain('image/png')
+
+    const bajty = await odpowiedz.body()
+
+    /*
+     * Wymiary czytane wprost z naglowka IHDR pliku PNG - bez dokladania
+     * biblioteki do testow. Po osmiu bajtach sygnatury i czterech bajtach
+     * dlugosci chunku stoi znacznik "IHDR", a po nim dwa slowa 32-bitowe:
+     * szerokosc i wysokosc.
+     */
+    expect(bajty.subarray(12, 16).toString('ascii'), 'to jest PNG z naglowkiem IHDR').toBe('IHDR')
+    expect(bajty.readUInt32BE(16)).toBe(1200)
+    expect(bajty.readUInt32BE(20)).toBe(630)
+
+    // Budzet: podglad ma sie wczytac natychmiast, nie wazyc jak zdjecie hero.
+    expect(bajty.length, 'grafika ponizej 200 kB').toBeLessThan(200 * 1024)
+  })
 
   test('sitemap wymienia wszystkie strony i zadnego starego adresu', async ({ request }) => {
     const xml = await (await request.get('/sitemap.xml')).text()
 
     for (const strona of STRONY) {
-      expect(xml, strona.url).toContain(`https://radek1983.github.io${strona.url}`)
+      expect(xml, strona.url).toContain(`https://www.highfive.academy${strona.url}`)
     }
-    expect(xml).toContain('https://radek1983.github.io/')
+    expect(xml).toContain('https://www.highfive.academy/')
 
     // Stare adresy sa przekierowaniami - nie wolno ich indeksowac.
     expect(xml).not.toContain('/dla-seniorow/')
-    expect(xml).not.toContain('https://radek1983.github.io/online/')
+    expect(xml).not.toContain('https://www.highfive.academy/online/')
   })
 })
 
@@ -119,7 +183,7 @@ test.describe('architektura - stare adresy', () => {
 
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
-        `https://radek1983.github.io${nowy}`,
+        `https://www.highfive.academy${nowy}`,
       )
     })
 
@@ -130,14 +194,14 @@ test.describe('architektura - stare adresy', () => {
 
       expect(odpowiedz.status()).toBe(200)
       expect(html).toContain('noindex')
-      expect(html).toContain(`https://radek1983.github.io${nowy}`)
+      expect(html).toContain(`https://www.highfive.academy${nowy}`)
     })
   }
 })
 
 test.describe('architektura - wspolna nawigacja', () => {
   const MENU = ['Oferta', 'Lokalizacje', 'O High Five', 'FAQ', 'Kontakt', 'Kariera']
-  const OFERTA = ['Klasy 1-7', 'Klasa 8', '60+', '1 na 1']
+  const OFERTA = ['Klasy 1-7', 'Klasa 8', 'Dla seniorów', 'Online 1 na 1']
 
   for (const url of ['/', ...STRONY.map((s) => s.url)]) {
     test(`menu na ${url} ma te sama kolejnosc`, async ({ page }) => {
@@ -294,33 +358,67 @@ test.describe('architektura - mega-menu', () => {
 test.describe('architektura - tresc i uczciwosc materialu', () => {
   test('zadna cena nie jest zmyslona', async ({ page }) => {
     /*
-     * Potwierdzona jest wylacznie stawka dla klas 1-7. Pozostale trzy
-     * produkty NIE moga podawac zadnej kwoty, dopoki wlasciciel jej nie
-     * ustali (CLAUDE.md par. 4). Lista brakow: docs/CONTENT_GAPS.md.
+     * Potwierdzone stawki (CLAUDE.md par. 3): klasy 1-7 (55/50 zl za 45 min),
+     * kurs egzaminacyjny (80 zl za 90 min), seniorzy (45 zl za 60 min)
+     * i online 1 na 1 (120 zl za 60 min) - dwie ostatnie przekazal wlasciciel
+     * 16.09.2026 wraz z przebudowa cennika.
+     *
+     * Stawka senioralna weszla na wlasna podstrone 19.09.2026, tez na jego
+     * polecenie. Strona online nadal ceny NIE podaje - i dopoki wlasciciel
+     * nie zdecyduje inaczej, ma jej nie podawac.
      */
     await page.goto('/cennik/')
     await expect(page.locator('body')).toContainText('55 zł / 45 min')
     await expect(page.locator('body')).toContainText('50 zł / 45 min')
 
-    for (const url of ['/oferta/egzamin-osmoklasisty/', '/oferta/seniorzy/', '/oferta/online/']) {
-      await page.goto(url)
-      const tekst = await page.locator('main').innerText()
-      expect(tekst, url).not.toMatch(/\d+\s*z[lł]\s*\/\s*\d+\s*min/i)
-    }
+    await page.goto('/oferta/egzamin-osmoklasisty/')
+    await expect(page.locator('.exam-price')).toHaveText('80 zł / 90 minut')
+
+    await page.goto('/oferta/seniorzy/')
+    const senior = await page.locator('main').innerText()
+    expect(senior, 'stawka senioralna zgodna z par. 3').toMatch(/45\s*zł\s*\/\s*60\s*min/i)
+    expect(senior, 'zadna inna kwota za minuty').not.toMatch(
+      /(?!45\s*zł\s*\/\s*60)\b(?!45\b)\d+\s*zł\s*\/\s*\d+\s*min/i,
+    )
+
+    await page.goto('/oferta/online/')
+    const online = await page.locator('main').innerText()
+    expect(online, 'strona online nadal bez ceny').not.toMatch(/\d+\s*z[lł]\s*\/\s*\d+\s*min/i)
   })
 
   test('kurs egzaminacyjny nie obiecuje wyniku', async ({ page }) => {
     await page.goto('/oferta/egzamin-osmoklasisty/')
 
     // Wymog briefu - zastrzezenie stoi tam, gdzie opis kursu.
-    await expect(page.locator('body')).toContainText(/nie obiecujemy wyniku/i)
+    await expect(page.locator('body')).toContainText(/nie\s+obiecujemy wyniku/i)
   })
 
-  test('brakujace zdjecia sa oznaczone, a nie udawane', async ({ page }) => {
+  /*
+   * Pieciu brakujacych kadrow juz nie ma - wlasciciel dostarczyl zdjecia
+   * i sloty .photo-todo zostaly zastapione prawdziwymi <picture>.
+   *
+   * Test odwrocil sie o 180 stopni, ale pilnuje tej samej rzeczy co
+   * przedtem: zadne miejsce na zdjecie nie moze byc UDAWANE. Wczesniej
+   * znaczylo to "brak ma byc oznaczony", teraz "braku juz nie ma".
+   */
+  test('kazde miejsce na zdjecie ma prawdziwy kadr', async ({ page }) => {
     for (const url of ['/oferta/seniorzy/', '/oferta/online/', '/kariera/']) {
       await page.goto(url)
-      const braki = page.locator('.photo-todo')
-      expect(await braki.count(), url).toBeGreaterThan(0)
+      await expect(page.locator('.photo-todo'), url).toHaveCount(0)
+
+      const media = page.locator('main .media picture img')
+      expect(await media.count(), url).toBeGreaterThan(0)
+
+      // Kazdy kadr ma alt, wymiary i nowoczesny format w srcset.
+      for (const img of await media.all()) {
+        await expect(img).toHaveAttribute('alt', /.{10,}/)
+        await expect(img).toHaveAttribute('width', /\d+/)
+        await expect(img).toHaveAttribute('height', /\d+/)
+      }
+      await expect(page.locator('main .media source[type="image/avif"]').first()).toHaveAttribute(
+        'srcset',
+        /\.avif/,
+      )
     }
 
     // Zaden obraz nie moze pochodzic z obcego hosta - CSP i tak by go odrzucila.
@@ -357,10 +455,18 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
       expect(etykieta, 'CTA sprzedazowe w tresci kariery').not.toMatch(/zapisz dziecko/i)
     }
 
-    await expect(page.locator('main a[href^="mailto:"]')).toHaveAttribute(
-      'href',
-      /subject=Rekrutacja/,
-    )
+    /*
+     * Droga rekrutacyjna musi byc na stronie dostepna WPROST.
+     *
+     * Do 19.09.2026 niosla ja kapsula ze szkicem maila (`subject=Rekrutacja`).
+     * Wlasciciel zastapil ja sekcja kontaktowa bez przycisku: adres i telefon
+     * stoja teraz w tresci, a czego oczekujemy w zgloszeniu, mowi lead.
+     * Pilnujemy wiec ISTNIENIA drogi kontaktu, nie jej formy.
+     */
+    const mail = page.locator('#aplikacja a[href^="mailto:"]')
+    await expect(mail).toHaveCount(1)
+    await expect(mail).toHaveAttribute('href', 'mailto:kontakt@highfive.academy')
+    await expect(page.locator('#aplikacja a[href^="tel:"]')).toHaveCount(1)
   })
 
   test('zaden link wewnetrzny nie prowadzi donikad', async ({ page, request }) => {
@@ -431,15 +537,16 @@ test.describe('mega-menu - dopracowanie', () => {
       },
       {
         numer: '03',
-        etykieta: '60+',
+        etykieta: 'Dla seniorów',
         opis: 'Angielski dla seniorów',
-        kontekst: 'Terminal Kultury Gocław',
+        // Prog wiekowy zszedl z calego serwisu 19.09.2026 (par. 3, D16).
+        kontekst: 'Seniorzy · Terminal Kultury Gocław',
         cta: 'Zobacz zajęcia →',
         href: '/oferta/seniorzy/',
       },
       {
         numer: '04',
-        etykieta: '1 na 1',
+        etykieta: 'Online 1 na 1',
         opis: 'Indywidualnie online',
         kontekst: 'Dzieci · młodzież · dorośli',
         cta: 'Zobacz online →',
@@ -489,7 +596,7 @@ test.describe('mega-menu - dopracowanie', () => {
       const link = document.querySelector('.mega__link')
       return {
         numer: getComputedStyle(link.querySelector('.mega__number')).color,
-        strzalka: getComputedStyle(link.querySelector('.mega__arrow')).translate,
+        strzalka: getComputedStyle(link.querySelector('.offer-mark__arrow')).translate,
       }
     })
 

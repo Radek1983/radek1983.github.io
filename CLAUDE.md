@@ -1,7 +1,7 @@
 # CLAUDE.md — HIGH FIVE / kontrakt projektowy
 
 Strona WWW szkoły języka angielskiego **HIGH FIVE**: statyczny one-page, hostowany na GitHub Pages
-w repozytorium `Radek1983/radek1983.github.io`.
+w repozytorium `Radek1983/radek1983.github.io`, pod adresem `https://www.highfive.academy`.
 
 Ten plik jest trwałym zapisem założeń. Czytaj go przed każdą zmianą w kodzie i aktualizuj, gdy
 zmienia się ustalenie, a nie tylko implementacja.
@@ -81,11 +81,58 @@ To jedyne dane, które wolno publikować:
 - Pierwsze dziecko: **55 zł / 45 min.** Drugie i każde kolejne dziecko z rodzeństwa:
   **50 zł / 45 min.** Brief pisał „zł/godz.”; właściciel potwierdził, że lekcja trwa **45 minut**,
   więc jednostka godzinowa obiecywała rodzicowi 15 minut więcej, niż trwają zajęcia.
-- **Płacisz za zajęcia, które są w kalendarzu.** Brak stałej opłaty miesięcznej niezależnej od
-  liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane.
+- **Płacisz za zajęcia, które się odbywają.** Brak stałej opłaty miesięcznej niezależnej od
+  liczby lekcji; zajęcia wypadające w dni wolne od szkoły nie są naliczane. Fakt bez zmian;
+  brzmienie na stronie zmienił właściciel 15.09.2026 z „które są w kalendarzu” — rodzic na tym
+  etapie żadnego kalendarza jeszcze nie widział.
+  **Serwis niesie dziś trzy brzmienia tego samego faktu i to jest w porządku.**
+  Sekcja 07: `Płacisz za zajęcia, które się odbywają.` FAQ: `Płacisz za zajęcia
+zaplanowane w kalendarzu` — brzmienie wybrane przez właściciela 19.09.2026, bo
+  odpowiedź o cenie mówi o **rozliczeniu z góry**, a nie o samej regule ogólnej.
+  `/cennik/`: `Płacisz za zajęcia, które są w kalendarzu.` — najstarsze brzmienie,
+  zostaje, bo strona jest zamknięta (D17) i nikt nie polecił go ruszać.
+- **Kurs egzaminacyjny: 80 zł / 90 min.** Jedne zajęcia trwają 90 minut. Przekazane przez
+  właściciela 15.09.2026; wcześniej stawka była jawnym brakiem danych.
+- **Angielski dla seniorów: 45 zł / 60 min.** **Online 1 na 1: 120 zł / 60 min.** Obie
+  przekazane przez właściciela 16.09.2026 wraz z przebudową `/cennik/`; wcześniej były
+  jawnym brakiem danych. Stoją dziś **tylko na `/cennik/`** — podstrony produktowe ceny
+  nadal nie podają, co czeka na decyzję właściciela (`docs/CONTENT_GAPS.md`).
+- **Model rozliczenia: płatność z góry za zajęcia zaplanowane na dany miesiąc.** To nie
+  abonament i nie stały ryczałt. Spotkanie, o którym z góry wiadomo, że się nie odbędzie
+  (dzień wolny, święto, przyczyny organizacyjne szkoły lub Terminalu Kultury), nie jest
+  wliczane do płatności. Zajęcia opłacone, które nie odbędą się z nieplanowanej przyczyny,
+  odliczamy od płatności za kolejny miesiąc. Przekazane przez właściciela 16.09.2026.
+  **Nie upraszczaj tego do „płacisz tylko za odbyte zajęcia"** — rozliczenie idzie z góry.
+- **Godziny kontaktu telefonicznego: 17:00–21:00.** W ciągu dnia lektor pracuje w szkole,
+  więc najszybszą drogą jest e-mail. Przekazane przez właściciela 17.09.2026 wraz
+  z przebudową sekcji zapisów na `/oferta/dzieci/` — jedyne miejsce, gdzie te godziny
+  są publikowane. To **nie jest** grafik zajęć, którego §4 zabrania wymyślać.
+- **Kwalifikacje osoby prowadzącej.** Magdalena Germel: lingwistyka stosowana na
+  Uniwersytecie Warszawskim, studia podyplomowe z tłumaczeń przysięgłych w SWPS,
+  ponad 20 lat nauczania, w tym w szkole podstawowej, **dyplomowana nauczycielka
+  i egzaminatorka Okręgowej Komisji Egzaminacyjnej**. Przekazane przez właściciela;
+  publikowane w sekcji 05. Bez tego §4 zabraniałby publikowania kwalifikacji.
+- **Współpraca przy klasach 1-7: `High Five Agnieszka Karolewska`.** Zajęcia prowadzą
+  również zweryfikowani lektorzy z doświadczeniem w pracy z dziećmi. Przekazane przez
+  właściciela 18.09.2026. W tekście narracyjnym zapis **zwykłą kapitalizacją**, bez NIP,
+  REGON i pozostałych danych rejestrowych — to informacja o współpracy, nie metryczka
+  firmy. Stoi w sekcji 05 strony głównej i jako dopisek w hero `/oferta/dzieci/`.
+  **Nazwy nie odmieniamy** — w obu miejscach stoi mianownik `High Five Agnieszka
+Karolewska`, także po przyimku („we współpracy z High Five Agnieszka Karolewska").
+  Sekcja 05 miała przez chwilę narzędnik `Agnieszką Karolewską`; właściciel ujednolicił
+  to 19.09.2026 na formę nieodmienianą, bo to nazwa firmy, nie osoba w zdaniu.
+  Dane rejestrowe HIGH FIVE w sekcji 12 i w JSON-LD **zostają bez zmian** — partner nie
+  jest stroną umowy z rodzicem.
 - Dwie ścieżki: **klasy 1–7** oraz **klasa 8 / egzamin ósmoklasisty**.
 - Adres miejsca zajęć: Szkoła Podstawowa nr 402 im. Haliny Konopackiej,
   ul. Jana Nowaka-Jeziorańskiego 22, 03-982 Warszawa.
+- Adres drugiego miejsca zajęć: Terminal Kultury Gocław,
+  ul. Jana Nowaka-Jeziorańskiego 24, **03-982** Warszawa. Kod pocztowy przekazał
+  właściciel 19.09.2026; wcześniej adres stał bez niego, bo §4 zabrania zgadywania.
+  Publikowany na `/lokalizacje/`.
+- **Dane rejestrowe:** `High Five Magdalena Germel`, NIP `8241730595`,
+  REGON `523281712`, działalność od `2022`. Przekazane przez właściciela;
+  publikowane w sekcji `#kontakt` i w JSON-LD (`legalName`, `taxID`, `foundingDate`).
 
 Cena i warunek minimum 5 dzieci muszą być widoczne **przed** sekcją kontaktu.
 
@@ -117,11 +164,86 @@ Sekcje briefu oznaczone jako gotowe copy to zatwierdzony copy deck. Przenieś je
 - **Primary CTA:** `Zapisz się na zajęcia`, w nagłówku skrócone do `Zapisz się`.
   Wcześniej brief żądał `Zgłoś dziecko do grupy`. Zmianę polecił właściciel: „zgłoś dziecko” czyta się jak zgłoszenie na policję. Cel, kolor i rola CTA bez zmian — **ADR 0006**
 - **Lokalna propozycja wartości:** `Mniej logistyki. Znane miejsce. Więcej ciągłości.`
-- **Język metody:** `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.`
+- **Język metody:** `MÓW  PRÓBUJ  POPRAWIAJ  UŻYWAJ`
+  Master prompt §16 pisał `MÓWIJ.` — „mówij" nie jest polskim słowem. Poprawkę na `MÓW`
+  i zdjęcie kropek polecił właściciel — **ADR 0009**.
 
 Zakaz pustych fraz: „nowoczesne metody”, „najwyższa jakość”, „doświadczeni lektorzy”,
 „przyjazna atmosfera” — o ile nie stoi za nimi potwierdzony konkret. Najpierw konkret lokalny,
 potem korzyść edukacyjna.
+
+### Łamanie wierszy — zasada obowiązkowa
+
+**Krótkie słowo nie zostaje na końcu wiersza.** Dotyczy spójników, przyimków, przeczeń
+i skrótów: `z`, `w`, `i`, `a`, `o`, `u`, `do`, `po`, `za`, `na`, `od`, `nie`, `dla`, `nr`,
+`np.`, `im.`, `ul.`, a także liczby oddzielonej od tego, co opisuje (`nr 402`, `klas 1-7`,
+`5 dzieci`, `45 min`). Takie słowo ma schodzić do następnego wiersza **razem z wyrazem,
+do którego należy**.
+
+Wiąże się je **twardą spacją** `&nbsp;` w HTML — nigdy `<br />`. Różnica jest zasadnicza:
+`<br />` wymusza łamanie w tym samym miejscu przy każdej szerokości ekranu i na telefonie
+zostawia poszarpane wiersze; twarda spacja mówi wyłącznie „tych dwóch słów nie rozdzielaj”,
+a resztę układu przeglądarka dobiera sama.
+
+Sprawdzaj to po **każdej** zmianie tekstu, szerokości kolumny i stopnia pisma — łamanie
+zależy od wszystkich trzech naraz. Właściciel zgłasza takie miejsca wzrokowo, więc nie czekaj
+na zgłoszenie: przy zmianie copy przejrzyj cały akapit, nie tylko zdanie, które zmieniałeś.
+
+Reguła ma dziś charakter redakcyjny — twarde spacje stoją **w plikach źródłowych**. Automat
+wstawiający je przy budowaniu byłby możliwy w `htmlPartials`, ale to zmiana architektury
+i wymaga osobnej decyzji właściciela oraz ADR. Nadal go **nie ma**.
+
+**19.09.2026 serwis przeszedł hurtową korektę.** Właściciel zgłaszał wiszące słowa jedno
+po drugim, więc zamiast poprawiać je pojedynczo zmierzyliśmy faktyczne łamanie wierszy
+w przeglądarce na 375, 768 i 1440 px: **122 miejsca na dziesięciu stronach**. Twarde spacje
+wstawił jednorazowy skrypt redakcyjny pisany wprost do plików — to nie jest automat w build
+i niczego w architekturze nie zmienia. Po korekcie zostało **zero** wiszących słów.
+
+Trzy rzeczy, które trzeba zrobić po każdej większej korekcie tego typu:
+
+1. **Zmierz łamanie, nie czytaj HTML-a.** Wiszące słowo widać dopiero w przeglądarce,
+   bo zależy od szerokości kolumny i stopnia pisma. Pomiar idzie przez `Range`
+   i `getClientRects()` na węźle tekstowym.
+2. **Sprawdź przepełnienia.** Twarda spacja skleja wyrazy w blok nierozerwalny; jeśli
+   blok jest szerszy od kolumny, tekst wychodzi poza nią albo pojawia się poziome
+   przewijanie. Kontrola na 320 px, nie tylko 375.
+3. **Udowodnij, że treść jest nietknięta.** Po zamianie twardych spacji z powrotem
+   na zwykłe renderowany tekst każdej strony musi być znak w znak taki sam jak przed
+   korektą. Dotyczy to zwłaszcza `/polityka-prywatnosci/`, gdzie D21 zabrania zmian treści.
+
+**Twardych spacji NIE wstawiamy w krótkich etykietach** — w nawigacji, w tytułach
+ofert, w podpisach zasad i w `u-label`. Nie łamią się, więc nic nie dają, a mogą
+zaszkodzić: etykiety w sekcji 04 muszą brzmieć **dokładnie** tak samo jak w mega-menu,
+a mega-menu powstaje z `src/data/offers.mjs`, którego korekta HTML nie dotyka. Hurtowy
+przebieg 19.09.2026 wszedł tam mimo to, w 19 miejscach na siedmiu plikach, i rozjechał
+dwa źródła jednej etykiety. Złapał to `oferta-metoda.spec.js` — słusznie, bo od tego
+ten test jest. Twarde spacje z etykiet zostały cofnięte.
+
+**Asercje w testach mają pilnować treści, nie rodzaju spacji.** Po korekcie padło
+50 testów, wszystkie na tym samym: dosłowna spacja we wzorcu nie dopasowuje `U+00A0`.
+Wzorce porównujące zdania używają dziś `\s+` zamiast spacji, więc przetrwają kolejną
+zmianę łamania wierszy. **Nie normalizuj tak porównań etykiet** — tam różnica jest
+sygnałem, nie szumem.
+
+**Gdy właściciel prosi o konkretne złamanie wiersza, a nie o zszycie dwóch słów** —
+najczęściej o adres schodzący do następnego wiersza w całości — służy do tego klasa
+`.u-nowrap-md` z `utilities/helpers.css`. Fragment jest nierozerwalny **od 48rem w górę**,
+a niżej nie, bo kolumna na telefonie ma około 335 px, a adres szkoły czy Terminalu jest
+od niej szerszy — `nowrap` wypchnąłby tekst poza kolumnę. **To nie jest `<br />`**, który
+§5 zabrania wprost. Stoi dziś w dwóch miejscach: adres SP 402 na `/oferta/dzieci/`
+i adres Terminalu na `/oferta/seniorzy/`. Przed użyciem **zmierz szerokość bloku**
+i porównaj z najwęższą kolumną, w której ma stanąć.
+
+**Gdy fragment ma zaczynać własny wiersz na każdej szerokości** — jak zdanie
+o planowanym starcie w kaflu `Start grupy` na `/oferta/dzieci/` — służy do tego
+`.u-own-line` (`display: block` na elemencie liniowym). Też **nie `<br />`**: zdanie
+zostaje jednym akapitem dla czytnika ekranu, a po usunięciu bloku czasowego
+`data-temporary` nie zostaje sierocy znacznik łamania.
+
+**Myślnik wtrącenia działa ODWROTNIE niż krótkie słowo.** Ma się odrywać od poprzedniego
+wyrazu i schodzić do następnego wiersza razem z tym, co po nim — więc zwykła spacja przed
+i twarda po: `na co dzień —&nbsp;w podróży`. Wiązanie go z poprzednim wyrazem zostawia
+go wiszącego na końcu wiersza, czyli daje dokładnie to, czego właściciel nie chce.
 
 ## 6. Architektura treści: 9 aktów, jeden scroll
 
@@ -270,7 +392,7 @@ docs/              ARCHITECTURE, DESIGN_SYSTEM, CONTENT, SEO, ACCESSIBILITY, SEC
                    TESTING, HOSTING, DEPLOYMENT, MOTION + ADR/
 docs/              BUSINESS_REQUIREMENTS, COPY_DECK, CONTENT_GAPS, ART_DIRECTION, ANALYTICS
 ops/               README.md, headers.example.conf, redirects.example.conf
-public/            favicon.svg, robots.txt, sitemap.xml, site.webmanifest, social/og-image.jpg
+public/            favicon.svg, robots.txt, sitemap.xml, site.webmanifest, social/og-image.png
 src/assets/        fonts/, icons/, images/{hero,courses,backgrounds}/, video/
 src/css/           main.css + base/ layout/ components/ sections/ animations/ utilities/
 src/js/            main.js + modules/ + utils/
@@ -279,7 +401,15 @@ tests/             e2e/, smoke/
 ```
 
 `public/` służy tylko zasobom wymagającym stabilnego URL. Zdjęcia, ikony i fonty idą do
-`src/assets/`, żeby Vite nadał im fingerprint. Nazwy plików: małe litery, alfabet łaciński,
+`src/assets/`, żeby Vite nadał im fingerprint.
+
+**Podmiana kadru nie kasuje poprzedniego.** Zastąpione źródło ląduje
+w `src/assets/images/archiwum/` pod nazwą z datą zastąpienia
+(`course-exam-zastapione-2026-09-19.png`). `npm run images` ten katalog pomija —
+warianty AVIF i WebP powstają wyłącznie z kadrów, które stoją dziś na stronie.
+Powrót do poprzedniego zdjęcia to skopiowanie pliku pod oryginalną nazwę
+i ponowne uruchomienie skryptu. Nazwa w archiwum **kończy się słowem, nie liczbą**:
+skrypt odcina końcowy numer przy ustalaniu nazwy bazowej. Nazwy plików: małe litery, alfabet łaciński,
 cyfry i myślniki; bez spacji i polskich znaków; warianty rozmiaru liczbowo
 (`hero-school-768.avif`, `hero-school-1600.avif`).
 
@@ -293,8 +423,21 @@ Dokumenty obowiązkowe poza techniczną dokumentacją: `docs/BUSINESS_REQUIREMEN
 - Prefiksy branchy: `feature/`, `fix/`, `perf/`, `refactor/`, `docs/`, `chore/`.
 - **Conventional Commits**, z dopuszczonym dodatkowym typem `seo`. Jeden commit = jedna zmiana logiczna.
 - SemVer, tagi `vX.Y.Z`, `CHANGELOG.md` aktualizowany przed wydaniem.
+- **Tagi `zatwierdzone/*` są dwojakie i nie wolno ich mylić.** `zatwierdzone/<sekcja>`
+  znaczy moment, w którym właściciel zatwierdził daną sekcję po raz pierwszy, i **zostaje
+  tam, gdzie jest** — późniejsze zmiany na jego polecenie opisują decyzje D7–D21 w §15,
+  a nie przesuwanie tagu. Stan bieżący znaczy osobny tag z datą:
+  `zatwierdzone/serwis-2026-09-19`. Przy kolejnym odbiorze całości dokładasz następny
+  taki tag, zamiast ruszać poprzednie.
 - `npm run check` musi przechodzić lokalnie **przed** PR: format:check, lint:js, lint:css, build,
   validate:html, test:e2e.
+- **Pętla robocza przy zmianach wizualnych.** Pełny `npm run check` trwa około czterech minut
+  i nie jest narzędziem do oglądania przesuniętego napisu. Przy dopracowywaniu wyglądu —
+  odstęp, stopień pisma, kadr, kolor — pracuj w pętli **stylelint + `npm run build` + podgląd
+  w przeglądarce** (kilkanaście sekund) i pokazuj właścicielowi efekt. Testy zbieraj w paczkę:
+  najpierw testy sekcji, której dotyczyła zmiana, a pełny `npm run check` **raz, przed
+  commitem** całej serii poprawek. Wyjątek bez dyskusji: zmiana architektury, danych, treści
+  albo czegokolwiek w `src/js/` idzie z pełnym checkiem od razu.
 - Deployment automatyczny i powtarzalny. **Rollback = ponowne wdrożenie poprzedniego dobrego
   taga**, nie ręczna edycja plików na serwerze. Rutynowy FTP nie jest metodą publikacji.
 - CI generuje `version.json` (wersja, commit SHA, timestamp). Bez sekretów.
@@ -303,7 +446,8 @@ Dokumenty obowiązkowe poza techniczną dokumentacją: `docs/BUSINESS_REQUIREMEN
 
 Twarde fakty wdrożeniowe dla tego repozytorium:
 
-- To **user site** — `base` w Vite = `/`. Nigdy `/radek1983.github.io/`.
+- To **user site** — `base` w Vite = `/`. Nigdy `/radek1983.github.io/`. Własna domena tego
+  nie zmienia: serwis stoi w korzeniu i przy zmianie hostingu też ma tam stać.
 - Node przypięty na `24.20.0` (nie samo `24` — narzędzia lintujące mają wyższy floor niż 24.0).
 - Źródło GitHub Pages musi zostać **ręcznie** przestawione na „GitHub Actions” w ustawieniach
   repozytorium. Tego nie da się zrobić z workflow.
@@ -332,20 +476,37 @@ inicjalizacji albo przez klasę `js` na `<html>`.
 
 **SEO.** Na start jeden kompletny one-page.
 
-- `title`: `High Five - angielski dla dzieci w SP 402 Warszawa`
-- `meta description`: `Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października.`
-  `1-8` zamienione na `1-7 + osobny kurs`, bo tak brzmi menu i treść stron po ADR 0008.
-  Sam `title` pozostaje dosłownym cytatem z briefu.
+- `title`: `Angielski na Gocławiu i online | High Five`
+- `meta description`: `Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1.`
+
+  **Oba brzmienia zmienił właściciel 19.09.2026 w ramach audytu SEO — ADR 0013.**
+  Poprzedni `title` był dosłownym cytatem z briefu (`High Five - angielski dla dzieci
+w SP 402 Warszawa`), a opis mówił wyłącznie o klasach 1-7. Serwis ma dziś cztery
+  produkty i własną domenę, więc oba zawężały ofertę do jednej grupy odbiorców.
+  **Tytuły wszystkich podstron pochodzą z tego samego zlecenia** i niosą lokalizację
+  (Gocław) zamiast dopisku `Warszawa`.
+
 - `h1`: `Angielski po lekcjach. W tej samej szkole.`
 - Wymagane: canonical, Open Graph, favicon, `sitemap.xml`, `robots.txt`, poprawny `lang`,
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.
+- **`og:image` — jeden plik marki dla całego serwisu**, `public/social/og-image.png`
+  1200 × 630, PNG. Nie składa się go w edytorze graficznym: generuje go
+  `node scripts/make-og-image.mjs` z szablonu `scripts/og-image.html`, renderowanego
+  w Chromium z Playwrighta. Dzięki temu bierze **te same pliki WOFF2 i te same kolory**
+  co strona i nie rozjeżdża się z marką po zmianie copy. Skrypt przyjmuje `--haslo`
+  i `--plik`, więc warianty per podstrona to jedno wywołanie — dziś świadomie ich nie
+  robimy: jeden plik to jedno miejsce do podmiany.
+  **Adresy `og:image` są bezwzględne** i przy przeprowadzce na własną domenę zmieniają
+  się razem z `canonical` — obie wartości stoją w tym samym nagłówku każdej strony.
+  Na obrazku **nie ma adresu WWW**: `highfive.academy` obsługuje dziś tylko pocztę (D3).
 - JSON-LD `EducationalOrganization`/`LocalBusiness` **tylko z prawdziwymi danymi**. Bez ratingów.
   Adres SP 402 jako miejsce zajęć, nie adres rejestrowy firmy.
-- **Serwis ma dziewięć adresów** (ADR 0007, 0008). Hierarchia: `/` (one-page), `/oferta`
+- **Serwis ma dziesięć adresów** (ADR 0007, 0008, 0011). Hierarchia: `/` (one-page), `/oferta`
   jako hub czterech produktów (`/oferta/dzieci`, `/oferta/egzamin-osmoklasisty`,
   `/oferta/seniorzy`, `/oferta/online`), `/lokalizacje`, `/cennik` oraz `/kariera` jako osobna
-  ścieżka dla innego odbiorcy. Każdy adres to katalog z `index.html` i wejście w konfiguracji
-  Vite - bez routera po stronie klienta.
+  ścieżka dla innego odbiorcy. Dziesiąta jest `/polityka-prywatnosci` — dokument prawny,
+  nie strona ofertowa (ADR 0011). Każdy adres to katalog z `index.html` i wejście
+  w konfiguracji Vite - bez routera po stronie klienta.
 - **Cena należy do produktu.** `/cennik` jest stroną porównawczą osiągalną z mega-menu
   i ze stopki, ale **nie** z pierwszego poziomu menu.
 - **Jedno źródło danych oferty:** `src/data/offers.mjs` zasila mega-menu, szufladę, stopkę
@@ -380,14 +541,29 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ## 15. Decyzje projektu
 
-| #      | Temat              | Decyzja                                                                                                                                                                               |
-| ------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D1** | Środowisko lokalne | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                   |
-| **D2** | Konwersja          | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                          |
-| **D3** | Adres              | Start na `https://radek1983.github.io/`. Własna domena później — adres kanoniczny trzymany w jednej stałej konfiguracyjnej, żeby podmiana była jedną zmianą                           |
-| **D4** | Fotografia         | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                 |
-| **D5** | Wersje narzędzi    | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie |
-| **D6** | Dane kontaktowe    | **Tymczasowo:** e-mail `janek.gitara@onet.pl`, telefon `+48 789 789 789`. Do podmiany na dane HIGH FIVE. Errata E-02                                                                  |
+| #       | Temat                                     | Decyzja                                                                                                                                                                                                                         |
+| ------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1**  | Środowisko lokalne                        | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                             |
+| **D2**  | Konwersja                                 | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                    |
+| **D3**  | Adres                                     | **`https://www.highfive.academy` — podpięte 19.09.2026** (ADR 0010). Wcześniej `https://radek1983.github.io/`. Publikacja w GitHub Pages wstrzymana decyzją właściciela                                                         |
+| **D4**  | Fotografia                                | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                           |
+| **D5**  | Wersje narzędzi                           | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                           |
+| **D6**  | Dane kontaktowe                           | **Docelowe:** e-mail `kontakt@highfive.academy`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
+| **D7**  | Sekcja 01 hero                            | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Właściciel zatwierdził układ 14.09.2026 i poprosił, żeby go już nie ruszać. Szczegóły i sposób pracy z sekcją niżej                                                                 |
+| **D8**  | Sekcja 02 po lekcjach                     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026, tego samego dnia co hero. Szczegóły niżej                                                                                                                  |
+| **D9**  | Sekcja 03 co dziecko zyskuje              | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D10** | Sekcje 04 nasza oferta i 06 jak uczymy    | **ZAMKNIĘTE. Nie wprowadzaj w nich zmian.** Zatwierdzone 14.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D11** | Sekcja 05 o High Five                     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 14.09.2026 po najdłuższej serii poprawek. Szczegóły niżej                                                                                                              |
+| **D12** | Sekcja 07 cennik · klasy 1-7              | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026 po przebudowie obu paneli. Szczegóły niżej                                                                                                                  |
+| **D13** | Sekcja 12 kontakt                         | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 15.09.2026. Szczegóły niżej                                                                                                                                            |
+| **D14** | Sekcja 08 nabór 2026 · klasy 1-7          | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po trzech przebudowach pod warunek jednego ekranu. Szczegóły niżej                                                                                          |
+| **D15** | Sekcja 09 lokalizacje                     | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 razem ze zmianą wariantu wezwania. Szczegóły niżej                                                                                                          |
+| **D16** | Sekcja 10 dodatkowo · seniorzy            | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 16.09.2026 po przebudowie z jednej grupy na trzy poziomy. Szczegóły niżej                                                                                              |
+| **D17** | Podstrona `/cennik/`                      | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian** poza podmianą odnośników. Zatwierdzona 16.09.2026 po przebudowie na cztery akty kolorystyczne. Szczegóły niżej                                                                       |
+| **D18** | Podstrona `/oferta/dzieci/`               | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 17.09.2026 po przebudowie zamknięcia na czerwony akt zapisów. Szczegóły niżej                                                                                          |
+| **D19** | Podstrona `/oferta/egzamin-osmoklasisty/` | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 18.09.2026. Jest **wzorcem rytmu** dla wszystkich trzech sekcji zapisów. Szczegóły niżej                                                                               |
+| **D20** | Podstrona `/oferta/seniorzy/`             | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 18.09.2026. Jedyna sekcja zapisów z przyciskiem — bo zapisy prowadzi Terminal. Szczegóły niżej                                                                         |
+| **D21** | Podstrona `/polityka-prywatnosci/`        | **ZAMKNIĘTA. Nie wprowadzaj w niej zmian.** Zatwierdzona 19.09.2026. Treść jest dokumentem prawnym i pochodzi z PDF-a właściciela — ADR 0011. Szczegóły niżej                                                                   |
 
 ### D5 — konsekwencje
 
@@ -399,12 +575,668 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 
 ### D6 — konsekwencje
 
-- Obie wartości trzymane w **jednym miejscu w kodzie**, żeby podmiana była jedną zmianą.
-- Wyświetlanie `+48 789 789 789`, atrybut `tel:+48789789789`.
-- Content gap „dane kontaktowe" schodzi z **blokującego** na **nieblokujący**, ale pozostaje
-  otwarty w `docs/CONTENT_GAPS.md` do przekazania danych docelowych. Zapisz jawnie, że są
-  tymczasowe i prywatne, nie firmowe.
-- Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko wartości tymczasowej.
+- Obie wartości trzymane w **jednym miejscu w kodzie** — `KONTAKT` w `src/data/offers.mjs`.
+  Adres zmieniano dzięki temu dwa razy jedną linią, rozniesioną przy budowaniu na
+  wszystkie dziewięć stron, do stopki, do JSON-LD i do szkiców `mailto:`.
+- Wyświetlanie `+48 790 266 517`, atrybut `tel:+48790266517`.
+- **Skrzynka we własnej domenie — załatwione 16.09.2026.** Adres zszedł z publicznego
+  dostawcy na `kontakt@highfive.academy`; domenę przekazał właściciel, nie została
+  wymyślona. To zamyka G-17. **Od 19.09.2026 domena poczty jest też domeną serwisu** —
+  strona stoi pod `www.highfive.academy` (D3, ADR 0010).
+- **Jeden wyjątek od „jednego źródła": sekcja zapisów na `/oferta/dzieci/`.** Niesie
+  osobny adres zapisowy `highfive.zapisy@gmail.com`, wpisany wprost w HTML, nie przez
+  `{{EMAIL}}`. Decyzja właściciela z 17.09.2026. To **nie jest pozostałość** po starej
+  wartości — skrzynka zapisowa jest czymś innym niż ogólny adres kontaktowy, który stoi
+  w stopce i w sekcji 12. Zakaz powrotu gmaila obowiązuje więc na ośmiu stronach,
+  nie na dziewięciu.
+- Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko.
+- **Żadna stara wartość nie może wrócić** — ani konto prywatne z czasu budowy, ani
+  skrzynka na gmailu. Pilnuje tego test w `tests/e2e/regressions.spec.js`, który
+  skanuje wszystkie dziewięć stron.
+
+### D7 — sekcja 01 hero jest zamknięta
+
+Właściciel zatwierdził układ hero **14.09.2026** po serii poprawek robionych na żywo i wprost
+poprosił, żeby tej sekcji już nie zmieniać. Stan zatwierdzony jest otagowany w git:
+`zatwierdzone/hero-strona-glowna`.
+
+**Zasada:** sekcji 01 nie dotykasz — ani „przy okazji" innej zmiany, ani w ramach porządków,
+ani optymalizacji. Jeżeli jakieś zadanie wymaga ruszenia hero, **zatrzymaj się i zapytaj
+właściciela**, tak jak przy sprzeczności z `instructions/` (§0). To dotyczy również zmian
+pośrednich: tokenów, od których hero zależy, i reguł globalnych, które na nie wpływają.
+
+Co dokładnie jest zamrożone — `src/css/sections/hero.css` i blok hero w `index.html`:
+
+- blok tekstu podniesiony ponad oś kadru (`--space-hero-lift`), żeby czarna typografia leżała
+  na jasnej ścianie, a nie na postaciach i blacie;
+- wezwanie `Sprawdź grupy i ceny` opuszczone o `--space-hero-cta-drop` względem reszty bloku,
+  z kompensacją w `--space-hero-lift` — dzięki niej opuszczenie przycisku nie rusza wordmarku,
+  nagłówka ani leadu;
+- lead łamany na **cztery** wiersze (`max-inline-size: 46ch`);
+- nagłówek: po jednym zdaniu w wierszu, dwa wiersze;
+- prawa granica całego tekstu: `--measure-hero-safe: 40vw`.
+
+Pilnuje tego `tests/e2e/hero.spec.js` na macierzy 1280–1920 px. Czerwony test w tym pliku
+oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
+
+### D8 — sekcja 02 po lekcjach jest zamknięta
+
+Właściciel zatwierdził sekcję **14.09.2026**, tego samego dnia co hero, i poprosił, żeby jej
+już nie zmieniać — **także przy pracy nad innymi sekcjami**. Stan otagowany w git:
+`zatwierdzone/po-lekcjach`.
+
+Obowiązuje ta sama zasada co przy D7: sekcji nie dotykasz ani „przy okazji”, ani w ramach
+porządków, ani optymalizacji. Jeżeli zadanie wymaga ruszenia sekcji 02, **zatrzymaj się
+i zapytaj właściciela**.
+
+Co jest zamrożone — `src/css/sections/after-school.css` i blok `#po-lekcjach` w `index.html`:
+
+- **wszystkie przerwy między blokami mają identyczną wysokość.** Jedynym ich źródłem jest
+  `gap` w `.after-school__text`; żaden blok nie dokłada własnego marginesu. Puenta straciła
+  swój dodatkowy odstęp i **nie wolno go przywracać**;
+- puenta `Mniej wożenia…` stoi w **dwóch** wierszach, z podziałem po „pośpiechu,” —
+  pilnuje tego miara `24ch`, policzona na podstawie szerokości obu wariantów wiersza;
+- hasło sekcji zostaje w rejestrze plakatowym (`clamp(2.125rem, 6.05vw, 5.125rem)`);
+- treści akapitów mają twarde spacje zgodne z regułą łamania wierszy z §5.
+
+Wymóg „zdanie kończące sekcję mieści się w dwóch wierszach” **już nie obowiązuje** — zniknął
+razem z krótszą treścią, którą właściciel wymienił. Nie przywracaj go.
+
+**Kadr podmieniany 19.09.2026 dwukrotnie, oba razy na polecenie właściciela.** Rano
+wszedł kadr z jasnowłosą uczennicą, po południu właściciel wrócił do poprzedniego —
+ciemnowłosej uczennicy na tym samym korytarzu. **Na stronie stoi dziś ten wcześniejszy.**
+
+Oba źródła mają identyczne wymiary — 1122 × 1402, proporcja 4:5 — więc `srcset`,
+`sizes`, atrybuty `width`/`height`, `alt` i cała geometria sekcji zostają bez zmian.
+Zmieniło się wyłącznie zdjęcie; treść sekcji jest nietknięta.
+
+**Powrót do kadru z archiwum to ZAMIANA MIEJSC, nie kopiowanie.** §11 mówi
+o skopiowaniu pliku pod oryginalną nazwę, ale wtedy w archiwum zostawałaby kopia
+kadru, który stoi na stronie — a archiwum ma trzymać to, czego na stronie **nie ma**.
+Pliki zamieniły się miejscami, więc nazwa `after-school-corridor-zastapione-2026-09-19.png`
+zwolniła się dla kadru zdejmowanego i nie było kolizji mimo tej samej daty.
+Po zamianie: `npm run images`.
+
+Pilnuje tego `tests/e2e/po-lekcjach.spec.js` na macierzy 1280–1920 px. Czerwony test w tym
+pliku oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
+
+### D9 — sekcja 03 co dziecko zyskuje jest zamknięta
+
+Zatwierdzona **14.09.2026**, jako trzecia po hero i „Po lekcjach”. Otagowana jako
+`zatwierdzone/korzysci`. Obowiązuje ta sama zasada co przy D7 i D8: sekcji nie dotykasz
+ani „przy okazji”, ani w ramach porządków. Jeżeli zadanie tego wymaga — zapytaj właściciela.
+
+Co jest zamrożone — blok `#korzysci` w `index.html` i `src/css/sections/benefits.css`:
+
+- trzy korzyści w pierwszej osobie (`Mówię więcej.`, `Rozumiem więcej.`, `Czuję się pewniej.`)
+  w dokładnie tym brzmieniu, jakie stoi w teście;
+- twarde spacje zgodne z regułą łamania wierszy z §5 — właściciel zgłosił tu wiszące `do`;
+- marquee zostaje **dekoracją** z `aria-hidden="true"`; treść niesie nagłówek sekcji;
+- czerwony akt, zero obrazów i ikon, zero kart — §7 i §8.
+
+Pilnuje tego `tests/e2e/korzysci.spec.js` na macierzy 1280–1920 px.
+
+### D10 — sekcje 04 nasza oferta i 06 jak uczymy są zamknięte
+
+Zatwierdzone **14.09.2026**. Tagi: `zatwierdzone/oferta` i `zatwierdzone/metoda`.
+
+Co jest zamrożone:
+
+- **04:** cztery drogi w tej kolejności, z tymi adresami i etykietami; wspólny język wskazania
+  z mega-menu (`.offer-mark` — czerwony numer, strzałka 7 px); krem, zero kart;
+- **06:** `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` bez kropek i bez błędnego „MÓWIJ” (ADR 0009);
+  pięć kroków lekcji w tej kolejności; czarny akt bez fotografii; odstęp między etykietą
+  sekcji a pierwszym czasownikiem.
+
+**Zmiana z 19.09.2026 — podpis oferty 03 stracił próg wiekowy.** Stało tu
+`60+ · Terminal Kultury Gocław`, wbrew zakazowi z D16. Dziś jest
+`Seniorzy · Terminal Kultury Gocław` — próg zastąpiony rzeczownikiem, a nie
+skasowany razem z pierwszym członem. To samo brzmienie co w mega-menu, bo
+sekcja 04 i panel mówią jednym językiem. **Nie skracaj tego do samego adresu.**
+
+Dłuższy podpis łamie się na desktopie na **dwa wiersze** i odsłonił dwie
+usterki, które siedziały tu od początku — obie naprawione tą samą zmianą:
+
+1. **Odnośnik nie obejmował całego modułu.** `<li>` rośnie do wysokości
+   najwyższej kolumny w wierszu, ale `<a>` w środku zostawał przy swojej
+   treści, więc w niższych kolumnach ostatnie ~20 px nie było klikalne.
+   Dopóki wszystkie cztery podpisy miały po jednym wierszu, kolumny były
+   równe i różnicy nie było widać. Wyłapał to `offer-state.spec.js`.
+2. **Cztery czerwone wezwania stały na dwóch wysokościach.** Dziś siedzą
+   na dole modułu (`margin-block-start: auto`), więc równość wynika
+   z układu i przetrwa każdą kolejną zmianę długości podpisu.
+
+**Otwarte, do decyzji właściciela:** pierwsza pozycja oferty nazywa się inaczej w menu
+(`Klasy 1-7`) niż w sekcji 04 (`Dla dzieci`). Pozostałe trzy zostały kiedyś ujednolicone
+na polecenie właściciela. Test porównuje adresy i trzy ujednolicone etykiety, ale **nie
+przesądza** tej jednej — nie zmieniaj jej samodzielnie.
+
+Pilnuje tego `tests/e2e/oferta-metoda.spec.js`.
+
+### D11 — sekcja 05 o High Five jest zamknięta
+
+Zatwierdzona **14.09.2026** po najdłuższej serii poprawek w całym projekcie. Tag:
+`zatwierdzone/o-high-five`.
+
+Co jest zamrożone:
+
+- miara akapitów **75ch** i kolumna tekstowa na **ośmiu** z dwunastu pól siatki;
+- kadr Magdaleny Germel kończy się **równo z dołem kolumny tekstowej** i zwęża się od lewej,
+  gdy tekst jest krótszy; prawa krawędź stoi na krawędzi okna — wspólna oś ze zdjęciami hero
+  i sekcji 02;
+- odstęp nad paskiem faktów: **2 px** łącznie z `gap` kolumny (`calc(0.125rem - var(--space-4))`);
+- `--space-about-anchor: 1.25rem` — po skoku z menu pasek faktów mieści się w ekranie.
+
+Trzy pułapki zapisane w `about.css`, żeby nikt ich nie powtórzył:
+
+1. `align-self: stretch` na kadrze jest **błędnym kołem** — jako element siatki kadr sam
+   współtworzy wysokość wiersza. Stąd pozycjonowanie bezwzględne.
+2. `inset-block: 0` **i** `block-size: 100%` naraz to nadmiar — wygrywa procent liczony
+   w chwili układu, więc kadr bywał o wiersz za krótki. Wysokość ma wynikać z samych `inset`.
+3. Kadr pozycjonowany bezwzględnie **nic go nie zatrzymuje przed wejściem na tekst** —
+   dlatego ma limit szerokości czterech pól siatki. Cena: przy oknie poniżej ~1400 px kadr
+   bywa niższy niż kolumna i dolne krawędzie się nie spotykają. To świadomy kompromis —
+   nachodzenie na treść jest gorsze niż nierówna krawędź.
+
+**Opis przepisany 18.09.2026 na polecenie właściciela** — sekcja była zamknięta,
+zgoda padła wprost. Co się zmieniło i co z tego wynika:
+
+- **cztery akapity zamiast trzech:** lead → wykształcenie i doświadczenie → sposób
+  pracy → zespół i współpraca. Treść pochodzi od właściciela co do słowa;
+- **mocniejszy jest WYŁĄCZNIE lead** (waga 500, stopień +7%). Przez chwilę stały
+  w akapitach 2–4 pogrubione fragmenty, ale właściciel je zdjął tego samego dnia:
+  cztery akcenty pod rząd czytały się jak katalog kwalifikacji, a nie jak opowieść.
+  **Nie przywracaj ich;**
+- **waga 500, nie 600:** z tekstowego Intera self-hostujemy tylko Regular 400
+  i Medium 500 (§7). Każda wyższa wartość to sztuczne pogrubienie przez przeglądarkę;
+- **odstęp między akapitami 24 px** dokładany tylko tam, gdzie akapit stoi po akapicie.
+  `gap` kolumny zostaje 16 px, bo jest wliczony w ujemny margines paska faktów;
+- **nagłówek `Lokalna szkoła. Dużo uwagi.` stoi w JEDNYM wierszu** na desktopie —
+  miara `14ch` zniknęła;
+- **miara akapitów zostaje 75ch.** Właściciel prosił o 55–65 znaków w wierszu, ale
+  przy 60ch kolumna rośnie o cztery wiersze i **kadr Magdaleny kończy się 117 px nad
+  dołem tekstu** — a to jest właśnie ta geometria, która jest tu zatwierdzona. Wybór
+  między długim wierszem a nierówną krawędzią należy do właściciela i nadal czeka.
+
+**Dwie poprawki redakcyjne z 19.09.2026, obie na polecenie właściciela:**
+
+- **nazwa partnera przestała być odmieniana** — `we współpracy z High Five Agnieszka
+Karolewska` zamiast `z High Five Agnieszką Karolewską`. Ta sama forma co w hero
+  `/oferta/dzieci/`, więc obie strony mówią dziś identycznie (§3);
+- **`klas 1–7` zapisane półpauzą** poprawione na dywiz. To było jedyne takie miejsce
+  w serwisie: w pozostałych 53 wystąpieniach stoi `1-7`.
+
+Pilnuje tego `tests/e2e/o-high-five.spec.js` na macierzy 1280–1920 px.
+
+### D12 — sekcja 07 cennik · klasy 1-7 jest zamknięta
+
+Zatwierdzona **15.09.2026** po przebudowie obu paneli według obrazu referencyjnego
+właściciela. Tag: `zatwierdzone/cennik`.
+
+Co jest zamrożone — blok `#cennik` w `index.html` i `src/css/sections/pricing.css`:
+
+- **panel A:** nagłówek `Prosta cena.`, ceny `55` i `50` w jednostce
+  `zł / 45 min`, przypis `Podane ceny dotyczą regularnych zajęć grupowych dla klas 1-7
+w SP 402.` — **bez odnośnika**. Nagłówek skrócił się 16.09.2026: właściciel zdjął
+  `Bez abonamentu.` mimo zamknięcia sekcji i wyraził na to zgodę wprost. Zdanie o braku
+  stałej opłaty niesie dalej panel B, więc treść niczego nie straciła;
+- **panel B:** nagłówek `Płacisz za zajęcia, które się odbywają.` i trzy zasady z tytułem
+  oraz jednym zdaniem wyjaśnienia (`Bez stałej miesięcznej opłaty`, `Bez opłat za dni wolne`,
+  `Grupa rusza od 5 osób`);
+- **dokładnie jeden** odnośnik do `/cennik/` w całej sekcji: `Zobacz cennik wszystkich zajęć →`,
+  z podpisem `Kurs egzaminacyjny · seniorzy · online 1 na 1`. Wcześniej to samo wezwanie padało
+  dwa razy — **nie przywracaj drugiego**;
+- stopnie pisma liczone z jednego tokenu `--step-cennik`: nagłówek panelu A i ceny biorą go
+  wprost, hasło panelu B jako `calc(--step-cennik * 0.88)`. Relacja między nimi jest zapisana
+  w kodzie, więc zmiana tokenu przesuwa wszystkie trzy i proporcja zostaje.
+
+`--step-cennik` jest **osobnym** tokenem, nie `--step-display`: tamten niesie także nagłówki
+sekcji 08, 11 i 12, więc jego zmiana ruszyłaby cztery sekcje naraz.
+
+**Zmiana z 19.09.2026 — kreski pod cenami zdjęte.** Nad podpisami `Pierwsze dziecko`
+i `Drugie i każde kolejne dziecko z rodzeństwa` stała cienka linia; dzieliła cenę
+i jej opis na dwa bloki, przez co panel czytał się jak tabela, a nie jak plakat.
+Właściciel polecił ją zdjąć mimo zamknięcia sekcji. **Odstęp 16 px został bez zmian** —
+to on trzymał podpis pod cyfrą, nie kreska, więc geometria panelu się nie ruszyła.
+**Kreska nad przypisem cenowym zostaje**: oddziela cały panel od drobnego druku.
+
+Pilnuje tego `tests/e2e/pricing.spec.js`.
+
+### D13 — sekcja 12 kontakt jest zamknięta
+
+Zatwierdzona **15.09.2026**. Tag: `zatwierdzone/kontakt`.
+
+Co jest zamrożone — blok `#kontakt` w `index.html` i `src/css/sections/contact.css`:
+
+- kolejność: nagłówek → lead → dwa kanały kontaktu → wezwanie → metryczka firmy;
+- dane rejestrowe co do znaku, z etykietami `Firma`, `NIP`, `REGON`, **`Działamy od`**
+  (etykieta zmieniona przez właściciela z samego `Od`);
+- te same dane w JSON-LD (`legalName`, `taxID`, `foundingDate`) — rozjechanie ich to błąd,
+  nie kosmetyka;
+- **telefon jako zwykły tekst, nie odnośnik** — wyjątek opisany w D2; klikalny `tel:` zostaje
+  w stopce na wszystkich dziewięciu stronach;
+- metryczka jest cichsza niż wezwanie: stopień `.legal__value` mniejszy niż `.contact__value`.
+
+Pilnuje tego `tests/e2e/kontakt.spec.js`.
+
+### D14 — sekcja 08 nabór 2026 jest zamknięta
+
+Zatwierdzona **16.09.2026** po trzech przebudowach. Tag: `zatwierdzone/nabor`.
+
+Sekcja miała jeden warunek nadrzędny, postawiony przez właściciela wprost i powtórzony
+po drugiej nieudanej próbie: **cała sekcja — od etykiety, przez nagłówek i liczby, po
+wezwanie — ma mieścić się w jednym ekranie desktopowym.** Wezwanie nie może być ucięte
+dolną krawędzią. To nie estetyka, tylko warunek odbioru.
+
+Co jest zamrożone — blok `#nabor` w `index.html` i `src/css/sections/enrollment.css`:
+
+- nagłówek `5 dzieci i startujemy.` w **dwóch** wierszach, z czerwoną kropką jako jedynym
+  akcentem koloru w typografii sekcji. Brzmienie zastąpiło `Grupa rusza od piątego dziecka.`,
+  ale niesie ten sam **warunek stały** — sekcja zostaje na stronie po 1 października;
+- nagłówek bierze **własny** stopień, nie `--step-display`: tamten token niesie także
+  sekcje 11 i 12, a dwunastka jest zamknięta (D13);
+- kolumny są przypisane **wprost** (1 · 2 · 3). Element z definitywnym wierszem jest
+  układany przed elementami bez niego, więc przy `grid-column: auto` kolumna statusu
+  lądowała pierwsza od lewej — to już wystąpiło;
+- kreski pod podpisami liczb stoją na **jednej osi** dzięki `grid-template-rows: subgrid`.
+  Równość wynika z układu, nie z dobranego marginesu, więc przetrwa zmianę stopnia pisma;
+- rok `2026` jest podporządkowany dacie: połowa stopnia, 48% krycia;
+- pionowe krawędzie mają 12% bieli, nie pełną moc `--color-rule` — przy pełnej sekcja
+  czytała się jak arkusz kalkulacyjny.
+
+**Interlinia nagłówka nie schodzi poniżej `--leading-caps`.** Stała tu przez chwilę na
+0.95 i wyglądała zwarcie, ale padding anty-clippingowy broni tylko pierwszego wiersza
+przed maską reveal — nie ma nic wspólnego z odległością **między** wierszami. Wyłapał to
+`tests/e2e/polish-caps.spec.js` i miał rację.
+
+Pilnuje tego `tests/e2e/nabor.spec.js` na macierzy 1280–1920 px.
+
+### D15 — sekcja 09 lokalizacje jest zamknięta
+
+Zatwierdzona **16.09.2026**. Tag: `zatwierdzone/lokalizacje`.
+
+Co jest zamrożone — blok `#lokalizacja` w `index.html`:
+
+- wezwanie `Wyznacz trasę` używa wariantu **`cta--ink`**, tego samego co `Sprawdź grupy
+i ceny` w hero: czarne tło, jasna czcionka marki, czerwień sygnałowa po najechaniu.
+  Wcześniej był to przycisk obrysowy `cta--ghost`;
+- to **ten sam wariant komponentu**, a nie skopiowane style — dzięki temu oba przyciski
+  nie mogą się rozjechać. Wariantu `cta--ink` nie wolno zmieniać: niesie także hero (D7);
+- `cta--ghost` **zostaje** w arkuszu, bo stoi jeszcze w pięciu miejscach na podstronach.
+  Na stronie głównej nie ma już żadnego przycisku obrysowego;
+- odnośnik prowadzi do trasy Google Maps na adres SP 402 i otwiera się w nowej karcie
+  z `rel="noopener"`.
+
+Pilnuje tego `tests/e2e/lokalizacja.spec.js`.
+
+### D16 — sekcja 10 dodatkowo · seniorzy jest zamknięta
+
+Zatwierdzona **16.09.2026** po przebudowie z jednej grupy na trzy poziomy, według obrazu
+referencyjnego właściciela. Tag: `zatwierdzone/seniorzy`.
+
+Dwie rzeczy są w tej sekcji wrażliwe i obie wynikają z wyraźnego polecenia:
+
+1. **Nigdzie nie wolno podać granicy wieku.** Nazwa oferty zostaje — `Angielski dla
+seniorów` — ale `60+` i każda inna dolna granica są zakazane. Kurs ma być czytelny
+   także dla osoby po pięćdziesiątce; „seniorzy" to nazwa oferty, nie kategoria wiekowa.
+
+   **Zakaz obowiązuje w całym serwisie i od 19.09.2026 jest wreszcie spełniony.**
+   Przez cały czas czytaliśmy go jako regułę tej jednej sekcji, więc `60+` stało
+   jeszcze w czterech miejscach: w podpisie oferty 03 w sekcji 04, w podpisie kafla
+   mega-menu, w etykiecie stopki (`Seniorzy 60+`) i w leadzie hero `/oferta/seniorzy/`.
+   Komentarze w `src/data/offers.mjs` i `vite.config.js` broniły tego wprost, a dwa
+   testy to brzmienie **blokowały**. Właściciel rozstrzygnął: próg schodzi wszędzie.
+
+   W miejsce progu wchodzi **rzeczownik, nie sam adres**: mega-menu i sekcja 04
+   mówią dziś `Seniorzy · Terminal Kultury Gocław`. Zostawiłem tam przez chwilę
+   sam adres, żeby uniknąć powtórzenia słowa w kaflu — właściciel to cofnął tego
+   samego dnia: podpis ma w każdym kaflu nazywać **odbiorcę i miejsce**, oddzielone
+   kropką, tak jak `Klasy 1-7 · SP 402`. **Nie skracaj go ponownie.** W stopce stoi
+   sam rzeczownik `Seniorzy`, bo to kolumna samych linków. Lead hero podstrony mówi
+   `dla osób dorosłych` — **nie** `dla seniorów`, bo nazwa oferty stoi wiersz wyżej
+   w nagłówku.
+
+2. **Trzy poziomy są równorzędne.** Żaden nie jest domyślny, żaden nie dostaje własnego
+   tła, obrysu ani koloru. Wyróżnienie jednego czytałoby się jak sugestia wyboru.
+
+Co jest zamrożone — blok `#seniorzy` w `index.html` i `src/css/sections/seniors.css`:
+
+- nagłówek `Angielski dla / seniorów.` w dwóch wierszach, we własnym stopniu;
+- trzy poziomy w tej kolejności i brzmieniu: `Początkująca`, `Podstawowa`,
+  `Średniozaawansowana`, każdy jako numer → nazwa → cienka kreska → opis;
+- kolumny **równe co do piksela**: kreska dzieląca jest pseudoelementem w połowie rynny,
+  a nie obramowaniem z paddingiem, który zabierałby szerokość dwóm z trzech kolumn;
+- **zero kart.** Projekt referencyjny obrysowywał każdy poziom zaokrąglonym prostokątem —
+  tego świadomie nie przenieśliśmy: §7 ustawia promień narożnika na 0 i dopuszcza kapsułę
+  wyłącznie dla CTA, a §8 wymienia siatkę kart jako anty-wzorzec;
+- kadr Terminalu jest o **10% mniejszy** od pełnej prawej połowy siatki, ale zwężenie idzie
+  wyłącznie od lewej: prawa krawędź stoi na krawędzi okna, na wspólnej osi ze zdjęciami
+  hero i sekcji 02. Wysokość bloku pod kadrem wynika z tego automatycznie — kadr jest
+  wyższy od kolumny tekstowej, więc to on wyznacza wysokość górnego bloku;
+- sekcja ma **niższe niż domyślne** odstępy pionowe. Rytm sekcji jest w tym projekcie
+  celowo zmienny, a ten moduł niesie cztery piętra treści.
+
+**Przebudowa 19.09.2026 — sekcja jest ZAPOWIEDZIĄ, nie katalogiem.** Właściciel
+zlecił ją wprost wraz z projektem referencyjnym, mimo zamknięcia sekcji:
+
+- **trzy karty poziomów zeszły z tej sekcji** na `/oferta/seniorzy/` (D20).
+  Została po nich jedna linia `3 poziomy · od podstaw do średniozaawansowanego`,
+  wersalikami, z krótką kreską przed tekstem. **Nie przywracaj rozpiski tutaj;**
+- **lead nie mówi już o „60+"** — zastąpiło je brzmienie bez granicy wieku,
+  więc zakaz z tej decyzji jest dziś spełniony także w treści, nie tylko w duchu;
+- **kadr Terminalu nie jest przycinany:** proporcja pudełka równa się proporcji
+  pliku (750×518). Stała tu klasa `media--16-9`, czyli 1.78 wobec 1.45 źródła —
+  `object-fit: cover` zdejmował górę kadru razem z literą „T" neonu;
+- **lewa i prawa kolumna to OSOBNE STOSY**, nie wiersze wspólnej siatki. Przy
+  wierszach wyższy kadr spychał linię o poziomach i wezwanie w dół; teraz zdjęcie
+  może rosnąć, a tekst po lewej zostaje na swojej wysokości;
+- **dopisek `Zapisy i szczegóły na stronie Terminala.`** stoi pod kadrem, przy
+  prawej krawędzi siatki (nie okna), poprzedzony pionową kreską. To zdanie, nie
+  drugie wezwanie — zapisy prowadzi Terminal, więc strona główna nie ma czego
+  obiecywać;
+- **jedno wezwanie** `Zobacz zajęcia dla seniorów` prowadzące na `/oferta/seniorzy/`.
+
+Pilnuje tego `tests/e2e/seniorzy.spec.js`.
+
+### D17 — podstrona `/cennik/` jest zamknięta
+
+Zatwierdzona **16.09.2026** po przebudowie według obrazu referencyjnego właściciela.
+Tag: `zatwierdzone/cennik-podstrona` — **nie mylić z `zatwierdzone/cennik`**, który
+oznacza sekcję 07 strony głównej (D12).
+
+**Jedyny dopuszczony wyjątek: podmiana odnośników.** Jeżeli zmieni się adres którejś
+podstrony ofertowej, wolno poprawić `href` na cenniku i asercję w teście. Każda inna
+zmiana — treść, układ, stopnie pisma, kolory — wymaga decyzji właściciela.
+
+Co jest zamrożone — `cennik/index.html` i `src/css/pages/cennik.css`:
+
+- **cztery kolory marki jako sekwencja aktów:** beż (hero), beż (klasy 1-7),
+  granat (zasady rozliczeń), czerń (pozostałe zajęcia), czerwień (wezwanie).
+  To jedyna strona w serwisie, która używa całej palety;
+- **cztery stawki obok siebie** — `55` i `50` zł / 45 min, `80` zł / 90 min,
+  `45` zł / 60 min, `120` zł / 60 min. `55` jest jedynym akcentem czerwieni
+  w typografii cennika;
+- **nie wraca „cena nieustalona" ani „60+"** — obie frazy stały tu wcześniej;
+- **zasady rozliczeń w trzech punktach**: `Rozliczenie z góry`, `Bez stałego ryczałtu`,
+  `Korekta w kolejnym miesiącu`. Rozliczenie idzie **z góry** — nie upraszczaj tego
+  do „płacisz tylko za odbyte zajęcia", właściciel odrzucił to wprost;
+- **prawa kolumna hero** odwzorowana z projektu: etykieta, krótka kreska i hasło
+  z czerwoną kropką. Pionowa krawędź biegnie od pierwszego wiersza nagłówka do
+  ostatniego wiersza przypisu — nie dotyka poziomych krawędzi pasa. Wynika to
+  z **układu** (etykieta stoi w osobnym wierszu siatki), nie z dobranych wartości;
+- **zero kart** — żadnych zaokrągleń poza kapsułą wezwania;
+- kolumny w trzech gridach są **równe co do piksela**;
+- **stopka jest dokładnie ta sama co na pozostałych stronach.** Projekt referencyjny
+  miał własną — właściciel polecił ją zignorować w całości.
+
+Dwie pułapki zapisane w kodzie, żeby nikt ich nie powtórzył:
+
+1. `<hr>` dostaje od przeglądarki `margin-inline: auto`. Krótka kreska w hero stała
+   przez to na środku kolumny zamiast równo z lewą krawędzią liter — stąd jawne
+   `margin-inline: 0`.
+2. Nagłówek strony i nagłówek sekcji 01 mają być **tej samej wielkości**. Biorą
+   wartość z jednego tokenu `--step-cennik-claim`, a nie z dwóch clampów
+   ustawianych równolegle.
+
+**Zmiana z 19.09.2026 — kreski pod cenami zdjęte w sekcji 01.** Nad podpisami
+`Pierwsze dziecko` i `Drugie i każde kolejne dziecko z rodzeństwa` stała cienka
+linia; dzieliła cenę i jej opis na dwa bloki, przez co panel czytał się jak tabela,
+a nie jak plakat. Ta sama poprawka co w sekcji 07 strony głównej i z tego samego
+powodu (D12). **Odstęp 16 px został bez zmian** — to on trzyma podpis pod cyfrą,
+nie kreska, więc geometria sekcji się nie ruszyła. **Pozostałe kreski zostają:**
+pionowe w rynnach gridów i pozioma nad przypisem cenowym.
+
+To druga — obok podmiany odnośników — zmiana dopuszczona na tej stronie; jak
+tamtą, poleconą wprost przez właściciela.
+
+Pilnuje tego `tests/e2e/cennik.spec.js`.
+
+### D18 — podstrona `/oferta/dzieci/` jest zamknięta
+
+Zatwierdzona **17.09.2026** po przebudowie zamknięcia strony według obrazu referencyjnego
+właściciela. Tag: `zatwierdzone/dzieci`.
+
+Zamiast zwykłego bloku kontaktowego z kapsułą stoi tu **czerwony akt ZAPISÓW**, a wezwanie
+z nagłówka strony celuje w jego kotwicę zamiast odsyłać na stronę główną.
+
+Co jest zamrożone — `oferta/dzieci/index.html`, `src/css/pages/dzieci.css`
+i **wspólny komponent `src/css/components/enroll.css`**:
+
+Wygląd **i rytm** sekcji przeniosły się do komponentu 18.09.2026, gdy tę samą
+sekcję dostały podstrony egzaminacyjna i senioralna. Właściciel wyraził zgodę
+na obie operacje wprost, mimo że ta strona była już zamknięta.
+
+`pages/dzieci.css` trzyma odtąd wyłącznie **skalę typografii** — nagłówek jest
+tu największy w trójce, bo zdanie ma tylko szesnaście znaków. **Odstępów nie
+ustawia się już w warstwie strony**: wszystkie trzy sekcje mają wspólny rytm,
+którego wzorcem jest podstrona egzaminacyjna (D19). Zmiana w komponencie
+dotyka trzech stron naraz, więc po każdej uruchom wszystkie trzy zamki.
+
+- sekcja `#zapisy-klasy-1-7` na czerwieni marki, zamykająca `<main>` tuż nad stopką:
+  etykieta → plakatowy nagłówek `Gotowi na start?` → dwuwierszowy lead → trzy drogi
+  kontaktu → jedna wspólna kreska → zdanie o odpowiadaniu mailem;
+- **w tej sekcji NIE MA przycisku.** Dane kontaktowe mają być dostępne od razu, a nie
+  za kolejnym klikiem — warunek postawiony przez właściciela wprost;
+- nagłówek **wypełnia szerokość siatki** i stoi w jednym wierszu. Poniżej 85 % przestaje
+  być plakatem, powyżej 100 % ucina go `overflow-x: clip` sekcji;
+- trzy kolumny **równe co do piksela**, każda z własną kreską u góry; kreska jest
+  obramowaniem elementu, nie osobnym `<hr>`, więc na wąskim ekranie schodzi razem
+  ze swoją parą etykieta–wartość;
+- **osobny adres zapisowy** `highfive.zapisy@gmail.com`, wpisany wprost, nie przez
+  `{{EMAIL}}` — patrz wyjątek w D6. Ogólny adres serwisu stoi dalej w stopce tej samej
+  strony i **nie wolno ich ujednolicać**;
+- godziny `17:00–21:00` z **półpauzą** — to zakres, nie łącznik.
+
+**Droga zapisu jest jedna.** W hero stało drugie wezwanie o tej samej nazwie
+(`Zapisz dziecko`) prowadzące na `/#kontakt`, czyli w zupełnie inne miejsce niż wezwanie
+z nagłówka. Właściciel kazał je zdjąć 17.09.2026 — **nie przywracaj go**. Wszystkie
+wezwania `Zapisz dziecko` na tej stronie celują dziś w `#zapisy-klasy-1-7`.
+
+**Cel wezwania zmienił się WYŁĄCZNIE tutaj.** Mapa `CTA` w `src/data/offers.mjs` jest
+kluczowana ścieżką pliku, więc wystarczyła jedna wartość. Nie wpisuj tej kotwicy globalnie:
+pozostałe osiem stron celowałoby w sekcję, której u siebie nie ma.
+
+`scroll-margin-block-start` sekcji **odejmuje jej własny odstęp** od globalnej wartości
+z `base/reset.css` — bez tego etykieta lądowała pół ekranu niżej niż czerwona krawędź.
+Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
+
+**Trzy zmiany z 18.09.2026, wszystkie na polecenie właściciela:**
+
+- **dopisek o współpracy pod leadem hero** — osobny akapit, mniejszy stopień,
+  62% krycia, bez ramki, tła, ikony i kursywy. Odstęp 16 px na desktopie liczony
+  **z odjęciem** 24-pikselowego `gap` kolumny hero. Bez danych rejestrowych partnera;
+- **wezwanie `Zobacz lokalizacje` zeszło na wariant `cta--ink`** (czarne tło);
+- **odstępy nad blokami z kreskami.** Listy kroków i cennika noszą w HTML klasę
+  `u-mt-8`, **której nie ma w żadnym arkuszu serwisu** — nigdy nie powstała. Etykieta
+  stała 0 px nad kreskami, a nagłówek cennika wchodził na nie o 5 px. Odstęp dostały
+  te dwa bloki i tylko na tej stronie; osobna reguła daje też 24 px między etykietą
+  `CENNIK` a nagłówkiem, bo nagłówki mają w serwisie wyzerowane marginesy.
+
+**Dwie poprawki układu z 19.09.2026, obie na polecenie właściciela:**
+
+- **adres SP 402 schodzi do drugiego wiersza w całości** — człon `ul. Jana…`
+  nosi `.u-nowrap-md` (§5). Wcześniej wiersz kończył się na `ul. Jana`, a nazwa
+  ulicy rozpadała się między wiersze;
+- **`Planowany start: 1 października 2026.` zaczyna własny wiersz** w kaflu
+  `Start grupy` — przez `.u-own-line`, nie `<br />`. Zdanie nadal siedzi w tym
+  samym bloku czasowym `data-temporary="nabor-2026"`, więc zniknie razem z nim
+  po 1 października.
+
+Pilnuje tego `tests/e2e/dzieci.spec.js`.
+
+### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
+
+Zatwierdzona **18.09.2026**. Tag: `zatwierdzone/egzamin`.
+
+Zamknięcie strony przebudowane z bloku „Chcesz dołączyć?" na **czerwony akt
+ZAPISÓW** `#zapisy-egzamin-osmoklasisty`, a wezwanie z nagłówka celuje w jego
+kotwicę zamiast odsyłać na stronę główną.
+
+**Ta strona jest WZORCEM RYTMU dla wszystkich trzech sekcji zapisów.**
+Właściciel wskazał ją wprost i kazał dociągnąć do niej pozostałe dwie. Odstępy
+żyją w `components/enroll.css`; warstwy stron ustawiają wyłącznie skalę
+typografii. Test `trzy sekcje zapisow maja ten sam rytm wewnetrzny`
+w `tests/e2e/egzamin.spec.js` porównuje trzy strony między sobą.
+
+Co jest zamrożone — `oferta/egzamin-osmoklasisty/index.html` i część
+„06 ZAPISY" w `src/css/pages/egzamin.css`:
+
+- sekcja zamyka `<main>` tuż nad stopką, **bez przycisku**;
+- nagłówek `Masz pytanie o grupę?` w **jednym wierszu** na pełną szerokość
+  siatki; stopień jest mniejszy niż na stronie klas 1-7, bo zdanie jest dłuższe;
+- trzy drogi kontaktu z **ogólnym** adresem serwisu — w odróżnieniu od
+  `/oferta/dzieci/`, która ma własny adres zapisowy (D6, D18);
+- w hero **nie ma** drugiego wezwania; wszystkie `Zapytaj o grupę` na tej
+  stronie celują w tę samą kotwicę.
+
+Dwie pułapki zapisane w kodzie:
+
+1. **Padding pasa musi być powtórzony pod kotwicą strony.** Scoped
+   `[data-page='egzamin'] .section` ma wyższą specyficzność niż klasa
+   komponentu i cicho go nadpisywał — pas trzymał 57,6 px zamiast 43 px,
+   a skok z menu zatrzymywał się 73 px pod nagłówkiem zamiast 16 px.
+2. **Dolny margines etykiety jest wyzerowany.** Wspólna reguła
+   `.section__label` tej podstrony daje 32 px, a marginesy sąsiadów się
+   sklejają — wygrywa większa z dwóch wartości, więc zmniejszanie marginesu
+   nagłówka nie mogło zadziałać.
+
+**Dwie zmiany z 18.09.2026, obie na polecenie właściciela:**
+
+- **nagłówek hero bierze wspólny stopień** `clamp(2rem, 5.4vw, 4.25rem)`, ten sam co
+  podstrona senioralna — 68 px przy oknie 1440 zamiast wcześniejszych 52 px. Hasło ma
+  pięć wierszy i mieści się w ekranie (hero kończy się na 701 px przy oknie 900).
+  `Next step.` **zostaje**: właściciel zdjął je i tego samego dnia przywrócił;
+- **etykiety sekcji straciły poziomą kreskę.** Ta strona była jedynym miejscem
+  w serwisie, gdzie etykieta zamieniała się w siatkę `auto 1fr`, a pseudoelement
+  ciągnął linię 1 px do prawej krawędzi. Zdejmowanie jej połowicznie — najpierw
+  w hero — dało stronie dwa rodzaje etykiet naraz, więc kreska zniknęła wszędzie.
+  **Odstęp 32 px pod etykietami został**: tworzył go margines, nie kreska.
+
+**19.09.2026 — numery i kreski w „Co obejmuje kurs?".** Numery obszarów zeszły
+z drobnego stopnia etykiety na rejestr kroków (43 px, 40% krycia), a moduły
+dostały **poziomą kreskę u góry** i **straciły pionowe kreski** między kolumnami.
+Właściciel rozstrzygnął, że wyliczenia na kremowym tle mają w całym serwisie
+wyglądać tak samo. **Wyliczenia na innych tłach zostają nietknięte** — czarny pas
+„Jak pracujemy?" ma nadal własne, większe numery i kreski pionowe.
+
+**19.09.2026 — zastrzeżenie o wyniku egzaminu stoi w JEDNYM wierszu.** Polecenie
+właściciela. Zdanie potrzebuje 581 px, a `.exam-price__note` trzymał globalną miarę
+`--measure` (544 px), więc w drugim wierszu zostawało samo słowo `zależy.`. Miara
+podniesiona do `39rem` — to jednozdaniowy drobny druk, nie blok tekstu do czytania
+ciągiem, więc dłuższy wiersz niczego tu nie utrudnia. **Treść zastrzeżenia zostaje
+bez zmian**: §6 i `docs/COPY_DECK.md` zabraniają obiecywania wyniku, a test tego pilnuje.
+
+Pilnuje tego `tests/e2e/egzamin.spec.js`.
+
+### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
+
+Zatwierdzona **18.09.2026**. Tag: `zatwierdzone/seniorzy-podstrona` —
+**nie mylić z `zatwierdzone/seniorzy`**, który oznacza sekcję 10 strony
+głównej (D16). Z tego samego powodu zamek nazywa się
+`tests/e2e/oferta-seniorzy.spec.js`, a nie `seniorzy.spec.js`.
+
+**To jedyna z trzech sekcji zapisów, która MA przycisk** — i jest to decyzja
+merytoryczna, nie estetyczna: zapisów na te zajęcia **nie prowadzi High Five,
+tylko Terminal Kultury**. Wezwanie nie jest więc drugim „napisz do nas", tylko
+przejściem tam, gdzie decyzja faktycznie zapada.
+
+Co jest zamrożone — `oferta/seniorzy/index.html` i `src/css/pages/seniorzy.css`:
+
+- sekcja `#zapisy-seniorzy` zamyka `<main>` tuż nad stopką;
+- nagłówek `Zapisy prowadzi Terminal.` w jednym wierszu, lead w dwóch;
+- **jeden przycisk**, prowadzący na stronę Terminala Kultury w nowej karcie
+  z `rel="noopener noreferrer"`. Adres nie został wymyślony — to ten sam
+  odnośnik, który stoi wyżej na tej stronie. **Nie kieruj go na kontakt
+  High Five**: strona obiecywałaby zapisy, których nie przyjmuje;
+- pierwsza kolumna jest **tekstem, nie odnośnikiem** (`przez stronę Terminala
+Kultury Gocław`) — w sprawie zapisów ma być jeden cel kliknięcia;
+- **w sekcji nie ma adresu e-mail.** Ogólny adres serwisu stoi dalej w stopce;
+- wezwanie w nagłówku brzmi **`Zapytaj o zajęcia`**, nie `Zapytaj o miejsce`:
+  obietnica miejsca była mocniejsza, niż ta strona może dowieźć;
+- w hero **nie ma** wezwania — stało tam `Zapytaj o miejsce` prowadzące na
+  `/#kontakt`, czyli do High Five.
+
+**Kadr hero podmieniony 18.09.2026** — nowe źródło `sections/seniors-class-1448.png`
+dostarczył właściciel. Te same wymiary 1448×1086 (4:3), więc `width`/`height` w HTML
+i geometria strony zostają bez zmian. **Pełna klatka 4:3 jest celowa:** na telefonie
+pas ma dokładnie tę proporcję i pokazuje ją w całości, a na desktopie pudełko ma
+702×736 px i `object-fit: cover` zabiera po ~14% szerokości z każdej strony. Plik
+przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i dołu.
+
+**Zmiany z 19.09.2026, wszystkie na polecenie właściciela:**
+
+- **sekcja „Szczegóły · Zajęcia w liczbach" przebudowana.** Metryka mówi dziś
+  `Prowadzi · Dostępne grupy · Koszt` zamiast `Prowadzi · Poziom · Koszt`,
+  bo oferta ma trzy grupy, a nie jedną początkującą; koszt podany z jednostką
+  `45 zł / 60 min` zgodnie z §3. Pod metryką stoi **pełna rozpiska trzech
+  poziomów**, która zeszła tu ze strony głównej (D16);
+- **poziomy NIE są kartami.** Projekt referencyjny obrysowywał je zaokrąglonym
+  prostokątem i przez chwilę tak stało — właściciel cofnął to tego samego dnia.
+  Została sama kreska u góry, jak w krokach i kolumnach reszty serwisu (§7, §8);
+- **numery poziomów są duże i przygaszone** (40% krycia), w rejestrze kroków
+  z `/oferta/dzieci/`, a nie małe i granatowe;
+- **zdanie o rozliczeniu miesięcznym zostało zdjęte.** Zasady organizacyjne
+  prowadzi Terminal i to jego strona ma być ich źródłem. Ten fakt z §3 nie stoi
+  już nigdzie w serwisie — jeśli ma wrócić, to na `/cennik/`;
+- **wezwanie do Terminala przeniesione w prawy dolny róg sekcji zapisów**,
+  na wspólną linię z przypisem. Układ żyje w warstwie strony, bo to jedyna
+  z sekcji zapisów, która ma przycisk;
+- **przycisk „Zobacz jak dojechać" na czarnym wariancie** `cta--ink`. To było
+  ostatnie wystąpienie obrysowego `cta--ghost` w całym serwisie;
+- **odstępy nad blokami z kreskami** — ta sama martwa klasa `u-mt-8` co na
+  pozostałych podstronach, poprawiona w czterech miejscach na tej stronie;
+- **lead hero mówi `dla osób dorosłych`**, nie `dla osób 60+`. Brzmienie podał
+  właściciel; to ostatnie miejsce, w którym stał próg wiekowy zakazany przez D16.
+  **Nie zastępuj tego zwrotem `dla seniorów`** — nazwa oferty stoi wiersz wyżej,
+  w nagłówku strony.
+
+Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
+
+### D21 — podstrona `/polityka-prywatnosci/` jest zamknięta
+
+Zatwierdzona **19.09.2026**. Szczegóły decyzji: **ADR 0011**.
+
+**Treść jest dokumentem prawnym, nie copy.** Pochodzi co do słowa
+z `Polityka_prywatnosci_High_Five_v1.0.pdf`. Nie skracaj jej, nie parafrazuj
+i nie poprawiaj stylistycznie — nawet tam, gdzie brzmi nietypowo (wtrącenia mają
+w źródle dywiz zamiast półpauzy; zostawiamy). **Zmiana treści na stronie oznacza
+zmianę dokumentu źródłowego, nie odwrotnie.**
+
+Co jest zamrożone — `polityka-prywatnosci/index.html`, blok `.policy*`
+w `components/page-sections.css` i `src/js/modules/policy-toc.js`:
+
+- **osiemnaście sekcji** z numerem w tytule (`1. Kto jest administratorem danych?`).
+  Nad nagłówkiem **nie stoi drugi, drobny numer** — właściciel kazał go zdjąć jako
+  powtórzenie;
+- **spis treści jest nawigatorem, nie listą w pudełku:** zero ramki, tła i poziomych
+  kresek między pozycjami. Porządek niesie **pionowa oś** z drobnymi punktami
+  podziałki, a czytana sekcja zapala na niej **czerwony odcinek 3 px**. Dwa piksele
+  czytały się jak pogrubiona kreska osi, a nie jak kolor;
+- **etykieta `SPIS TREŚCI` nie przewija się razem z listą** — przewijanie siedzi
+  na `.policy-toc__nav`, nie na całym spisie. Suwak jest ukryty, ale działa;
+- rejestr dokumentu jest **cichszy niż reszta serwisu**: tekst 17 px / 1.65,
+  nagłówek rozdziału 28 px, śródtytuł 21 px, kolumna czytania 1120 px.
+
+Trzy pułapki zapisane w kodzie, żeby nikt ich nie powtórzył:
+
+1. Globalna reguła `p:not([class])` z `base/typography.css` narzuca akapitom
+   `--measure`, czyli 544 px. Dla dokumentu czytanego ciągiem to o połowę za wąsko —
+   stąd jawne `max-inline-size: none` w warstwie strony.
+2. Reset `ul[class]` zeruje punktory i wcięcie, a ma **wyższą specyficzność**
+   niż sama klasa. Wyliczenia czytały się przez to jak luźne akapity; selektor
+   musi brać nazwę elementu (`ul.policy__list`).
+3. Znacznik czytanej sekcji **nie może pozycjonować się przez `offsetTop`** —
+   ten odnosi się do najbliższego przodka z `position`, a każda pozycja listy jest
+   `relative`. Wychodziły stałe 2 px zamiast kilkuset. Liczymy względem obszaru
+   przewijania.
+
+**Spis sam dosuwa czytaną pozycję do kadru** — przewijając `scrollTop` listy,
+nigdy przez `scrollIntoView`: tamto przesuwa każdego przewijalnego przodka, więc
+razem ze spisem skakałaby cała strona.
+
+**Strona nie ma wezwania w nagłówku** (`CTA: null` w `src/data/offers.mjs`).
+W pasku zostaje po nim pusta przegrodka o szerokości przycisku — bez niej
+`space-between` odsyła menu o 463 px na prawy skraj.
 
 ### D2 — mechanika i konsekwencje
 
@@ -414,6 +1246,12 @@ i `<a href="mailto:…">`, bo awaria JS nie może ukryć jedynej drogi kontaktu.
 rozwinięcie po kliknięciu istnieje wyłącznie jako mikrointerakcja **nad treścią już obecną
 w dokumencie**. `mailto:` dostaje gotowy `subject` i szkic `body` (imię rodzica, klasa dziecka,
 preferowany kontakt) — to przenosi wartość utraconego formularza bez żadnego backendu.
+
+**Wyjątek — telefon w sekcji `#kontakt`.** Na polecenie właściciela numer stoi tam jako zwykły
+tekst, nie odnośnik: na desktopie `tel:` niczego sensownego nie robi, a wygląda jak link do
+kliknięcia. **Klikalny `tel:` zostaje w stopce, na wszystkich dziewięciu stronach**, więc
+dotknięcie numeru na telefonie nadal dzwoni, a wymóg „droga kontaktu dostępna bez JavaScriptu"
+jest spełniony. Pilnują tego testy w `tests/smoke/page.spec.js` i `tests/e2e/kontakt.spec.js`.
 
 - **GitHub Pages nie ma warstwy serwerowej i nie wyśle poczty.** Serwuje wyłącznie
   `Last-Modified`, `ETag`, `expires`, `Cache-Control: max-age=600`. Samo podanie adresu w kodzie
@@ -448,6 +1286,11 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Brzmienie primary CTA — ADR 0006                | Odstępstwo polecone przez właściciela: `Zapisz się na zajęcia` zamiast `Zgłoś dziecko do grupy` z master promptu §7. Czasownik „zgłosić” niosł skojarzenie ze zgłoszeniem na policję. Funkcja, cel `#kontakt` i kolor sygnałowy bez zmian, więc zakaz miękkich CTA nadal obowiązuje. **BIZ-007 formalnie naruszone** — w raporcie odbioru jako odstępstwo, nie PASS                                                                                                        |
 | Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                          |
 | Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                           |
+| Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                         |
+| Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                            |
+| Polityka prywatności — ADR 0011                 | Dziesiąty adres serwisu, zlecony przez właściciela. Pełna treść jako HTML, PDF tylko do pobrania. Treść co do słowa z dokumentu właściciela — **zmiana danych na stronie oznacza zmianę PDF-a, nie odwrotnie**. Jeden widoczny odnośnik: stopka, kolumna `Informacje`, pod `Kontakt`                                                                                                                                                                                       |
+| Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                   |
+| Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                    |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
 
 ## 17. Kryteria odbioru
@@ -477,6 +1320,80 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 - **Nie commituj:** `dist/`, `node_modules/`, `.env`, `instructions/`, raportów testów.
 - **Nie dodawaj sekretów** do repo, bundle, `VITE_*` ani publicznego HTML.
 - **Nie osłabiaj primary CTA** — żadnego „Sprawdź poziom”, „Umów konsultację”, „Trial”. Obowiązuje brzmienie `Zapisz się na zajęcia` (ADR 0006); dalsza zmiana wymaga decyzji właściciela.
+- **Nie zmieniaj sekcji i stron zamkniętych. Na stronie głównej zamknięte jest dziś
+  wszystko poza sekcją 11 FAQ: 01 hero, 02 po lekcjach, 03 co dziecko zyskuje,
+  04 nasza oferta, 05 o High Five, 06 jak uczymy, 07 cennik · klasy 1-7, 08 nabór 2026,
+  09 lokalizacje, 10 seniorzy, 12 kontakt. Zamknięte są też całe podstrony
+  `/cennik/`, `/oferta/dzieci/`, `/oferta/egzamin-osmoklasisty/`,
+  `/oferta/seniorzy/` i `/polityka-prywatnosci/`** — patrz D7–D21 w §15. Dotyczy to również zmian
+  pośrednich: tokenów, od których te sekcje zależą, i reguł globalnych, które na nie
+  wpływają. Po każdej zmianie w pozostałych sekcjach uruchom:
+
+  ```
+  npx playwright test tests/e2e/hero.spec.js tests/e2e/po-lekcjach.spec.js tests/e2e/korzysci.spec.js tests/e2e/oferta-metoda.spec.js tests/e2e/o-high-five.spec.js tests/e2e/pricing.spec.js tests/e2e/nabor.spec.js tests/e2e/lokalizacja.spec.js tests/e2e/seniorzy.spec.js tests/e2e/kontakt.spec.js tests/e2e/cennik.spec.js tests/e2e/dzieci.spec.js tests/e2e/egzamin.spec.js tests/e2e/oferta-seniorzy.spec.js --project=desktop-chromium
+  ```
+
+  To około minuty i jedyna rzecz, która wyłapie zmianę pośrednią.
+
+- **Otwarta pozostaje na stronie głównej tylko sekcja 11 FAQ** oraz podstrony
+  `/oferta/`, `/oferta/online/`, `/lokalizacje/` i `/kariera/`. Przy pracy nad nimi
+  uważaj na `--step-display`: niesie nagłówki sekcji 11 i 12, a dwunastka jest
+  zamknięta. Uważaj też na warianty `.cta`: `cta--ink` niesie hero (D7), wezwanie
+  w sekcji 09 (D15), wezwanie na `/cennik/` (D17), przycisk do Terminala (D20),
+  oba wezwania na `/lokalizacje/` i wezwanie do lokalizacji na `/oferta/dzieci/`
+  (D18). **Obrysowy `cta--ghost` stoi już tylko na `/oferta/seniorzy/`** — ostatnie
+  wystąpienie po zmianach z 18.09.2026. Zdjęcie go stamtąd zostawiłoby serwisowi
+  jeden język przycisków, ale to decyzja właściciela, nie porządki.
+
+- **`u-mt-8` w HTML NIE ISTNIEJE w żadnym arkuszu.** Klasa stoi w jedenastu miejscach
+  na sześciu stronach i miała dawać margines u góry — nigdy nie powstała, więc bloki,
+  które ją noszą, przylegają do poprzedzającego tekstu. Właściciel zgłosił to jako
+  usterkę na `/oferta/dzieci/` i `/oferta/online/`; tam odstęp dołożyły reguły
+  zakotwiczone w `[data-page='…']`. **Nie ożywiaj tej klasy globalnie bez decyzji** —
+  ruszyłaby także sekcję 04 strony głównej (D10) i strony `/kariera/`,
+  `/oferta/seniorzy/`, `/oferta/egzamin-osmoklasisty/`, których nikt o to nie prosił.
+
+- **Nowy plik w `src/css/` dodawaj PRZED dopisaniem go do `main.css`.** Odwrotna
+  kolejność wywraca serwer deweloperski: `postcss-import` zapamiętuje brak pliku
+  i oddaje 500 na cały arkusz aż do restartu — strony lecą wtedy zupełnie bez stylów,
+  mimo że build produkcyjny przechodzi. To już się zdarzyło 18.09.2026. Z tego powodu
+  reguły podstrony `/oferta/online/` stoją dziś na końcu `components/page-sections.css`,
+  zakotwiczone w `[data-page='online']`; przy najbliższym restarcie serwera można je
+  przenieść do `pages/online.css` bez żadnej zmiany treści.
+
+- **Mapa `CTA` w `src/data/offers.mjs` jest kluczowana ścieżką pliku.** Zmieniając cel
+  albo etykietę wezwania dla jednej strony, zmieniasz jej jeden wpis — nigdy wartości
+  domyślnej i nigdy kotwicy wpisanej na sztywno w partialu nagłówka. Trzy podstrony
+  ofertowe (D18, D19, D20) celują w kotwice u siebie, pozostałe strony
+  w `/#kontakt` albo `#aplikacja`.
+
+  **Wpis `null` zdejmuje wezwanie z nagłówka.** Korzysta z tego wyłącznie
+  `/polityka-prywatnosci/` (D21): `htmlPartials` usuwa wtedy blok w szufladzie
+  i zastępuje go w pasku pustą przegrodką o szerokości przycisku. Przegrodka jest
+  konieczna — pasek rozkłada dzieci przez `space-between`, więc bez trzeciego
+  elementu menu odjeżdża o 463 px na prawy skraj. Nie ukrywaj przycisku stylem:
+  schowany przez CSS zostaje w kolejności focusu i czytnik ekranu go zapowiada.
+
+- **`src/css/components/enroll.css` obsługuje PIĘĆ stron naraz** — czerwony akt
+  zapisów na czterech podstronach ofertowych oraz, od 19.09.2026, sekcje
+  kontaktowe na `/oferta/online/` (czerwień) i `/kariera/` (też czerwień, po
+  zmianie zdania właściciela: czarna sekcja zlewała się z czarną stopką).
+  Po każdej zmianie w tym pliku uruchom `dzieci.spec.js`, `egzamin.spec.js`,
+  `oferta-seniorzy.spec.js` i `online.spec.js`.
+
+  **Sekcje kontaktowe na `/oferta/online/` i `/kariera/` NIE MAJĄ przycisku** —
+  ten sam warunek co na trzech podstronach ofertowych. Na karierze zniknął przy
+  tym szkic maila rekrutacyjnego (`subject=Rekrutacja` z polami do wypełnienia);
+  czego oczekujemy w zgłoszeniu, mówi dziś lead sekcji.
+
+  Komponent trzyma **strukturę i rytm**; warstwy stron wyłącznie **skalę typografii**.
+  Odstępów nie ustawiaj w warstwie strony — wzorcem jest podstrona egzaminacyjna (D19),
+  a równości pilnuje osobny test porównujący trzy strony. Stopnie pisma **mają** się
+  różnić i nie wolno ich ujednolicać.
+
+- **Podmiana odnośnika jest jedyną zmianą dopuszczoną w `/cennik/`** bez pytania —
+  gdy zmieni się adres podstrony ofertowej. Poprawiasz wtedy `href` i asercję w teście.
+
 - **Nie dopisuj faktów** poza listą z §3. Brak → `docs/CONTENT_GAPS.md`.
 - **Nie twórz kolejnych podstron** bez zlecenia. Istniejące cztery adresy opisuje ADR 0007.
 - **Nie dodawaj CMS, panelu administracyjnego, frameworka SPA ani zależności runtime** bez ADR

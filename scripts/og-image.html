@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Szablon og:image</title>
+
+    <!--
+      SZABLON GLOBALNEJ GRAFIKI OPEN GRAPH — 1200 x 630 px.
+
+      Nie jest to strona serwisu i nigdy nie trafia do `dist/`. Renderuje ja
+      `scripts/make-og-image.mjs` w przegladarce Playwrighta i zapisuje wynik
+      do `public/social/`. Dzieki temu obrazek uzywa DOKLADNIE tych samych
+      krojow i kolorow co strona - zamiast byc skladany osobno w grafice
+      i rozjezdzac sie z marka przy kazdej zmianie.
+
+      Uklad odwzorowuje projekt wlasciciela z 19.09.2026: kremowa gora
+      z dwuwierszowym haslem i wierszem oferty, czarny pas na dole
+      z wordmarkiem po lewej i adresem po prawej. Zero zdjec, ikon,
+      gradientow, cieni i ozdobnikow - czysta typografia (par. 7 i par. 8).
+
+      Teksty przychodza z parametrow skryptu, zeby dalo sie wygenerowac
+      warianty bez dotykania tego pliku. Domyslne wartosci sa w generatorze.
+    -->
+
+    <style>
+      @font-face {
+        font-family: 'Inter Display';
+        src: url('__FONT_DISPLAY__') format('woff2');
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+      }
+
+      @font-face {
+        font-family: Inter;
+        src: url('__FONT_TEXT__') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: block;
+      }
+
+      /* Te same wartosci co w `src/css/base/variables.css`. */
+      :root {
+        --paper: #f2efe8;
+        --ink: #0a0a0a;
+        --signal: #f23b2f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        inline-size: 1200px;
+        block-size: 630px;
+        overflow: hidden;
+      }
+
+      body {
+        display: grid;
+
+        /*
+         * Podzial 72 / 28. Czarny pas ma 176 px - tyle, zeby wordmark mial
+         * skale podpisu marki, a nie drugiego naglowka.
+         */
+        grid-template-rows: 1fr 176px;
+        background-color: var(--paper);
+        color: var(--ink);
+      }
+
+      /* --- Kremowa gora --- */
+
+      .gora {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 16px;
+
+        /*
+         * Margines bezpieczny: podglady Open Graph bywaja kadrowane, wiec
+         * zaden istotny element nie stoi blizej niz 60 px od krawedzi.
+         */
+        padding-inline: 60px;
+
+        /*
+         * Blok siedzi PRZY DOLNEJ krawedzi kremowej czesci, nie na jej osi.
+         * Na projekcie wiersz oferty jest blisko czarnego pasa, a cale powietrze
+         * zbiera sie nad naglowkiem - to ono daje kompozycji oddech.
+         */
+        padding-block-end: 56px;
+      }
+
+      .haslo {
+        font-family: 'Inter Display', sans-serif;
+        font-weight: 800;
+        font-size: 120px;
+
+        /*
+         * Bardzo zwarta interlinia: dwa wiersze maja czytac sie jak JEDEN
+         * komunikat, a nie jak dwa zdania postawione obok siebie.
+         */
+        line-height: 0.94;
+        letter-spacing: -0.035em;
+        text-transform: uppercase;
+      }
+
+      /* Druga linia w czerwieni marki - jedyny akcent koloru w typografii. */
+      .haslo__akcent {
+        display: block;
+        color: var(--signal);
+      }
+
+      /* --- Wiersz oferty --- */
+
+      .oferta {
+        display: flex;
+        align-items: baseline;
+        gap: 22px;
+        font-family: Inter, sans-serif;
+        font-weight: 500;
+        font-size: 36px;
+        letter-spacing: 0.01em;
+      }
+
+      /*
+       * Nazwy MALA LITERA - tak jak w projekcie. To nie sa nazwy wlasne,
+       * tylko wyliczenie odbiorcow.
+       */
+      .oferta__pozycja {
+        text-transform: lowercase;
+      }
+
+      /* Separator, nie tresc - stad `aria-hidden` w znaczniku. */
+      .oferta__kropka {
+        color: var(--signal);
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      /* --- Czarny pas --- */
+
+      .pas {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 60px;
+        background-color: var(--ink);
+        color: var(--paper);
+      }
+
+      /*
+       * Wordmark jest MNIEJSZY od hasla u gory. To podpis marki w stopce
+       * kompozycji, nie drugi naglowek - hierarchia z projektu.
+       */
+      .wordmark {
+        font-family: 'Inter Display', sans-serif;
+
+        /*
+         * 800 to NAJCIEZSZA waga, jaka serwis self-hostuje. Wlasciciel prosil
+         * o mocniejszy wordmark 19.09.2026 - skoro grubosci nie da sie dolozyc
+         * bez nowego pliku kroju, rosnie stopien: 80 -> 92 px.
+         */
+        font-weight: 800;
+        font-size: 92px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+      }
+
+      .www {
+        font-family: Inter, sans-serif;
+        font-weight: 500;
+        font-size: 34px;
+        letter-spacing: 0.01em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="gora">
+      <h1 class="haslo">
+        __HASLO_1__
+        <span class="haslo__akcent">__HASLO_2__</span>
+      </h1>
+
+      <p class="oferta">__OFERTA__</p>
+    </div>
+
+    <div class="pas">
+      <p class="wordmark">__WORDMARK__</p>
+      <p class="www">__WWW__</p>
+    </div>
+  </body>
+</html>

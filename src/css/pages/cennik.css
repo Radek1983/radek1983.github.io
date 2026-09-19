@@ -1,0 +1,545 @@
+/*
+ * /cennik/ — warstwa WYŁĄCZNIE tej podstrony.
+ *
+ * Każdy selektor jest zakotwiczony w `[data-page='cennik']`, który stoi
+ * na <body> tylko tutaj. To nie ostrożność na wyrost: `.section`,
+ * `.page-hero`, `.closing` i `.cta` żyją w komponentach współdzielonych
+ * przez cały serwis, a `[data-theme]` niesie motywy wszystkich sekcji.
+ * Bez tego kotwiczenia dopracowanie cennika przestawiłoby resztę.
+ *
+ * Kierunek przepisany z projektu referencyjnego właściciela. Jego istotą
+ * jest PEŁNA paleta marki użyta jako sekwencja aktów - beż, granat, czerń,
+ * czerwień - i bardzo rozstrzelona skala typografii: ogromne ceny, duże
+ * nagłówki, drobne teksty pomocnicze. Zero ikon, zero zaokrągleń, zero
+ * cieni, zero kart: par. 7 i par. 8 kontraktu.
+ *
+ * Prawa kolumna hero - etykieta, krótka kreska i hasło marki z czerwoną
+ * kropką - jest odwzorowana z projektu razem z treścią. Pierwsza wersja jej
+ * nie miała, bo brief przebudowy mówił "bez dodatkowego marketingowego
+ * tekstu"; właściciel obejrzał efekt i polecił odtworzyć tę część 1:1.
+ *
+ * Czego z projektu NIE przenieśliśmy: stopki. Obecna jest zatwierdzona
+ * i wspólna dla całego serwisu.
+ */
+
+/* ============================================================
+   Wspólne tokeny strony
+   ============================================================ */
+
+[data-page='cennik'] {
+  /*
+   * Stopień nagłówków sekcyjnych. WŁASNY, nie --step-display: tamten niesie
+   * nagłówki sekcji 11 i 12 strony głównej, a dwunastka jest zamknięta (D13).
+   */
+  --step-cennik-title: clamp(2rem, 4.2vw, 4.25rem);
+
+  /*
+   * Stopień DWÓCH haseł otwierających: nagłówka strony i nagłówka sekcji 01.
+   * Właściciel chce, żeby były tej samej wielkości - biorą więc wartość
+   * z JEDNEGO miejsca, a nie z dwóch clampów ustawianych równolegle.
+   * Zmiana tokenu przesuwa oba i relacja zostaje.
+   */
+  --step-cennik-claim: clamp(1.75rem, 4.55vw, 4.625rem);
+
+  /* Rynna między kolumnami. Trzyma też pozycję włosowych kresek. */
+  --space-cennik-col: clamp(2rem, 3.6vw, 3.75rem);
+
+  /* Odstępy pasa hero. */
+  --space-cennik-hero-start: clamp(2rem, 4vw, 4rem);
+  --space-cennik-hero-end: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+
+/*
+ * Kreska dzieląca kolumny jest PSEUDOELEMENTEM w połowie rynny, a nie
+ * obramowaniem z paddingiem. Obramowanie zabierałoby szerokość wszystkim
+ * kolumnom poza pierwszą i przestałyby być równorzędne.
+ */
+@media (width >= 62rem) {
+  [data-page='cennik'] .rates__tier + .rates__tier::before,
+  [data-page='cennik'] .rules__rule + .rules__rule::before,
+  [data-page='cennik'] .offers__offer + .offers__offer::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: calc(var(--space-cennik-col) / -2);
+    inline-size: 1px;
+    background-color: var(--color-rule);
+  }
+}
+
+/* ============================================================
+   01 HERO — sposób płatności
+   ============================================================ */
+
+[data-page='cennik'] .page-hero {
+  padding-block: var(--space-cennik-hero-start) var(--space-cennik-hero-end);
+  border-block-end: 1px solid var(--color-rule);
+}
+
+[data-page='cennik'] .rate-hero {
+  display: grid;
+  gap: var(--space-6);
+}
+
+[data-page='cennik'] .rate-hero__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+[data-page='cennik'] .rate-hero__title {
+  font-size: var(--step-cennik-claim);
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  max-inline-size: none;
+}
+
+[data-page='cennik'] .rate-hero__lead {
+  max-inline-size: 52ch;
+  font-size: clamp(1rem, 1.15vw, 1.1875rem);
+  line-height: 1.55;
+}
+
+/*
+ * Zdanie doprecyzowujące stoi pod leadem, w rejestrze cichszym niż on:
+ * to przypis do głównego komunikatu, nie drugi komunikat.
+ */
+[data-page='cennik'] .rate-hero__note {
+  max-inline-size: 46ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+}
+
+/* --- Prawa kolumna hero, odwzorowana z projektu --------------------------- */
+
+[data-page='cennik'] .rate-hero__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/*
+ * Trzy słowa w rejestrze etykiety: wersaliki kroju display, ale w stopniu
+ * tekstowym i wyciszonym kolorze. Mają zapowiadać hasło, nie konkurować
+ * z nim ani z nagłówkiem strony.
+ */
+[data-page='cennik'] .rate-hero__values {
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.5vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 46%, transparent);
+}
+
+/*
+ * Krótka kreska między etykietą a hasłem - znak typograficzny, nie separator
+ * sekcji, dlatego jest grubsza i krótsza niż włosowe kreski reszty strony.
+ *
+ * `margin-inline: 0` NIE jest nadmiarowe: przeglądarka daje elementowi <hr>
+ * `margin-inline: auto`, więc bez tego kreska ustawiała się na środku kolumny
+ * zamiast równo z lewą krawędzią liter.
+ */
+[data-page='cennik'] .rate-hero__dash {
+  border: 0;
+  margin-block: clamp(0.625rem, 0.85vw, 0.875rem);
+  margin-inline: 0;
+  inline-size: 2.25rem;
+  block-size: 3px;
+  background-color: var(--color-text);
+}
+
+/*
+ * Hasło marki. Stopień liczony tak, żeby najdłuższy wiersz - "z High Five." -
+ * wypełniał prawą kolumnę, dokładnie jak na projekcie. Dlatego własna
+ * wartość, a nie --step-cennik-claim: tamten jest liczony pod szerokość
+ * kolumny lewej, czyli dwa razy szerszą.
+ */
+[data-page='cennik'] .rate-hero__claim {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 5.35vw, 4.8rem);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+/* Kropka to jedyny akcent koloru w hero. */
+[data-page='cennik'] .rate-hero__dot {
+  color: var(--color-signal);
+}
+
+@media (width >= 62rem) {
+  /*
+   * Dwa wiersze, nie jeden: etykieta na pełną szerokość, pod nią kolumna
+   * tekstu i kolumna hasła.
+   *
+   * Ten podział jest tu po to, żeby PIONOWA KRAWĘDŹ zaczynała się dokładnie
+   * przy pierwszym wierszu nagłówka i kończyła na ostatnim wierszu przypisu -
+   * a nie dotykała poziomych krawędzi pasa. Krawędź jest obramowaniem prawej
+   * kolumny, więc jej długość wynika z wysokości wiersza siatki; przy
+   * `align-items: stretch` (domyślne) to dokładnie wysokość lewej kolumny,
+   * bo ta jest wyższa.
+   */
+  [data-page='cennik'] .rate-hero {
+    grid-template-columns: 1.6fr 1fr;
+    gap: var(--space-6) var(--space-cennik-col);
+  }
+
+  [data-page='cennik'] .rate-hero__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  [data-page='cennik'] .rate-hero__aside {
+    padding-inline-start: var(--space-cennik-col);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+}
+
+/* ============================================================
+   02 KLASY 1-7 — dwie stawki i warunek startu
+   ============================================================ */
+
+[data-page='cennik'] .rates {
+  padding-block: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+
+[data-page='cennik'] .section__head {
+  gap: var(--space-4);
+  margin-block-end: clamp(2rem, 3.2vw, 3.25rem);
+}
+
+/*
+ * Sekcja 01 ma odstęp o TRZECIĄ mniejszy niż pozostałe.
+ *
+ * Jej nagłówek stoi w dwóch wierszach, a pod nim od razu idą liczby
+ * w stopniu dwukrotnie większym od wszystkiego dookoła - przy wspólnym
+ * odstępie napis i ceny czytały się jak dwa osobne moduły zamiast jednego.
+ * Wartość to dokładnie dwie trzecie wartości wspólnej, nie liczba dobrana
+ * na oko: każdy człon clamp() jest przemnożony przez 2/3, więc proporcja
+ * zostaje na całej szerokości ekranów.
+ */
+[data-page='cennik'] .rates .section__head {
+  margin-block-end: clamp(1.333rem, 2.13vw, 2.167rem);
+}
+
+[data-page='cennik'] .rates__title,
+[data-page='cennik'] .rules__title,
+[data-page='cennik'] .offers__title {
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+}
+
+[data-page='cennik'] .rules__title,
+[data-page='cennik'] .offers__title {
+  font-size: var(--step-cennik-title);
+}
+
+/* Haslo sekcji 01 stoi w tym samym rejestrze co naglowek strony. */
+[data-page='cennik'] .rates__title {
+  font-size: var(--step-cennik-claim);
+}
+
+[data-page='cennik'] .rates__grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+[data-page='cennik'] .rates__tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/*
+ * Cena: liczba i jednostka w jednym wierszu, ale jednostka złożona pionowo
+ * i wyraźnie podporządkowana. `align-items: baseline` ustawia "zł" na
+ * wysokości wersalika liczby - to detal wprost z projektu.
+ */
+[data-page='cennik'] .rates__price {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin: 0;
+}
+
+[data-page='cennik'] .rates__figure {
+  font-family: var(--font-display);
+  font-size: clamp(3.75rem, 8.4vw, 8.25rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+
+/* Jedyny akcent czerwieni w typografii cennika - stawka podstawowa. */
+[data-page='cennik'] .rates__price--accent .rates__figure {
+  color: var(--color-signal);
+}
+
+[data-page='cennik'] .rates__unit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+[data-page='cennik'] .rates__currency {
+  font-size: clamp(1.125rem, 1.7vw, 1.75rem);
+}
+
+[data-page='cennik'] .rates__per {
+  font-size: clamp(1rem, 1.45vw, 1.5rem);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+/*
+ * BEZ KRESKI nad podpisem - polecenie wlasciciela z 19.09.2026, to samo
+ * co w sekcji 07 strony glownej (D12).
+ *
+ * Linia dzielila cene i jej opis na dwa bloki, wiec panel czytal sie jak
+ * tabela, a nie jak plakat. Odstep 16 px ZOSTAJE: to on trzyma podpis pod
+ * cyfra, nie kreska, wiec geometria sekcji sie nie rusza.
+ */
+[data-page='cennik'] .rates__caption {
+  max-inline-size: 28ch;
+  padding-block-start: var(--space-4);
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
+}
+
+[data-page='cennik'] .rates__condition-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+[data-page='cennik'] .rates__condition-copy {
+  max-inline-size: 30ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+[data-page='cennik'] .rates__more {
+  margin-block-start: clamp(2rem, 3vw, 3rem);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+@media (width >= 62rem) {
+  [data-page='cennik'] .rates__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: var(--space-cennik-col);
+    align-items: start;
+  }
+
+  /*
+   * Kolumna warunku startu dostaje odstęp od góry, żeby jej tytuł stanął
+   * mniej więcej na osi wersalików obu liczb, a nie nad nimi.
+   */
+  [data-page='cennik'] .rates__tier--condition {
+    padding-block-start: var(--space-2);
+  }
+}
+
+/* ============================================================
+   03 ZASADY ROZLICZEŃ — granatowy akt
+   ============================================================ */
+
+[data-page='cennik'] .rules {
+  padding-block: clamp(2.75rem, 5vw, 5rem);
+}
+
+[data-page='cennik'] .rules__grid {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-page='cennik'] .rules__rule {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/*
+ * Numeracja jest DUŻA, ale wyciszona: buduje sekwencję, nie konkuruje
+ * z tytułem zasady. Żadna z trzech zasad nie jest ważniejsza.
+ */
+[data-page='cennik'] .rules__number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+[data-page='cennik'] .rules__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1.35vw, 1.375rem);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+[data-page='cennik'] .rules__copy {
+  max-inline-size: 34ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-text) 86%, transparent);
+}
+
+@media (width >= 62rem) {
+  [data-page='cennik'] .rules__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-cennik-col);
+  }
+}
+
+/* ============================================================
+   04 POZOSTAŁE ZAJĘCIA — czarny akt
+   ============================================================ */
+
+[data-page='cennik'] .offers {
+  padding-block: clamp(2.75rem, 5vw, 5rem);
+}
+
+[data-page='cennik'] .offers__grid {
+  display: grid;
+  gap: var(--space-8);
+  padding-block-start: clamp(1.5rem, 2.2vw, 2.25rem);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+[data-page='cennik'] .offers__offer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+/*
+ * Nazwa oferty jest MNIEJSZA od ceny - to cena jest tu bohaterem. Krój
+ * tekstowy, nie display: inaczej nazwa zaczynała rywalizować z liczbą.
+ */
+[data-page='cennik'] .offers__name {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+[data-page='cennik'] .offers__price {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin: 0;
+}
+
+[data-page='cennik'] .offers__figure {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.05vw, 3.875rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+[data-page='cennik'] .offers__unit {
+  display: flex;
+  gap: 0.35em;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+[data-page='cennik'] .offers__currency {
+  font-size: clamp(1.375rem, 2.3vw, 2.25rem);
+}
+
+[data-page='cennik'] .offers__per {
+  font-size: clamp(0.9375rem, 1.2vw, 1.1875rem);
+  color: color-mix(in srgb, var(--color-text) 66%, transparent);
+}
+
+[data-page='cennik'] .offers__copy {
+  max-inline-size: 32ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
+}
+
+[data-page='cennik'] .offers__note {
+  max-inline-size: 32ch;
+  font-size: clamp(0.8125rem, 0.92vw, 0.9375rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 58%, transparent);
+}
+
+[data-page='cennik'] .offers__more {
+  margin-block-start: var(--space-2);
+}
+
+/* Jedno zdanie wspólne dla trzech ofert - nie powtórka zasad rozliczeń. */
+[data-page='cennik'] .offers__footnote {
+  margin-block-start: clamp(1.75rem, 2.8vw, 2.75rem);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+  font-size: clamp(0.875rem, 0.98vw, 1rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+}
+
+@media (width >= 62rem) {
+  [data-page='cennik'] .offers__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-cennik-col);
+  }
+}
+
+/* ============================================================
+   05 WEZWANIE — czerwony akt tuż nad stopką
+   ============================================================ */
+
+[data-page='cennik'] .rate-cta {
+  padding-block: clamp(2.25rem, 3.6vw, 3.75rem);
+}
+
+[data-page='cennik'] .rate-cta__grid {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+[data-page='cennik'] .rate-cta__title {
+  font-size: clamp(1.875rem, 3.6vw, 3.5rem);
+}
+
+[data-page='cennik'] .rate-cta__lead {
+  max-inline-size: 36ch;
+  font-size: clamp(1rem, 1.15vw, 1.1875rem);
+  line-height: 1.5;
+}
+
+@media (width >= 62rem) {
+  [data-page='cennik'] .rate-cta__grid {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-cennik-col);
+  }
+
+  [data-page='cennik'] .rate-cta__lead {
+    padding-inline-start: var(--space-cennik-col);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+}

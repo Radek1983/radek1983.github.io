@@ -11,17 +11,45 @@
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
-    <link rel="canonical" href="https://radek1983.github.io/oferta/" />
+    <link rel="canonical" href="https://www.highfive.academy/oferta/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/oferta/" />
+    <meta property="og:url" content="https://www.highfive.academy/oferta/" />
     <meta property="og:title" content="Oferta kursów języka angielskiego | High Five Warszawa" />
     <meta
       property="og:description"
       content="Cztery rodzaje zajęć z angielskiego: dla dzieci z klas 1-7, kurs egzaminacyjny dla klasy 8, zajęcia dla seniorów i lekcje indywidualne online."
     />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych. Przy przeprowadzce na wlasna domene zmienia sie
+      razem z canonical - obie wartosci stoja w tym samym naglowku.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Oferta kursów języka angielskiego | High Five Warszawa" />
+    <meta
+      name="twitter:description"
+      content="Cztery rodzaje zajęć z angielskiego: dla dzieci z klas 1-7, kurs egzaminacyjny dla klasy 8, zajęcia dla seniorów i lekcje indywidualne online."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -38,7 +66,7 @@
   </head>
 
   <body data-section="oferta">
-    <a class="skip-link" href="#main">Przejdź do treści</a>
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
 
     <!--#include partials/header.html -->
 
@@ -56,8 +84,8 @@
             </h1>
 
             <p class="u-lead page-hero__lead" data-animation="fade-up">
-              Dla dzieci, ósmoklasistów, seniorów i osób, które wolą naukę 1:1. Cztery różne
-              potrzeby. Jedno podejście: praktycznie, skutecznie i bez zbędnego stresu.
+              Dla&nbsp;dzieci, ósmoklasistów, seniorów i&nbsp;osób, które wolą naukę 1:1. Cztery
+              różne potrzeby. Jedno podejście: praktycznie, skutecznie i&nbsp;bez zbędnego stresu.
             </p>
           </div>
         </div>
@@ -78,11 +106,11 @@
           <div class="offer-row__text">
             <p class="u-label">Dla dzieci</p>
             <h2 class="offer-row__title" id="oferta-dzieci" data-animation="fade-up">
-              Angielski dla klas 1-7.
+              Angielski dla&nbsp;klas 1-7.
             </h2>
             <p class="u-lead" data-animation="fade-up">
-              Angielski po lekcjach w SP 402. Małe grupy, dużo praktycznego języka i zajęcia
-              odbywające się w znanym dziecku miejscu.
+              Angielski po&nbsp;lekcjach w&nbsp;SP 402. Małe grupy, dużo praktycznego języka
+              i&nbsp;zajęcia odbywające się w&nbsp;znanym dziecku miejscu.
             </p>
             <a class="cta" href="/oferta/dzieci/" data-animation="fade-up">
               Zobacz zajęcia
@@ -110,8 +138,8 @@
               Egzamin ósmoklasisty.
             </h2>
             <p class="u-lead" data-animation="fade-up">
-              Systematyczne przygotowanie: powtórki, strategie egzaminacyjne i praca nad typowymi
-              zadaniami.
+              Systematyczne przygotowanie: powtórki, strategie egzaminacyjne i&nbsp;praca nad
+              typowymi zadaniami.
             </p>
             <a class="cta cta--ink" href="/oferta/egzamin-osmoklasisty/" data-animation="fade-up">
               Zobacz kurs
@@ -129,13 +157,13 @@
           <p class="offer-row__number" aria-hidden="true">03</p>
 
           <div class="offer-row__text">
-            <p class="u-label">60+</p>
+            <p class="u-label">Dla seniorów</p>
             <h2 class="offer-row__title" id="oferta-seniorzy" data-animation="fade-up">
-              Angielski dla seniorów.
+              Angielski dla&nbsp;seniorów.
             </h2>
             <p class="u-lead" data-animation="fade-up">
-              Kameralne zajęcia w Terminalu Kultury Gocław. Spokojne tempo, dużo rozmowy i
-              praktyczny język.
+              Kameralne zajęcia w&nbsp;Terminalu Kultury Gocław. Spokojne tempo, dużo rozmowy
+              i&nbsp;praktyczny język.
             </p>
             <a class="cta" href="/oferta/seniorzy/" data-animation="fade-up">
               Zobacz zajęcia
@@ -158,12 +186,13 @@
           <p class="offer-row__number" aria-hidden="true">04</p>
 
           <div class="offer-row__text">
-            <p class="u-label">1 na 1</p>
+            <p class="u-label">Online 1 na 1</p>
             <h2 class="offer-row__title" id="oferta-online" data-animation="fade-up">
               Indywidualnie online.
             </h2>
             <p class="u-lead" data-animation="fade-up">
-              Jeden uczeń, jeden lektor i plan zajęć dopasowany do poziomu, wieku i celu.
+              Jeden uczeń, jeden lektor i&nbsp;plan zajęć dopasowany do&nbsp;poziomu, wieku
+              i&nbsp;celu.
             </p>
             <a class="cta" href="/oferta/online/" data-animation="fade-up">
               Zobacz online
@@ -182,7 +211,7 @@
         aria-labelledby="oferta-dalej"
       >
         <div class="container closing__grid">
-          <h2 class="u-h2" id="oferta-dalej" data-animation="fade-up">Ceny i miejsca zajęć</h2>
+          <h2 class="u-h2" id="oferta-dalej" data-animation="fade-up">Ceny i&nbsp;miejsca zajęć</h2>
           <p class="mega__more" data-animation="fade-up">
             <a class="u-link" href="/cennik/">{{LINK_CENNIK}} →</a>
             <a class="u-link" href="/lokalizacje/">Zobacz lokalizacje →</a>

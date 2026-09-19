@@ -1,5 +1,5 @@
 /*
- * DODATKOWO — ANGIELSKI DLA SENIORÓW
+ * 10 DODATKOWO — ANGIELSKI DLA SENIORÓW, TERMINAL KULTURY GOCŁAW
  *
  * Sekcja swiadomie stoi POZA dziewiecioma aktami lejka dla rodzicow: inny
  * odbiorca, inne miejsce, inny model rozliczenia. Etykieta nie ma numeru aktu,
@@ -8,7 +8,31 @@
  * Motyw granatowy - brief przypisuje HF BLUE roli "alternatywnego aktu marki".
  * Sekcja stoi daleko od granatowego modulu klasy 8, wiec kolor nie powtarza sie
  * w polu widzenia.
+ *
+ * UKLAD (przebudowa 19.09.2026, na polecenie wlasciciela): siatka o dwoch
+ * wierszach. Gora to tekst po lewej i kadr Terminalu po prawej, dochodzacy
+ * do krawedzi okna; dol to wezwanie po lewej i dopisek o zapisach po prawej.
+ *
+ * Z tej sekcji zniknely TRZY KARTY POZIOMOW. Rozpiska grup zyje na
+ * /oferta/seniorzy/, a strona glowna ma byc zapowiedzia oferty, nie jej
+ * katalogiem - zostala z nich jedna linia "3 poziomy - od podstaw do
+ * sredniozaawansowanego". Nie przywracaj ich tutaj.
+ *
+ * Wszystko ponizej dotyczy WYLACZNIE tej sekcji - klasy `.seniors*` nie
+ * wystepuja nigdzie indziej w serwisie.
  */
+
+/*
+ * Sekcja jest NIZSZA niz domyslny rytm --space-section. Rytm pionowy jest
+ * w tym projekcie celowo zmienny (patrz komentarz przy tokenie), a modul
+ * niesie kilka pieter tresci, wiec przy pelnym oddechu sekcji uroslby ponad
+ * ekran. Wartosc jest liczona z proporcji projektu referencyjnego.
+ */
+.seniors {
+  padding-block: clamp(2.25rem, 3.4vw, 4rem);
+}
+
+/* --- SIATKA SEKCJI ------------------------------------------------------ */
 
 .seniors__grid {
   display: grid;
@@ -17,7 +41,7 @@
   align-items: start;
 }
 
-.seniors__text {
+.seniors__intro {
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
@@ -25,83 +49,162 @@
   align-items: flex-start;
 }
 
+/*
+ * Naglowek plakatowy, nie zdanie.
+ *
+ * WLASNY stopien, nie --step-display: tamten token niesie naglowki sekcji
+ * 08, 11 i 12, a dwunastka jest zamknieta decyzja wlasciciela (D13). Zmiana
+ * w tokenie ruszylaby ja po cichu. Wspolczynnik vw jest dobrany tak, zeby
+ * "ANGIELSKI DLA" miescilo sie w jednym wierszu polowy szerokosci siatki -
+ * zlamanie po "DLA" jest kompozycja, nie przypadkiem.
+ */
 .seniors__title {
-  max-inline-size: 18ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 6.05vw, 6rem);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
 }
 
-/* Trzy filary kursu. Lista, nie grid ikon - brief zabrania ikonek korzysci. */
-.seniors__points {
-  display: grid;
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  inline-size: 100%;
-}
-
-.seniors__point {
-  padding-block-start: var(--space-3);
-  border-block-start: 1px solid var(--color-rule);
-}
-
-.seniors__point strong {
-  display: block;
-  font-weight: 500;
-}
-
-.seniors__point span {
-  opacity: 0.8;
+.seniors__lead {
+  max-inline-size: 44ch;
+  font-size: clamp(1.0625rem, 1.3vw, 1.375rem);
+  line-height: 1.45;
 }
 
 /*
- * Fakty operacyjne. Model rozliczenia rozni sie od oferty dla dzieci,
- * wiec musi byc podany wprost - inaczej 45 zl czytaloby sie jak alternatywa
- * dla 55 zl, a to inna usluga i inne zasady.
+ * Proporcja kadru = proporcja PLIKU (750x518), więc `object-fit: cover`
+ * nie ma czego przyciąć. Stała tu klasa `media--16-9`, czyli 1.78 wobec
+ * 1.45 źródła - zdejmowała górę i dół kadru razem z literą „T" neonu
+ * w lewym górnym rogu. Zgłosił to właściciel 19.09.2026.
+ *
+ * Wartość jest zapisana ułamkiem ze źródła, a nie zaokrąglona do 3/2:
+ * przy 1.5 wracałoby przycinanie, tym razem z lewej i prawej krawędzi -
+ * czyli znowu po neonie.
  */
-.seniors__facts {
-  display: grid;
-  gap: var(--space-2);
-  inline-size: 100%;
-  margin: 0;
-  padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-rule);
-  font-size: 0.9375rem;
-}
-
-.seniors__fact {
-  display: flex;
-  gap: var(--space-3);
-}
-
-.seniors__fact dt {
-  flex: none;
-  min-inline-size: 8rem;
-  opacity: 0.7;
-}
-
-.seniors__fact dd {
-  margin: 0;
-  font-weight: 500;
-}
-
-/* Zastrzezenie o modelu rozliczenia - mniejsze, ale nie ukryte. */
-.seniors__note {
-  max-inline-size: var(--measure);
-  font-size: 0.875rem;
-  opacity: 0.8;
-}
-
 .seniors__media {
   grid-column: 1 / -1;
+  aspect-ratio: 750 / 518;
+}
+
+/* --- DOL: linia o poziomach, wezwanie, dopisek -------------------------- */
+
+/*
+ * Linia o poziomach i wezwanie stoją TUŻ POD LEADEM, w tym samym stosie co
+ * reszta tekstu. Przez chwilę były osobnym wierszem wspólnej siatki i wyższy
+ * kadr spychał je w dół razem ze sobą - właściciel zgłosił to 19.09.2026.
+ * Teraz lewa i prawa kolumna są niezależnymi stosami: zdjęcie może rosnąć,
+ * a tekst zostaje na swojej wysokości.
+ */
+.seniors__action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: flex-start;
+  margin-block-start: var(--space-4);
+}
+
+/* Prawa kolumna: kadr, a pod nim dopisek. */
+.seniors__aside {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/*
+ * JEDNA linia zamiast trzech kart. Krotka kreska przed tekstem jest
+ * pseudoelementem, bo nie niesie tresci - warunek z par. 10 kontraktu.
+ * Linia nie biegnie do konca siatki: ma otwierac zdanie, a nie dzielic pas.
+ */
+.seniors__meta {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+.seniors__meta::before {
+  content: '';
+  inline-size: var(--space-12);
+  block-size: 1px;
+  flex: none;
+  background-color: var(--color-rule);
+}
+
+/*
+ * Dopisek, nie drugie wezwanie. Cichszy od reszty tresci i oddzielony
+ * pionowa kreska - to obramowanie elementu, nie osobny <hr>, wiec na waskim
+ * ekranie znika razem z ukladem dwukolumnowym.
+ */
+.seniors__note {
+  grid-column: 1 / -1;
+  max-inline-size: 34ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 
 @media (width >= 62rem) {
-  .seniors__text {
+  .seniors__intro {
     grid-column: 1 / span 6;
   }
 
-  .seniors__media {
-    grid-column: 8 / -1;
-    margin-inline: 0 calc(-1 * var(--bleed-inline));
+  /*
+   * Prawa kolumna dochodzi do krawedzi okna.
+   *
+   * Kadr jest o 10% wezszy od pelnej prawej polowy siatki, ale zwezenie
+   * idzie WYLACZNIE od lewej: prawa krawedz zostaje na krawedzi okna, bo to
+   * wspolna os ze zdjeciami hero, sekcji 02 i portretem w sekcji 05.
+   *
+   * Szerokosc siedzi na kolumnie, a nie na samym kadrze, zeby dopisek pod
+   * nim konczyl sie dokladnie tam, gdzie zdjecie.
+   */
+  .seniors__aside {
+    grid-column: 7 / -1;
+    inline-size: calc((100% + var(--bleed-inline)) * 0.82);
+    margin-inline: auto calc(-1 * var(--bleed-inline));
+  }
+
+  /*
+   * Dopisek stoi w JEDNYM wierszu, przy prawej krawedzi kadru, a kreska
+   * tuz przy tekscie - tak jak na projekcie referencyjnym.
+   *
+   * Wyrownanie do konca kolumny zweza pudelko do samego zdania. Bez tego
+   * element kolumny rozciaga sie na cala jej szerokosc i kreska stoi 151 px od
+   * tekstu, mimo kilkunastopikselowego paddingu. Miara z ukladu mobilnego
+   * jest tu zdejmowana, bo przy 34ch zdanie lamalo sie na dwa wiersze.
+   */
+  .seniors__note {
+    align-self: flex-end;
+
+    /*
+     * Dopisek konczy sie na krawedzi SIATKI, nie na krawedzi okna.
+     *
+     * Kadr nad nim wychodzi poza kontener o `--bleed-inline` - to jego
+     * wspolna os z pozostalymi duzymi zdjeciami serwisu. Zdanie tej osi
+     * nie dzieli: tekst przy samej krawedzi ekranu czyta sie jak uciety,
+     * a nie jak wyrownany. Margines oddaje dokladnie tyle, ile kadr wziął.
+     */
+    margin-inline-end: var(--bleed-inline);
+    max-inline-size: none;
+    padding-inline-start: clamp(0.875rem, 1.2vw, 1.25rem);
+    border-inline-start: 1px solid var(--color-rule);
+    text-align: end;
   }
 }
+
+/*
+ * Wezwanie senioralne: kapsula PELNA, ale w kolorze motywu.
+ *
+ * Wczesniej byla obrysowa i ginela na koncu dlugiej kolumny. Referencja
+ * proponowala czerwona - i tu wygrywa design system: czerwien jest kolorem
+ * GLOWNEJ konwersji ("Zapisz sie na zajecia" i wezwanie w naglowku), a ta
+ * sekcja celuje w innego odbiorce i stoi poza lejkiem dla rodzicow. Druga
+ * czerwona kapsula splaszczylaby te hierarchie.
+ *
+ * Kremowa kapsula na granacie ma wyzszy kontrast niz czerwona i jest
+ * wyraznie mocniejsza od poprzedniego obrysu, wiec cel "bardziej widoczne"
+ * zostaje osiagniety bez kosztu. Kolory bierze [data-theme='blue'].
+ */

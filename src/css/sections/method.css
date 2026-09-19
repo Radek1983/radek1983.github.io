@@ -16,9 +16,20 @@
   align-items: end;
 }
 
+/*
+ * Powietrze nad czasownikami.
+ *
+ * Sama odleglosc w pikselach nie wystarczy: etykieta stoi tu nad napisem
+ * dwa razy wiekszym niz w pozostalych sekcjach, wiec ta sama luka czyta sie
+ * jako ciasniejsza. Miara, ktora dziala, to stosunek luki do wysokosci
+ * wersalika - w sekcji 05 wynosi okolo 1.1, tutaj bylo 0.82.
+ *
+ * Wartosc rosnie razem ze stopniem pisma, wiec proporcja trzyma sie na
+ * calej macierzy, a nie tylko przy 1440 px.
+ */
 .method__verbs {
   grid-column: 1 / -1;
-  margin: 0;
+  margin: clamp(1rem, 1.6vw, 1.5rem) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -27,9 +38,9 @@
    dlatego line-height jest ciasny i litery prawie sie stykaja. */
 .method__verb {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-size: clamp(2rem, 6.6vw, 5.75rem);
   font-weight: 800;
-  line-height: 0.88;
+  line-height: var(--leading-caps);
   letter-spacing: -0.045em;
   text-transform: uppercase;
 }

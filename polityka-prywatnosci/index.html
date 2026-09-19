@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Polityka prywatności | High Five</title>
+    <meta
+      name="description"
+      content="Polityka prywatności High Five - informacje o przetwarzaniu danych osobowych, podstawach prawnych, okresach przechowywania i prawach osób."
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#f2efe8" />
+    <link rel="canonical" href="https://www.highfive.academy/polityka-prywatnosci/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="High Five" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:url" content="https://www.highfive.academy/polityka-prywatnosci/" />
+    <meta property="og:title" content="Polityka prywatności | High Five" />
+    <meta
+      property="og:description"
+      content="Polityka prywatności High Five - informacje o przetwarzaniu danych osobowych, podstawach prawnych, okresach przechowywania i prawach osób."
+    />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Polityka prywatności | High Five" />
+    <meta
+      name="twitter:description"
+      content="Polityka prywatności High Five - informacje o przetwarzaniu danych osobowych, podstawach prawnych, okresach przechowywania i prawach osób."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="preload"
+      href="/src/assets/fonts/InterDisplay-ExtraBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="stylesheet" href="/src/css/main.css" />
+  </head>
+
+  <!--
+    ============================================================
+    POLITYKA PRYWATNOSCI
+
+    Tresc pochodzi CO DO SLOWA z dokumentu
+    `Polityka_prywatnosci_High_Five_v1.0.pdf`, dostarczonego przez
+    wlasciciela. Nie skracamy jej, nie parafrazujemy i nie poprawiamy
+    stylistycznie - to dokument prawny, a nie copy marketingowe.
+    Zmiana tresci na tej stronie oznacza zmiane dokumentu zrodlowego,
+    nie odwrotnie.
+
+    Pominiete zostaly wylacznie elementy techniczne skladu PDF:
+    zywa pagina ("HIGH FIVE / POLITYKA PRYWATNOSCI"), stopka strony
+    i numery stron.
+
+    UKLAD: spis tresci po lewej (sticky), dokument po prawej. Na waskim
+    ekranie spis zwija sie do rozwijanego paska pod naglowkiem.
+    ============================================================
+  -->
+  <body data-section="polityka">
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
+
+    <!--#include partials/header.html -->
+
+    <main id="main">
+      <!-- ============================================================
+           HERO — krem
+           ============================================================ -->
+      <section
+        class="section policy-hero"
+        data-animation="section"
+        aria-labelledby="polityka-title"
+      >
+        <div class="container">
+          <p class="u-label section__label"><span>Informacje prawne</span></p>
+
+          <h1 class="u-display policy-hero__title" id="polityka-title" data-animation="fade-up">
+            Polityka prywatności.
+          </h1>
+
+          <!--
+            Lead jest AKAPITEM WPROWADZAJACYM Z PDF, nie tekstem napisanym
+            na potrzeby strony. Dopisywanie wlasnego wstepu obok tego
+            zdania dawaloby dwa wprowadzenia i drugie zrodlo tresci.
+          -->
+          <p class="u-lead policy-hero__lead" data-animation="fade-up">
+            W&nbsp;High Five dbamy o&nbsp;prywatność uczniów, rodziców, kandydatów
+            do&nbsp;współpracy oraz osób, które kontaktują się z&nbsp;nami. Poniżej wyjaśniamy,
+            jakie dane osobowe przetwarzamy, w&nbsp;jakich celach, jak długo je przechowujemy, komu
+            mogą być udostępniane oraz jakie prawa przysługują osobom, których dane dotyczą.
+          </p>
+
+          <p class="policy-hero__meta" data-animation="fade-up">
+            Wersja 1.0&nbsp; |&nbsp; obowiązuje od&nbsp;20 września 2026&nbsp;r.
+          </p>
+
+          <!--
+            PDF jest wersja do pobrania, nie wersja glowna. Pelny dokument
+            stoi nizej jako HTML - to on jest wersja uzytkowa i indeksowalna.
+          -->
+          <a
+            class="cta cta--ink policy-hero__pdf"
+            href="/dokumenty/polityka-prywatnosci-high-five-1-0.pdf"
+            download
+            data-animation="fade-up"
+          >
+            Pobierz PDF
+            <span class="cta__arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           DOKUMENT — spis tresci + tresc
+           ============================================================ -->
+      <div class="section section--tight policy">
+        <div class="container policy__grid">
+          <!--
+            <details>, a nie wlasny przelacznik: rozwijanie dziala bez
+            JavaScriptu i z klawiatury. Atrybut `open` stoi w HTML, wiec
+            bez JS spis jest rozwiniety wszedzie; modul zwija go dopiero
+            na waskim ekranie. Na desktopie CSS chowa sam przycisk.
+          -->
+          <details class="policy-toc" id="spis-tresci" open>
+            <!--
+              Etykieta stoi w DWoCH miejscach, bo pelni dwie role. Na szerokim
+              ekranie jest naglowkiem kolumny; na waskim - przyciskiem, ktory
+              rozwija liste. Jeden element nie moze byc oboma naraz: przycisk
+              musi zostac klikalny, a na desktopie spis jest zawsze otwarty,
+              wiec klikniecie by go zamknelo. CSS pokazuje po jednym w kazdym
+              kontekscie.
+            -->
+            <summary class="policy-toc__summary">
+              <span class="policy-toc__label">Spis treści</span>
+              <span class="policy-toc__arrow" aria-hidden="true">↓</span>
+            </summary>
+
+            <p class="policy-toc__label policy-toc__label--kolumna" aria-hidden="true">
+              Spis treści
+            </p>
+
+            <nav class="policy-toc__nav" aria-label="Spis treści polityki prywatności">
+              <!--
+                Znacznik czytanej sekcji. Osobny element, a nie pseudoelement
+                aktywnej pozycji: pseudoelement nalezy do innego wezla przy
+                kazdej zmianie sekcji, wiec nie da sie go plynnie przesunac.
+                Ten jeden jedzie wzdluz osi. To dekoracja - pozycje niesie
+                atrybut aria-current na odnosniku.
+              -->
+              <span class="policy-toc__marker" aria-hidden="true"></span>
+
+              <ol class="policy-toc__list">
+                <li><a href="#administrator-danych">Kto jest administratorem danych?</a></li>
+                <li>
+                  <a href="#wspoladministracja">
+                    Współadministracja danych dotyczących zajęć dla&nbsp;klas<span
+                      class="policy-nowrap"
+                      >&nbsp;1-7</span
+                    >
+                  </a>
+                </li>
+                <li><a href="#jakie-dane">Jakie dane przetwarzamy?</a></li>
+                <li>
+                  <a href="#dane-szczegolne">
+                    Dane dotyczące zdrowia i&nbsp;inne dane szczególnej kategorii
+                  </a>
+                </li>
+                <li>
+                  <a href="#cele-i-podstawy">
+                    W&nbsp;jakich celach i&nbsp;na&nbsp;jakiej podstawie przetwarzamy dane?
+                  </a>
+                </li>
+                <li><a href="#czy-obowiazkowe">Czy podanie danych jest obowiązkowe?</a></li>
+                <li><a href="#odbiorcy-danych">Komu możemy udostępniać dane?</a></li>
+                <li><a href="#zajecia-online">Zajęcia online</a></li>
+                <li><a href="#facebook">Facebook</a></li>
+                <li>
+                  <a href="#poza-eog">
+                    Czy dane są przekazywane poza Europejski Obszar Gospodarczy?
+                  </a>
+                </li>
+                <li><a href="#czas-przechowywania">Jak długo przechowujemy dane?</a></li>
+                <li><a href="#gdzie-przechowujemy">Gdzie przechowujemy dane?</a></li>
+                <li><a href="#cookies-i-analityka">Pliki cookies i&nbsp;analityka</a></li>
+                <li>
+                  <a href="#twoje-prawa">Jakie prawa przysługują osobom, których dane dotyczą?</a>
+                </li>
+                <li><a href="#skarga">Prawo do&nbsp;wniesienia skargi</a></li>
+                <li><a href="#decyzje-automatyczne">Czy podejmujemy decyzje automatycznie?</a></li>
+                <li><a href="#bezpieczenstwo">Bezpieczeństwo danych</a></li>
+                <li><a href="#zmiany-polityki">Zmiany Polityki prywatności</a></li>
+              </ol>
+            </nav>
+          </details>
+
+          <div class="policy__doc">
+            <!-- 01 -->
+            <section class="policy__section" id="administrator-danych" aria-labelledby="h-01">
+              <h2 class="policy__title" id="h-01">1. Kto jest administratorem danych?</h2>
+
+              <p>
+                Administratorem danych osobowych związanych z&nbsp;korzystaniem ze&nbsp;strony
+                internetowej High Five, kontaktem z&nbsp;High Five oraz usługami, które nie&nbsp;są
+                objęte opisaną niżej współpracą dotyczącą zajęć dla&nbsp;klas 1-7, jest:
+              </p>
+
+              <p class="policy__entity">
+                <strong>High Five Magdalena Germel</strong><br />
+                ul.&nbsp;Jana Nowaka-Jeziorańskiego 7 lok.&nbsp;199, 03-984 Warszawa<br />
+                NIP: 8241730595&nbsp; |&nbsp; REGON: 523281712<br />
+                e-mail:
+                <a class="u-link" href="mailto:kontakt@highfive.academy">
+                  kontakt@highfive.academy </a
+                >&nbsp; |&nbsp; telefon:
+                <a class="u-link" href="tel:+48790266517">+48&nbsp;790&nbsp;266&nbsp;517</a>
+              </p>
+
+              <p>
+                W&nbsp;sprawach dotyczących danych osobowych, realizacji praw wynikających
+                z&nbsp;RODO oraz zgłaszania problemów związanych z&nbsp;bezpieczeństwem danych można
+                kontaktować się pod adresem:
+                <a class="u-link" href="mailto:kontakt@highfive.academy">
+                  kontakt@highfive.academy </a
+                >.
+              </p>
+
+              <p>High Five Magdalena Germel nie&nbsp;wyznaczyła Inspektora Ochrony Danych.</p>
+            </section>
+
+            <!-- 02 -->
+            <section class="policy__section" id="wspoladministracja" aria-labelledby="h-02">
+              <h2 class="policy__title" id="h-02">
+                2. Współadministracja danych dotyczących zajęć dla&nbsp;klas 1-7
+              </h2>
+
+              <p>
+                Zajęcia dla&nbsp;klas 1-7 są organizowane we&nbsp;współpracy dwóch niezależnych
+                działalności:
+              </p>
+
+              <p class="policy__entity">
+                <strong>High Five Magdalena Germel</strong><br />
+                ul.&nbsp;Jana Nowaka-Jeziorańskiego 7 lok.&nbsp;199, 03-984 Warszawa<br />
+                NIP: 8241730595&nbsp; |&nbsp; REGON: 523281712
+              </p>
+
+              <p class="policy__entity">
+                High Five AGNIESZKA KAROLEWSKA<br />
+                ul.&nbsp;Miodowa 16 lok.&nbsp;10, 09-400 Płock<br />
+                NIP: 7743272366&nbsp; |&nbsp; REGON: 523300869
+              </p>
+
+              <p>
+                W&nbsp;zakresie wspólnego naboru do&nbsp;grup klas 1-7 podmioty te działają jako
+                współadministratorzy danych osobowych.
+              </p>
+
+              <p>Współadministracja obejmuje w&nbsp;szczególności:</p>
+
+              <ul class="policy__list">
+                <li>
+                  przyjmowanie zgłoszeń na&nbsp;zajęcia poprzez wspólną skrzynkę
+                  highfive.zapisy@gmail.com,
+                </li>
+                <li>wspólną organizację naboru,</li>
+                <li>ustalanie grup i&nbsp;przypisywanie dzieci do&nbsp;odpowiednich zajęć,</li>
+                <li>obsługę wspólnej skrzynki dotyczącej zajęć klas 1-7.</li>
+              </ul>
+
+              <p>
+                Obie działalności mają dostęp do&nbsp;wspólnej skrzynki highfive.zapisy@gmail.com.
+                Po&nbsp;utworzeniu grup każda z&nbsp;lektorek prowadzi korespondencję dotyczącą
+                przede wszystkim uczniów przypisanych do&nbsp;jej grupy.
+              </p>
+
+              <p>
+                Po&nbsp;przypisaniu dziecka do&nbsp;konkretnej grupy każda działalność działa już
+                jako odrębny administrator w&nbsp;zakresie:
+              </p>
+
+              <ul class="policy__list">
+                <li>zawarcia własnej umowy z&nbsp;rodzicem lub opiekunem,</li>
+                <li>prowadzenia swojej grupy,</li>
+                <li>własnej dokumentacji uczestników,</li>
+                <li>rozliczeń i&nbsp;wystawiania rachunków,</li>
+                <li>przyjmowania płatności na&nbsp;własny rachunek bankowy,</li>
+                <li>bieżącej realizacji zawartej przez siebie umowy.</li>
+              </ul>
+
+              <p class="policy__callout">
+                <strong>Wspólny punkt kontaktowy dla&nbsp;klas 1-7</strong><br />
+                <a class="u-link" href="mailto:highfive.zapisy@gmail.com">
+                  highfive.zapisy@gmail.com
+                </a>
+              </p>
+
+              <p>
+                Niezależnie od&nbsp;wskazania wspólnego punktu kontaktowego osoba, której dane
+                dotyczą, może wykonywać swoje prawa wobec każdego ze&nbsp;współadministratorów.
+              </p>
+            </section>
+
+            <!-- 03 -->
+            <section class="policy__section" id="jakie-dane" aria-labelledby="h-03">
+              <h2 class="policy__title" id="h-03">3. Jakie dane przetwarzamy?</h2>
+
+              <p>Zakres danych zależy od&nbsp;rodzaju kontaktu i&nbsp;usługi.</p>
+
+              <h3 class="policy__subtitle">Przy zapisie dziecka na&nbsp;zajęcia</h3>
+              <p>Możemy przetwarzać:</p>
+              <ul class="policy__list">
+                <li>imię i&nbsp;nazwisko rodzica lub opiekuna,</li>
+                <li>adres e-mail rodzica lub opiekuna,</li>
+                <li>numer telefonu,</li>
+                <li>imię i&nbsp;nazwisko dziecka,</li>
+                <li>klasę, do&nbsp;której uczęszcza dziecko,</li>
+                <li>poziom językowy dziecka.</li>
+              </ul>
+              <p>
+                W&nbsp;przypadku przygotowania do&nbsp;egzaminu ósmoklasisty możemy dodatkowo
+                przetwarzać wyniki diagnozy przeprowadzanej w&nbsp;formie próbnego egzaminu, aby
+                porównać poziom ucznia na&nbsp;początku i&nbsp;na&nbsp;końcu kursu.
+              </p>
+
+              <h3 class="policy__subtitle">Przy rozliczeniach</h3>
+              <p>Na&nbsp;potrzeby wystawienia rachunku możemy przetwarzać:</p>
+              <ul class="policy__list">
+                <li>imię i&nbsp;nazwisko klienta,</li>
+                <li>adres,</li>
+                <li>informacje dotyczące należności i&nbsp;dokonanej płatności.</li>
+              </ul>
+
+              <h3 class="policy__subtitle">Przy zwykłym kontakcie</h3>
+              <p>Możemy przetwarzać:</p>
+              <ul class="policy__list">
+                <li>imię i&nbsp;nazwisko,</li>
+                <li>adres e-mail,</li>
+                <li>numer telefonu,</li>
+                <li>treść wiadomości lub informacje przekazane podczas rozmowy.</li>
+              </ul>
+
+              <h3 class="policy__subtitle">Przy rekrutacji lektorów</h3>
+              <p>
+                Jeżeli kandydat przesyła zgłoszenie lub CV na&nbsp;adres kontakt@highfive.academy,
+                możemy przetwarzać dane zawarte w&nbsp;wiadomości i&nbsp;dokumentach rekrutacyjnych,
+                w&nbsp;szczególności dane kontaktowe, informacje o&nbsp;wykształceniu,
+                kwalifikacjach i&nbsp;doświadczeniu.
+              </p>
+
+              <h3 class="policy__subtitle">Podczas korzystania ze&nbsp;strony</h3>
+              <p>
+                Serwer może automatycznie rejestrować podstawowe informacje techniczne, takie jak:
+              </p>
+              <ul class="policy__list">
+                <li>adres IP,</li>
+                <li>data i&nbsp;czas połączenia,</li>
+                <li>żądany adres strony,</li>
+                <li>podstawowe informacje techniczne dotyczące przeglądarki lub urządzenia.</li>
+              </ul>
+              <p>
+                Dane te są wykorzystywane wyłącznie do&nbsp;zapewnienia działania, bezpieczeństwa
+                i&nbsp;diagnostyki strony.
+              </p>
+            </section>
+
+            <!-- 04 -->
+            <section class="policy__section" id="dane-szczegolne" aria-labelledby="h-04">
+              <h2 class="policy__title" id="h-04">
+                4. Dane dotyczące zdrowia i&nbsp;inne dane szczególnej kategorii
+              </h2>
+
+              <p>
+                High Five nie&nbsp;prosi rodziców o&nbsp;przekazywanie informacji dotyczących
+                zdrowia, diagnoz, niepełnosprawności ani innych szczególnych kategorii danych
+                dziecka w&nbsp;ramach zwykłego procesu zapisów.
+              </p>
+
+              <p>
+                Zdarza się jednak, że&nbsp;rodzic z&nbsp;własnej inicjatywy przekazuje takie
+                informacje w&nbsp;wiadomości.
+              </p>
+
+              <p>
+                Jeżeli takie dane zostaną przesłane, ocenimy, czy ich przetwarzanie jest
+                rzeczywiście potrzebne oraz czy istnieje odpowiednia podstawa prawna. Jeżeli dane
+                nie&nbsp;są potrzebne do&nbsp;realizacji określonego celu, nie&nbsp;będą
+                wykorzystywane i&nbsp;zostaną usunięte w&nbsp;odpowiednim zakresie.
+              </p>
+
+              <p>
+                Prosimy o&nbsp;nieprzekazywanie danych dotyczących zdrowia, jeżeli nie&nbsp;jest
+                to&nbsp;konieczne.
+              </p>
+            </section>
+
+            <!-- 05 -->
+            <section class="policy__section" id="cele-i-podstawy" aria-labelledby="h-05">
+              <h2 class="policy__title" id="h-05">
+                5. W&nbsp;jakich celach i&nbsp;na&nbsp;jakiej podstawie przetwarzamy dane?
+              </h2>
+
+              <h3 class="policy__subtitle">
+                Odpowiadanie na&nbsp;pytania i&nbsp;przygotowanie oferty
+              </h3>
+              <p>
+                Dane wykorzystujemy do&nbsp;odpowiedzi na&nbsp;wiadomości e-mail, zapytania
+                telefoniczne i&nbsp;pytania dotyczące oferty. Jeżeli kontakt zmierza
+                do&nbsp;zawarcia umowy, podstawą jest art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;b RODO -
+                podjęcie działań na&nbsp;żądanie osoby przed zawarciem umowy. W&nbsp;przypadku
+                pozostałej korespondencji podstawą może być art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;f RODO
+                - prawnie uzasadniony interes polegający na&nbsp;prowadzeniu bieżącej komunikacji.
+              </p>
+
+              <h3 class="policy__subtitle">
+                Zawarcie i&nbsp;realizacja umowy z&nbsp;rodzicem lub opiekunem
+              </h3>
+              <p>
+                Dane rodzica lub opiekuna będącego stroną umowy są przetwarzane na&nbsp;podstawie
+                art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;b RODO.
+              </p>
+
+              <h3 class="policy__subtitle">
+                Organizacja i&nbsp;prowadzenie zajęć dla&nbsp;dziecka
+              </h3>
+              <p>
+                Dane dziecka są przetwarzane w&nbsp;zakresie potrzebnym do&nbsp;przypisania go
+                do&nbsp;właściwej grupy, dopasowania poziomu oraz prawidłowego prowadzenia zajęć.
+                Podstawą jest art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;f RODO, czyli prawnie uzasadniony
+                interes administratora lub współadministratorów polegający na&nbsp;prawidłowej
+                organizacji i&nbsp;realizacji usługi edukacyjnej na&nbsp;rzecz dziecka.
+              </p>
+
+              <h3 class="policy__subtitle">Diagnoza przed egzaminem ósmoklasisty</h3>
+              <p>
+                Wynik próbnego egzaminu służy ocenie poziomu początkowego i&nbsp;porównaniu go
+                z&nbsp;poziomem osiągniętym na&nbsp;zakończenie kursu. Podstawą jest prawnie
+                uzasadniony interes polegający na&nbsp;właściwym zaplanowaniu pracy z&nbsp;uczniem
+                i&nbsp;ocenie efektów zajęć - art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;f RODO.
+              </p>
+
+              <h3 class="policy__subtitle">Rozliczenia i&nbsp;obowiązki podatkowe</h3>
+              <p>
+                Dane związane z&nbsp;rachunkami i&nbsp;rozliczeniami przetwarzamy w&nbsp;celu
+                wykonania obowiązków wynikających z&nbsp;przepisów prawa - art.&nbsp;6 ust.&nbsp;1
+                lit.&nbsp;c RODO.
+              </p>
+
+              <h3 class="policy__subtitle">Dochodzenie i&nbsp;obrona przed roszczeniami</h3>
+              <p>
+                W&nbsp;razie potrzeby dane mogą być przetwarzane w&nbsp;celu ustalenia, dochodzenia
+                lub obrony przed roszczeniami - art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;f RODO.
+              </p>
+
+              <h3 class="policy__subtitle">Rekrutacja</h3>
+              <p>
+                Dane przesłane przez kandydatów wykorzystujemy wyłącznie w&nbsp;celu przeprowadzenia
+                konkretnego procesu rekrutacyjnego i&nbsp;nawiązania ewentualnej współpracy.
+              </p>
+
+              <h3 class="policy__subtitle">Bezpieczeństwo strony i&nbsp;systemów</h3>
+              <p>
+                Dane techniczne i&nbsp;logi mogą być wykorzystywane w&nbsp;celu zapewnienia
+                bezpieczeństwa strony, diagnozowania błędów i&nbsp;przeciwdziałania nadużyciom -
+                art.&nbsp;6 ust.&nbsp;1 lit.&nbsp;f RODO.
+              </p>
+            </section>
+
+            <!-- 06 -->
+            <section class="policy__section" id="czy-obowiazkowe" aria-labelledby="h-06">
+              <h2 class="policy__title" id="h-06">6. Czy podanie danych jest obowiązkowe?</h2>
+
+              <p>
+                Podanie danych przy zwykłym zapytaniu jest dobrowolne, jednak bez danych
+                kontaktowych możemy nie&nbsp;być w&nbsp;stanie udzielić odpowiedzi.
+              </p>
+
+              <p>
+                Podanie danych wymaganych do&nbsp;zapisania dziecka na&nbsp;zajęcia, zawarcia umowy
+                i&nbsp;organizacji zajęć jest konieczne do&nbsp;skorzystania z&nbsp;danej usługi.
+              </p>
+
+              <p>
+                Nie&nbsp;wymagamy zgody na&nbsp;marketing jako warunku udziału w&nbsp;zajęciach.
+              </p>
+
+              <p>
+                High Five nie&nbsp;prowadzi obecnie newslettera ani masowej wysyłki marketingowej.
+              </p>
+            </section>
+
+            <!-- 07 -->
+            <section class="policy__section" id="odbiorcy-danych" aria-labelledby="h-07">
+              <h2 class="policy__title" id="h-07">7. Komu możemy udostępniać dane?</h2>
+
+              <p>
+                Dostęp do&nbsp;danych otrzymują tylko osoby i&nbsp;podmioty, które potrzebują ich
+                do&nbsp;realizacji określonego celu.
+              </p>
+
+              <p>Mogą to&nbsp;być w&nbsp;szczególności:</p>
+
+              <ul class="policy__list">
+                <li>
+                  High Five AGNIESZKA KAROLEWSKA - w&nbsp;zakresie współadministracji zajęć klas
+                  1-7,
+                </li>
+                <li>
+                  lektorzy współpracujący na&nbsp;podstawie umów zlecenia - wyłącznie
+                  w&nbsp;zakresie niezbędnym do&nbsp;prowadzenia ich grup; otrzymują listę
+                  zawierającą imię, nazwisko i&nbsp;klasę dziecka,
+                </li>
+                <li>OVHcloud - dostawca hostingu strony i&nbsp;poczty kontakt@highfive.academy,</li>
+                <li>
+                  Google - w&nbsp;związku z&nbsp;obsługą wspólnej skrzynki Gmail dla&nbsp;klas 1-7
+                  oraz korzystaniem z&nbsp;Google Meet,
+                </li>
+                <li>
+                  Microsoft - w&nbsp;związku z&nbsp;korzystaniem z&nbsp;Microsoft Teams
+                  i&nbsp;OneDrive jako kopii zapasowej danych,
+                </li>
+                <li>
+                  mBank - w&nbsp;zakresie danych pojawiających się przy realizacji płatności
+                  przelewem,
+                </li>
+                <li>
+                  Meta - jeżeli użytkownik skontaktuje się z&nbsp;High Five za&nbsp;pośrednictwem
+                  Facebooka,
+                </li>
+                <li>
+                  podmioty uprawnione do&nbsp;otrzymania danych na&nbsp;podstawie przepisów prawa.
+                </li>
+              </ul>
+
+              <p>
+                High Five nie&nbsp;sprzedaje danych osobowych i&nbsp;nie&nbsp;przekazuje ich innym
+                firmom w&nbsp;celu prowadzenia przez nie&nbsp;własnego marketingu.
+              </p>
+
+              <h3 class="policy__subtitle">SP 402</h3>
+              <p>
+                Szkoła Podstawowa nr&nbsp;402 jedynie udostępnia miejsce prowadzenia zajęć. High
+                Five nie&nbsp;przekazuje szkole list dzieci, danych rodziców ani danych kontaktowych
+                uczestników.
+              </p>
+
+              <h3 class="policy__subtitle">Terminal Kultury Gocław</h3>
+              <p>
+                Zapisy na&nbsp;zajęcia dla&nbsp;seniorów prowadzi Terminal Kultury Gocław
+                we&nbsp;własnym zakresie. High Five nie&nbsp;otrzymuje od&nbsp;Terminala danych
+                uczestników na&nbsp;potrzeby prowadzenia zapisów.
+              </p>
+            </section>
+
+            <!-- 08 -->
+            <section class="policy__section" id="zajecia-online" aria-labelledby="h-08">
+              <h2 class="policy__title" id="h-08">8. Zajęcia online</h2>
+
+              <p>
+                Zajęcia online 1 na&nbsp;1 mogą być prowadzone za&nbsp;pomocą Google Meet lub
+                Microsoft Teams.
+              </p>
+
+              <p>High Five nie&nbsp;nagrywa lekcji prowadzonych za&nbsp;pomocą tych platform.</p>
+
+              <p>
+                Dostawcy tych usług mogą przetwarzać dane techniczne i&nbsp;identyfikacyjne związane
+                z&nbsp;korzystaniem z&nbsp;ich platform zgodnie z&nbsp;własnymi zasadami ochrony
+                prywatności.
+              </p>
+            </section>
+
+            <!-- 09 -->
+            <section class="policy__section" id="facebook" aria-labelledby="h-09">
+              <h2 class="policy__title" id="h-09">9. Facebook</h2>
+
+              <p>High Five Magdalena Germel prowadzi profil na&nbsp;Facebooku.</p>
+
+              <p>
+                Jeżeli użytkownik skontaktuje się z&nbsp;High Five za&nbsp;pomocą wiadomości
+                na&nbsp;Facebooku, dane zawarte w&nbsp;wiadomości będą wykorzystywane w&nbsp;celu
+                udzielenia odpowiedzi i&nbsp;prowadzenia korespondencji.
+              </p>
+
+              <p>
+                Korzystanie z&nbsp;Facebooka wiąże się również z&nbsp;przetwarzaniem danych przez
+                Meta na&nbsp;zasadach określonych przez tego dostawcę.
+              </p>
+
+              <p>
+                High Five nie&nbsp;wykorzystuje Meta Pixel ani innych narzędzi reklamowego śledzenia
+                użytkowników na&nbsp;stronie highfive.academy.
+              </p>
+            </section>
+
+            <!-- 10 -->
+            <section class="policy__section" id="poza-eog" aria-labelledby="h-10">
+              <h2 class="policy__title" id="h-10">
+                10. Czy dane są przekazywane poza Europejski Obszar Gospodarczy?
+              </h2>
+
+              <p>
+                High Five korzysta z&nbsp;globalnych usług dostarczanych m.in. przez Google,
+                Microsoft i&nbsp;Meta.
+              </p>
+
+              <p>
+                W&nbsp;zależności od&nbsp;konkretnej usługi dane mogą być przetwarzane również poza
+                Europejskim Obszarem Gospodarczym.
+              </p>
+
+              <p>
+                Jeżeli dochodzi do&nbsp;takiego transferu, odbywa się on przy zastosowaniu
+                mechanizmów przewidzianych przez RODO, stosowanych przez danego dostawcę, takich jak
+                decyzja stwierdzająca odpowiedni stopień ochrony lub standardowe klauzule umowne.
+              </p>
+            </section>
+
+            <!-- 11 -->
+            <section class="policy__section" id="czas-przechowywania" aria-labelledby="h-11">
+              <h2 class="policy__title" id="h-11">11. Jak długo przechowujemy dane?</h2>
+
+              <!--
+                <dl>, bo dokument stawia tu pary: rodzaj danych -> okres
+                przechowywania. W PDF rodzaj jest zlozony pismem poglrubionym
+                i konczy sie dwukropkiem - ta relacja jest trescia, nie stylem.
+              -->
+              <dl class="policy__terms">
+                <dt>Zapytania, które nie&nbsp;zakończyły się zapisem na&nbsp;zajęcia:</dt>
+                <dd>do&nbsp;12 miesięcy od&nbsp;zakończenia kontaktu.</dd>
+
+                <dt>
+                  Umowy, dokumentacja dotycząca uczestnika oraz korespondencja dotycząca osób
+                  zapisanych na&nbsp;zajęcia:
+                </dt>
+                <dd>przez okres trwania zajęć oraz przez 5 lat po&nbsp;ich zakończeniu.</dd>
+
+                <dt>Dokumentacja księgowa i&nbsp;rachunki:</dt>
+                <dd>przez okres wymagany przepisami podatkowymi i&nbsp;księgowymi.</dd>
+
+                <dt>Wyniki próbnego egzaminu ósmoklasisty:</dt>
+                <dd>
+                  przez czas trwania kursu, w&nbsp;celu porównania wyniku początkowego
+                  i&nbsp;końcowego. Dokumentacja diagnostyczna jest papierowa
+                  i&nbsp;po&nbsp;zakończeniu kursu jest niszczona.
+                </dd>
+
+                <dt>CV i&nbsp;zgłoszenia kandydatów:</dt>
+                <dd>
+                  do&nbsp;zakończenia konkretnego procesu rekrutacyjnego. Po&nbsp;jego zakończeniu
+                  dokumenty kandydatów, z&nbsp;którymi nie&nbsp;nawiązano współpracy, są usuwane.
+                </dd>
+
+                <dt>Logi serwera:</dt>
+                <dd>
+                  przez okres wynikający z&nbsp;technicznej konfiguracji i&nbsp;zasad usługi
+                  hostingowej OVHcloud, w&nbsp;zakresie niezbędnym do&nbsp;zapewnienia działania
+                  i&nbsp;bezpieczeństwa serwisu.
+                </dd>
+              </dl>
+
+              <p>
+                Jeżeli określone dane są niezbędne do&nbsp;ustalenia, dochodzenia lub obrony przed
+                roszczeniami, mogą być przechowywane do&nbsp;czasu zakończenia takiej sprawy lub
+                upływu odpowiedniego terminu przedawnienia.
+              </p>
+            </section>
+
+            <!-- 12 -->
+            <section class="policy__section" id="gdzie-przechowujemy" aria-labelledby="h-12">
+              <h2 class="policy__title" id="h-12">12. Gdzie przechowujemy dane?</h2>
+
+              <p>Dokumentacja może być przechowywana:</p>
+
+              <ul class="policy__list">
+                <li>w&nbsp;formie papierowej,</li>
+                <li>na&nbsp;zabezpieczonym komputerze,</li>
+                <li>w&nbsp;poczcie elektronicznej,</li>
+                <li>w&nbsp;OneDrive jako kopia zapasowa,</li>
+                <li>
+                  w&nbsp;systemach dostawców usług wykorzystywanych do&nbsp;prowadzenia
+                  działalności.
+                </li>
+              </ul>
+
+              <p>
+                Dostęp do&nbsp;danych jest ograniczony do&nbsp;osób, które potrzebują go
+                do&nbsp;wykonywania swoich obowiązków.
+              </p>
+
+              <p>Lektorzy otrzymują jedynie dane niezbędne do&nbsp;prowadzenia własnej grupy.</p>
+            </section>
+
+            <!-- 13 -->
+            <section class="policy__section" id="cookies-i-analityka" aria-labelledby="h-13">
+              <h2 class="policy__title" id="h-13">13. Pliki cookies i&nbsp;analityka</h2>
+
+              <p>
+                Strona highfive.academy nie&nbsp;korzysta z&nbsp;Google Analytics, Google Tag
+                Manager, Meta Pixel, Microsoft Clarity ani innych narzędzi analitycznych lub
+                marketingowo-śledzących.
+              </p>
+
+              <p>
+                Strona nie&nbsp;zapisuje opcjonalnych plików cookies w&nbsp;przeglądarce
+                użytkownika.
+              </p>
+
+              <p>
+                High Five nie&nbsp;wykorzystuje danych użytkowników strony do&nbsp;profilowania ani
+                reklamy behawioralnej.
+              </p>
+
+              <p>
+                Na&nbsp;stronie znajdują się linki prowadzące do&nbsp;Google Maps w&nbsp;celu
+                wskazania lokalizacji zajęć. Mapy Google nie&nbsp;są osadzane na&nbsp;stronie
+                w&nbsp;formie iframe. Kontakt użytkownika z&nbsp;usługą Google Maps następuje
+                dopiero po&nbsp;kliknięciu zewnętrznego linku.
+              </p>
+            </section>
+
+            <!-- 14 -->
+            <section class="policy__section" id="twoje-prawa" aria-labelledby="h-14">
+              <h2 class="policy__title" id="h-14">
+                14. Jakie prawa przysługują osobom, których dane dotyczą?
+              </h2>
+
+              <p>
+                W&nbsp;zależności od&nbsp;podstawy i&nbsp;okoliczności przetwarzania masz prawo do:
+              </p>
+
+              <ul class="policy__list">
+                <li>dostępu do&nbsp;swoich danych i&nbsp;uzyskania ich kopii,</li>
+                <li>sprostowania danych,</li>
+                <li>usunięcia danych, jeżeli spełnione są warunki przewidziane prawem,</li>
+                <li>ograniczenia przetwarzania,</li>
+                <li>
+                  wniesienia sprzeciwu wobec przetwarzania opartego na&nbsp;prawnie uzasadnionym
+                  interesie,
+                </li>
+                <li>przenoszenia danych, gdy mają zastosowanie warunki określone w&nbsp;RODO,</li>
+                <li>
+                  cofnięcia zgody w&nbsp;dowolnym momencie, jeżeli określone przetwarzanie opiera
+                  się na&nbsp;zgodzie,
+                </li>
+                <li>wniesienia skargi do&nbsp;Prezesa Urzędu Ochrony Danych Osobowych.</li>
+              </ul>
+
+              <p>
+                Cofnięcie zgody nie&nbsp;wpływa na&nbsp;zgodność z&nbsp;prawem przetwarzania
+                dokonanego przed jej cofnięciem.
+              </p>
+
+              <p class="policy__callout">
+                <strong>Kontakt w&nbsp;sprawach danych</strong><br />
+                <a class="u-link" href="mailto:kontakt@highfive.academy">
+                  kontakt@highfive.academy </a
+                ><br />
+                Wspólny nabór i&nbsp;dane klas 1-7:
+                <a class="u-link" href="mailto:highfive.zapisy@gmail.com">
+                  highfive.zapisy@gmail.com
+                </a>
+              </p>
+            </section>
+
+            <!-- 15 -->
+            <section class="policy__section" id="skarga" aria-labelledby="h-15">
+              <h2 class="policy__title" id="h-15">15. Prawo do&nbsp;wniesienia skargi</h2>
+
+              <p>
+                Jeżeli uważasz, że&nbsp;Twoje dane są przetwarzane niezgodnie z&nbsp;przepisami,
+                masz prawo złożyć skargę do:
+              </p>
+
+              <p class="policy__entity">
+                <strong>Prezes Urzędu Ochrony Danych Osobowych</strong><br />
+                Urząd Ochrony Danych Osobowych<br />
+                ul.&nbsp;Stanisława Moniuszki 1A, 00-014 Warszawa
+              </p>
+            </section>
+
+            <!-- 16 -->
+            <section class="policy__section" id="decyzje-automatyczne" aria-labelledby="h-16">
+              <h2 class="policy__title" id="h-16">16. Czy podejmujemy decyzje automatycznie?</h2>
+
+              <p>Nie.</p>
+
+              <p>
+                High Five nie&nbsp;podejmuje wobec uczniów, rodziców, kandydatów ani innych osób
+                decyzji wywołujących skutki prawne lub podobnie istotne skutki wyłącznie
+                w&nbsp;sposób zautomatyzowany.
+              </p>
+
+              <p>Nie&nbsp;stosujemy profilowania.</p>
+
+              <p>
+                Decyzje dotyczące m.in. poziomu językowego, przydziału do&nbsp;grupy
+                i&nbsp;organizacji zajęć są podejmowane przez człowieka.
+              </p>
+            </section>
+
+            <!-- 17 -->
+            <section class="policy__section" id="bezpieczenstwo" aria-labelledby="h-17">
+              <h2 class="policy__title" id="h-17">17. Bezpieczeństwo danych</h2>
+
+              <p>
+                Stosujemy środki organizacyjne i&nbsp;techniczne odpowiednie do&nbsp;rodzaju
+                przetwarzanych danych oraz związanego z&nbsp;nimi ryzyka.
+              </p>
+
+              <p>
+                Dostęp do&nbsp;danych mają wyłącznie osoby, które potrzebują go do&nbsp;wykonywania
+                powierzonych zadań.
+              </p>
+
+              <p>
+                Dokumentacja papierowa oraz elektroniczna jest zabezpieczana przed dostępem osób
+                nieuprawnionych.
+              </p>
+
+              <p>
+                Jeżeli zauważysz sytuację, która może oznaczać utratę, nieuprawnione ujawnienie albo
+                inne naruszenie bezpieczeństwa danych związanych z&nbsp;High Five, napisz na:
+                <a class="u-link" href="mailto:kontakt@highfive.academy">
+                  kontakt@highfive.academy </a
+                >.
+              </p>
+            </section>
+
+            <!-- 18 -->
+            <section class="policy__section" id="zmiany-polityki" aria-labelledby="h-18">
+              <h2 class="policy__title" id="h-18">18. Zmiany Polityki prywatności</h2>
+
+              <p>
+                Polityka prywatności może być aktualizowana w&nbsp;szczególności w&nbsp;przypadku
+                zmiany:
+              </p>
+
+              <ul class="policy__list">
+                <li>sposobu prowadzenia zajęć,</li>
+                <li>wykorzystywanych systemów i&nbsp;dostawców,</li>
+                <li>zasad zapisów,</li>
+                <li>zakresu zbieranych danych,</li>
+                <li>sposobu współpracy przy zajęciach dla&nbsp;klas 1-7,</li>
+                <li>przepisów dotyczących ochrony danych.</li>
+              </ul>
+
+              <p>
+                Przy polityce zawsze wskazujemy aktualny numer wersji i&nbsp;datę jej obowiązywania.
+              </p>
+
+              <p class="policy__entity">
+                <strong>Aktualna wersja: 1.0</strong><br />
+                Obowiązuje od: 20 września 2026&nbsp;r.
+              </p>
+
+              <p class="policy__footnote">
+                Dokument przeznaczony do&nbsp;publikacji na&nbsp;stronie highfive.academy.
+                W&nbsp;przypadku zmiany sposobu przetwarzania danych polityka powinna zostać
+                zaktualizowana.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           KONTAKT — krem, tuz nad stopka
+           ============================================================ -->
+      <section
+        class="section section--tight policy-contact"
+        data-animation="section"
+        aria-labelledby="polityka-kontakt"
+      >
+        <div class="container policy-contact__grid">
+          <div>
+            <p class="u-label section__label"><span>Kontakt</span></p>
+
+            <h2 class="u-h2 policy-contact__title" id="polityka-kontakt" data-animation="fade-up">
+              Masz dodatkowe pytania?
+            </h2>
+
+            <p class="policy-contact__lead" data-animation="fade-up">
+              Jeśli potrzebujesz dodatkowych informacji o&nbsp;przetwarzaniu danych, napisz
+              lub&nbsp;zadzwoń.
+            </p>
+          </div>
+
+          <dl class="policy-contact__data" data-animation="fade-up">
+            <div>
+              <dt class="u-label">E-mail</dt>
+              <dd><a class="u-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div>
+              <dt class="u-label">Telefon</dt>
+              <dd><a class="u-link" href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <!--#include partials/footer.html -->
+
+    <script type="module" src="/src/js/main.js"></script>
+  </body>
+</html>

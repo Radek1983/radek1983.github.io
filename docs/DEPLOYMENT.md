@@ -4,10 +4,10 @@ Wdrożenie produkcyjne strony HIGH FIVE. Dokument opisuje stan faktyczny, nie pl
 
 ## Środowiska
 
-| Środowisko  | Gdzie                          | Kto wdraża                                | Indeksowanie   |
-| ----------- | ------------------------------ | ----------------------------------------- | -------------- |
-| development | `http://127.0.0.1:5173`        | `npm run dev` lokalnie                    | nie dotyczy    |
-| production  | `https://radek1983.github.io/` | `.github/workflows/deploy-production.yml` | `index,follow` |
+| Środowisko  | Gdzie                           | Kto wdraża                                | Indeksowanie   |
+| ----------- | ------------------------------- | ----------------------------------------- | -------------- |
+| development | `http://127.0.0.1:5173`         | `npm run dev` lokalnie                    | nie dotyczy    |
+| production  | `https://www.highfive.academy/` | `.github/workflows/deploy-production.yml` | `index,follow` |
 
 **Preview/staging nie istnieje.** Specyfikacja §14 go wymaga, ale GitHub Pages nie pozwala go
 zabezpieczyć na tym planie — patrz `docs/ADR/0004-brak-srodowiska-preview.md`. Rolę podglądu
@@ -56,7 +56,7 @@ w szczególności nie wymaga `revert` ani `force push` na `main`.
 
 ## Weryfikacja wdrożonej wersji
 
-`https://radek1983.github.io/version.json` zwraca wersję z `package.json`, commit SHA, ref,
+`https://www.highfive.academy/version.json` zwraca wersję z `package.json`, commit SHA, ref,
 nazwę środowiska i czas builda. Plik generuje `scripts/write-version.mjs` jako część
 `npm run build`, więc build lokalny i build w CI dają ten sam artefakt.
 

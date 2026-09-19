@@ -48,21 +48,6 @@
   font-size: 0.9375rem;
 }
 
-/* Wariant obrysowany - akcja pomocnicza, np. "Wyznacz trase".
-   Nie moze konkurowac z glowna konwersja. */
-.cta--ghost {
-  background-color: transparent;
-  border-color: var(--color-rule);
-  color: var(--color-text);
-}
-
-.cta--ghost:hover,
-.cta--ghost:focus-visible {
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  border-color: var(--color-text);
-}
-
 /*
  * Sticky CTA na mobile, po hero. Brief dopuszcza to jako opcje;
  * na waskim ekranie zastepuje nawigacje, ktorej tam nie ma.
@@ -87,20 +72,6 @@
   .cta-dock {
     display: none;
   }
-}
-
-/* Przycisk ikonowy - FAQ. Accessible name idzie z tresci naglowka. */
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: 44px;
-  block-size: 44px;
-  flex: none;
-  border: 1px solid var(--color-rule);
-  border-radius: 0;
-  background: none;
-  cursor: pointer;
 }
 
 /*

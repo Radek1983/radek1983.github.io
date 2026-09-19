@@ -166,6 +166,41 @@
 }
 
 /*
+ * --- Sekcja 07: cennik i zasady rozliczania ---
+ *
+ * Dwa bardzo delikatne staggery. Cena 55 wchodzi przed 50, a zasady
+ * 01-03 jedna po drugiej - tyle, zeby oko zobaczylo kolejnosc czytania.
+ * Bez scale, bez bounce, bez parallaxu na liczbach: sama liczba jest tu
+ * trescia, a nie efektem.
+ *
+ * Opoznienia sa MALE. Cena musi byc czytelna od razu po wejsciu sekcji
+ * w kadr - kilkaset milisekund pustego miejsca w cenniku to zla odpowiedz
+ * na pytanie, ktore rodzic zadaje najczesciej.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js .price[data-animation] {
+    transition-duration: 700ms;
+  }
+
+  .js .price--secondary {
+    --reveal-delay: 150ms;
+  }
+
+  .js .billing__rule[data-animation] {
+    translate: 0 1rem;
+    transition-duration: 680ms;
+  }
+
+  .js .billing__rule:nth-child(2) {
+    --reveal-delay: 140ms;
+  }
+
+  .js .billing__rule:nth-child(3) {
+    --reveal-delay: 280ms;
+  }
+}
+
+/*
  * Na telefonie fakty stoja jeden pod drugim albo 2x2, wiec ten sam ruch
  * czyta sie mocniej. Amplituda w dol, zgodnie z regula o mniejszym ruchu
  * na malych ekranach.

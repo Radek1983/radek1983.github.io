@@ -4,24 +4,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Angielski dla seniorów Gocław | High Five</title>
+    <title>Angielski dla seniorów na Gocławiu | High Five</title>
     <meta
       name="description"
-      content="Kameralne zajęcia z języka angielskiego dla seniorów w Terminalu Kultury Gocław w Warszawie. Praktyczna nauka, spokojne tempo i dużo rozmowy."
+      content="Kameralne zajęcia z angielskiego dla seniorów w Terminalu Kultury Gocław. Trzy poziomy, spokojne tempo i praktyczna komunikacja."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
-    <link rel="canonical" href="https://radek1983.github.io/oferta/seniorzy/" />
+    <link rel="canonical" href="https://www.highfive.academy/oferta/seniorzy/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/oferta/seniorzy/" />
-    <meta property="og:title" content="Angielski dla seniorów Gocław | High Five" />
+    <meta property="og:url" content="https://www.highfive.academy/oferta/seniorzy/" />
+    <meta property="og:title" content="Angielski dla seniorów na Gocławiu | High Five" />
     <meta
       property="og:description"
-      content="Kameralne zajęcia z języka angielskiego dla seniorów w Terminalu Kultury Gocław w Warszawie. Praktyczna nauka, spokojne tempo i dużo rozmowy."
+      content="Kameralne zajęcia z angielskiego dla seniorów w Terminalu Kultury Gocław. Trzy poziomy, spokojne tempo i praktyczna komunikacja."
     />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych. Przy przeprowadzce na wlasna domene zmienia sie
+      razem z canonical - obie wartosci stoja w tym samym naglowku.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Angielski dla seniorów na Gocławiu | High Five" />
+    <meta
+      name="twitter:description"
+      content="Kameralne zajęcia z angielskiego dla seniorów w Terminalu Kultury Gocław. Trzy poziomy, spokojne tempo i praktyczna komunikacja."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -35,10 +63,38 @@
     />
 
     <link rel="stylesheet" href="/src/css/main.css" />
+
+    <!-- Okruszki: / -> /oferta/ -> produkt. Odwzorowuja rzeczywista strukture adresow. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "High Five",
+            "item": "https://www.highfive.academy/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Oferta",
+            "item": "https://www.highfive.academy/oferta/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Seniorzy",
+            "item": "https://www.highfive.academy/oferta/seniorzy/"
+          }
+        ]
+      }
+    </script>
   </head>
 
-  <body data-section="oferta">
-    <a class="skip-link" href="#main">Przejdź do treści</a>
+  <body data-section="oferta" data-page="seniorzy">
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
 
     <!--#include partials/header.html -->
 
@@ -51,38 +107,72 @@
           <div class="page-hero__grid">
             <div class="page-hero__text">
               <p class="u-label section__label">
-                <span>Dla seniorów</span>
+                <span>Dla&nbsp;seniorów</span>
                 <span>Terminal Kultury Gocław</span>
               </p>
 
               <h1 class="u-display page-hero__title" id="seniorzy-title" data-animation="fade-up">
-                Angielski dla seniorów. Spokojnie. Praktycznie. Na Gocławiu.
+                Angielski dla&nbsp;seniorów. Spokojnie. Praktycznie. Na&nbsp;Gocławiu.
               </h1>
 
               <p class="u-lead page-hero__lead" data-animation="fade-up">
-                Kameralne zajęcia z angielskiego dla osób 60+ w Terminalu Kultury Gocław. Dużo
-                mówienia, przyjazna atmosfera i tempo dopasowane do grupy.
+                Kameralne zajęcia z&nbsp;angielskiego dla&nbsp;osób dorosłych w&nbsp;Terminalu
+                Kultury Gocław. Dużo mówienia, przyjazna atmosfera i&nbsp;tempo dopasowane
+                do&nbsp;grupy.
               </p>
 
-              <a class="cta cta--ink" href="/#kontakt" data-animation="fade-up">
-                Zapytaj o miejsce
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - swiadomie, decyzja wlasciciela z 18.09.2026.
+
+                Stalo tu "Zapytaj o miejsce" prowadzace na /#kontakt, czyli
+                do High Five - a zapisow na te zajecia High Five nie prowadzi.
+                Przycisk obiecywal wiec cos, czego nie mogl dowiezc. Droga
+                jest jedna i wprost: wezwanie w naglowku strony celuje w sekcje
+                zapisow na dole, a stamtad prowadzi odnosnik do Terminala.
+              -->
             </div>
 
             <!--
-              BRAK ZDJECIA. Placeholder zamiast przypadkowego kadru ze stocka -
-              CLAUDE.md par. 4 zabrania udawania, ze widac tu rzeczywiste
-              zajecia. Wymaganie zapisane w docs/CONTENT_GAPS.md.
+              KADR MOCK, nie fotografia rzeczywistych zajec - CLAUDE.md par. 4
+              i D4. Zrodlo podmienil wlasciciel 18.09.2026; plik zrodlowy to
+              sections/seniors-class-1448.png (1448x1086, 4:3), warianty
+              generuje "npm run images".
+
+              Pelna klatka 4:3 zostaje CELOWO. Na telefonie pas ma dokladnie
+              te proporcje i pokazuje ja w calosci, a na desktopie pudelko ma
+              702x736 px, czyli niemal kwadrat, i "object-fit: cover" zabiera
+              po ok. 14% szerokosci z kazdej strony. Gdyby plik byl przyciety
+              do ksztaltu desktopowego, telefon obcialby go drugi raz - tym
+              razem od gory i dolu.
             -->
-            <div class="media page-hero__media photo-todo" data-animation="fade-up">
-              <p class="photo-todo__label">Brak zdjęcia</p>
-              <p class="photo-todo__brief">
-                Potrzebny kadr: troje seniorów w wieku 65-75 lat podczas zajęć w sali szkoleniowej.
-                Dwie kobiety i mężczyzna, zwykłe ubrania, rozmowa lub ćwiczenie przy stole. Nikt nie
-                patrzy w obiektyw. Proporcja 4:3, docelowo AVIF i WebP.
-              </p>
-            </div>
+            <figure class="media page-hero__media" data-animation="fade-up">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="
+                    /src/assets/images/sections/seniors-class-768.avif   768w,
+                    /src/assets/images/sections/seniors-class-1200.avif 1200w,
+                    /src/assets/images/sections/seniors-class-1448.avif 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                />
+                <img
+                  src="/src/assets/images/sections/seniors-class-768.webp"
+                  srcset="
+                    /src/assets/images/sections/seniors-class-768.webp   768w,
+                    /src/assets/images/sections/seniors-class-1200.webp 1200w,
+                    /src/assets/images/sections/seniors-class-1448.webp 1448w
+                  "
+                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  alt="Czworo starszych osób przy stołach w jasnej sali, z zeszytami i długopisami"
+                  width="1448"
+                  height="1086"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
           </div>
         </div>
       </section>
@@ -98,25 +188,35 @@
       >
         <div class="container">
           <h2 class="statement__claim" id="seniorzy-deklaracja" data-animation="fade-up">
-            Mówię. Rozumiem. Nie spieszę się.
+            Mówię. Rozumiem. Nie&nbsp;spieszę się.
           </h2>
 
           <ul class="cols statement__cols">
             <li class="cols__item" data-animation="fade-up">
               <h3>Mała grupa</h3>
               <p>
-                Kameralne zajęcia sprzyjają swobodnej rozmowie i większej uwadze osoby prowadzącej.
+                Kameralne zajęcia sprzyjają swobodnej rozmowie i&nbsp;większej uwadze osoby
+                prowadzącej.
               </p>
             </li>
             <li class="cols__item" data-animation="fade-up">
               <h3>Tempo bez presji</h3>
-              <p>Uczymy się spokojnie, z szacunkiem do Twoich potrzeb i doświadczenia.</p>
+              <p>
+                Uczymy się spokojnie, z&nbsp;szacunkiem do&nbsp;Twoich potrzeb i&nbsp;doświadczenia.
+              </p>
             </li>
             <li class="cols__item" data-animation="fade-up">
               <h3>Praktyczny język</h3>
               <p>
-                Skupiamy się na sytuacjach, które naprawdę przydają się na co dzień — w podróży,
-                rozmowie czy podczas zakupów.
+                Skupiamy się na&nbsp;sytuacjach, które naprawdę przydają się na&nbsp;co&nbsp;dzień
+                —&nbsp;w&nbsp;podróży, rozmowie czy podczas zakupów.
+              </p>
+            </li>
+            <li class="cols__item" data-animation="fade-up">
+              <h3>Ludzie z&nbsp;sąsiedztwa</h3>
+              <p>
+                Uczysz się w&nbsp;kameralnej grupie osób z&nbsp;okolicy. To&nbsp;naturalna okazja
+                do&nbsp;rozmowy, nowych znajomości i&nbsp;wspólnego spędzenia czasu.
               </p>
             </li>
           </ul>
@@ -131,24 +231,27 @@
           <p class="u-label section__label"><span>Jak wyglądają zajęcia</span></p>
 
           <h2 class="u-h2" id="seniorzy-kroki" data-animation="fade-up">
-            Trzy proste kroki do większej pewności.
+            Trzy proste kroki do&nbsp;większej pewności.
           </h2>
 
           <ol class="steps u-mt-8">
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">01</span>
               <h3>Rozmowa</h3>
-              <p>Dużo mówimy — od pierwszych zajęć, w przyjaznej atmosferze.</p>
+              <p>Dużo mówimy —&nbsp;od&nbsp;pierwszych zajęć, w&nbsp;przyjaznej atmosferze.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">02</span>
               <h3>Ćwiczenia</h3>
-              <p>Praktyczne zadania i sytuacje z życia codziennego.</p>
+              <p>Praktyczne zadania i&nbsp;sytuacje z&nbsp;życia codziennego.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">03</span>
               <h3>Powtórka</h3>
-              <p>Regularnie utrwalamy materiał, aby nowe słowa i zwroty zostawały na dłużej.</p>
+              <p>
+                Regularnie utrwalamy materiał, aby nowe słowa i&nbsp;zwroty zostawały
+                na&nbsp;dłużej.
+              </p>
             </li>
           </ol>
         </div>
@@ -164,37 +267,92 @@
       <section class="section" data-animation="section" aria-labelledby="seniorzy-fakty">
         <div class="container">
           <p class="u-label section__label"><span>Szczegóły</span></p>
-          <h2 class="u-h2" id="seniorzy-fakty" data-animation="fade-up">Zajęcia w liczbach</h2>
+          <h2 class="u-h2" id="seniorzy-fakty" data-animation="fade-up">Zajęcia w&nbsp;liczbach</h2>
 
+          <!--
+            METRYKA: trzy rowne kolumny z kreska u gory. "Poziom / Grupa
+            poczatkujaca" zastapilo "Dostepne grupy / 3 poziomy" - oferta
+            ma dzis trzy grupy, wiec jedna nazwa wprowadzala w blad.
+            Koszt podany w jednostce zgodnej z par. 3 kontraktu.
+          -->
           <ul class="cols u-mt-8">
             <li class="cols__item" data-animation="fade-up">
               <h3>Prowadzi</h3>
-              <p>Magda Germel</p>
+              <p>Magdalena Germel</p>
             </li>
             <li class="cols__item" data-animation="fade-up">
-              <h3>Poziom</h3>
-              <p>Grupa początkująca</p>
+              <h3>Dostępne grupy</h3>
+              <p>3&nbsp;poziomy</p>
             </li>
             <li class="cols__item" data-animation="fade-up">
               <h3>Koszt</h3>
-              <p>45 zł za zajęcia</p>
+              <p>45 zł / 60 min</p>
             </li>
           </ul>
 
-          <p class="u-lead u-mt-8" data-animation="fade-up">
-            Rozliczenie jest <strong>miesięczne</strong> — odpłatność zależy od liczby dni zajęć w
-            danym miesiącu. Nie ma możliwości wykupienia pojedynczych zajęć.
-          </p>
+          <!--
+            TRZY POZIOMY - pelna rozpiska zeszla tutaj ze strony glownej,
+            gdzie zostala z niej jedna linia. <ol>, bo kolejnosc niesie sens:
+            od zaczynajacych do mowiacych swobodnie. Zaden poziom nie jest
+            domyslny - rozni je wylacznie tresc opisu.
+          -->
+          <ol class="levels" data-animation="fade-up">
+            <li class="levels__item">
+              <p class="levels__number" aria-hidden="true">01</p>
+              <h3 class="levels__name">Początkująca</h3>
+              <p class="levels__copy">
+                Dla&nbsp;osób, które zaczynają naukę lub chcą spokojnie wrócić do&nbsp;podstaw.
+              </p>
+            </li>
 
-          <p class="u-mt-8" data-animation="fade-up">
-            <a
-              class="u-link"
-              href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Zapisy i szczegóły w Terminalu Kultury ↗</a
-            >
-          </p>
+            <li class="levels__item">
+              <p class="levels__number" aria-hidden="true">02</p>
+              <h3 class="levels__name">Podstawowa</h3>
+              <p class="levels__copy">
+                Dla&nbsp;osób, które już trochę rozumieją i&nbsp;mówią, ale chcą nabrać większej
+                swobody.
+              </p>
+            </li>
+
+            <li class="levels__item">
+              <p class="levels__number" aria-hidden="true">03</p>
+              <h3 class="levels__name">Średniozaawansowana</h3>
+              <p class="levels__copy">
+                Dla&nbsp;osób, które chcą mówić pewniej, poszerzać słownictwo i&nbsp;ćwiczyć
+                naturalną komunikację.
+              </p>
+            </li>
+          </ol>
+
+          <!--
+            ZAMKNIECIE SEKCJI. Kreska jest obramowaniem bloku, nie osobnym
+            <hr> - nie niesie tresci, wiec nie ma po co stac w DOM.
+
+            Zdanie o rozliczeniu miesiecznym zostalo stad zdjete na polecenie
+            wlasciciela: zasady organizacyjne prowadzi Terminal i to jego
+            strona ma byc ich zrodlem.
+          -->
+          <div class="levels-foot">
+            <p class="levels-foot__hint" data-animation="fade-up">
+              <strong>Nie&nbsp;wiesz, która grupa będzie odpowiednia?</strong> Pomożemy dobrać
+              poziom po&nbsp;krótkiej rozmowie.
+            </p>
+
+            <p class="levels-foot__note" data-animation="fade-up">
+              Zapisy na&nbsp;zajęcia prowadzi Terminal Kultury Gocław. Aktualne terminy, dostępność
+              miejsc i&nbsp;szczegóły organizacyjne znajdziesz na&nbsp;stronie Terminala.
+            </p>
+
+            <p data-animation="fade-up">
+              <a
+                class="u-link levels-foot__link"
+                href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Zapisy i&nbsp;szczegóły w&nbsp;Terminalu ↗</a
+              >
+            </p>
+          </div>
         </div>
       </section>
 
@@ -217,19 +375,22 @@
               </h2>
 
               <p data-animation="fade-up">
-                Zajęcia odbywają się w Terminalu Kultury Gocław przy ul. Jana Nowaka-Jeziorańskiego
-                24 w Warszawie.
+                Zajęcia odbywają się w&nbsp;Terminalu Kultury Gocław
+                <span class="u-nowrap-md"
+                  >przy&nbsp;ul.&nbsp;Jana Nowaka-Jeziorańskiego&nbsp;24 w&nbsp;Warszawie.</span
+                >
               </p>
               <p data-animation="fade-up">
-                To wygodna, lokalna przestrzeń na Gocławiu, dobrze znana mieszkańcom dzielnicy.
+                To&nbsp;wygodna, lokalna przestrzeń na&nbsp;Gocławiu, dobrze znana mieszkańcom
+                dzielnicy.
               </p>
               <p data-animation="fade-up">
-                Przed zapisaniem można skontaktować się z nami i zapytać o aktualny termin oraz
-                dostępność miejsca w grupie.
+                Przed zapisaniem można skontaktować się z&nbsp;nami i&nbsp;zapytać o&nbsp;aktualny
+                termin oraz dostępność miejsca w&nbsp;grupie.
               </p>
 
               <a
-                class="cta cta--ghost"
+                class="cta cta--ink"
                 href="https://www.google.com/maps/dir/?api=1&amp;destination=Terminal+Kultury+Goc%C5%82aw%2C+Jana+Nowaka-Jezioranskiego+24%2C+Warszawa"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -259,7 +420,7 @@
                   sizes="(min-width: 62rem) 45vw, 100vw"
                   alt="Budynek Terminalu Kultury Gocław w Warszawie"
                   width="750"
-                  height="500"
+                  height="518"
                   loading="lazy"
                   decoding="async"
                 />
@@ -268,34 +429,97 @@
           </div>
         </div>
       </section>
-
       <!-- ============================================================
-           CTA KOŃCOWE — czerwony pas
+           ZAPISY — czerwony akt zamykajacy podstrone senioralna
+
+           Jedyna z trzech sekcji zapisow, ktora MA przycisk. Powod jest
+           merytoryczny, nie estetyczny: zapisow na te zajecia nie prowadzi
+           High Five, tylko Terminal Kultury. Wezwanie nie jest wiec drugim
+           "napisz do nas", tylko przejsciem do miejsca, gdzie decyzja
+           faktycznie zapada. Telefon zostaje wsparciem.
+
+           Kotwica `#zapisy-seniorzy` jest celem CTA z mega-menu WYLACZNIE
+           na tej podstronie - mapa CTA w src/data/offers.mjs jest kluczowana
+           sciezka pliku, wiec pozostale strony maja swoje cele i etykiety.
            ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="zapisy-seniorzy"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="seniorzy-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="seniorzy-cta" data-animation="fade-up">
-              Chcesz dołączyć?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas i zapytaj o miejsce w grupie dla seniorów.
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kontakt · seniorzy</span>
+          </p>
+
+          <h2 class="u-display enroll__title" id="seniorzy-cta" data-animation="fade-up">
+            Zapisy prowadzi Terminal.
+          </h2>
+
+          <div class="enroll__head">
+            <!--
+              Lamanie jest kompozycyjne: dwa zdania, dwa wiersze jak na
+              projekcie. Nie wiaze krotkiego slowa, wiec <br /> jest tu
+              na miejscu (par. 5 kontraktu).
+            -->
+            <p class="enroll__lead" data-animation="fade-up">
+              W&nbsp;sprawie zapisów przejdź na&nbsp;stronę Terminala Kultury Gocław.<br />
+              Pytania organizacyjne możesz też zadać telefonicznie.
             </p>
           </div>
 
-          <a
-            class="cta cta--large cta--ink"
-            href="mailto:{{EMAIL}}?subject=Angielski%20dla%20senior%C3%B3w%20-%20Terminal%20Kultury%20Goc%C5%82aw&amp;body=Imi%C4%99%20i%20nazwisko%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0APytanie%3A%0A"
-            data-animation="fade-up"
-          >
-            Skontaktuj się
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <!--
+            <dl>, bo to pary etykieta-wartosc. Pierwsza kolumna jest TEKSTEM,
+            nie odnosnikiem: zapisy prowadzi Terminal i to jego strona ma byc
+            jedynym celem klikniecia w tej sprawie.
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Zapisy</dt>
+              <dd class="enroll__value">przez stronę Terminala Kultury Gocław</dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <!--
+            STOPKA SEKCJI: przypis po lewej, wezwanie w prawym dolnym rogu.
+
+            Przycisk stal wczesniej w wierszu z leadem, u gory sekcji.
+            Wlasciciel przeniosl go 19.09.2026 na dol - prawa strona pasa
+            byla pusta pod trzema kolumnami, a decyzja "przejdz do Terminala"
+            zapada po przeczytaniu danych kontaktowych, nie przed.
+
+            Adres NIE jest wymyslony - to ten sam odnosnik, ktory stoi juz
+            wyzej na tej stronie, przy opisie zasad rozliczenia.
+          -->
+          <div class="enroll__foot">
+            <p class="enroll__note" data-animation="fade-up">
+              Telefon najlepiej traktować jako wsparcie. W&nbsp;sprawie zapisów decydująca jest
+              strona Terminala.
+            </p>
+
+            <a
+              class="cta cta--large cta--ink enroll__action"
+              href="https://terminalkultury.pl/portfolio-items/angielski-dla-seniora-grupa-poczatkujaca/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-animation="fade-up"
+            >
+              Zapisy w&nbsp;Terminalu Kultury
+              <span class="cta__arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>

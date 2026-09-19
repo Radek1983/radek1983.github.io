@@ -1,9 +1,56 @@
 /*
- * 07 NABOR / START
+ * 08 NABÃR / START
  *
- * Dwie liczby jako os decyzji: minimum 5 dzieci i data 01.10.
- * Bez licznika zapisanych dzieci - brief zabrania fikcyjnego progress bara.
+ * Plakat typograficzny na pÅaskiej czerni: nagÅÃ³wek w dwÃ³ch wierszach,
+ * pod nim trzy kolumny. Dwie liczby jako oÅ decyzji - minimum 5 dzieci
+ * i data 01.10. Bez licznika zapisanych dzieci, bez ikon, bez przygaszonej
+ * cyfry w tle: brief zabrania fikcyjnego progress bara, a par. 7 wszelkich
+ * dekoracji poza kreskÄ, strzaÅkÄ i markerem mapy.
+ *
+ * Wszystko poniÅ¼ej dotyczy WYÅÄCZNIE tej sekcji - klasy `.enrollment*`
+ * nie wystÄpujÄ nigdzie indziej w serwisie.
+ *
+ * NADRZÄDNY WARUNEK: caÅa sekcja ma mieÅciÄ siÄ w jednym ekranie razem
+ * z wezwaniem. WÅaÅciciel zgÅosiÅ dwa razy, Å¼e przycisk wychodzi pod
+ * krawÄdÅº - dlatego kaÅ¼da wartoÅÄ poniÅ¼ej jest liczona pod ten budÅ¼et,
+ * a nie dobierana "na oko".
  */
+
+.enrollment {
+  padding-block: clamp(1.5rem, 2vw, 2.25rem) clamp(2rem, 2.5vw, 2.75rem);
+}
+
+.enrollment .section__head {
+  margin-block-end: clamp(2.5rem, 3.5vw, 4rem);
+}
+
+/*
+ * Nagłówek: WŁASNY stopień, nie --step-display.
+ *
+ * To nie porządek dla porządku: tamten token niesie także nagłówki sekcji
+ * 11 FAQ i 12 kontakt, a dwunastka jest zamknięta decyzją właściciela (D13).
+ * Zmiana w tokenie ruszyłaby ją po cichu.
+ *
+ * Interlinia zostaje na --leading-caps. Stała tu przez chwilę 0.95 - układ
+ * wyglądał zwarcie jak na projekcie i maska reveal niczego nie ścinała,
+ * bo pudełko jest powiększone paddingiem anty-clippingowym. Ale ten padding
+ * broni tylko PIERWSZEGO wiersza przed maską; nie ma nic wspólnego
+ * z odległością MIĘDZY wierszami. Przy 0.95 ogonek Ą z wiersza wyżej wchodzi
+ * w kreskę nad Ó z wiersza niżej - obecna treść takiej pary nie ma, ale
+ * pierwsza zmiana copy by ją wprowadziła. Wyłapał to test polskich wersalików
+ * i ma rację: 1.16 to zmierzone minimum (0.95 wznoszenia tuszu + 0.21 ogonka).
+ */
+
+.enrollment__claim {
+  font-size: clamp(3rem, 8.4vw, 8.85rem);
+  line-height: var(--leading-caps);
+  max-inline-size: 15ch;
+}
+
+/* Jedyny akcent koloru w typografii sekcji. */
+.enrollment__dot {
+  color: var(--color-signal);
+}
 
 .enrollment__grid {
   display: grid;
@@ -21,21 +68,35 @@
 
 .enrollment__figure {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 11vw, 8.5rem);
+  font-size: clamp(3.25rem, 7vw, 7.5rem);
   font-weight: 800;
-  line-height: 0.78;
+  line-height: 0.82;
   letter-spacing: -0.05em;
 }
 
 .enrollment__fact--date .enrollment__figure {
-  font-size: clamp(2.75rem, 8vw, 6rem);
+  font-size: clamp(3rem, 6vw, 6.875rem);
   letter-spacing: -0.04em;
+}
+
+/*
+ * Rok jest PODPORZÄDKOWANY dacie: o poÅowÄ mniejszy i wyciszony.
+ * DzieÅ i miesiÄc rodzic zapamiÄtuje, rok tylko je doprecyzowuje.
+ */
+.enrollment__year {
+  display: block;
+  margin-block-start: 0.08em;
+  font-size: clamp(2.125rem, 3vw, 3.375rem);
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--color-text) 48%, transparent);
 }
 
 .enrollment__caption {
   padding-block-start: var(--space-4);
   border-block-start: 1px solid var(--color-rule);
-  max-inline-size: 24ch;
+  max-inline-size: 22ch;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.4;
 }
 
 .enrollment__status {
@@ -44,6 +105,13 @@
   flex-direction: column;
   gap: var(--space-6);
   align-items: flex-start;
+}
+
+.enrollment__lead {
+  margin: 0;
+  max-inline-size: 32ch;
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.35;
 }
 
 /* Status grupy aktualizowany recznie tekstem - patrz docs/CONTENT.md. */
@@ -66,13 +134,74 @@
   background-color: var(--color-signal);
 }
 
+/* Wezwanie blisko tekstu, nie na koÅcu pustej kolumny. */
+.enrollment__status .cta {
+  margin-block-start: var(--space-2);
+}
+
 @media (width >= 62rem) {
-  .enrollment__fact {
-    grid-column: span 4;
+  /*
+   * Trzy kolumny w proporcji z projektu: dwie liczbowe rÃ³wne, trzecia
+   * szersza, bo niesie tekst i wezwanie.
+   */
+  .enrollment__grid {
+    grid-template-columns: 1fr 1fr 1.25fr;
+    grid-template-rows: auto auto;
+    column-gap: clamp(2rem, 3.5vw, 4rem);
   }
 
+  /*
+   * Dwa wiersze i `subgrid` - to jedyny sposÃ³b, Å¼eby kreski pod liczbami
+   * staÅy na TEJ SAMEJ osi.
+   *
+   * "5" i blok "01.10 / 2026" majÄ rÃ³Å¼ne wysokoÅci: rÃ³Å¼ne stopnie pisma,
+   * a drugi ma dodatkowo dwa wiersze. DopÃ³ki kaÅ¼dy fakt byÅ osobnÄ kolumnÄ
+   * flex, podpis zaczynaÅ siÄ zaraz pod swojÄ liczbÄ i obie kreski
+   * rozjeÅ¼dÅ¼aÅy siÄ dokÅadnie o tÄ rÃ³Å¼nicÄ. W `subgrid` obie liczby dzielÄ
+   * jeden wiersz siatki, a oba podpisy drugi - rÃ³wnoÅÄ wynika z UKÅADU
+   * i nie rozjedzie siÄ przy nastÄpnej zmianie stopnia pisma.
+   *
+   * Kolumny sÄ przypisane WPROST, nie przez auto-placement. Element
+   * z definitywnym wierszem (tu: kolumna statusu, `grid-row: 1 / span 2`)
+   * jest ukÅadany PRZED elementami bez niego, wiÄc przy `grid-column: auto`
+   * status lÄdowaÅ jako pierwszy, w kolumnie 1, a liczby spychaÅ w prawo.
+   */
+  .enrollment__fact {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+    gap: var(--space-4);
+  }
+
+  .enrollment__fact--date {
+    grid-column: 2;
+  }
+
+  /* Liczba siada na dole swojego wiersza, wiÄc kreska idzie tuÅ¼ pod niÄ. */
+  .enrollment__figure {
+    align-self: end;
+  }
+
+  /*
+   * Prawa kolumna startuje RÃWNO z liczbami, nie pod nimi. Na projekcie
+   * plakietka stoi na wysokoÅci gÃ³rnej krawÄdzi "5" i "01.10".
+   */
   .enrollment__status {
-    grid-column: 9 / -1;
-    padding-block-start: var(--space-8);
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    align-self: start;
+    gap: var(--space-5, 1.25rem);
+  }
+
+  /*
+   * Pionowe krawÄdzie sÄ SUBTELNE - majÄ dzieliÄ kompozycjÄ, nie rysowaÄ
+   * tabeli. Przy peÅnej mocy `--color-rule` sekcja czytaÅa siÄ jak arkusz
+   * kalkulacyjny, co wÅaÅciciel zgÅosiÅ wprost.
+   */
+  .enrollment__fact--date,
+  .enrollment__status {
+    padding-inline-start: clamp(2rem, 3.5vw, 4rem);
+    border-inline-start: 1px solid rgb(255 255 255 / 12%);
   }
 }

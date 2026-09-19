@@ -33,7 +33,17 @@
    * kompozycji, ktory ma prawo wyjsc poza krawedz ekranu.
    */
   --step-wordmark: clamp(4.5rem, 17vw, 17rem);
-  --step-display: clamp(3.25rem, 10vw, 9rem);
+  --step-display: clamp(3rem, 9.2vw, 8.25rem);
+
+  /*
+   * Wlasny stopien sekcji 07. Niesie JEDNOCZESNIE naglowek cennika i same
+   * ceny - wlasciciel chce, zeby byly tej samej wielkosci, wiec musza brac
+   * wartosc z jednego miejsca, a nie z dwoch clampow ustawianych rownolegle.
+   *
+   * Osobny token, a nie --step-display, bo tamten niesie takze naglowki
+   * sekcji 08, 11 i 12 - ruszenie go zmienialoby cztery sekcje naraz.
+   */
+  --step-cennik: clamp(2.625rem, 8vw, 7.25rem);
   --step-h1: clamp(2.25rem, 5.2vw, 5rem);
   --step-h2: clamp(1.875rem, 4vw, 3.75rem);
   --step-h3: clamp(1.25rem, 1.6vw, 1.625rem);
@@ -41,6 +51,25 @@
   --step-lead: clamp(1.125rem, 0.8vw + 1rem, 1.5rem);
   --step-label: 0.8125rem;
   --leading-tight: 0.86;
+
+  /*
+   * Interlinia dla WERSALIKOW z polskimi znakami.
+   *
+   * Zmierzone w Inter Display ExtraBold (canvas TextMetrics, 1 em = 100 px):
+   *   wersalik bez znakow diakrytycznych  ... tusz 0.73 em nad linia bazowa
+   *   wersalik z akcentem (O S C N Z)     ... tusz 0.95 em nad linia bazowa
+   *   wersalik z ogonkiem (A E)           ... tusz 0.21 em pod linia bazowa
+   *
+   * Zeby ogonek wiersza N nie wszedl w akcent wiersza N+1, odleglosc linii
+   * bazowych musi wynosic co najmniej 0.95 + 0.21 = 1.16 em. Przy 0.86 em
+   * brakowalo 0.30 em i w "WIECEJ / CIAGLOSCI" ogonek E lezal na akcentach
+   * wiersza nizej.
+   *
+   * Dotyczy KAZDEGO wielowierszowego napisu wersalikami - takze wtedy, gdy
+   * sa to osobne elementy stojace jeden pod drugim, jak czasowniki w sekcji
+   * "Jak uczymy".
+   */
+  --leading-caps: 1.16;
   --leading-heading: 1.02;
   --leading-body: 1.55;
   --tracking-display: -0.035em;
@@ -75,6 +104,14 @@
 
   /* --- Motion. Wartosci startowe z briefu; warstwa ruchu powstaje w osobnym kroku. --- */
   --dur-micro: 180ms;
+
+  /*
+   * Czas trwania stanu hover/focus na kolumnie oferty: czerwona kreska nad
+   * modulem, marker pod naglowkiem w mega-menu i przesuniecie strzalki.
+   * Dluzszy niz --dur-micro, bo droga kreski to cala szerokosc kolumny,
+   * a nie kilka pikseli. Sam kolor numeru zostaje na --dur-micro.
+   */
+  --dur-state: 240ms;
   --dur-reveal: 560ms;
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

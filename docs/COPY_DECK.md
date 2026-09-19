@@ -137,7 +137,11 @@ minimum (5 dzieci w grupie), cena (55 zł/godz., rodzeństwo 50 zł/godz.).
 
 ## 05 Jak uczymy — `#metoda`
 
-**Scena typograficzna:** `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.`
+**Scena typograficzna:** `MÓW  PRÓBUJ  POPRAWIAJ  UŻYWAJ`
+
+Master prompt §16 podaje tu `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` — **„mówij" nie jest polskim
+słowem.** Tryb rozkazujący od „mówić" to „mów"; pozostałe trzy formy są poprawne i to po nich
+błędna została dopisana przez analogię. Poprawkę i zdjęcie kropek polecił właściciel — ADR 0009.
 
 > Zajęcia mają być miejscem aktywnego używania języka, nie kolejną godziną siedzenia
 > nad ćwiczeniami.
@@ -149,12 +153,39 @@ Zakaz dopisywania nazw metod, certyfikatów i obietnic pedagogicznych bez źród
 
 ## 06 Cena — `#cennik`
 
-**Nagłówek:** `Prosta cena. Bez ukrywania.`
+Sekcja ma **dwa panele jednej odpowiedzi**: najpierw ile, potem na jakich zasadach.
+Brzmienie poniżej zostało przebudowane na polecenie właściciela 15.09.2026.
 
-- **55 zł / godzina** — pierwsze dziecko
-- **50 zł / godzina** — drugie i każde kolejne dziecko z rodzeństwa
+### Panel A — ile kosztuje
 
-> Cena za godzinę zajęć. Grupa rozpoczyna pracę po zebraniu minimum 5 dzieci.
+**Nagłówek:** `Prosta cena.`
+Brzmienie zmieniano dwa razy: z `Prosta cena. Bez ukrywania.` na `Prosta cena. Bez
+abonamentu.` (15.09.2026), a 16.09.2026 właściciel zdjął drugie zdanie w całości.
+Informacja o braku stałej opłaty miesięcznej nie znikła ze strony — niesie ją panel B
+(`Bez stałej miesięcznej opłaty`), więc nagłówek nie musiał jej powtarzać.
+
+- **55 zł / 45 min** — pierwsze dziecko
+- **50 zł / 45 min** — drugie i każde kolejne dziecko z rodzeństwa
+
+**Przypis:** `Podane ceny dotyczą regularnych zajęć grupowych dla klas 1-7 w SP 402.`
+Przypis mówi wyłącznie, czego dotyczą podane ceny. **Nie ma tu odnośnika do pełnego
+cennika** — wcześniej to samo wezwanie padało w sekcji dwa razy.
+
+### Panel B — na jakich zasadach
+
+**Nagłówek:** `Płacisz za zajęcia, które się odbywają.`
+Wcześniej `Płacisz tylko za zajęcia, które są w kalendarzu.` Fakt z §3 kontraktu jest ten
+sam; zmieniło się sformułowanie — „które się odbywają" mówi to samo bez odwołania do
+kalendarza, którego rodzic na tym etapie nie widział.
+
+| Nr  | Tytuł                         | Wyjaśnienie                                                                                         |
+| --- | ----------------------------- | --------------------------------------------------------------------------------------------------- |
+| 01  | Bez stałej miesięcznej opłaty | Rozliczenie zależy od liczby zajęć zaplanowanych w danym miesiącu.                                  |
+| 02  | Bez opłat za dni wolne        | Jeśli zajęcia wypadają w dzień wolny od szkoły i nie odbywają się, nie są doliczane do rozliczenia. |
+| 03  | Grupa rusza od 5 osób         | Zajęcia rozpoczynamy po zebraniu minimum 5 dzieci.                                                  |
+
+**Jedyny odnośnik sekcji:** `Zobacz cennik wszystkich zajęć →` → `/cennik/`
+**Podpis pod nim:** `Kurs egzaminacyjny · seniorzy · online 1 na 1`
 
 Brief zabrania nazywania niższej stawki „pakietem rodzinnym", jeśli formalnie jest to po
 prostu niższa cena za kolejne dziecko.
@@ -292,3 +323,45 @@ ceny, minimum 5 dzieci. Nie dopisywać tam nowych treści czasowych bez oznaczen
 Test w `tests/smoke/page.spec.js` pilnuje, żeby **żadna datowana wzmianka nie została
 nieoznaczona** — inaczej przetrwałaby usunięcie bloku. Sformułowanie „status naboru"
 w finalnym CTA jest świadomie stałe: opisuje proces, nie termin.
+
+## Podstrona `/oferta/egzamin-osmoklasisty/`
+
+Przebudowana **15.09.2026** według obrazu referencyjnego właściciela. Cały tekst poniżej jest
+zatwierdzony; podstrona ma własną warstwę stylów `src/css/pages/egzamin.css`, zakotwiczoną
+w `[data-page='egzamin']` na `<body>`.
+
+**Hero**
+
+- eyebrow: `Egzamin ósmoklasisty · Klasa 8`
+- headline: `Next step. Przygotuj się do egzaminu. Spokojnie i systematycznie.`
+  „Next step." jest częścią nazwy oferty — **nie wolno go usuwać.**
+- lead: `Kurs dla ósmoklasistów zgodny z wymaganiami egzaminacyjnymi i podstawą programową.
+Dopracowana metodyka, strategie egzaminacyjne i regularna praktyka zwiększają pewność
+przed egzaminem.`
+- CTA: `Zapytaj o grupę` → `/#kontakt`
+
+**Czarny pas:** `Słucham. Czytam. Piszę. Zdaję.` — słowo `Zdaję.` w kolorze sygnałowym.
+Pod nim: `Pracujemy nad tym, co naprawdę liczy się na egzaminie: rozumieniem, pisaniem,
+komunikacją, gramatyką i skutecznym działaniem pod presją czasu.`
+
+**Co obejmuje kurs?** Sześć obszarów (01–06): rozumienie ze słuchu, czytanie ze zrozumieniem,
+pisanie, komunikacja i mówienie, gramatyka i słownictwo, strategie egzaminacyjne i czas.
+Każdy z listą punktowaną — punktory są **typograficzne**, nie ikonowe.
+
+**Zastrzeżenie o braku obietnicy wyniku jest OBOWIĄZKOWE** i zeszło tu z czarnego pasa, bo ten
+niesie już inną treść. Brzmienie: `Nie obiecujemy wyniku egzaminu. Pracujemy nad tym, co realnie
+od nas zależy:` + trzy punkty (`uporządkowaniem materiału`, `znajomością typów zadań`,
+`regularnym treningiem`). Master prompt §8 zabrania obiecywania wyniku — nie usuwać.
+
+**Jak pracujemy?** Cztery kroki w jednym rzędzie: Diagnoza, Powtórki tematyczne, Praktyka
+egzaminacyjna, Informacja zwrotna.
+
+**Cennik** — sekcja na **HF BLUE** (§7: granat to „drugi akt marki / sekcja egzaminacyjna").
+`80 zł / 90 minut`, pod spodem cztery fakty: `1 spotkanie grupowe`, `90 minut pracy`,
+`Kurs dla klasy 8`, `Zgodny z podstawą programową i wymaganiami egzaminacyjnymi`.
+Przypis: `Status grupy i termin rozpoczęcia potwierdzamy po kontakcie.`
+Stawkę przekazał właściciel 15.09.2026 — **`/cennik/` nadal mówi, że cena nie jest ustalona**,
+patrz `docs/CONTENT_GAPS.md`.
+
+**CTA końcowe:** `Chcesz dołączyć?` + `Napisz do nas — odezwiemy się w sprawie terminu, poziomu
+i statusu grupy.` + przycisk `Zapytaj o grupę`.

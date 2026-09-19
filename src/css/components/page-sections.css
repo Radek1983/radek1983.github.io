@@ -35,9 +35,15 @@
   padding-block: clamp(2rem, 5vw, 4rem);
 }
 
+/*
+ * Stopien zszedl z 6vw po tym, jak interlinia wersalikow wzrosla do
+ * bezpiecznych 1.16 em. Na /kariera/ naglowek lamie sie na cztery wiersze
+ * i przy 6vw caly hero przestal miescic sie w jednym ekranie (933 px przy
+ * oknie 900). Teraz wraca pod te granice.
+ */
 .page-hero__title {
-  font-size: clamp(2.25rem, 6vw, 4.75rem);
-  line-height: 0.94;
+  font-size: clamp(2rem, 5.4vw, 4.25rem);
+  line-height: var(--leading-caps);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
   max-inline-size: 14ch;
@@ -77,7 +83,7 @@
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 7vw, 6.5rem);
   font-weight: 800;
-  line-height: 0.94;
+  line-height: var(--leading-caps);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
@@ -246,7 +252,7 @@
   font-family: var(--font-display);
   font-size: clamp(2rem, 5.5vw, 4.5rem);
   font-weight: 800;
-  line-height: 0.96;
+  line-height: var(--leading-caps);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
@@ -254,42 +260,6 @@
 .closing__lead {
   margin-block-start: var(--space-4);
   max-inline-size: 40ch;
-}
-
-/*
- * --- Brakujaca fotografia ---
- *
- * Widoczny, celowo nieatrakcyjny blok z opisem potrzebnego kadru. NIE jest to
- * przypadkowe zdjecie ze stocka ani obraz z zewnetrznego adresu: CLAUDE.md
- * par. 4 zabrania udawania, ze placeholder pokazuje rzeczywiste zajecia,
- * a CSP i tak nie wpuscilaby obcego hosta.
- *
- * Blok trzyma docelowa proporcje, wiec podmiana na prawdziwy kadr nie zmieni
- * geometrii strony i nie wywola przesuniecia layoutu.
- */
-.photo-todo {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-2);
-  padding: var(--space-6);
-  background-color: color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
-  border: 1px dashed var(--color-rule);
-  color: var(--color-text);
-}
-
-.photo-todo__label {
-  font-size: var(--step-label);
-  font-weight: 700;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.photo-todo__brief {
-  margin: 0;
-  max-inline-size: 40ch;
-  font-size: var(--step-label);
-  line-height: 1.5;
 }
 
 /* --- Skrot oferty na stronie glownej: cztery sciezki --- */
@@ -307,7 +277,18 @@
   list-style: none;
 }
 
+/*
+ * Siatka, a nie zwykly blok: odnosnik ma sie ROZCIAGNAC na cala wysokosc
+ * modulu. Sam <li> jest elementem siatki sekcji, wiec rosnie do wysokosci
+ * najwyzszej kolumny w wierszu - ale odnosnik w srodku zostawal przy swojej
+ * tresci i w nizszych kolumnach ostatnie ~20 px modulu nie bylo klikalne.
+ *
+ * Wyszlo dopiero 19.09.2026, gdy podpis oferty 03 urosl do dwoch wierszy
+ * (`Seniorzy · Terminal Kultury Gocław`). Wczesniej wszystkie cztery podpisy
+ * mialy po jednym wierszu, wiec kolumny byly rowne i roznicy nie bylo widac.
+ */
 .paths__item {
+  display: grid;
   grid-column: 1 / -1;
   border-block-start: 1px solid var(--color-rule);
 }
@@ -346,8 +327,21 @@
   color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
 
+/*
+ * Wezwanie siada na DOLE modulu, nie pod ostatnim wierszem podpisu.
+ *
+ * Podpisy maja rozna dlugosc i od 19.09.2026 jeden z nich lamie sie na dwa
+ * wiersze, wiec przy stalym marginesie cztery czerwone wezwania staly na
+ * dwoch roznych wysokosciach. `auto` w kolumnie flex zbiera cala nadwyzke
+ * wysokosci nad wezwaniem, wiec rownosc wynika z ukladu i przetrwa kazda
+ * kolejna zmiane dlugosci podpisu.
+ *
+ * Dziala tylko dlatego, ze odnosnik rozciaga sie na cala wysokosc modulu
+ * (patrz .paths__item wyzej) - bez tego nie bylo czego rozdzielac.
+ */
 .paths__cta {
-  margin-block-start: var(--space-2);
+  margin-block-start: auto;
+  padding-block-start: var(--space-2);
   font-size: var(--step-label);
   font-weight: 700;
   letter-spacing: var(--tracking-label);
@@ -355,10 +349,14 @@
   color: var(--color-accent);
 }
 
-.paths__link:hover .paths__cta,
-.paths__link:focus-visible .paths__cta {
-  text-decoration: underline;
-}
+/*
+ * Stan hover/focus tej kolumny opisuje components/offer-mark.css - ten sam
+ * plik, ktory obsluguje mega-menu. Tutaj zostaja wylacznie style spoczynku.
+ *
+ * Body celowo NIE dostaje markera pod naglowkiem, ktory ma mega-menu:
+ * czerwona kreska nad modulem, czerwony numer i ruch strzalki wystarcza,
+ * a czwarty sygnal zrobilby z sekcji contentowej drugie menu.
+ */
 
 @media (width >= 48rem) {
   .paths__item {
@@ -405,7 +403,7 @@
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 800;
-  line-height: 0.96;
+  line-height: var(--leading-caps);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
   max-inline-size: 14ch;
@@ -428,4 +426,851 @@
 
 .page-hero__text--wide .page-hero__title {
   max-inline-size: 18ch;
+}
+
+/* ============================================================
+   KORZYŚCI W HERO — trzy krótkie pozycje pod wezwaniem
+   ============================================================ */
+
+/*
+ * Trzy korzysci rozdzielone WYLACZNIE kreska pionowa.
+ *
+ * Pierwsza wersja miala czerwone etykiety i kreske pozioma u gory. Czerwien
+ * w tej kolumnie jest kolorem AKCJI - niesie ja wezwanie stojace wyzej -
+ * wiec trzy czerwone napisy zaraz pod nim czytaly sie jak kolejne odnosniki.
+ * Pozioma kreska dokladala czwarta linie podzialu do kolumny, ktora ma juz
+ * naglowek, akapit i przycisk.
+ *
+ * Teraz hierarchia idzie SAMYM stopniem i kolorem tekstu: nazwa w kroju
+ * display, wersalikami, w kolorze tekstu; opis mniejszy i wyciszony.
+ * To ten sam uklad, ktory niesie metryczka firmy w sekcji kontaktu.
+ */
+.perks {
+  /*
+   * Pół centymetra powietrza ponad `gap` kolumny hero - właściciel poprosił
+   * o to 18.09.2026, po zdjęciu z hero przycisku, pod którym ten blok stał.
+   * Przy oknie 1440 to 18,7 px, czyli dokładnie te 0,5 cm; na telefonie
+   * dokładka topnieje do 8 px, bo par. 9 każe zmniejszać amplitudę układu.
+   *
+   * Reguła stoi w komponencie, a nie w warstwie strony, bo `.perks`
+   * występuje WYŁĄCZNIE na /oferta/online/.
+   */
+  margin-block: clamp(0.5rem, 1.3vw, 1.25rem) 0;
+  display: grid;
+
+  /*
+   * .page-hero__text jest kolumna flex z align-items: flex-start, wiec bez
+   * tego lista kurczy sie do szerokosci najdluzszego zdania i trzy pozycje
+   * ustawiaja sie jedna pod druga zamiast w rzedzie.
+   */
+  inline-size: 100%;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+
+  /* Tylko poziomo - pionowy margines ustawia deklaracja wyżej. */
+  margin-inline: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perks__title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.perks__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  max-inline-size: 24ch;
+}
+
+@media (width >= 30rem) {
+  /*
+   * Trzy rowne kolumny, kreska PRZED pozycja. Pierwsza zostaje bez niej,
+   * wiec blok zaczyna sie rowno z lewa krawedzia tresci - tak jak naglowek
+   * i akapit nad nim.
+   */
+  .perks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    gap: var(--space-6) 0;
+  }
+
+  /*
+   * Subgrid wyrownuje opisy do wspolnej linii.
+   *
+   * "Indywidualne podejscie" lamie sie na dwa wiersze, a pozostale dwie
+   * nazwy na jeden - bez tego opisy startowaly na trzech roznych
+   * wysokosciach i rzad czytal sie jak zbior przypadkowych blokow.
+   *
+   * Bez wsparcia subgrid pozycje po prostu zachowuja wlasne wiersze,
+   * czyli stan sprzed tej reguly. Nic sie nie psuje.
+   */
+  .perks__item {
+    grid-row: span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+    gap: 0;
+    padding-inline: var(--space-6);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+
+  .perks__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/*
+ * Lista z wlasnym znacznikiem zamiast punktora przegladarki.
+ * Znacznik jest dekoracja, nie trescia - stad pseudo-element.
+ */
+.split__list--check {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.split__list--check li {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.split__list--check li::before {
+  content: '✓';
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* ============================================================
+   /oferta/online/ — dwa odstępy w sekcji „Jak wygląda współpraca"
+   ============================================================ */
+
+/*
+ * Reguły są zakotwiczone w [data-page='online'], więc dotyczą JEDNEJ strony,
+ * mimo że stoją w komponencie. Właściwym miejscem byłaby warstwa strony,
+ * ale ta podstrona takiej nie miała, a dołożenie nowego pliku do main.css
+ * wywraca serwer deweloperski: postcss-import zapamiętuje brak pliku
+ * i oddaje 500 na cały arkusz do czasu restartu. Przy najbliższym restarcie
+ * te dwie reguły można przenieść do pages/online.css bez żadnej zmiany treści.
+ *
+ * ODSTĘP NAD KROKAMI. Lista nosi w HTML klasę u-mt-8, która miała dać jej
+ * margines u góry — tej klasy nie ma w żadnym arkuszu serwisu, nigdy nie
+ * powstała. Ten sam brak zgłosił właściciel dzień wcześniej na /oferta/dzieci/.
+ * Klasy nie ożywiam globalnie: stoi w jedenastu miejscach na sześciu stronach,
+ * w tym w zamkniętej sekcji 04 strony głównej (D10).
+ */
+[data-page='online'] .steps.u-mt-8 {
+  margin-block-start: clamp(1.5rem, 2.9vw, 2.75rem);
+}
+
+/*
+ * ODSTĘP MIĘDZY ETYKIETĄ A NAGŁÓWKIEM. Nagłówki mają w serwisie wyzerowane
+ * marginesy, a etykieta i nagłówek są tu bezpośrednimi dziećmi .container,
+ * bez kolumny flex z gap, którą ma hero. Bez tego stoją tusz w tusz.
+ * Dziecko bezpośrednie w selektorze wyklucza pary siedzące w blokach,
+ * które własny odstęp już mają.
+ */
+[data-page='online'] .container > .section__label + .u-h2 {
+  margin-block-start: var(--space-6);
+}
+
+/*
+ * Skala typografii czerwonej sekcji kontaktowej na /oferta/online/.
+ *
+ * Sekcja korzysta ze wspólnego komponentu `components/enroll.css`, który
+ * trzyma strukturę i rytm; warstwy stron ustawiają wyłącznie stopnie pisma.
+ * Zdanie ma dziewiętnaście znaków - mniej niż na stronie egzaminacyjnej
+ * (21) i seniorskiej (24), więc stopień idzie odpowiednio wyżej, żeby
+ * nagłówek wypełnił szerokość siatki w jednym wierszu.
+ *
+ * Reguła stoi tutaj, a nie w `pages/online.css`, z tego samego powodu co
+ * dwie wyżej: dołożenie nowego pliku do `main.css` wywraca serwer
+ * deweloperski do czasu restartu.
+ */
+[data-page='online'] {
+  --step-enroll-title: clamp(1.875rem, 7.6vw, 7.25rem);
+  --measure-enroll-lead: 34ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+}
+
+/*
+ * ODSTĘP NAD KROKAMI na /kariera/ — sekcja „Co będziesz robić?".
+ *
+ * Ta sama usterka co na trzech podstronach ofertowych: lista nosi w HTML
+ * klasę `u-mt-8`, której nie ma w żadnym arkuszu serwisu, więc etykieta
+ * sekcji przylegała do kresek nad kolumnami. Wartość i uzasadnienie jak
+ * tam - przy oknie 1440 to 41,8 px, czyli około centymetra.
+ *
+ * Zakres bierze `[data-section='kariera']`, bo ta strona jako jedyna nie
+ * ma własnego `data-page`; atrybut sekcji jest tu równie jednoznaczny -
+ * niesie go wyłącznie ta jedna strona.
+ */
+[data-section='kariera'] .steps.u-mt-8 {
+  margin-block-start: clamp(1.5rem, 2.9vw, 2.75rem);
+}
+
+/*
+ * Skala typografii czarnej sekcji kontaktowej na /kariera/.
+ *
+ * Strona zamyka się tym samym komponentem `components/enroll.css`, co cztery
+ * podstrony ofertowe - różni ją wyłącznie motyw (`ink` zamiast `signal`)
+ * i stopnie pisma. Nagłówek ma siedemnaście znaków, czyli najmniej z całej
+ * piątki, więc stopień idzie najwyżej: przy 1440 px daje to jeden wiersz
+ * wypełniający szerokość siatki.
+ *
+ * Zakres bierze `[data-section='kariera']` - ta strona nie ma własnego
+ * `data-page`, a atrybut sekcji niesie wyłącznie ona.
+ */
+[data-section='kariera'] {
+  --step-enroll-title: clamp(2rem, 8.6vw, 8rem);
+  --measure-enroll-lead: 44ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+}
+
+/*
+ * WYLICZENIE W SEKCJI „Więcej niż tylko praca" na /kariera/.
+ *
+ * Reset serwisu zdejmuje punktory każdej liście z klasą (`ul[class]`
+ * w `base/reset.css`), a `.split__list` oddaje tylko wcięcie. Siedem
+ * pozycji czytało się przez to jak siedem luźnych akapitów - znikała
+ * różnica między dwoma akapitami wprowadzającymi a wyliczeniem korzyści.
+ *
+ * Punktor wraca przez natywny `::marker`, nie przez pseudo-element z kropką.
+ * Powód jest praktyczny: `list-style-position: outside` daje wiszące
+ * wcięcie za darmo, więc druga linia pozycji wyrównuje się do TEKSTU,
+ * a nie do punktu - bez siatki i bez dobierania szerokości kolumny.
+ *
+ * Zakres bierze `[data-section='kariera']` wraz z modyfikatorem: tej samej
+ * klasy `.split__list` używa `/lokalizacje/` w dwóch miejscach i tam układ
+ * zostaje nietknięty.
+ */
+[data-section='kariera'] .split__list--dots {
+  list-style: disc;
+
+  /*
+   * Wcięcie trzeba podać TUTAJ, choć `.split__list` już je ma. Reset serwisu
+   * zeruje `padding` selektorem `ul[class]`, a ten - jako element plus atrybut -
+   * ma wyższą specyficzność niż sama klasa i cicho ją wygrywał. Bez tej linii
+   * punktory wychodzą poza kolumnę tekstu.
+   */
+  padding-inline-start: 1.1em;
+
+  /* 16 px daje `gap` kolumny tekstowej; te 8 px dobija odstęp do 24 px,
+     czyli wyraźnie więcej niż między akapitami, ale wciąż w rytmie sekcji. */
+  margin-block-start: var(--space-2);
+}
+
+[data-section='kariera'] .split__list--dots li {
+  /* 12 px - zwarty rytm wyliczenia, cieńszy niż 16 px między akapitami. */
+  margin-block-end: var(--space-3);
+}
+
+[data-section='kariera'] .split__list--dots li:last-child {
+  margin-block-end: 0;
+}
+
+/*
+ * Punkt w czerwieni marki i mniejszy od kroju tekstu - ma wskazywać
+ * pozycję, nie konkurować z nią. `::marker` przyjmuje wyłącznie własności
+ * koloru i kroju, więc rozmiar idzie przez `font-size`, nie przez wymiary.
+ */
+[data-section='kariera'] .split__list--dots li::marker {
+  color: var(--color-accent);
+  font-size: 0.85em;
+}
+
+/* ============================================================
+   /lokalizacje/ — czerwony akt „Nowa grupa"
+   ============================================================ */
+
+/*
+ * Sekcja korzysta ze wspólnego komponentu `components/enroll.css`, tak samo
+ * jak cztery podstrony ofertowe, `/oferta/online/` i `/kariera/`. Komponent
+ * jest tu NIETKNIĘTY - strona wnosi wyłącznie skalę typografii i jeden
+ * własny element, którego tamte sekcje nie mają.
+ *
+ * Reguły stoją w komponencie, a nie w `pages/lokalizacje.css`, z tego samego
+ * powodu co bloki `[data-page='online']` i `[data-section='kariera']` wyżej:
+ * dołożenie nowego pliku do `main.css` wywraca serwer deweloperski do czasu
+ * restartu (par. 18 kontraktu). Przy najbliższym restarcie cały ten blok
+ * można przenieść bez żadnej zmiany treści.
+ */
+[data-section='lokalizacje'] {
+  /*
+   * Najdłuższy wiersz nagłówka ma osiemnaście znaków - między stroną
+   * egzaminacyjną a `/oferta/online/`, więc i stopień leży pomiędzy nimi.
+   * Nagłówek stoi tu w DWÓCH wierszach (łamanie kompozycyjne w HTML), więc
+   * szerokość siatki wypełnia dłuższy z nich.
+   */
+  --step-enroll-title: clamp(1.875rem, 6.85vw, 6.5rem);
+
+  /*
+   * Lead jest najdłuższy w całej szóstce - trzy zdania zamiast jednego.
+   * Miara jest więc szersza niż na pozostałych stronach, ale wciąż wyraźnie
+   * węższa od siatki: tekst ma się kończyć przed prawą krawędzią, tak jak
+   * w projekcie.
+   */
+  --measure-enroll-lead: 74ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.55vw, 1.4375rem);
+}
+
+/*
+ * Trzy kroki. Biorą tę samą siatkę i te same kreski co dane kontaktowe niżej
+ * (`.enroll__grid` i `.enroll__item`), więc nie wnoszą nowego języka
+ * wizualnego - różni je wyłącznie to, że pod etykietą stoi zdanie, a nie
+ * wartość kontaktowa.
+ *
+ * Reset serwisu zdejmuje listom z klasą punktory i padding, więc `<ol>`
+ * nie wymaga tu nic poza rytmem.
+ */
+[data-section='lokalizacje'] .new-group__steps {
+  /* Dwa wiersze kolumn pod rząd: kroki i kontakt. Ten sam odstęp nad
+     oboma dałby im równą wagę, a kroki należą do leadu - stąd mniejszy. */
+  margin-block-start: clamp(1.75rem, 3.2vw, 3rem);
+}
+
+[data-section='lokalizacje'] .new-group__text {
+  margin: var(--space-3) 0 0;
+  max-inline-size: 34ch;
+  font-size: var(--step-body);
+  line-height: 1.5;
+}
+
+/*
+ * Nota organizacyjna bez kreski u góry - tak jest w projekcie tej sekcji.
+ *
+ * Wspólny komponent daje jej obramowanie, bo na pięciu pozostałych stronach
+ * nota zamyka pas jednym pociągnięciem przez całą siatkę. Tutaj kreski są
+ * już nad sześcioma kolumnami i siódma czytałaby się jak dopisek do samej
+ * trzeciej kolumny - tym bardziej że miara 70ch urywa ją w jednej trzeciej
+ * szerokości. Zdanie ma stać spokojnie pod danymi, więc idzie bez linii
+ * i na pełną szerokość, w jednym wierszu na desktopie.
+ */
+[data-section='lokalizacje'] .enroll__note {
+  padding-block-start: 0;
+  border-block-start: 0;
+  max-inline-size: none;
+}
+
+/* ============================================================
+   /polityka-prywatnosci/ — dokument prawny ze spisem treści
+   ============================================================ */
+
+/*
+ * Klasy `.policy*` występują na JEDNEJ stronie serwisu, więc reguły nie są
+ * dodatkowo zakotwiczone w `[data-section]` - nazwa wystarczy za zakres.
+ * Stoją w komponencie, a nie w `pages/polityka.css`, z tego samego powodu
+ * co bloki `[data-page='online']` i `[data-section='kariera']` wyżej:
+ * dołożenie nowego pliku do `main.css` wywraca serwer deweloperski
+ * do czasu restartu (par. 18 kontraktu).
+ *
+ * TA STRONA MA WŁASNY RYTM, INNY NIŻ RESZTA SERWISU. Pozostałe strony są
+ * plakatowe, bo mają przekonać w kilkanaście sekund; ta ma się czytać przez
+ * kwadrans. Stąd mniejszy stopień pisma, niższy nagłówek strony, ciaśniejsze
+ * odstępy i szeroka kolumna tekstu zamiast marginesu na pół ekranu.
+ */
+
+/* --- Nagłówek strony --- */
+
+/*
+ * Odstępy własne, nie `--space-section`. Domyślny rytm sekcji daje przy
+ * 1920 px po 88 px u góry i u dołu; razem z odstępem etykiety i kolumną
+ * hero wypychało to dokument prawie poza pierwszy ekran. Dokument ma się
+ * zacząć od razu, a nie po plakacie.
+ */
+.policy-hero {
+  padding-block: clamp(2rem, 3vw, 3.5rem) clamp(2.5rem, 3.6vw, 3.75rem);
+}
+
+.policy-hero__title {
+  margin-block-start: var(--space-6);
+  font-size: clamp(2.5rem, 6vw, 5.75rem);
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+}
+
+/*
+ * Lead w rejestrze dokumentu, nie marketingu: `.u-lead` daje do 24 px,
+ * co obok 17-punktowej treści czytałoby się jak drugi nagłówek.
+ */
+.policy-hero__lead {
+  /*
+   * Odstep liczony do TUSZU, nie do pudelka: naglowek nosi padding
+   * anty-clippingowy z warstwy typografii, wiec przy --space-8 realna
+   * przerwa miala 15 px zamiast trzydziestu kilku. Em liczy sie tu od
+   * stopnia LEADU, nie naglowka, wiec nie nadrabia roznicy - stad wprost
+   * wiekszy token.
+   */
+  margin-block-start: var(--space-12);
+  max-inline-size: 68ch;
+  font-size: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  line-height: 1.5;
+}
+
+/* Metryczka dokumentu - cichsza niż lead, ale nie drobny druk. */
+.policy-hero__meta {
+  margin-block-start: var(--space-4);
+  font-size: var(--step-label);
+  letter-spacing: 0.02em;
+  opacity: 0.62;
+}
+
+.policy-hero__pdf {
+  margin-block-start: var(--space-6);
+}
+
+/* --- Układ dokumentu --- */
+
+.policy {
+  padding-block-start: 0;
+}
+
+.policy__grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* --- Spis treści --- */
+
+/*
+ * NAWIGATOR PO DOKUMENCIE, NIE LISTA W PUDEŁKU.
+ *
+ * Poprzednia wersja rozdzielała pozycje poziomymi kreskami i czytała się
+ * jak tabela. Rolę porządkującą przejęła jedna pionowa oś biegnąca wzdłuż
+ * całej listy: to ona łączy rozdziały w ciąg, a czytana sekcja zapala na
+ * niej krótki czerwony odcinek.
+ *
+ * Bez ramki, bez tła, bez zaokrągleń - spis leży wprost na kremowym tle
+ * strony (par. 7 i par. 8 kontraktu).
+ */
+.policy-toc__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-block-end: 1px solid var(--color-rule);
+  cursor: pointer;
+
+  /* Znacznik przeglądarki zastąpiony własną strzałką po prawej. */
+  list-style: none;
+}
+
+.policy-toc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.policy-toc__arrow {
+  transition: rotate var(--dur-micro) var(--ease-standard);
+}
+
+.policy-toc[open] .policy-toc__arrow {
+  rotate: 180deg;
+}
+
+.policy-toc__label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/*
+ * Etykieta kolumny na szerokim ekranie. Bliźniacza do tej w przycisku
+ * rozwijającym - patrz komentarz w HTML.
+ */
+.policy-toc__label--kolumna {
+  display: none;
+}
+
+.policy-toc__nav {
+  position: relative;
+}
+
+.policy-toc__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: spis;
+}
+
+/*
+ * Oś jest OBRAMOWANIEM POZYCJI, nie osobnym elementem: dzięki temu biegnie
+ * dokładnie tak długo, jak lista, i nie trzeba jej wysokości z niczym
+ * synchronizować.
+ */
+.policy-toc__list li {
+  counter-increment: spis;
+  position: relative;
+  padding-inline-start: 0.875rem;
+  border-inline-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Punkt na osi przy sekcji nieczytanej. Ma sygnalizować podziałkę, a nie
+ * zwracać na siebie uwagę - stąd trzy piksele i połowa krycia kreski.
+ */
+.policy-toc__list li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -2px;
+  inset-block-start: 1.05em;
+  inline-size: 3px;
+  block-size: 3px;
+  border-radius: 50%;
+  background-color: var(--color-rule);
+}
+
+/*
+ * Numer pozycjonowany bezwzględnie, a NIE jako kolumna siatki. Przy siatce
+ * każdy element w treści odnośnika staje się osobnym polem i trafia
+ * do następnego wiersza pod numer - dokładnie to zrobił zakres klas 1-7
+ * owinięty w span chroniący go przed łamaniem. Przy tym układzie druga
+ * linia tytułu zaczyna się pod pierwszą literą, a nie pod numerem.
+ */
+.policy-toc__list a {
+  position: relative;
+  display: block;
+  padding-block: 0.5rem;
+  padding-inline-start: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--dur-micro) var(--ease-standard);
+}
+
+/* Numer jest dekoracją - kolejność niesie już lista uporządkowana. */
+.policy-toc__list a::before {
+  content: counter(spis, decimal-leading-zero);
+  position: absolute;
+  inset-inline-start: 0;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.45;
+}
+
+.policy-toc__list a:hover,
+.policy-toc__list a:focus-visible {
+  color: var(--color-accent);
+}
+
+/*
+ * Czytana sekcja: czerwony numer i mocniejszy tytuł. Odcinek osi rysuje
+ * osobny znacznik niżej, żeby dało się go płynnie przesunąć.
+ */
+.policy-toc__list a[aria-current='true'] {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.policy-toc__list a[aria-current='true']::before {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+/* Punkt podziałki ustępuje miejsca czerwonemu odcinkowi. */
+.policy-toc__list li:has(a[aria-current='true'])::before {
+  opacity: 0;
+}
+
+/*
+ * Czerwony odcinek osi. Stoi na tej samej linii co obramowanie pozycji
+ * i przykrywa je na swojej długości. Pozycję ustawia moduł, przesunięcie
+ * jest płynne, 180 ms - tyle, ile trwa kazda inna mikrointerakcja serwisu.
+ * Przy prefers-reduced-motion globalna reguła z base/reset.css skraca je
+ * do niepostrzegalnych.
+ */
+.policy-toc__marker {
+  position: absolute;
+  inset-inline-start: -1px;
+  inset-block-start: 0;
+
+  /* Trzy piksele, nie dwa: przy dwoch czerwien czytala sie jak pogrubiona
+     kreska osi, a nie jak kolor. */
+  inline-size: 3px;
+  block-size: 2rem;
+  background-color: var(--color-accent);
+  opacity: 0;
+  transition:
+    translate var(--dur-micro) var(--ease-standard),
+    opacity var(--dur-micro) var(--ease-standard);
+}
+
+.policy-toc__marker.is-visible {
+  opacity: 1;
+}
+
+/* --- Treść dokumentu --- */
+
+/*
+ * Stopień i interlinia USTAWIONE NA KOLUMNIE, nie na pojedynczych
+ * elementach: dziedziczą je akapity, listy, definicje i przypis, więc
+ * cały dokument zmienia rytm jedną wartością.
+ */
+.policy__doc {
+  font-size: clamp(1rem, 1.18vw, 1.0625rem);
+  line-height: 1.65;
+}
+
+.policy__section {
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.policy__section + .policy__section {
+  margin-block-start: clamp(2.5rem, 3.4vw, 3.5rem);
+}
+
+/*
+ * Nagłówek porządkuje dokument, a nie prowadzi narrację - stąd rejestr
+ * o połowę niższy niż nagłówki sekcji na pozostałych stronach. Numer jest
+ * CZĘŚCIĄ tytułu; nad nagłówkiem nie stoi już drugi, drobny.
+ */
+.policy__title {
+  font-size: clamp(1.375rem, 1.95vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.policy__subtitle {
+  margin-block-start: var(--space-6);
+  font-size: clamp(1.125rem, 1.45vw, 1.3125rem);
+  line-height: 1.3;
+}
+
+.policy__section p {
+  margin-block-start: 1rem;
+
+  /*
+   * Miarę wyznacza KOLUMNA, nie pojedynczy akapit. Globalna reguła
+   * `p:not([class])` w `base/typography.css` narzuca `--measure`, czyli
+   * 544 px - dobrą dla copy marketingowego, o połowę za wąską dla dokumentu,
+   * który czyta się ciągiem. Obie reguły mają tę samą specyficzność, więc
+   * wygrywa ta późniejsza w kolejności importu.
+   */
+  max-inline-size: none;
+}
+
+/* Pierwszy akapit stoi bliżej nagłówka niż kolejne akapity siebie nawzajem. */
+.policy__title + p,
+.policy__subtitle + p {
+  margin-block-start: var(--space-4);
+}
+
+/*
+ * Blok z danymi podmiotu. Bez ramki i bez tła - odsuwa go od reszty
+ * sam odstęp i interlinia adresu.
+ */
+.policy__entity {
+  line-height: 1.6;
+}
+
+/*
+ * Punkt kontaktowy. W dokumencie źródłowym jest wyróżniony kremowym
+ * polem; tutaj niesie go pionowa kreska - ten sam zabieg co dopisek
+ * o zapisach w sekcji seniorów na stronie głównej. Bez karty i bez tła.
+ */
+.policy__callout {
+  padding-inline-start: var(--space-6);
+  border-inline-start: 1px solid var(--color-accent);
+  line-height: 1.6;
+}
+
+/*
+ * Selektor bierze również nazwę elementu (ul), a nie samą klasę. Reset
+ * serwisu zeruje padding i punktory selektorem `ul[class]`, który ma wyższą
+ * specyficzność niż pojedyncza klasa i cicho wygrywał - wyliczenia czytały
+ * się wtedy jak luźne akapity. Ten sam błąd wyszedł dzień wcześniej
+ * na /kariera/.
+ */
+ul.policy__list {
+  margin-block-start: 1rem;
+  padding-inline-start: 1.15em;
+  list-style: disc;
+}
+
+ul.policy__list li {
+  margin-block-end: var(--space-2);
+}
+
+ul.policy__list li:last-child {
+  margin-block-end: 0;
+}
+
+ul.policy__list li::marker {
+  color: var(--color-accent);
+  font-size: 0.85em;
+}
+
+/*
+ * Okresy przechowywania. Para „rodzaj danych — okres" jest w dokumencie
+ * źródłowym złożona pismem pogrubionym i zwykłym, więc niesie ją <dl>,
+ * a nie akapit z ręcznym pogrubieniem.
+ */
+.policy__terms {
+  margin-block-start: var(--space-6);
+}
+
+.policy__terms dt {
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--color-rule);
+  font-weight: 500;
+}
+
+.policy__terms dt:first-child {
+  margin-block-start: 0;
+}
+
+.policy__terms dd {
+  margin: var(--space-2) 0 0;
+}
+
+/* Zdanie zamykające dokument - najmniejszy tekst na stronie. */
+.policy__footnote {
+  margin-block-start: var(--space-8);
+  font-size: var(--step-label);
+  line-height: 1.5;
+  opacity: 0.62;
+}
+
+/* --- Kontakt nad stopką --- */
+
+.policy-contact__grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.policy-contact__title {
+  margin-block-start: var(--space-4);
+}
+
+.policy-contact__lead {
+  margin-block-start: var(--space-4);
+  max-inline-size: 48ch;
+}
+
+.policy-contact__data {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+}
+
+.policy-contact__data dd {
+  margin: var(--space-2) 0 0;
+  padding-block-end: var(--space-3);
+  border-block-end: 1px solid var(--color-rule);
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+}
+
+/* --- Wąski ekran: spis jako zwijana lista między wstępem a dokumentem --- */
+
+@media (width < 62rem) {
+  /*
+   * Zwykły disclosure, nie przyklejony pasek: element stoi tam, gdzie
+   * czytelnik go mija - po wstępie, przed dokumentem. Przyklejony pasek
+   * zabierał wiersz tekstu przez całe czytanie, a spis jest potrzebny raz.
+   */
+  .policy-toc {
+    padding-block-end: var(--space-4);
+    border-block-end: 1px solid var(--color-rule);
+  }
+}
+
+/* --- Szeroki ekran: dwie kolumny, spis zostaje w polu widzenia --- */
+
+@media (width >= 62rem) {
+  /*
+   * Kolumny podane WPROST, nie ułamkami: spis ma trzymać stałą szerokość,
+   * a całą nadwyżkę okna ma brać tekst. Przy `1fr 3fr` spis rósłby razem
+   * z ekranem, choć nie ma czym tej szerokości wypełnić.
+   */
+  .policy__grid {
+    grid-template-columns: 17.5rem minmax(0, 1fr);
+    column-gap: clamp(2.5rem, 3.4vw, 4rem);
+    align-items: start;
+  }
+
+  /*
+   * Kolumna czytania. 70rem to około 100 znaków w wierszu - górna granica
+   * komfortu, ale dokument prawny czyta się akapitami, a nie prozą, więc
+   * szerokość wygrywa z pustym marginesem na pół ekranu. Przy 1920 px
+   * zostaje po prawej tylko naturalny margines kontenera.
+   */
+  .policy__doc {
+    max-inline-size: 70rem;
+  }
+
+  /*
+   * `align-items: start` wyżej jest warunkiem działania przyklejenia:
+   * domyślnie element siatki jest rozciągany na wysokość wiersza i nie ma
+   * względem czego się przesuwać.
+   *
+   * Przyklejenie kończy się samo na dole kontenera dokumentu, więc spis
+   * nie wjeżdża ani na sekcję kontaktową, ani na stopkę - nie trzeba
+   * tego pilnować skryptem.
+   *
+   * SUWAK JEST, ALE NIEWIDOCZNY. Osiemnaście pozycji nie mieści się
+   * w niższych oknach; zamiast ucinać listę, przewija się ona wewnątrz
+   * kolumny, a moduł `policy-toc.js` sam dosuwa czytaną pozycję do kadru.
+   * Pasek jest ukryty, bo spis ma wyglądać jak kolumna tekstu, nie jak
+   * lista wyboru.
+   */
+  .policy-toc {
+    position: sticky;
+    inset-block-start: calc(var(--header-h, 4rem) + var(--space-6));
+  }
+
+  /*
+   * PRZEWIJA SIE SAMA LISTA, NIE CALY SPIS. Etykieta stoi nad obszarem
+   * przewijania, wiec przy dosunieciu do sekcji 17 nadal widac, na co
+   * sie patrzy. Odjete 3rem to wysokosc etykiety wraz z jej odstepem.
+   */
+  .policy-toc__nav {
+    max-block-size: calc(100svh - var(--header-h, 4rem) - var(--space-12) - 3rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .policy-toc__nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .policy-toc__summary {
+    display: none;
+  }
+
+  .policy-toc__label--kolumna {
+    display: block;
+    margin-block-end: var(--space-3);
+    padding-block-end: var(--space-2);
+    border-block-end: 1px solid var(--color-rule);
+  }
+
+  .policy-contact__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: end;
+  }
+}
+
+/*
+ * Numer zakresu klas nie moze pekac po laczniku. Przegladarka lamie wiersz
+ * po dywizie tak samo jak po spacji, a twarda spacja tego nie blokuje -
+ * wiaze tylko slowo z liczba, nie cyfry ze soba.
+ */
+.policy-nowrap {
+  white-space: nowrap;
 }

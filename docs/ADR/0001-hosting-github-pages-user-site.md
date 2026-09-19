@@ -1,6 +1,6 @@
 # ADR 0001: Hosting na GitHub Pages jako user site
 
-Status: Accepted
+Status: Accepted, częściowo zastąpione przez ADR 0010 (własna domena)
 Data: 2026-09-06
 
 ## Kontekst
@@ -8,6 +8,10 @@ Data: 2026-09-06
 Strona jest statycznym one-page bez CMS i bez bazy danych (specyfikacja rozdz. 2.2). Repozytorium
 nosi nazwę `radek1983.github.io`, czyli jest **user site** GitHub Pages. Właściciel nie posiada
 jeszcze własnej domeny (decyzja D3).
+
+> **Aktualizacja 19.09.2026.** Domena już jest: adresem kanonicznym serwisu jest
+> `https://www.highfive.academy` — patrz **ADR 0010**. Wybór hostingu, źródło „GitHub Actions"
+> i `base = '/'` pozostają w mocy; zmienił się wyłącznie adres, pod którym ten hosting odpowiada.
 
 ## Decyzja
 

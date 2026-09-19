@@ -1,0 +1,740 @@
+/*
+ * /oferta/egzamin-osmoklasisty/ — warstwa WYŁĄCZNIE tej podstrony.
+ *
+ * Każdy selektor jest zakotwiczony w `[data-page='egzamin']`, który stoi
+ * na <body> tylko tutaj. To nie ostrożność na wyrost: `data-section="oferta"`
+ * noszą wszystkie cztery strony produktowe, a `.section`, `.page-hero`,
+ * `.statement`, `.steps` i `.closing` żyją w komponentach współdzielonych
+ * przez cały serwis. Bez tego kotwiczenia dopracowanie jednej strony
+ * przestawiłoby resztę.
+ *
+ * Kierunek przepisany z projektu referencyjnego właściciela. Jego istotą
+ * NIE jest dekoracja, tylko RYTM: żadna sekcja nie zajmuje ekranu, wysokość
+ * wynika z treści, a strona czyta się jak jedna złożona kompozycja, a nie
+ * jak ciąg slajdów. Zero ikon, zero zaokrągleń, zero cieni.
+ */
+
+/* ============================================================
+   Rytm pionowy — sedno korekty
+   ============================================================ */
+
+/*
+ * Odstęp sekcyjny o połowę mniejszy niż w serwisie.
+ *
+ * Wersja wspólna daje `--space-section` z obu stron, czyli przy 1600 px
+ * około 112 px na styk dwóch sekcji. Przy siedmiu sekcjach strona rosła
+ * do blisko czterech tysięcy pikseli i każda część robiła się osobnym
+ * ekranem - dokładnie to, co właściciel zgłosił. Projekt referencyjny jest
+ * zwarty: sekcje stykają się, a nie oddalają.
+ *
+ * Wartość, nie `100vh` czy `min-height` - wysokość ma wynikać z treści.
+ */
+[data-page='egzamin'] .section {
+  padding-block: clamp(2.5rem, 4vw, 4rem);
+}
+
+/*
+ * Stopień obu haseł środka strony - "Wiedza to jedno…" i "Spotykamy się…".
+ *
+ * Jedna wartość dla pary, nie dwa równoległe `clamp()`: oba stoją w tym
+ * samym rejestrze i mają wyglądać jak jedna decyzja. Gdyby były osobno,
+ * pierwsza zmiana jednego z nich po cichu rozjechałaby parę.
+ *
+ * 68 px przy 1600 px - między hasłem czarnego pasa (64 px) a tytułami
+ * modułów programu. Wcześniej 48 px i hasła ginęły obok siatki nad nimi.
+ */
+[data-page='egzamin'] {
+  --step-egzamin-claim: clamp(2rem, 4.4vw, 4.25rem);
+
+  /*
+   * --- Sekcja zapisów (komponent `components/enroll.css`) ---
+   *
+   * Odstępy pasa i cały rytm wewnętrzny są wspólne dla trzech podstron
+   * i stoją w komponencie — to WŁAŚNIE ta strona jest ich wzorcem.
+   * Tutaj zostaje wyłącznie skala typografii.
+   *
+   * Nagłówek mniejszy niż na stronie klas 1-7: zdanie jest dłuższe o pięć
+   * znaków, a ma stać w JEDNYM wierszu na pełną szerokość siatki.
+   */
+  --step-enroll-title: clamp(1.875rem, 6.95vw, 6.5rem);
+  --measure-enroll-lead: 34ch;
+  --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+}
+
+/*
+ * Hero jest WYJĄTKIEM od tej reguły i musi stać po niej.
+ *
+ * Komponent wspólny daje `.page-hero { padding-block: 0 }`, ale selektor
+ * wyżej jest bardziej szczegółowy i cicho go nadpisywał - stąd 64 px pustki
+ * między mega-menu a etykietą i kadr zepchnięty w dół. Kadr ma dotykać
+ * górnej krawędzi sekcji, a etykieta ruszać z tej samej wysokości.
+ */
+[data-page='egzamin'] .page-hero {
+  /*
+   * Odstęp od mega-menu dostaje CAŁA sekcja, nie sama kolumna tekstowa.
+   * Gdyby wisiał na tekście, etykieta zjechałaby niżej niż górna krawędź
+   * kadru i para znowu by się rozjechała. Tak obie kolumny startują równo,
+   * a pod nagłówkiem strony zostaje powietrze.
+   */
+  padding-block: var(--space-6) 0;
+}
+
+/* ============================================================
+   Etykieta sekcji
+   ============================================================ */
+
+/*
+ * BEZ poziomej kreski obok tekstu.
+ *
+ * Stała tu przez cały czas istnienia tej podstrony i była jej jedynym
+ * odstępstwem od reszty serwisu: etykieta zamieniała się w siatkę
+ * `auto 1fr`, a pseudoelement ciągnął linię 1 px do prawej krawędzi.
+ * Właściciel kazał ją zdjąć 18.09.2026 — najpierw w hero, potem wszędzie,
+ * bo po połowicznej zmianie strona miała dwa rodzaje etykiet naraz.
+ *
+ * Żadna z pozostałych trzech podstron ofertowych — klasy 1-7, seniorzy,
+ * online — takiej kreski nie ma, a te cztery strony porównuje się ze sobą
+ * najczęściej. Etykiety biorą teraz układ wspólny z `layout/sections.css`.
+ *
+ * Zostaje WYŁĄCZNIE odstęp pod etykietą: rytm pionowy tej strony jest
+ * zatwierdzony (D19) i kreska go nie tworzyła.
+ */
+[data-page='egzamin'] .section__label {
+  margin-block-end: var(--space-8);
+}
+
+/*
+ * W hero etykieta NIE dokłada własnego marginesu.
+ *
+ * `.page-hero__text` jest kolumną flex z `gap`, więc margines i gap stawały
+ * jeden na drugim: między etykietą a nagłówkiem robiło się 56 px zamiast
+ * jednego odstępu. Odstęp ma pochodzić z jednego miejsca - z `gap` kolumny.
+ */
+[data-page='egzamin'] .page-hero .section__label {
+  margin-block-end: 0;
+}
+
+[data-page='egzamin'] .page-hero__text {
+  gap: var(--space-4);
+}
+
+/* ============================================================
+   01 Hero
+   ============================================================ */
+
+/*
+ * Stopień RÓWNY hero podstrony senioralnej — właściciel poprosił o to
+ * wprost 18.09.2026, mimo że strona jest zamknięta (D19). Podstrona
+ * senioralna nie ma własnego nadpisania, więc bierze wartość wspólną
+ * z `components/page-sections.css`; tutaj jest ona powtórzona wprost,
+ * a nie usunięta, bo miara `13ch` zostaje własna.
+ *
+ * Wcześniej stało tu `clamp(1.875rem, 3.6vw, 3.25rem)`: nagłówek ma pięć
+ * wierszy razem z "Next step.", więc przy wspólnym stopniu rośnie i hero
+ * robi się wyższe. To świadoma zmiana proporcji, nie przeoczenie.
+ */
+[data-page='egzamin'] .page-hero__title {
+  font-size: clamp(2rem, 5.4vw, 4.25rem);
+  max-inline-size: 13ch;
+}
+
+[data-page='egzamin'] .page-hero__lead {
+  max-inline-size: 46ch;
+}
+
+@media (width >= 62rem) {
+  /*
+   * Podział 50/50 i kadr WYPEŁNIAJĄCY pas, nie stojący w nim wyśrodkowany.
+   *
+   * Wersja wspólna daje tekstowi sześć pól, kadrowi sześć i stałą wysokość
+   * `min(82svh, 46rem)`. Kadr był przez to wyższy od treści, wymuszał
+   * wysokość pasa i zostawiał nad tekstem pustkę, którą właściciel zgłosił
+   * jako pierwszy problem. Teraz wysokość pasa mierzy KOLUMNA TEKSTOWA,
+   * a kadr się do niej dopasowuje.
+   */
+  [data-page='egzamin'] .page-hero__grid {
+    align-items: stretch;
+  }
+
+  /*
+   * Treść zaczyna się u GÓRY pasa, nie na jego osi.
+   *
+   * Przy wyśrodkowaniu nad etykietą stało kilkadziesiąt pikseli pustki,
+   * a kadr obok zaczynał się wyżej niż pierwszy wiersz tekstu - czytało się
+   * to jak przesunięcie, nie jak kompozycja. Teraz etykieta i górna krawędź
+   * kadru ruszają z tej samej wysokości.
+   */
+  [data-page='egzamin'] .page-hero__text {
+    grid-column: 1 / span 6;
+    justify-content: flex-start;
+
+    /*
+     * Zero u góry. Kadr zaczyna się na górnej krawędzi sekcji, więc każdy
+     * padding po stronie tekstu spychał etykietę NIŻEJ niż zdjęcie i para
+     * rozjeżdżała się na starcie. Teraz obie kolumny ruszają z tej samej
+     * wysokości. Dolny odstęp zostaje - pod wezwaniem ma być powietrze.
+     */
+    padding-block: 0 clamp(2rem, 4vh, 3rem);
+  }
+
+  /*
+   * Kadr WYJĘTY z obliczania wysokości wiersza.
+   *
+   * Plik źródłowy ma 800x1000 px, czyli jest PIONOWY. Dopóki <picture>
+   * stało w przepływie, jego naturalna wysokość (988 px przy tej szerokości)
+   * wyznaczała wysokość całego hero - stąd 1116 px i wezwanie wypchnięte
+   * pod krawędź ekranu. Pozycjonowanie bezwzględne zeruje ten wkład:
+   * wiersz mierzy już tylko kolumna tekstowa, a kadr wypełnia to, co
+   * z niej wyszło. Zdjęcie zostaje to samo - zmienia się wyłącznie wycinek.
+   *
+   * Kadr jest przy tym węższy o jedną piątą, na życzenie właściciela.
+   * Zostaje przyklejony do prawej krawędzi okna, więc zwężenie zabiera mu
+   * szerokość z LEWEJ - wspólna oś z pozostałymi zdjęciami serwisu zostaje.
+   */
+  [data-page='egzamin'] .page-hero__media {
+    grid-column: 7 / -1;
+    justify-self: end;
+    inline-size: 80%;
+    block-size: auto;
+    min-block-size: 0;
+  }
+
+  [data-page='egzamin'] .page-hero__media picture {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/*
+ * Kadr kotwiczony do GÓRY. Przy wypełnianiu pasa wycinek jest niższy niż
+ * źródło, a centrowanie ucinało twarz. To jedyna zmiana w samym zdjęciu -
+ * plik zostaje ten sam.
+ */
+[data-page='egzamin'] .page-hero__media img {
+  object-position: center 30%;
+}
+
+/* ============================================================
+   02 Czarny pas
+   ============================================================ */
+
+/*
+ * Pas, nie ekran. Hasło w jednym ciągu, pod nim dwa wiersze wyjaśnienia
+ * i koniec. Wspólny odstęp `.statement__cols` wynosił do 6rem i rozciągał
+ * pas na pół ekranu.
+ */
+[data-page='egzamin'] .statement {
+  padding-block: clamp(2.25rem, 3.5vw, 3.5rem);
+}
+
+[data-page='egzamin'] .statement__claim {
+  font-size: clamp(1.75rem, 4.4vw, 4rem);
+}
+
+[data-page='egzamin'] .statement__cols {
+  margin-block-start: var(--space-6);
+  max-inline-size: 72ch;
+}
+
+/* ============================================================
+   03 Co obejmuje kurs — 3 x 2
+   ============================================================ */
+
+[data-page='egzamin'] .exam-scope {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-8) var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Kreska u GÓRY każdego modułu — ten sam znak co w krokach i kolumnach
+ * na pozostałych podstronach.
+ *
+ * Wcześniej moduły jej NIE miały i było to uzasadnione: pod ciągłą linią
+ * biegnącą od etykiety sekcji pojawiał się drugi rząd krótkich odcinków
+ * z przerwami w rynnach, więc dwie linie jedna pod drugą czytały się jak
+ * usterka składu. Tamta ciągła linia zniknęła 19.09.2026 razem z kreską
+ * przy etykietach, więc powód sam się rozwiązał.
+ *
+ * Właściciel rozstrzygnął tego samego dnia, że wyliczenia na kremowym tle
+ * mają w całym serwisie mieć kreskę poziomą nad elementem - i tylko ją.
+ * Pionowe kreski, które stały tu wcześniej, zostały zdjęte: razem
+ * z poziomymi moduły czytały się jak komórki tabeli.
+ *
+ * Wyliczenia na INNYCH tłach - jak czarny pas „Jak pracujemy?" niżej -
+ * zostają nietknięte. To była wyraźna granica postawiona przez właściciela.
+ */
+[data-page='egzamin'] .exam-scope__item {
+  grid-column: 1 / -1;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Numer w rejestrze KROKÓW — duży i przygaszony.
+ *
+ * Stał tu drobny numer w stopniu etykiety, z uzasadnieniem, że rejestr
+ * plakatowy niosą kroki niżej i dwie sąsiednie sekcje nie powinny mówić
+ * tym samym głosem. Właściciel rozstrzygnął to inaczej 19.09.2026: numery
+ * w całym serwisie mają wyglądać tak samo, bo czytelnik ogląda strony
+ * obok siebie, a nie sekcję obok sekcji.
+ *
+ * Wartości są te same co w `.steps__number` i w poziomach na podstronie
+ * senioralnej: stopień z tego samego clampa, 40% krycia, trakt display.
+ */
+[data-page='egzamin'] .exam-scope__number {
+  display: block;
+  margin-block-end: var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+[data-page='egzamin'] .exam-scope__title {
+  margin-block-end: var(--space-4);
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.2;
+}
+
+/*
+ * Punktory są TYPOGRAFICZNE - kreska w kolorze tekstu, nie ikona ani
+ * obrazek (par. 7 dopuszcza wyłącznie ikony użytkowe). `list-style: none`
+ * plus własny znacznik, żeby wcięcie było równe przy zawijaniu wiersza.
+ */
+[data-page='egzamin'] .exam-scope__list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+[data-page='egzamin'] .exam-scope__list li {
+  display: grid;
+  grid-template-columns: 0.75rem 1fr;
+  gap: var(--space-2);
+}
+
+[data-page='egzamin'] .exam-scope__list li::before {
+  content: '–';
+  color: color-mix(in srgb, var(--color-text) 45%, transparent);
+}
+
+@media (width >= 48rem) {
+  [data-page='egzamin'] .exam-scope__item {
+    grid-column: span 6;
+  }
+}
+
+@media (width >= 62rem) {
+  /*
+   * BEZ kresek pionowych. Moduły rozdziela wyłącznie linia u góry - ta sama,
+   * którą niosą wyliczenia na trzech pozostałych podstronach ofertowych.
+   *
+   * Pionowe kreski stały tu wcześniej zamiast poziomych. Gdy 19.09.2026
+   * doszły poziome, przez chwilę działały obie naraz i moduły zaczęły
+   * czytać się jak komórki tabeli. Właściciel kazał zostawić same poziome.
+   */
+  [data-page='egzamin'] .exam-scope__item {
+    grid-column: span 4;
+  }
+}
+
+/* ============================================================
+   04 Jak pracujemy — cztery kroki w jednym rzędzie
+   ============================================================ */
+
+/*
+ * Granatowy akt dostaje więcej powietrza niż sekcje na kremie. Pas koloru
+ * ciasno przycięty do treści czyta się jak pomyłka, a nie jak decyzja.
+ *
+ * Kolory bierze `[data-theme='blue']` - kremowy tekst, kremowe kreski,
+ * wszystko z ról semantycznych. W tym pliku nie ma ani jednej wpisanej
+ * wprost wartości koloru, więc zmiana motywu przeniesie się sama.
+ */
+[data-page='egzamin'] .exam-method {
+  padding-block: clamp(3rem, 5vw, 5rem);
+}
+
+/* Ta sama zasada co przy modułach: jedna ciągła kreska, nie cztery odcinki. */
+[data-page='egzamin'] .steps__item {
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+
+@media (width >= 62rem) {
+  /*
+   * Cztery kroki obok siebie. Komponent wspólny daje po cztery pola
+   * z dwunastu, czyli układ 2x2 - a diagnoza → powtórki → praktyka →
+   * informacja zwrotna ma czytać się jako jedna linia czasu, nie dwie pary.
+   */
+  [data-page='egzamin'] .steps__item {
+    grid-column: span 3;
+    padding-inline-start: var(--space-8);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+
+  [data-page='egzamin'] .steps__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/*
+ * Numer kroku w rejestrze plakatowym i w jasnej szarości, tak jak
+ * na projekcie. W wersji wspólnej jest drobny i ginie obok tytułu.
+ */
+[data-page='egzamin'] .steps__number {
+  margin-block-end: var(--space-4);
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-text) 28%, transparent);
+}
+
+[data-page='egzamin'] .steps__item p {
+  max-inline-size: 30ch;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+/* ============================================================
+   05 Cennik
+   ============================================================ */
+
+/*
+ * Cena jest ELEMENTEM TYPOGRAFICZNYM, nie zawartością szarego pudełka.
+ * Sekcja stoi na kremie - kolor niesie akt wyżej, "Jak pracujemy?".
+ */
+[data-page='egzamin'] .exam-price {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+}
+
+/*
+ * Pas czterech faktów pod ceną. Rozdzielony włosowymi kreskami pionowymi,
+ * bez tła i bez ramki - wyróżnienie niesie sam układ.
+ */
+[data-page='egzamin'] .exam-facts {
+  display: grid;
+  gap: var(--space-4);
+  margin-block: var(--space-8) 0;
+  padding: var(--space-6) 0 0;
+  border-block-start: 1px solid var(--color-rule);
+  list-style: none;
+}
+
+[data-page='egzamin'] .exam-facts__item {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/*
+ * Miara SZERSZA niz globalne `--measure` (544 px) - polecenie wlasciciela
+ * z 19.09.2026: zastrzezenie o wyniku egzaminu ma stac w jednym wierszu.
+ * Zdanie potrzebuje 581 px, wiec przy 544 px lamalo sie tak, ze w drugim
+ * wierszu zostawalo samo slowo "zależy.".
+ *
+ * To jednozdaniowy drobny druk, a nie blok tekstu do czytania ciagiem,
+ * wiec dluzszy wiersz niczego tu nie utrudnia. Ponizej tej szerokosci
+ * akapit zawija sie normalnie - to gorna granica, nie stala szerokosc.
+ */
+[data-page='egzamin'] .exam-price__note {
+  margin-block-start: var(--space-6);
+  max-inline-size: 39rem;
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
+}
+
+[data-page='egzamin'] .exam-price__more {
+  margin-block-start: var(--space-6);
+}
+
+@media (width >= 62rem) {
+  [data-page='egzamin'] .exam-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  [data-page='egzamin'] .exam-facts__item + .exam-facts__item {
+    padding-inline-start: var(--space-8);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+
+  [data-page='egzamin'] .exam-facts__item:not(:last-child) {
+    padding-inline-end: var(--space-8);
+  }
+}
+
+/* ============================================================
+   06 ZAPISY — czerwony akt zamykający stronę
+   ============================================================ */
+
+/*
+ * Wygląd sekcji żyje w `components/enroll.css`, wspólnym z podstroną
+ * klas 1-7. Zastąpiła ona 17.09.2026 zwykłe zamknięcie z kapsułą, którego
+ * jedyną regułą było tu zwężenie pasa.
+ *
+ * Zerujemy DOLNY margines etykiety. Wspólna reguła `.section__label` tej
+ * podstrony daje 32 px, a marginesy sąsiadujących bloków SIĘ SKLEJAJĄ —
+ * wygrywa większa z dwóch wartości. Dlatego samo zmniejszanie marginesu
+ * nagłówka nie mogło zadziałać: cały odstęp pochodził stąd. Teraz ustawia
+ * go wyłącznie nagłówek, jednym miejscem. Reguła zostaje tutaj, a nie
+ * w komponencie, bo naprawia zachowanie właściwe tej stronie.
+ */
+
+/*
+ * Odstęp pasa MUSI zostać powtórzony pod kotwicą strony.
+ *
+ * Ta sama pułapka co przy hero wyżej: scoped `[data-page='egzamin'] .section`
+ * ma wyższą specyficzność niż `.enroll` z komponentu i cicho go nadpisywał —
+ * pas trzymał 57.6 px zamiast zadanych 43 px, a skok z menu zatrzymywał się
+ * 73 px pod nagłówkiem zamiast 16 px, bo scroll-margin odejmował wartość,
+ * której padding faktycznie nie miał.
+ *
+ * Wartości biorą te same tokeny co komponent, więc nie ma tu drugiego
+ * źródła prawdy — jest wyłącznie podbicie specyficzności.
+ */
+[data-page='egzamin'] .enroll {
+  padding-block: var(--space-enroll-start) var(--space-enroll-end);
+}
+
+[data-page='egzamin'] .enroll__eyebrow {
+  margin-block-end: 0;
+}
+
+/* ============================================================
+   04 Przed egzaminem
+   ============================================================ */
+
+/*
+ * Kompozycja dwukolumnowa: mocne hasło po lewej, spokojne wyjaśnienie
+ * po prawej. To trzeci wzorzec kompozycji na tej podstronie - obok hero
+ * 50/50 i siatek modułowych - czyli dokładnie to, czego wymaga par. 7
+ * ("2-3 różne typy kompozycji, nie osiem identycznych bloków").
+ */
+[data-page='egzamin'] .exam-approach__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-8) var(--grid-gutter);
+  align-items: start;
+}
+
+[data-page='egzamin'] .exam-approach__claim {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--font-display);
+
+  /*
+   * Rejestr plakatowy, nie śródtytuł. Przy clamp(1.75rem, 3.4vw, 3rem)
+   * hasło miało 48 px i ginęło obok sześciu modułów programu nad nim -
+   * właściciel zgłosił to, porównując z projektem referencyjnym. Teraz 68 px
+   * przy 1600 px, czyli między hasłem czarnego pasa a tytułami modułów.
+   */
+  font-size: var(--step-egzamin-claim);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  max-inline-size: 16ch;
+}
+
+/* Jedno wyróżnione zdanie w czerwieni - ten sam zabieg co w czarnym pasie. */
+[data-page='egzamin'] .exam-approach__accent {
+  color: var(--color-signal);
+}
+
+[data-page='egzamin'] .exam-approach__side {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-8);
+}
+
+[data-page='egzamin'] .exam-approach__lead {
+  margin: 0;
+  max-inline-size: 42ch;
+}
+
+/*
+ * Trzy wyróżniki: sama typografia i włosowe kreski. Nie kafelki i nie
+ * przyciski - tego wprost zabrania brief, a par. 8 wymienia siatkę kafelków
+ * jako anty-wzorzec.
+ */
+[data-page='egzamin'] .exam-approach__marks {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+@media (width >= 62rem) {
+  [data-page='egzamin'] .exam-approach__claim {
+    grid-column: 1 / span 6;
+  }
+
+  [data-page='egzamin'] .exam-approach__side {
+    grid-column: 8 / -1;
+  }
+
+  [data-page='egzamin'] .exam-approach__marks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-rule);
+  }
+
+  [data-page='egzamin'] .exam-approach__marks li + li {
+    padding-inline-start: var(--space-6);
+    border-inline-start: 1px solid var(--color-rule);
+  }
+
+  [data-page='egzamin'] .exam-approach__marks li:not(:last-child) {
+    padding-inline-end: var(--space-6);
+  }
+}
+
+/* ============================================================
+   05 Lokalizacja zajęć
+   ============================================================ */
+
+[data-page='egzamin'] .exam-location__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--space-8) var(--grid-gutter);
+  align-items: start;
+}
+
+[data-page='egzamin'] .exam-location__text {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-6);
+}
+
+[data-page='egzamin'] .exam-location__claim {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-egzamin-claim);
+  font-weight: 800;
+  line-height: var(--leading-caps);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  max-inline-size: 14ch;
+}
+
+[data-page='egzamin'] .exam-location__text p {
+  margin: 0;
+  max-inline-size: 44ch;
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+/*
+ * Blok adresowy na granacie. Kolory bierze `[data-theme='blue']`, więc nie
+ * ma tu ani jednej wpisanej wprost wartości - dokładnie tak jak sekcja
+ * "Jak pracujemy?" niżej. Granat zapowiada ją i robi przejście między
+ * jasną częścią programu a kolorowym aktem.
+ *
+ * `address` zamiast `div`: to realny adres miejsca zajęć, a nie ozdoba.
+ * `font-style: normal`, bo przeglądarki domyślnie składają address kursywą,
+ * a kursywa nie występuje w języku typograficznym High Five.
+ */
+[data-page='egzamin'] .exam-location__card {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-6);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-style: normal;
+}
+
+[data-page='egzamin'] .exam-location__card p {
+  margin: 0;
+}
+
+[data-page='egzamin'] .exam-location__school {
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+[data-page='egzamin'] .exam-location__address {
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-text) 82%, transparent);
+}
+
+/*
+ * Czerwona kreska jako akcent nad rolą miejsca. Kolor sygnałowy, nie
+ * kremowy: to jedyny element, który ma tu przyciągnąć wzrok, a czerwień
+ * na granacie czyta się od razu.
+ */
+[data-page='egzamin'] .exam-location__role {
+  padding-block-start: var(--space-6);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  position: relative;
+}
+
+[data-page='egzamin'] .exam-location__role::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 3rem;
+  block-size: 2px;
+  background-color: var(--color-signal);
+}
+
+@media (width >= 62rem) {
+  [data-page='egzamin'] .exam-location__text {
+    grid-column: 1 / span 6;
+  }
+
+  [data-page='egzamin'] .exam-location__card {
+    grid-column: 8 / -1;
+  }
+}
+
+/* ============================================================
+   Miejsce na polskie znaki w nowych nagłówkach
+   ============================================================ */
+
+/*
+ * Ten sam zabieg, który w `base/typography.css` chroni wszystkie wersaliki
+ * serwisu: interlinia 1.16 em nie mieści kreski nad Ó ani ogonka pod Ę,
+ * a maska warstwy reveal ścina tusz wystający poza pudełko. Padding
+ * powiększa pudełko, ujemny margines zdejmuje jego wpływ na układ.
+ *
+ * Reguła stoi TUTAJ, a nie w pliku globalnym, bo obie klasy istnieją
+ * wyłącznie na tej podstronie - dopisanie ich do wspólnej listy oznaczałoby
+ * edycję pliku, z którego korzysta cały serwis.
+ */
+[data-page='egzamin'] .exam-approach__claim,
+[data-page='egzamin'] .exam-location__claim {
+  padding-block: 0.18em;
+  margin-block: -0.18em;
+}

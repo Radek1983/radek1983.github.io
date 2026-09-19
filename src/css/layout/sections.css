@@ -24,11 +24,6 @@
   padding-block: clamp(3.5rem, 7vw, 7rem);
 }
 
-/* Sekcja bez dolnego odstepu - gdy media dochodza do granicy z nastepna. */
-.section--flush-end {
-  padding-block-end: 0;
-}
-
 /*
  * Naglowek sekcji: etykieta z numerem aktu + tytul.
  * Numer jest elementem kompozycji, nie ozdoba - buduje poczucie sekwencji.
@@ -46,11 +41,4 @@
   gap: var(--space-3);
   color: var(--color-text);
   opacity: 0.55;
-}
-
-/* Cienka linia 1 px jako jedyny separator. Bez ramek, bez kart. */
-.rule {
-  border: 0;
-  border-block-start: 1px solid var(--color-rule);
-  margin: 0;
 }

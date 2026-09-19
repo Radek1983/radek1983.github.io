@@ -1,0 +1,95 @@
+/*
+ * /oferta/dzieci/ — warstwa WYŁĄCZNIE tej podstrony.
+ *
+ * Każdy selektor jest zakotwiczony w `[data-page='dzieci']`, który stoi
+ * na <body> tylko tutaj. `data-section="oferta"` noszą wszystkie cztery
+ * strony produktowe, więc bez tego kotwiczenia zmiana sięgnęłaby poza
+ * tę stronę.
+ *
+ * Plik nie opisuje ani wyglądu, ani rytmu sekcji zapisów — oba żyją
+ * w `components/enroll.css`, wspólnym z podstronami egzaminacyjną
+ * i senioralną. Tutaj zostaje wyłącznie SKALA TYPOGRAFII, czyli jedyne,
+ * czym ta strona naprawdę się od nich różni: nagłówek jest tu największy
+ * w całej trójce, bo zdanie ma tylko szesnaście znaków.
+ */
+
+[data-page='dzieci'] {
+  --step-enroll-title: clamp(2.5rem, 9.4vw, 9.25rem);
+
+  /*
+   * Lead jest wyraźnie mniejszy od nagłówka, ale nadal duży - to drugi
+   * poziom hierarchii, nie tekst pomocniczy. Miara trzyma go z dala od
+   * prawej krawędzi, żeby nie czytał się jak akapit na całą szerokość.
+   */
+  --measure-enroll-lead: 30ch;
+  --step-enroll-lead: clamp(1.125rem, 2.05vw, 2rem);
+}
+
+/*
+ * ODSTĘP NAD BLOKAMI Z KRESKAMI — „Jak wyglądają zajęcia" i „Cennik".
+ *
+ * Obie listy noszą w HTML klasę `u-mt-8`, która MIAŁA dać im margines
+ * u góry. Tej klasy nie ma jednak w żadnym arkuszu serwisu — nigdy nie
+ * powstała. Efekt: etykieta „Jak wyglądają zajęcia" stała 0 px nad
+ * kreskami kolumn, a nagłówek „Prosta cena. Bez ukrywania." wchodził
+ * na nie ogonkami o 5 px. Zgłosił to właściciel 18.09.2026.
+ *
+ * Nie ożywiam tu tej klasy globalnie, choć to kusi: stoi w jedenastu
+ * miejscach na sześciu stronach, między innymi w sekcji 04 strony
+ * głównej, która jest zamknięta (D10). Odstęp dostają więc TE dwa bloki
+ * i tylko na tej podstronie.
+ *
+ * Wartość celuje w centymetr: przy oknie 1440 to 41,8 px, czyli 1,1 cm
+ * nad kreskami kroków i 1,0 cm nad kreskami cennika — różnica bierze się
+ * z tego, że nagłówek cennika ma interlinię ciaśniejszą niż własny tusz.
+ */
+[data-page='dzieci'] .steps.u-mt-8,
+[data-page='dzieci'] .cols.u-mt-8 {
+  margin-block-start: clamp(1.5rem, 2.9vw, 2.75rem);
+}
+
+/*
+ * ODSTĘP MIĘDZY ETYKIETĄ A NAGŁÓWKIEM w sekcji cennika.
+ *
+ * „CENNIK" i „Prosta cena. Bez ukrywania." stały tusz w tusz — realnie
+ * z minusem trzech pikseli, bo wersaliki nagłówka sięgają wyżej niż jego
+ * pudełko. Nagłówki mają w serwisie wyzerowane marginesy, a tutaj nie ma
+ * nic, co by ten odstęp dało: etykieta i nagłówek są bezpośrednimi
+ * dziećmi `.container`, bez kolumny flex z `gap`, którą ma sekcja miejsca
+ * zajęć albo hero.
+ *
+ * Stąd `>` w selektorze: para w sekcji „Miejsce zajęć" siedzi w środku
+ * `.split__text` i ma już swoje 16 px z `gap` — bez tego ograniczenia
+ * dostałaby drugie tyle.
+ *
+ * 24 px daje około 21 px między tuszami, czyli tyle samo, ile mają hero
+ * (22 px) i sekcja zapisów (23 px) na tej samej stronie.
+ */
+[data-page='dzieci'] .container > .section__label + .u-h2 {
+  margin-block-start: var(--space-6);
+}
+
+/*
+ * DOPISEK O WSPÓŁPRACY pod leadem hero.
+ *
+ * Drugorzędny wobec leadu i ma taki zostać: mniejszy stopień, wyciszony
+ * kolor, ta sama rodzina pisma, zero kursywy, ramki, tła i ikony. Miara
+ * jest węższa niż leadowa, żeby dopisek nie udawał drugiego akapitu.
+ *
+ * Odstęp liczony Z ODJĘCIEM `gap` kolumny hero, która wynosi 24 px.
+ * Bez tego dopisek odsunąłby się o 24 + 16 px i przestał być przypisem.
+ * Ujemna wartość marginesu jest tu więc poprawką do `gap`, nie hackiem -
+ * ten sam zabieg co przy pasku faktów w sekcji 05 strony głównej.
+ * Wynik: około 16 px przy oknie 1440 i 12 px na telefonie.
+ *
+ * Klasa `.page-hero__note` nie istnieje nigdzie indziej w serwisie, ale
+ * selektor i tak jest zakotwiczony w `[data-page='dzieci']` - gdyby kiedyś
+ * powstał drugi dopisek na innej podstronie, ma dostać własną decyzję.
+ */
+[data-page='dzieci'] .page-hero__note {
+  margin-block-start: calc(clamp(0.75rem, 1.1vw, 1.25rem) - var(--space-6));
+  max-inline-size: 44ch;
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+}

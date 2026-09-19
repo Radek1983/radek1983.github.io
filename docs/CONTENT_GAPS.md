@@ -8,24 +8,24 @@ nie zatrzymuje pracy.
 
 ## Otwarte
 
-| #    | Brak                                                                                                                              | Właściciel danych             | Miejsce użycia                                  | Blokuje release                                                                         |
-| ---- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------- |
-| G-01 | **Docelowe dane kontaktowe High Five** — obecne (`janek.gitara@onet.pl`, `+48 789 789 789`) są tymczasowe i prywatne, nie firmowe | Właściciel                    | `index.html` sekcja `#kontakt`, stopka, JSON-LD | **Nie** — wartości tymczasowe działają. Do podmiany przed kampanią                      |
-| G-02 | **Grafika Open Graph** (`og-image.jpg`, 1200 × 630)                                                                               | Wykonawca albo właściciel     | `public/social/`, `<meta property="og:image">`  | **Nie** — brak obrazu nie psuje strony, tylko podgląd linku                             |
-| G-03 | **Logo / znak graficzny High Five** w SVG                                                                                         | Właściciel                    | Header, stopka, favicon                         | **Nie** — wordmark jest dziś realizowany typografią, co jest zgodne z kierunkiem briefu |
-| G-04 | **Grafik i częstotliwość zajęć** — ile razy w tygodniu, w jakich godzinach                                                        | Właściciel                    | Sekcja oferty, FAQ                              | **Nie** — brief zabrania publikacji bez potwierdzenia                                   |
-| G-05 | **Zasady dołączenia po 1 października**                                                                                           | Właściciel                    | FAQ                                             | **Nie**                                                                                 |
-| G-06 | **Polityka nieobecności i odrabiania**                                                                                            | Właściciel                    | FAQ                                             | **Nie**                                                                                 |
-| G-07 | **Czy materiały są w cenie**                                                                                                      | Właściciel                    | FAQ, cennik                                     | **Nie**                                                                                 |
-| G-08 | **Zasady rezygnacji**                                                                                                             | Właściciel                    | FAQ, regulamin                                  | **Nie**                                                                                 |
-| G-09 | **Dane rejestrowe firmy** — nazwa, NIP, adres                                                                                     | Właściciel                    | Stopka, JSON-LD                                 | **Nie** dla obecnego zakresu. **Tak**, jeśli powstanie formularz albo płatności         |
-| G-10 | **Polityka prywatności i klauzula RODO**                                                                                          | Prawnik / właściciel          | Osobna podstrona                                | **Nie** dziś. **Tak** w momencie zbierania danych osobowych — czyli gdy wróci formularz |
-| G-11 | **Benchmark** „One-page i slide-animation dla szkoły angielskiego" wymieniony w master prompcie §2                                | Właściciel                    | Audyt kompletności informacji                   | **Nie** — checklistę 8 pytań klienta wzięliśmy z master promptu §14                     |
-| G-12 | **Informacje o lektorach** — nazwiska, kwalifikacje, doświadczenie                                                                | Właściciel                    | Brak sekcji; architektura pozwala dodać         | **Nie** — brief zabrania wymyślania                                                     |
-| G-14 | **Dokładny adres Terminalu Kultury Gocław** — w JSON-LD jest dziś tylko miasto                                                    | Właściciel                    | Sekcja `#seniorzy`, JSON-LD                     | **Nie** — nazwa i link do strony instytucji wystarczają do znalezienia miejsca          |
-| G-15 | **Harmonogram zajęć dla seniorów** — dni i godziny                                                                                | Właściciel / Terminal Kultury | Sekcja `#seniorzy`                              | **Nie** — strona Terminalu podaje szczegóły, link jest na miejscu                       |
-| G-16 | **Warunki uruchomienia grupy senioralnej** — czy obowiązuje minimum uczestników                                                   | Właściciel                    | Sekcja `#seniorzy`                              | **Nie**                                                                                 |
-| G-13 | **Opinie i referencje**                                                                                                           | Właściciel                    | Brak sekcji                                     | **Nie** — zakaz wymyślonych ocen jest testowany automatycznie w JSON-LD                 |
+| #    | Brak                                                                                                                                        | Właściciel danych             | Miejsce użycia                                           | Blokuje release                                                                         |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| G-01 | **Docelowe dane kontaktowe High Five** — ZAMKNIĘTE. Właściciel przekazał `kontakt@highfive.academy` i `+48 790 266 517`                     | Właściciel                    | `src/data/offers.mjs`, stąd wszystkie 10 stron i JSON-LD | **Zamknięty** razem z G-17 — skrzynka stoi we własnej domenie                           |
+| G-02 | **Grafika Open Graph** — ZAMKNIĘTE 19.09.2026. Plik `public/social/og-image.png` (1200 × 630) generuje `node scripts/make-og-image.mjs`     | Wykonawca                     | Wszystkie 10 stron, `<meta property="og:image">`         | **Zamknięty** — podgląd linku działa                                                    |
+| G-03 | **Logo / znak graficzny High Five** w SVG                                                                                                   | Właściciel                    | Header, stopka, favicon                                  | **Nie** — wordmark jest dziś realizowany typografią, co jest zgodne z kierunkiem briefu |
+| G-04 | **Grafik i częstotliwość zajęć** — ile razy w tygodniu, w jakich godzinach                                                                  | Właściciel                    | Sekcja oferty, FAQ                                       | **Nie** — brief zabrania publikacji bez potwierdzenia                                   |
+| G-05 | **Zasady dołączenia po 1 października**                                                                                                     | Właściciel                    | FAQ                                                      | **Nie**                                                                                 |
+| G-06 | **Polityka nieobecności i odrabiania**                                                                                                      | Właściciel                    | FAQ                                                      | **Nie**                                                                                 |
+| G-07 | **Czy materiały są w cenie**                                                                                                                | Właściciel                    | FAQ, cennik                                              | **Nie**                                                                                 |
+| G-08 | **Zasady rezygnacji**                                                                                                                       | Właściciel                    | FAQ, regulamin                                           | **Nie**                                                                                 |
+| G-09 | **Dane rejestrowe firmy** — ZAMKNIĘTE, patrz sekcja niżej. Dawniej: nazwa, NIP, adres                                                       | Właściciel                    | Stopka, JSON-LD                                          | **Nie** dla obecnego zakresu. **Tak**, jeśli powstanie formularz albo płatności         |
+| G-10 | **Polityka prywatności i klauzula RODO** — ZAMKNIĘTE 19.09.2026. Dokument właściciela opublikowany jako `/polityka-prywatnosci/` (ADR 0011) | Właściciel                    | Osobna podstrona, odnośnik w stopce                      | **Zamknięty** — dokument jest na stronie i do pobrania                                  |
+| G-11 | **Benchmark** „One-page i slide-animation dla szkoły angielskiego" wymieniony w master prompcie §2                                          | Właściciel                    | Audyt kompletności informacji                            | **Nie** — checklistę 8 pytań klienta wzięliśmy z master promptu §14                     |
+| G-12 | **Informacje o lektorach** — nazwiska, kwalifikacje, doświadczenie                                                                          | Właściciel                    | Brak sekcji; architektura pozwala dodać                  | **Nie** — brief zabrania wymyślania                                                     |
+| G-14 | **Dokładny adres Terminalu Kultury Gocław** — w JSON-LD jest dziś tylko miasto                                                              | Właściciel                    | Sekcja `#seniorzy`, JSON-LD                              | **Nie** — nazwa i link do strony instytucji wystarczają do znalezienia miejsca          |
+| G-15 | **Harmonogram zajęć dla seniorów** — dni i godziny                                                                                          | Właściciel / Terminal Kultury | Sekcja `#seniorzy`                                       | **Nie** — strona Terminalu podaje szczegóły, link jest na miejscu                       |
+| G-16 | **Warunki uruchomienia grupy senioralnej** — czy obowiązuje minimum uczestników                                                             | Właściciel                    | Sekcja `#seniorzy`                                       | **Nie**                                                                                 |
+| G-13 | **Opinie i referencje**                                                                                                                     | Właściciel                    | Brak sekcji                                              | **Nie** — zakaz wymyślonych ocen jest testowany automatycznie w JSON-LD                 |
 
 ## Materiały dostarczone
 
@@ -107,15 +107,15 @@ Po dostarczeniu plików: wrzucić źródła do `src/assets/images/sections/`, ur
 
 ### Dane, których brakuje
 
-| Brak                               | Gdzie potrzebne      | Blokujący | Uwagi                                                                                                                                              |
-| ---------------------------------- | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cena zajęć dla seniorów**        | `/dla-seniorow/`     | nie       | ADR 0005 podaje 45 zł za zajęcia i abonament miesięczny, ale zapisy prowadzi Terminal Kultury. Strona celowo nie podaje ceny — kieruje do kontaktu |
-| **Cena lekcji online 1:1**         | `/online/`           | nie       | Nie ma potwierdzonej stawki. Strona nie podaje żadnej kwoty                                                                                        |
-| **Terminy i harmonogram**          | obie strony ofertowe | nie       | Żadna podstrona nie podaje dni ani godzin                                                                                                          |
-| **Osobna skrzynka rekrutacyjna**   | `/kariera/`          | nie       | Zgłoszenia idą tymczasowo na ten sam adres co kontakt ogólny (D6), z tematem „Rekrutacja"                                                          |
-| **Forma przyjmowania CV**          | `/kariera/`          | nie       | Dziś: załącznik do wiadomości. Formularza z uploadem nie da się zrobić bez warstwy serwerowej (D2)                                                 |
-| **Dokładny zakres zaświadczenia**  | `/kariera/`          | nie       | Strona mówi ogólnie „zgodnie z obowiązującymi wymaganiami". Doprecyzowanie wymaga decyzji właściciela                                              |
-| **`og:image` dla trzech podstron** | wszystkie            | nie       | Wspólny brak z G-03 — żadna strona serwisu nie ma jeszcze obrazka Open Graph                                                                       |
+| Brak                               | Gdzie potrzebne      | Blokujący     | Uwagi                                                                                                                              |
+| ---------------------------------- | -------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Cena zajęć dla seniorów**        | `/cennik/`           | **ZAMKNIĘTY** | Właściciel przekazał **45 zł / 60 min** 16.09.2026. Stoi na `/cennik/`. `/oferta/seniorzy/` nadal ceny nie podaje — do uzgodnienia |
+| **Cena lekcji online 1:1**         | `/cennik/`           | **ZAMKNIĘTY** | Właściciel przekazał **120 zł / 60 min** 16.09.2026. Stoi na `/cennik/`. `/oferta/online/` nadal ceny nie podaje — do uzgodnienia  |
+| **Terminy i harmonogram**          | obie strony ofertowe | nie           | Żadna podstrona nie podaje dni ani godzin                                                                                          |
+| **Osobna skrzynka rekrutacyjna**   | `/kariera/`          | nie           | Zgłoszenia idą tymczasowo na ten sam adres co kontakt ogólny (D6), z tematem „Rekrutacja"                                          |
+| **Forma przyjmowania CV**          | `/kariera/`          | nie           | Dziś: załącznik do wiadomości. Formularza z uploadem nie da się zrobić bez warstwy serwerowej (D2)                                 |
+| **Dokładny zakres zaświadczenia**  | `/kariera/`          | nie           | Strona mówi ogólnie „zgodnie z obowiązującymi wymaganiami". Doprecyzowanie wymaga decyzji właściciela                              |
+| **`og:image` dla trzech podstron** | wszystkie            | nie           | Wspólny brak z G-03 — żadna strona serwisu nie ma jeszcze obrazka Open Graph                                                       |
 
 ### Fakty przekazane przez właściciela przy tej zmianie
 
@@ -151,11 +151,34 @@ wzorzec „liczba zł / liczba min".
   do sekcji o sposobie prowadzenia zajęć — to najbliższe temu, czym High Five jest. Prawdziwa
   sekcja o szkole wymaga faktów od właściciela: historii, kwalifikacji, ewentualnego zespołu.
   §4 zabrania ich wymyślania.
-- **Czas trwania zajęć dla seniorów, online i kursu egzaminacyjnego** — strony nie podają
-  ani długości lekcji, ani harmonogramu.
+- **Czas trwania zajęć dla seniorów i online** — brak **zamknięty** 16.09.2026 razem
+  z cenami: 60 minut dla obu. Harmonogram nadal nieznany.
+- **SPRZECZNOŚĆ CENY KURSU EGZAMINACYJNEGO — zamknięta 16.09.2026.** `/cennik/` mówiło
+  „Cena kursu nie została jeszcze ustalona", podczas gdy podstrona kursu podawała
+  `80 zł / 90 min`. Przebudowa `/cennik/` postawiła tam tę samą wartość.
+- **DO ROZSTRZYGNIĘCIA — ceny na podstronach produktowych.** `/cennik/` podaje dziś
+  cztery stawki, ale `/oferta/seniorzy/` i `/oferta/online/` nadal żadnej nie podają.
+  To nie jest sprzeczność — to niepełna informacja w jednym z dwóch miejsc, w których
+  rodzic jej szuka. §13 mówi, że **cena należy do produktu**, więc docelowo obie
+  podstrony powinny ją nieść. Właściciel ograniczył zakres przebudowy wyłącznie
+  do `/cennik/`, więc **czeka to na jego decyzję** — nie zmieniaj podstron samodzielnie.
+- **DO ROZSTRZYGNIĘCIA — „60+" nadal stoi w nawigacji i w stopce.** Właściciel dwa razy
+  polecił, żeby nie komunikować progu wieku: przy przebudowie sekcji 10 („nie używaj
+  nigdzie oznaczenia 60+") i przy `/cennik/`. Obie te rzeczy zostały zrobione, ale
+  `src/data/offers.mjs` nadal niesie `etykietaStopki: 'Seniorzy 60+'`, `odbiorca: '60+'`
+  i `kontekst: '60+ · Terminal Kultury Gocław'`. Te trzy pola są podstawiane przy
+  budowaniu do **mega-menu, sekcji 04 strony głównej i stopki na wszystkich dziewięciu
+  stronach**, więc próg wiekowy jest dziś widoczny w całym serwisie.
+
+  Poprawka to **jedna zmiana w jednym pliku**, ale dotyka stopki (zamrożonej wprost),
+  sekcji 04 (D10) i menu — wszystkich trzech rzeczy, których właściciel kazał nie
+  ruszać. **Czeka na jego decyzję.** Nie zmieniaj tego samodzielnie.
+
 - **Osobna skrzynka rekrutacyjna** — zgłoszenia z `/kariera` idą na ten sam adres co kontakt
   ogólny, z tematem „Rekrutacja".
-- **`og:image`** — żadna z dziewięciu stron nie ma jeszcze obrazka Open Graph.
+- **`og:image`** — ZAMKNIĘTE 19.09.2026: wszystkie dziewięć stron wskazuje wspólną grafikę
+  marki, generowaną z krojów i kolorów serwisu przez `node scripts/make-og-image.mjs`.
+  Warianty per podstrona są możliwe jednym parametrem, ale świadomie ich nie robimy.
 
 ### Fotografie
 
@@ -249,11 +272,133 @@ marketingową na stronie głównej.
 
 ### Nadal otwarte
 
-| #    | Brak                                                                                                               | Blokuje release                                                     |
-| ---- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| G-01 | **Docelowy numer telefonu High Five** — dziś `+48 789 789 789` (D6, wartość tymczasowa i prywatna)                 | **Nie** — działa, ale nie jest numerem firmowym                     |
-| G-01 | **Docelowy adres e-mail High Five** — dziś `janek.gitara@onet.pl`, adres prywatny na darmowej poczcie              | **Nie** — działa. Przed kampanią wymaga skrzynki we własnej domenie |
-| G-17 | **Własna domena i skrzynka firmowa** (`kontakt@…`) — warunek profesjonalnego adresu i zdjęcia odstępstw z ADR 0003 | **Nie** dla obecnego zakresu. Argument biznesowy, nie techniczny    |
+| #    | Brak                                                                                                                                                                                                       | Blokuje release |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| G-01 | **Telefon i e-mail** — ZAMKNIĘTE, patrz niżej                                                                                                                                                              | —               |
+| G-17 | **Własna domena serwisu** — ZAMKNIĘTE 19.09.2026. Adresem kanonicznym jest `https://www.highfive.academy` (ADR 0010). Odstępstwa z ADR 0003 zostają: usunie je dopiero warstwa typu Cloudflare przed Pages | **Zamknięty**   |
 
 Wszystkie trzy pozycje to jedna zmiana w `src/data/offers.mjs` — dane kontaktowe stoją
 w jednym miejscu i są podstawiane do wszystkich dziewięciu stron przy budowaniu.
+
+## Dane kontaktowe — brak zamknięty
+
+Właściciel przekazał docelowe dane kontaktowe High Five, które zastąpiły prywatne konto
+używane na czas budowy (decyzja D6):
+
+| Dana    | Wartość                    |
+| ------- | -------------------------- |
+| E-mail  | `kontakt@highfive.academy` |
+| Telefon | `+48 790 266 517`          |
+
+Obie stoją w jednym miejscu — `KONTAKT` w `src/data/offers.mjs` — i są podstawiane przy
+budowaniu do wszystkich dziewięciu stron, do stopki, do JSON-LD oraz do gotowych szkiców
+wiadomości `mailto:` na stronach zapisów, kariery, online i seniorów.
+
+**Powrót starych wartości jest niemożliwy po cichu:** test w `tests/e2e/regressions.spec.js`
+skanuje wszystkie dziewięć stron i wywala build, jeśli którakolwiek z nich znów się pojawi.
+
+### Co zostaje otwarte
+
+**G-17 — skrzynka we własnej domenie — ZAMKNIĘTY 16.09.2026.** Adres zszedł z publicznego
+dostawcy poczty na `kontakt@highfive.academy`. Domenę przekazał właściciel, nie została
+wymyślona. **Domena poczty nie jest domeną serwisu** — strona nadal stoi pod
+`www.highfive.academy` (decyzja D3), więc odstępstwa z ADR 0003 (nagłówki bezpieczeństwa,
+cache, HSTS) **zostają otwarte**: zdejmie je dopiero własna domena serwisu z Cloudflare.
+
+**Dane rejestrowe firmy (G-09)** nadal nieprzekazane — bez zmian.
+
+## Pięć brakujących kadrów — brak zamknięty
+
+Właściciel dostarczył wszystkie pięć zdjęć, których brakowało od czasu ADR 0007.
+Bloki `.photo-todo` zniknęły z serwisu w całości.
+
+| Plik źródłowy                        | Strona              | Miejsce            | Kadr                                                    |
+| ------------------------------------ | ------------------- | ------------------ | ------------------------------------------------------- |
+| `sections/career-interview-1448.png` | `/kariera/`         | hero               | Rozmowa rekrutacyjna przy stole w kawiarni              |
+| `sections/career-teaching-1292.png`  | `/kariera/`         | sekcja granatowa   | Osoba prowadząca z czwórką dzieci przy wspólnym stole   |
+| `sections/seniors-class-1448.png`    | `/oferta/seniorzy/` | hero               | Czworo starszych osób przy stołach, zeszyty i długopisy |
+| `sections/online-lesson-1448.png`    | `/oferta/online/`   | hero               | Lektorka i uczeń w słuchawkach przed laptopami          |
+| `sections/online-student-1448.png`   | `/oferta/online/`   | sekcja „Dla kogo?" | Uczeń w słuchawkach przy laptopie w czasie lekcji       |
+
+Warianty AVIF i WebP wygenerowane przez `npm run images` w szerokościach 768 / 1200 / 1448
+(dla `career-teaching` 768 / 1200 — źródło ma 1292 px, a skrypt nie skaluje w górę).
+
+### Trzy zastrzeżenia do tych kadrów
+
+**Kadr `career-teaching` zawiera napisy i godło państwowe.** Na tablicy widnieje „Razem możemy
+więcej", na tablicy korkowej „Dobrze, że jesteś!", na ścianie mapa Polski i **godło**.
+§7 briefu mówi wprost: „Bez napisów, logo i znaków wodnych w obrazie", a §4 zabrania
+sugerowania oficjalnej relacji z placówką publiczną. Godło na ścianie może tę relację
+sugerować. **Do decyzji właściciela:** zostawić, wykadrować prawą część bez tablicy,
+czy podmienić kadr.
+
+**Dwa kadry online są bardzo podobne.** Oba to ten sam podział ekranu (lektorka po lewej,
+uczeń po prawej), różnią się głównie gestem. Stoją na jednej stronie, jeden pod drugim.
+Działa, ale czyta się jak dwa ujęcia z tej samej sesji, a nie jak dwie różne sytuacje.
+
+**Kadry są generowane przez AI (D4).** Zastrzeżenie ze stopki — „Zdjęcia mają charakter
+ilustracyjny i nie przedstawiają uczniów tej szkoły" — obejmuje również te pięć.
+
+### Co zostaje otwarte
+
+| #    | Brak                            | Blokuje release                           |
+| ---- | ------------------------------- | ----------------------------------------- |
+| G-03 | **Logo / znak graficzny w SVG** | **Nie** — wordmark realizowany typografią |
+| G-17 | **Własna domena serwisu**       | **Nie** — skrzynka firmowa już działa     |
+
+## Dane rejestrowe — brak G-09 zamknięty
+
+Właściciel przekazał dane rejestrowe działalności:
+
+| Pozycja        | Wartość                      |
+| -------------- | ---------------------------- |
+| Pełna nazwa    | `High Five Magdalena Germel` |
+| NIP            | `8241730595`                 |
+| REGON          | `523281712`                  |
+| Działalność od | `2022`                       |
+
+Publikowane w dwóch miejscach: blok **Dane firmy** w sekcji `#kontakt` oraz JSON-LD
+(`legalName`, `taxID`, `foundingDate`). Test w `tests/e2e/kontakt.spec.js` trzyma obie
+kopie zgodne co do znaku — literówka w NIP-ie nie przejdzie niezauważona.
+
+**Adres rejestrowy nadal nieprzekazany** i celowo nie jest publikowany. Adres SP 402
+pozostaje **miejscem zajęć**, nie siedzibą firmy (§4) — dotyczy to również JSON-LD,
+gdzie stoi jako `location`, nie `address`.
+
+## Kadry na `/oferta/online/` — podmienione na dwa różne ujęcia
+
+Pierwsza dostawa zawierała dwa bardzo podobne kadry: oba były tym samym podziałem ekranu
+(lektorka po lewej, uczeń po prawej) i stały jeden pod drugim na tej samej stronie.
+Właściciel dostarczył dwa osobne ujęcia i zastąpiły one poprzednie źródła **pod tymi samymi
+nazwami plików** — markup i `srcset` zostały bez zmian.
+
+| Plik                               | Miejsce            | Kadr                                                           |
+| ---------------------------------- | ------------------ | -------------------------------------------------------------- |
+| `sections/online-lesson-1448.png`  | hero               | Lektorka w zestawie słuchawkowym przy laptopie, domowy gabinet |
+| `sections/online-student-1448.png` | sekcja „Dla kogo?" | Nastolatek w słuchawkach przy laptopie, zwykły pokój           |
+
+Narracja strony czyta się teraz jako **kto prowadzi → dla kogo są zajęcia**.
+
+`alt` opisuje **scenę, nie tożsamość** — zdjęcia są ilustracyjne i nie przedstawiają osób
+związanych ze szkołą (§4, D4). Nie piszemy „lektorka High Five" ani „uczeń High Five";
+pilnuje tego test w `tests/e2e/online.spec.js`.
+
+## Kadr Terminalu Kultury — ograniczenie rozdzielczości
+
+Jedyny kadr Terminalu, jakim dysponujemy, ma **750 × 500 px**
+(`sections/terminal-kultury-750.jpg`). Po przebudowie sekcji 10 kolumna
+tekstowa ma przy 1440 px **791 px** wysokości, więc wypełnienie jej zdjęciem
+przez `object-fit: cover` wymagałoby powiększenia **1,58×** — widocznego
+rozmycia na największej fotografii tej sekcji.
+
+Kadr jest dlatego **wyśrodkowany w pionie**: granat obejmuje go symetrycznie
+z góry i z dołu i czyta się jak margines, a nie jak dziura pod zdjęciem.
+
+Drugi dostarczony kadr (`terminal-kultury-detail-960`, 960 × 720) jest
+ujęciem z poziomu ulicy — dużo jezdni i nieba, gorsza kompozycja do wąskiej
+kolumny. Zostaje w rezerwie.
+
+**Potrzebny materiał:** ujęcie Terminalu o szerokości **minimum 1400 px**
+i proporcji bliższej pionowi (3:4 lub 1:1). Pozwoli oprzeć kadr o pełną
+wysokość kolumny, tak jak robi to zdjęcie SP 402 w sekcji 09.
+Nieblokujący.

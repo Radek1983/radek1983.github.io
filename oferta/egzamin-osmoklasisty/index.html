@@ -4,24 +4,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Angielski - egzamin ósmoklasisty | High Five Warszawa</title>
+    <title>Egzamin ósmoklasisty z angielskiego - Gocław | High Five</title>
     <meta
       name="description"
-      content="Kurs przygotowujący do egzaminu ósmoklasisty z angielskiego w SP 402 w Warszawie. Powtórki, typowe zadania, strategie egzaminacyjne i praca nad błędami."
+      content="Przygotowanie do egzaminu ósmoklasisty z angielskiego na Gocławiu. Strategie egzaminacyjne, regularna praca i mała grupa."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
-    <link rel="canonical" href="https://radek1983.github.io/oferta/egzamin-osmoklasisty/" />
+    <link rel="canonical" href="https://www.highfive.academy/oferta/egzamin-osmoklasisty/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/oferta/egzamin-osmoklasisty/" />
-    <meta property="og:title" content="Angielski - egzamin ósmoklasisty | High Five Warszawa" />
+    <meta property="og:url" content="https://www.highfive.academy/oferta/egzamin-osmoklasisty/" />
+    <meta property="og:title" content="Egzamin ósmoklasisty z angielskiego - Gocław | High Five" />
     <meta
       property="og:description"
-      content="Kurs przygotowujący do egzaminu ósmoklasisty z angielskiego w SP 402 w Warszawie. Powtórki, typowe zadania, strategie egzaminacyjne i praca nad błędami."
+      content="Przygotowanie do egzaminu ósmoklasisty z angielskiego na Gocławiu. Strategie egzaminacyjne, regularna praca i mała grupa."
     />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych. Przy przeprowadzce na wlasna domene zmienia sie
+      razem z canonical - obie wartosci stoja w tym samym naglowku.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Egzamin ósmoklasisty z angielskiego - Gocław | High Five" />
+    <meta
+      name="twitter:description"
+      content="Przygotowanie do egzaminu ósmoklasisty z angielskiego na Gocławiu. Strategie egzaminacyjne, regularna praca i mała grupa."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -35,14 +63,56 @@
     />
 
     <link rel="stylesheet" href="/src/css/main.css" />
+
+    <!-- Okruszki: / -> /oferta/ -> produkt. Odwzorowuja rzeczywista strukture adresow. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "High Five",
+            "item": "https://www.highfive.academy/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Oferta",
+            "item": "https://www.highfive.academy/oferta/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Egzamin ósmoklasisty",
+            "item": "https://www.highfive.academy/oferta/egzamin-osmoklasisty/"
+          }
+        ]
+      }
+    </script>
   </head>
 
-  <body data-section="oferta">
-    <a class="skip-link" href="#main">Przejdź do treści</a>
+  <!--
+    `data-page="egzamin"` to HAK ZAKRESU, nie ozdoba.
+
+    `data-section="oferta"` nosza wszystkie cztery strony produktowe, więc nie
+    da się po nim odróżnić tej jednej. Każda reguła wyglądu dopisana dla tej
+    podstrony jest w `src/css/pages/egzamin.css` zakotwiczona w tym atrybucie
+    i nie ma prawa dosięgnąć żadnego innego widoku.
+  -->
+  <body data-section="oferta" data-page="egzamin">
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
 
     <!--#include partials/header.html -->
 
     <main id="main">
+      <!-- ============================================================
+           01 HERO
+           Uklad 50/50: tresc po lewej, kadr chlopca po prawej. Kadr
+           dochodzi do krawedzi okna i wypelnia pas - wysokosc pasa
+           wyznacza TRESC, nie viewport.
+           ============================================================ -->
       <section class="section page-hero" data-animation="section" aria-labelledby="egzamin-title">
         <div class="container">
           <div class="page-hero__grid">
@@ -52,21 +122,40 @@
                 <span>Klasa 8</span>
               </p>
 
+              <!--
+                "Next step." otwiera naglowek i jest czescia nazwy oferty.
+                Wlasciciel zdjal je 18.09.2026 i tego samego dnia przywrocil,
+                po obejrzeniu wersji bez niego - zostaje.
+              -->
               <h1 class="u-display page-hero__title" id="egzamin-title" data-animation="fade-up">
-                Przygotuj się do egzaminu. Spokojnie i systematycznie.
+                Next step. Przygotuj się do&nbsp;egzaminu. Spokojnie i&nbsp;systematycznie.
               </h1>
 
               <p class="u-lead page-hero__lead" data-animation="fade-up">
-                Kurs dla ósmoklasistów, którzy chcą uporządkować wiedzę, przećwiczyć typowe zadania
-                egzaminacyjne i podejść do egzaminu z większą pewnością.
+                Kurs dla&nbsp;ósmoklasistów zgodny z&nbsp;wymaganiami egzaminacyjnymi
+                i&nbsp;podstawą programową. Dopracowana metodyka, strategie egzaminacyjne
+                i&nbsp;regularna praktyka zwiększają pewność przed egzaminem.
               </p>
 
-              <a class="cta" href="/#kontakt" data-animation="fade-up">
-                Zapytaj o grupę
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+              <!--
+                BEZ WEZWANIA W HERO - swiadomie, decyzja wlasciciela z 17.09.2026.
+
+                Stalo tu drugie "Zapytaj o grupe", prowadzace na /#kontakt, czyli
+                w INNE miejsce niz to samo wezwanie w naglowku strony, ktore od
+                tej samej zmiany celuje w sekcje #zapisy-egzamin-osmoklasisty
+                na dole tej strony. Dwa przyciski o tej samej nazwie i dwoch
+                roznych celach to nie jest wybor, tylko pomylka do zrobienia.
+
+                Droga kontaktu zostaje jedna i jest widoczna przez caly czas:
+                wezwanie w sticky naglowku.
+              -->
             </div>
 
+            <!--
+              ZDJECIE BEZ ZMIAN. Ten sam plik co dotad - zmienia sie tylko
+              kadrowanie: kadr wypelnia pas i jest zakotwiczony do gory,
+              zeby twarz nie wypadla poza wycinek.
+            -->
             <figure class="media page-hero__media" data-animation="fade-up">
               <picture>
                 <source
@@ -76,7 +165,7 @@
                     /src/assets/images/courses/course-exam-768.avif   768w,
                     /src/assets/images/courses/course-exam-1120.avif 1120w
                   "
-                  sizes="(min-width: 62rem) 45vw, 100vw"
+                  sizes="(min-width: 62rem) 50vw, 100vw"
                 />
                 <img
                   src="/src/assets/images/courses/course-exam-768.webp"
@@ -85,11 +174,12 @@
                     /src/assets/images/courses/course-exam-768.webp   768w,
                     /src/assets/images/courses/course-exam-1120.webp 1120w
                   "
-                  sizes="(min-width: 62rem) 45vw, 100vw"
-                  alt="Uczniowie klasy ósmej podczas pracy nad zadaniami egzaminacyjnymi"
-                  width="1200"
-                  height="900"
+                  sizes="(min-width: 62rem) 50vw, 100vw"
+                  alt="Uczeń klasy ósmej podczas pracy nad zadaniami egzaminacyjnymi"
+                  width="1122"
+                  height="1402"
                   loading="eager"
+                  fetchpriority="high"
                   decoding="async"
                 />
               </picture>
@@ -98,6 +188,10 @@
         </div>
       </section>
 
+      <!-- ============================================================
+           02 CZARNY PAS
+           Niski pas, nie ekran. Wysokosc wynika z dwoch wierszy tresci.
+           ============================================================ -->
       <section
         class="section statement"
         data-animation="section"
@@ -106,56 +200,189 @@
       >
         <div class="container">
           <h2 class="statement__claim" id="egzamin-deklaracja" data-animation="fade-up">
-            Powtarzam. Ćwiczę. <span class="statement__accent">Zdaję.</span>
+            Słucham. Czytam. Piszę. <span class="statement__accent">Zdaję.</span>
           </h2>
 
-          <!--
-            Zastrzezenie jest obowiazkowe i nie wolno go usunac: brief zabrania
-            obiecywania wyniku egzaminu (CLAUDE.md par. 6). Deklaracja wyzej
-            jest glosem ucznia, nie obietnica szkoly.
-          -->
           <p class="u-lead statement__cols" data-animation="fade-up">
-            Nie obiecujemy wyniku egzaminu. Pracujemy nad tym, co realnie od nas zależy:
-            uporządkowaniem materiału, znajomością typów zadań i regularnym treningiem.
+            Pracujemy nad tym, co&nbsp;naprawdę liczy się na&nbsp;egzaminie: rozumieniem, pisaniem,
+            komunikacją, gramatyką i&nbsp;skutecznym działaniem pod presją czasu.
           </p>
         </div>
       </section>
 
+      <!-- ============================================================
+           03 CO OBEJMUJE KURS — 3 x 2
+           ============================================================ -->
       <section class="section" data-animation="section" aria-labelledby="egzamin-zakres">
         <div class="container">
-          <p class="u-label section__label"><span>Co ćwiczymy?</span></p>
+          <p class="u-label section__label"><span>Co obejmuje kurs?</span></p>
           <h2 class="u-sr-only" id="egzamin-zakres">Zakres kursu</h2>
 
-          <ul class="cols u-mt-8">
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Rozumienie</h3>
-              <p>Reading i listening — praca na tekstach i nagraniach w formacie egzaminacyjnym.</p>
+          <ol class="exam-scope">
+            <li class="exam-scope__item" data-animation="fade-up">
+              <span class="exam-scope__number" aria-hidden="true">01</span>
+              <h3 class="exam-scope__title">Rozumienie ze&nbsp;słuchu</h3>
+              <ul class="exam-scope__list">
+                <li>dialogi, monologi, ogłoszenia i&nbsp;instrukcje</li>
+                <li>wyszukiwanie informacji szczegółowych</li>
+                <li>zadania na&nbsp;wybór odpowiedzi i&nbsp;uzupełnianie zdań</li>
+              </ul>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Środki językowe</h3>
-              <p>Vocabulary i grammar w zadaniach, nie w oderwanych ćwiczeniach.</p>
+
+            <li class="exam-scope__item" data-animation="fade-up">
+              <span class="exam-scope__number" aria-hidden="true">02</span>
+              <h3 class="exam-scope__title">Czytanie ze&nbsp;zrozumieniem</h3>
+              <ul class="exam-scope__list">
+                <li>artykuły, ogłoszenia, listy i&nbsp;e-maile</li>
+                <li>główny sens tekstu i&nbsp;informacje szczegółowe</li>
+                <li>strategie zadań egzaminacyjnych</li>
+              </ul>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Wypowiedź pisemna</h3>
-              <p>Writing: struktura, długość, typowe polecenia i najczęstsze błędy.</p>
+
+            <li class="exam-scope__item" data-animation="fade-up">
+              <span class="exam-scope__number" aria-hidden="true">03</span>
+              <h3 class="exam-scope__title">Pisanie</h3>
+              <ul class="exam-scope__list">
+                <li>e-mail, list, zaproszenie</li>
+                <li>struktura wypowiedzi</li>
+                <li>spójność i&nbsp;logiczne rozwinięcie punktów</li>
+              </ul>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Strategie</h3>
-              <p>Jak czytać polecenie, od czego zacząć i kiedy zgadywać, a kiedy nie.</p>
+
+            <li class="exam-scope__item" data-animation="fade-up">
+              <span class="exam-scope__number" aria-hidden="true">04</span>
+              <h3 class="exam-scope__title">Komunikacja i&nbsp;mówienie</h3>
+              <ul class="exam-scope__list">
+                <li>opisywanie obrazków</li>
+                <li>dialogi i&nbsp;reagowanie</li>
+                <li>odpowiadanie na&nbsp;pytania i&nbsp;wyrażanie opinii</li>
+              </ul>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Kontrola czasu</h3>
-              <p>Rozplanowanie pracy tak, by starczyło czasu na wszystkie części.</p>
+
+            <li class="exam-scope__item" data-animation="fade-up">
+              <span class="exam-scope__number" aria-hidden="true">05</span>
+              <h3 class="exam-scope__title">Gramatyka i&nbsp;słownictwo</h3>
+              <ul class="exam-scope__list">
+                <li>czasy, mowa zależna, zdania warunkowe</li>
+                <li>tryb rozkazujący, przymiotniki i&nbsp;przysłówki</li>
+                <li>edukacja, podróże, zdrowie, rodzina, środowisko, technologia, kultura</li>
+              </ul>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Zadania próbne</h3>
-              <p>Regularne przejścia przez pełne zestawy w warunkach zbliżonych do egzaminu.</p>
+
+            <li class="exam-scope__item" data-animation="fade-up">
+              <span class="exam-scope__number" aria-hidden="true">06</span>
+              <h3 class="exam-scope__title">Strategie egzaminacyjne i&nbsp;czas</h3>
+              <ul class="exam-scope__list">
+                <li>praca z&nbsp;zegarem</li>
+                <li>planowanie kolejności zadań</li>
+                <li>pełne zestawy próbne</li>
+                <li>spokojne podejście do&nbsp;egzaminu</li>
+              </ul>
             </li>
-          </ul>
+          </ol>
         </div>
       </section>
 
-      <section class="section" data-animation="section" aria-labelledby="egzamin-praca">
+      <!-- ============================================================
+           04 PRZED EGZAMINEM
+           Sekcja zastąpiła zwięzły disclaimer, który stał w tym miejscu.
+           Samo zastrzeżenie o braku obietnicy wyniku NIE zniknęło ze strony -
+           zeszło do cennika jako drobny druk, bo par. 6 kontraktu i copy deck
+           trzymają je jako obowiązkowe.
+           ============================================================ -->
+      <section
+        class="section exam-approach"
+        data-animation="section"
+        aria-labelledby="egzamin-przed"
+      >
+        <div class="container">
+          <p class="u-label section__label"><span>Przed egzaminem</span></p>
+
+          <div class="exam-approach__grid">
+            <h2 class="exam-approach__claim" id="egzamin-przed" data-animation="fade-up">
+              Wiedza to&nbsp;jedno. Liczy się&nbsp;też
+              <span class="exam-approach__accent">sposób pracy.</span>
+            </h2>
+
+            <div class="exam-approach__side">
+              <p class="u-lead exam-approach__lead" data-animation="fade-up">
+                Porządkujemy materiał, oswajamy format zadań i&nbsp;ćwiczymy pracę z&nbsp;czasem.
+                Uczeń ma wiedzieć, czego się spodziewać i&nbsp;jak podejść do&nbsp;zadania krok
+                po&nbsp;kroku.
+              </p>
+
+              <ul class="exam-approach__marks" data-animation="fade-up">
+                <li>Porządek w&nbsp;materiale</li>
+                <li>Znajomość typowych zadań</li>
+                <li>Regularna praktyka</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           05 LOKALIZACJA ZAJĘĆ
+           Blok adresowy jest INFORMACYJNY. Par. 4 zabrania sugerowania,
+           że SP 402 organizuje albo firmuje kurs - stąd brak logo, herbu,
+           mapy i zdjęcia szkoły oraz jawne zdanie o roli miejsca.
+           ============================================================ -->
+      <section
+        class="section exam-location"
+        data-animation="section"
+        aria-labelledby="egzamin-lokalizacja"
+      >
+        <div class="container">
+          <p class="u-label section__label"><span>Lokalizacja zajęć</span></p>
+
+          <div class="exam-location__grid">
+            <div class="exam-location__text">
+              <h2 class="exam-location__claim" id="egzamin-lokalizacja" data-animation="fade-up">
+                Spotykamy się na&nbsp;Gocławiu.
+              </h2>
+
+              <p data-animation="fade-up">
+                Zajęcia odbywają się na&nbsp;terenie Szkoły Podstawowej nr&nbsp;402 im.&nbsp;Haliny
+                Konopackiej. To&nbsp;miejsce zajęć High Five —&nbsp;szkoła nie&nbsp;jest
+                organizatorem kursu.
+              </p>
+
+              <p data-animation="fade-up">Zajęcia odbywają się po&nbsp;lekcjach szkolnych.</p>
+            </div>
+
+            <address class="exam-location__card" data-theme="blue" data-animation="fade-up">
+              <p class="exam-location__school">
+                Szkoła Podstawowa nr&nbsp;402<br />
+                im.&nbsp;Haliny Konopackiej
+              </p>
+
+              <p class="exam-location__address">
+                ul.&nbsp;Jana Nowaka-Jeziorańskiego 22<br />
+                03-982 Warszawa
+              </p>
+
+              <p class="exam-location__role">Miejsce zajęć High Five</p>
+            </address>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           04 JAK PRACUJEMY — cztery kroki w jednym rzedzie
+           ============================================================ -->
+      <!--
+        Granat, nie krem. To nie ozdoba: par. 7 przypisuje HF BLUE roli
+        "drugiego aktu marki / sekcji egzaminacyjnej", a to jedyna strona
+        egzaminacyjna w serwisie. Sposób pracy dostaje własny akt koloru,
+        więc rytm strony idzie krem → czerń → krem → GRANAT → krem → czerwień
+        i żadne dwa kolorowe pasy nie stoją obok siebie.
+      -->
+      <section
+        class="section exam-method"
+        data-animation="section"
+        data-theme="blue"
+        aria-labelledby="egzamin-praca"
+      >
         <div class="container">
           <p class="u-label section__label"><span>Jak pracujemy?</span></p>
           <h2 class="u-sr-only" id="egzamin-praca">Sposób pracy</h2>
@@ -164,71 +391,140 @@
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">01</span>
               <h3>Diagnoza</h3>
-              <p>Sprawdzamy, co jest opanowane, a co wymaga powtórki.</p>
+              <p>Sprawdzamy, co&nbsp;jest opanowane, a&nbsp;co&nbsp;wymaga powtórki.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">02</span>
-              <h3>Powtórki</h3>
-              <p>Porządkujemy materiał z całego cyklu, partiami i w kolejności.</p>
+              <h3>Powtórki tematyczne</h3>
+              <p>Porządkujemy materiał zgodnie z&nbsp;wymaganiami egzaminu.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">03</span>
               <h3>Praktyka egzaminacyjna</h3>
-              <p>Typowe zadania i pełne zestawy, z kontrolą czasu.</p>
+              <p>Regularne zadania i&nbsp;próbne arkusze z&nbsp;omówieniem.</p>
             </li>
             <li class="steps__item" data-animation="fade-up">
               <span class="steps__number" aria-hidden="true">04</span>
               <h3>Informacja zwrotna</h3>
-              <p>Analiza błędów i konkretne wskazówki na kolejne podejście.</p>
+              <p>Konkretne wskazówki i&nbsp;plan dalszych działań.</p>
             </li>
           </ol>
         </div>
       </section>
 
-      <section class="section" data-animation="section" aria-labelledby="egzamin-cennik">
+      <!-- ============================================================
+           05 CENNIK
+           Cena jako element typograficzny, pod nia pas czterech faktow.
+           ============================================================ -->
+      <section
+        class="section exam-pricing"
+        data-animation="section"
+        aria-labelledby="egzamin-cennik"
+      >
         <div class="container">
           <p class="u-label section__label"><span>Cennik</span></p>
-          <h2 class="u-h2" id="egzamin-cennik" data-animation="fade-up">Cena kursu</h2>
 
           <!--
-            BRAK DANYCH. Stawka za kurs egzaminacyjny nie zostala potwierdzona
-            przez wlasciciela, a par. 4 zabrania jej wymyslania. Zapisane
-            w docs/CONTENT_GAPS.md - do podmiany po ustaleniu.
+            Stawke 80 zl za 90 minut przekazal wlasciciel 15.09.2026 -
+            wczesniej stal tu jawny brak danych, bo par. 4 zabrania podawania
+            niepotwierdzonej ceny. Odnotowane w CLAUDE.md par. 3
+            i w docs/CONTENT_GAPS.md.
           -->
-          <div class="photo-todo u-mt-8" data-animation="fade-up">
-            <p class="photo-todo__label">Brak ceny</p>
-            <p class="photo-todo__brief">
-              Stawka za kurs egzaminacyjny nie została jeszcze ustalona. Do czasu jej potwierdzenia
-              strona nie podaje żadnej kwoty — pytanie o cenę prowadzi do kontaktu.
-            </p>
-          </div>
+          <h2 class="exam-price" id="egzamin-cennik" data-animation="fade-up">80 zł / 90 minut</h2>
 
-          <p class="u-mt-8" data-animation="fade-up">
+          <ul class="exam-facts" data-animation="fade-up">
+            <li class="exam-facts__item">1 spotkanie grupowe</li>
+            <li class="exam-facts__item">90 minut pracy</li>
+            <li class="exam-facts__item">Kurs dla&nbsp;klasy 8</li>
+            <li class="exam-facts__item">
+              Zgodny z&nbsp;podstawą programową i&nbsp;wymaganiami egzaminacyjnymi
+            </li>
+          </ul>
+
+          <p class="exam-price__note" data-animation="fade-up">
+            Status grupy i&nbsp;termin rozpoczęcia potwierdzamy po&nbsp;kontakcie.
+          </p>
+
+          <!--
+            Zastrzeżenie jest OBOWIĄZKOWE i nie wolno go usunąć: par. 6
+            kontraktu oraz docs/COPY_DECK.md zabraniają obiecywania wyniku
+            egzaminu, a test w tests/e2e/pages.spec.js tego pilnuje.
+            Właściciel kazał je zdjąć z sekcji programu - stoi więc tutaj,
+            jako drobny druk przy cenie, i nadal jest na stronie.
+          -->
+          <p class="exam-price__note" data-animation="fade-up">
+            Nie&nbsp;obiecujemy wyniku egzaminu —&nbsp;pracujemy nad tym, co&nbsp;realnie
+            od&nbsp;nas zależy.
+          </p>
+
+          <p class="exam-price__more" data-animation="fade-up">
             <a class="u-link" href="/cennik/">Zobacz cennik pozostałych zajęć →</a>
           </p>
         </div>
       </section>
 
+      <!-- ============================================================
+           06 ZAPISY — czerwony akt zamykajacy podstrone egzaminacyjna
+
+           To NIE jest sekcja "Kontakt", tylko sekcja ZAPISOW: pyta wprost
+           o decyzje i od razu podaje trzy drogi kontaktu, bez przycisku.
+           Wezwanie w naglowku strony celuje w te kotwice, wiec przycisk
+           w tym miejscu bylby drugim wezwaniem do tej samej rzeczy.
+
+           Kotwica `#zapisy-egzamin-osmoklasisty` jest celem CTA z mega-menu
+           WYLACZNIE na tej podstronie - mapa CTA w src/data/offers.mjs jest
+           kluczowana sciezka pliku, wiec pozostale strony maja swoje cele.
+           ============================================================ -->
       <section
-        class="section closing"
+        class="section enroll"
+        id="zapisy-egzamin-osmoklasisty"
         data-animation="section"
         data-theme="signal"
         aria-labelledby="egzamin-cta"
       >
-        <div class="container closing__grid">
-          <div>
-            <h2 class="closing__title" id="egzamin-cta" data-animation="fade-up">
-              Chcesz dołączyć?
-            </h2>
-            <p class="u-lead closing__lead" data-animation="fade-up">
-              Napisz do nas — odezwiemy się w sprawie terminu i statusu grupy.
-            </p>
-          </div>
+        <div class="container">
+          <p class="u-label section__label enroll__eyebrow">
+            <span>Kontakt · egzamin ósmoklasisty</span>
+          </p>
 
-          <a class="cta cta--large cta--ink" href="/#kontakt" data-animation="fade-up">
-            Zapytaj o grupę
-            <span class="cta__arrow" aria-hidden="true">→</span>
-          </a>
+          <h2 class="u-display enroll__title" id="egzamin-cta" data-animation="fade-up">
+            Masz pytanie o&nbsp;grupę?
+          </h2>
+
+          <!--
+            Lamanie jest kompozycyjne: dwa wiersze jak na projekcie. Nie wiaze
+            krotkiego slowa, wiec <br /> jest tu na miejscu (par. 5 kontraktu).
+          -->
+          <p class="enroll__lead" data-animation="fade-up">
+            Napisz lub zadzwoń. Odpowiemy w&nbsp;sprawie<br />
+            terminu, poziomu i&nbsp;statusu grupy.
+          </p>
+
+          <!--
+            <dl>, bo to pary etykieta-wartosc, a nie lista rownorzednych
+            pozycji. Kreska nad kazda kolumna jest obramowaniem elementu,
+            nie osobnym <hr> - dzieki temu na mobile schodzi razem z trescia.
+          -->
+          <dl class="enroll__grid">
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">E-mail</dt>
+              <dd class="enroll__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Telefon</dt>
+              <dd class="enroll__value"><a href="tel:{{TEL_HREF}}">{{TEL}}</a></dd>
+            </div>
+
+            <div class="enroll__item" data-animation="fade-up">
+              <dt class="enroll__label">Godziny kontaktu tel.</dt>
+              <dd class="enroll__value">17:00–21:00</dd>
+            </div>
+          </dl>
+
+          <p class="enroll__note" data-animation="fade-up">
+            W&nbsp;ciągu dnia lektor pracuje w&nbsp;szkole, dlatego preferujemy kontakt mailowy.
+          </p>
         </div>
       </section>
     </main>

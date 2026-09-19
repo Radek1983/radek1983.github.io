@@ -19,7 +19,7 @@
   font-family: var(--font-display);
   font-size: clamp(3rem, 10vw, 8rem);
   font-weight: 800;
-  line-height: 0.85;
+  line-height: var(--leading-caps);
   letter-spacing: -0.045em;
   text-transform: uppercase;
 }
@@ -48,5 +48,19 @@
 
   .site-footer__col {
     grid-column: span 3;
+  }
+}
+
+/*
+ * Miejsce na dok CTA.
+ *
+ * .cta-dock jest przyklejony do dolu okna ponizej 32rem i ma wlasne tlo,
+ * wiec na stale zaslanial ostatnie 73 px strony - w praktyce zastrzezenie
+ * o SP 402, czyli jedyny tekst prawny w serwisie. Stopka rezerwuje teraz
+ * to miejsce; wartosc jest z zapasem nad zmierzona wysokoscia doku.
+ */
+@media (width < 32rem) {
+  .site-footer {
+    padding-block-end: 5.5rem;
   }
 }

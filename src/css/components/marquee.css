@@ -19,8 +19,14 @@
    * Przycinanie zostaje wylacznie jako zabezpieczenie przed poziomym
    * scrollem - w poprawnym stanie nie ma czego przycinac, a test pilnuje,
    * ze pas razem z dryfem miesci sie w kontenerze.
+   *
+   * WYLACZNIE w poziomie. `overflow: clip` cielo takze w pionie, a przy
+   * line-height 0.9 tusz wersalika z akcentem wychodzi 0.135 em ponad swoje
+   * pudelko: w "MÓWIĘ" kreska nad O byla scieta plasko, a ogonek E urwany
+   * u dolu. Os pionowa zostaje widoczna - nie ma tam czego chronic, bo
+   * strona i tak nie przewija sie w bok przez ten pas.
    */
-  overflow: clip;
+  overflow: clip visible;
 }
 
 .marquee__row {

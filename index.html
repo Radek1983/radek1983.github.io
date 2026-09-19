@@ -4,25 +4,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>High Five - angielski dla dzieci w SP 402 Warszawa</title>
+    <title>Angielski na Gocławiu i online | High Five</title>
     <meta
       name="description"
-      content="Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października."
+      content="Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1."
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#f2efe8" />
-    <link rel="canonical" href="https://radek1983.github.io/" />
+    <link rel="canonical" href="https://www.highfive.academy/" />
 
-    <!-- Open Graph. og:image dostarcza część biznesowa - patrz docs/CONTENT_GAPS.md -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="High Five" />
     <meta property="og:locale" content="pl_PL" />
-    <meta property="og:url" content="https://radek1983.github.io/" />
-    <meta property="og:title" content="High Five - angielski dla dzieci w SP 402 Warszawa" />
+    <meta property="og:url" content="https://www.highfive.academy/" />
+    <meta property="og:title" content="Angielski na Gocławiu i online | High Five" />
     <meta
       property="og:description"
-      content="Zajęcia z angielskiego dla klas 1-7 po lekcjach w SP 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty. Nabór trwa, start 1 października."
+      content="Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1."
     />
+
+    <!--
+      Grafika podgladu linku. JEDEN plik dla calego serwisu, generowany
+      przez `node scripts/make-og-image.mjs` z krojow i kolorow strony.
+      Warianty per podstrona sa mozliwe (skrypt przyjmuje haslo), ale jeden
+      obrazek marki to jeden plik do podmiany i zero ryzyka, ze podglad
+      rozjedzie sie z trescia po kolejnej zmianie copy.
+
+      Adres jest BEZWZGLEDNY, bo czytniki Open Graph nie rozwiazuja
+      sciezek wzglednych. Przy przeprowadzce na wlasna domene zmienia sie
+      razem z canonical - obie wartosci stoja w tym samym naglowku.
+    -->
+    <meta property="og:image" content="https://www.highfive.academy/social/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="High Five - angielski po lekcjach w SP 402 w Warszawie"
+    />
+
+    <!-- Duzy kafelek zamiast miniatury obok tekstu. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Angielski na Gocławiu i online | High Five" />
+    <meta
+      name="twitter:description"
+      content="Kameralna szkoła językowa High Five: angielski dla klas 1-7, przygotowanie do egzaminu ósmoklasisty, zajęcia dla seniorów i lekcje online 1 na 1."
+    />
+    <meta name="twitter:image" content="https://www.highfive.academy/social/og-image.png" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -44,11 +71,21 @@
         "@context": "https://schema.org",
         "@type": "EducationalOrganization",
         "name": "High Five",
+        "legalName": "High Five Magdalena Germel",
+        "taxID": "8241730595",
+        "foundingDate": "2022",
         "description": "Zajęcia z języka angielskiego dla dzieci z klas 1-7, prowadzone po lekcjach na terenie Szkoły Podstawowej nr 402 w Warszawie. Osobny kurs przygotowujący do egzaminu ósmoklasisty.",
-        "url": "https://radek1983.github.io/",
+        "url": "https://www.highfive.academy/",
         "email": "{{EMAIL}}",
         "telephone": "{{TEL_HREF}}",
         "areaServed": "Warszawa",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ul. Jana Nowaka-Jeziorańskiego 7 lok. 199",
+          "postalCode": "03-984",
+          "addressLocality": "Warszawa",
+          "addressCountry": "PL"
+        },
         "location": [
           {
             "@type": "Place",
@@ -73,10 +110,27 @@
         ]
       }
     </script>
+
+    <!--
+      WebSite jako osobny obiekt, a nie pole w organizacji: to dwie rozne
+      rzeczy. Organizacja jest podmiotem, witryna zasobem. Bez SearchAction -
+      serwis nie ma wyszukiwarki, a deklarowanie jej byloby obietnica bez
+      pokrycia. Nazwa `High Five`, nie `High Five Magdalena Germel`: pelna
+      nazwa dzialalnosci stoi w `legalName` organizacji i w sekcji kontaktu.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "High Five",
+        "url": "https://www.highfive.academy/",
+        "inLanguage": "pl-PL"
+      }
+    </script>
   </head>
 
   <body>
-    <a class="skip-link" href="#main">Przejdź do treści</a>
+    <a class="skip-link" href="#main">Przejdź do&nbsp;treści</a>
 
     <!-- Potwierdzone fakty widoczne przed pierwszym scrollem.
          Bez autoplay - pasek jest statyczny, na mobile przewijalny palcem. -->
@@ -87,14 +141,14 @@
           Nabór trwa
         </span>
         <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
-        <span class="ticker__item">Angielski dla klas 1-7</span>
+        <span class="ticker__item">Angielski dla&nbsp;klas 1-7</span>
         <span class="ticker__item">Egzamin ósmoklasisty</span>
         <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
         <span class="ticker__item" data-temporary="nabor-2026">Start 1 października 2026</span>
         <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
         <span class="ticker__item">SP 402, Warszawa</span>
-        <span class="ticker__item">Zajęcia po lekcjach</span>
-        <span class="ticker__item">Grupy od 5 dzieci</span>
+        <span class="ticker__item">Zajęcia po&nbsp;lekcjach</span>
+        <span class="ticker__item">Grupy od&nbsp;5 dzieci</span>
       </p>
     </div>
 
@@ -124,18 +178,23 @@
               Tresc pozostaje dokladnie taka jak w copy decku.
             -->
             <h1 class="hero__title" id="hero-title">
-              Angielski po lekcjach.<br />
-              W tej samej szkole.
+              Angielski po&nbsp;lekcjach.<br />
+              W&nbsp;tej samej szkole.
             </h1>
 
+            <!--
+              Twarde spacje w "w SP 402": nazwa szkoły nie ma prawa rozpaść się
+              między wiersze. Bez nich "w SP" zostawało na końcu pierwszej linii,
+              a numer schodził do drugiej.
+            -->
             <p class="u-lead hero__lead">
-              Zajęcia dla uczniów klas 1-7 prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy,
-              dużo praktycznego angielskiego. Dla ósmoklasistów prowadzimy osobny kurs
-              przygotowujący do egzaminu.
+              Zajęcia dla&nbsp;uczniów klas 1-7 prowadzone po&nbsp;lekcjach w&nbsp;SP&nbsp;402
+              w&nbsp;Warszawie. Małe grupy, dużo praktycznego angielskiego. Dla&nbsp;ósmoklasistów
+              prowadzimy osobny kurs przygotowujący do&nbsp;egzaminu.
             </p>
 
             <a class="cta cta--ink" href="#oferta">
-              Sprawdź grupy i ceny
+              Sprawdź grupy i&nbsp;ceny
               <span class="cta__arrow" aria-hidden="true">→</span>
             </a>
           </div>
@@ -211,7 +270,7 @@
             <div class="after-school__intro">
               <p class="u-label section__label">
                 <span>02</span>
-                <span>Po lekcjach</span>
+                <span>Po&nbsp;lekcjach</span>
               </p>
               <!--
                 fade-up, nie reveal: wariant z clip-path jest dla obserwatora
@@ -261,23 +320,24 @@
             <div class="after-school__text">
               <div class="after-school__block" data-animation="fade-up">
                 <p class="u-lead">
-                  High Five prowadzi zajęcia z angielskiego dla dzieci z klas 1-7 po zakończeniu
-                  lekcji szkolnych, na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej w
-                  Warszawie.
+                  High Five prowadzi zajęcia z&nbsp;angielskiego dla&nbsp;dzieci z&nbsp;klas 1-7
+                  po&nbsp;zakończeniu lekcji szkolnych, na&nbsp;terenie Szkoły Podstawowej
+                  nr&nbsp;402 im.&nbsp;Haliny Konopackiej w&nbsp;Warszawie.
                 </p>
               </div>
 
               <div class="after-school__block" data-animation="fade-up">
                 <p>
-                  Dla rodzica oznacza to mniej logistycznego chaosu. Dla dziecka — znajome miejsce i
-                  łatwiejsze przejście z dnia szkolnego do pracy w małej grupie.
+                  Dla&nbsp;rodzica oznacza to&nbsp;mniej logistycznego chaosu. Dla&nbsp;dziecka
+                  —&nbsp;znajome miejsce i&nbsp;łatwiejsze przejście z&nbsp;dnia&nbsp;szkolnego
+                  do&nbsp;pracy w&nbsp;małej grupie.
                 </p>
               </div>
 
               <div class="after-school__block" data-animation="fade-up">
                 <p>
-                  Dziecko nie musi jechać do kolejnej placówki, a rodzic nie organizuje dodatkowego
-                  dojazdu w środku popołudnia.
+                  Dziecko nie&nbsp;musi jechać do&nbsp;kolejnej placówki, a&nbsp;rodzic
+                  nie&nbsp;organizuje dodatkowego dojazdu w&nbsp;środku popołudnia.
                 </p>
               </div>
 
@@ -288,8 +348,9 @@
                   Mniej wożenia, mniej pośpiechu, więcej spokojnego popołudnia.
                 </p>
                 <p class="after-school__coda">
-                  Angielski staje się naturalnym ciągiem dnia dziecka – a nie kolejnym punktem, do
-                  którego trzeba zdążyć.
+                  Angielski staje się naturalną częścią dnia dziecka —&nbsp;wpisuje się w&nbsp;jego
+                  codzienny rytm, bez dodatkowych dojazdów i&nbsp;pośpiechu. Nie&nbsp;jest kolejnym
+                  obowiązkiem do&nbsp;odhaczenia.
                 </p>
               </div>
             </div>
@@ -311,9 +372,9 @@
         <div class="container">
           <p class="u-label section__label">
             <span>03</span>
-            <span>Co dziecko zyskuje</span>
+            <span>Co&nbsp;dziecko zyskuje</span>
           </p>
-          <h2 class="u-sr-only" id="korzysci-title">Co dziecko zyskuje na zajęciach</h2>
+          <h2 class="u-sr-only" id="korzysci-title">Co&nbsp;dziecko zyskuje na&nbsp;zajęciach</h2>
 
           <!--
             Jeden pas, nie dwa. Drugi - "Pewność / Ciekawość / Postęp" - byl
@@ -336,22 +397,22 @@
             <li class="benefits__item" data-animation="fade-up">
               <h3>Mówię więcej.</h3>
               <p>
-                Dziecko regularnie używa angielskiego w praktyce, zamiast tylko rozwiązywać
+                Dziecko regularnie używa angielskiego w&nbsp;praktyce, zamiast tylko rozwiązywać
                 ćwiczenia.
               </p>
             </li>
             <li class="benefits__item" data-animation="fade-up">
               <h3>Rozumiem więcej.</h3>
               <p>
-                Słownictwo i gramatyka pomagają dziecku rozumieć i komunikować się – nie są celem
-                samym w sobie.
+                Słownictwo i&nbsp;gramatyka pomagają dziecku rozumieć i&nbsp;komunikować się
+                —&nbsp;nie&nbsp;są celem samym w&nbsp;sobie.
               </p>
             </li>
             <li class="benefits__item" data-animation="fade-up">
               <h3>Czuję się pewniej.</h3>
               <p>
-                Regularny kontakt z językiem ułatwia pracę na lekcjach i przygotowanie do ważnych
-                sprawdzianów.
+                Regularny kontakt z&nbsp;językiem ułatwia pracę na&nbsp;lekcjach
+                i&nbsp;przygotowanie do&nbsp;ważnych sprawdzianów.
               </p>
             </li>
           </ul>
@@ -376,41 +437,49 @@
               <span>Nasza oferta</span>
             </p>
             <h2 class="u-h2" id="oferta-title" data-animation="fade-up">
-              Cztery drogi do pewnego angielskiego.
+              Cztery drogi do&nbsp;pewnego angielskiego.
             </h2>
           </div>
 
           <ul class="paths u-mt-8">
             <li class="paths__item" data-animation="fade-up">
-              <a class="paths__link" href="/oferta/dzieci/">
-                <span class="paths__number" aria-hidden="true">01</span>
-                <span class="paths__title">Dla dzieci</span>
+              <a class="paths__link offer-mark" href="/oferta/dzieci/">
+                <span class="paths__number offer-mark__number" aria-hidden="true">01</span>
+                <span class="paths__title offer-mark__label">Dla dzieci</span>
                 <span class="paths__meta">Klasy 1-7 · SP 402</span>
-                <span class="paths__cta">Zobacz zajęcia <span aria-hidden="true">→</span></span>
+                <span class="paths__cta offer-mark__cta"
+                  >Zobacz zajęcia <span class="offer-mark__arrow" aria-hidden="true">→</span></span
+                >
               </a>
             </li>
             <li class="paths__item" data-animation="fade-up">
-              <a class="paths__link" href="/oferta/egzamin-osmoklasisty/">
-                <span class="paths__number" aria-hidden="true">02</span>
-                <span class="paths__title">Egzamin</span>
-                <span class="paths__meta">Klasa 8 · SP 402</span>
-                <span class="paths__cta">Zobacz kurs <span aria-hidden="true">→</span></span>
+              <a class="paths__link offer-mark" href="/oferta/egzamin-osmoklasisty/">
+                <span class="paths__number offer-mark__number" aria-hidden="true">02</span>
+                <span class="paths__title offer-mark__label">Klasa 8</span>
+                <span class="paths__meta">Egzamin ósmoklasisty · SP 402</span>
+                <span class="paths__cta offer-mark__cta"
+                  >Zobacz kurs <span class="offer-mark__arrow" aria-hidden="true">→</span></span
+                >
               </a>
             </li>
             <li class="paths__item" data-animation="fade-up">
-              <a class="paths__link" href="/oferta/seniorzy/">
-                <span class="paths__number" aria-hidden="true">03</span>
-                <span class="paths__title">Dla seniorów</span>
-                <span class="paths__meta">60+ · Terminal Kultury Gocław</span>
-                <span class="paths__cta">Zobacz zajęcia <span aria-hidden="true">→</span></span>
+              <a class="paths__link offer-mark" href="/oferta/seniorzy/">
+                <span class="paths__number offer-mark__number" aria-hidden="true">03</span>
+                <span class="paths__title offer-mark__label">Dla seniorów</span>
+                <span class="paths__meta">Seniorzy · Terminal Kultury Gocław</span>
+                <span class="paths__cta offer-mark__cta"
+                  >Zobacz zajęcia <span class="offer-mark__arrow" aria-hidden="true">→</span></span
+                >
               </a>
             </li>
             <li class="paths__item" data-animation="fade-up">
-              <a class="paths__link" href="/oferta/online/">
-                <span class="paths__number" aria-hidden="true">04</span>
-                <span class="paths__title">Online 1:1</span>
+              <a class="paths__link offer-mark" href="/oferta/online/">
+                <span class="paths__number offer-mark__number" aria-hidden="true">04</span>
+                <span class="paths__title offer-mark__label">Online 1 na 1</span>
                 <span class="paths__meta">Indywidualnie · zdalnie</span>
-                <span class="paths__cta">Zobacz online <span aria-hidden="true">→</span></span>
+                <span class="paths__cta offer-mark__cta"
+                  >Zobacz online <span class="offer-mark__arrow" aria-hidden="true">→</span></span
+                >
               </a>
             </li>
           </ul>
@@ -441,30 +510,49 @@
             <div class="about__text">
               <p class="u-label section__label">
                 <span>05</span>
-                <span>O High Five</span>
+                <span>O&nbsp;High Five</span>
               </p>
 
               <h2 class="u-h2 about__title" id="o-nas-title" data-animation="fade-up">
                 Lokalna szkoła. Dużo uwagi.
               </h2>
 
-              <p data-animation="fade-up">
-                High Five to kameralna szkoła językowa z Gocławia, prowadzona przez Magdalenę Germel
-                — nauczycielkę języka angielskiego z ponad 20-letnim doświadczeniem.
+              <!--
+                CZTERY akapity, nie trzy: lead, kwalifikacje, sposob pracy,
+                zespol i wspolpraca. Podzial i brzmienie przekazal wlasciciel
+                18.09.2026.
+
+                Mocniejszy jest WYLACZNIE lead. Przez chwile stalo w trzech
+                kolejnych akapitach po jednym pogrubionym fragmencie, ale
+                wlasciciel je zdjal tego samego dnia: cztery akcenty pod rzad
+                czytaly sie jak katalog kwalifikacji, a nie jak opowiesc.
+                Lead niesie klase, nie <strong> - pogrubienie calego akapitu
+                nie znaczy juz nic wiecej niz zwykly tekst.
+              -->
+              <p class="about__lead" data-animation="fade-up">
+                High Five to&nbsp;kameralna szkoła językowa z&nbsp;Gocławia, prowadzona przez
+                Magdalenę Germel —&nbsp;nauczycielkę języka angielskiego z&nbsp;ponad 20-letnim
+                doświadczeniem.
               </p>
 
               <p data-animation="fade-up">
-                Magdalena jest absolwentką lingwistyki stosowanej na Uniwersytecie Warszawskim oraz
-                studiów podyplomowych z tłumaczeń przysięgłych w SWPS. Od ponad 20 lat uczy języka
-                angielskiego, w tym w szkole podstawowej. Jest nauczycielką dyplomowaną i
-                egzaminatorką Okręgowej Komisji Egzaminacyjnej.
+                Magdalena jest absolwentką lingwistyki stosowanej na&nbsp;Uniwersytecie Warszawskim
+                oraz studiów podyplomowych z&nbsp;tłumaczeń przysięgłych w&nbsp;SWPS. Od&nbsp;ponad
+                20&nbsp;lat uczy języka angielskiego, w&nbsp;tym w&nbsp;szkole podstawowej. Jest
+                dyplomowaną nauczycielką i&nbsp;egzaminatorką Okręgowej Komisji Egzaminacyjnej.
               </p>
 
               <p data-animation="fade-up">
-                To doświadczenie przekłada na High Five: małe grupy, dużo uwagi dla każdego ucznia,
-                praktyczny język i jasny cel zajęć. Zajęcia prowadzą również zweryfikowani lektorzy
-                z doświadczeniem w pracy z dziećmi, dobrani tak, aby zachować ten sam standard i
-                przyjazną atmosferę.
+                To&nbsp;doświadczenie przekłada się na&nbsp;sposób, w&nbsp;jaki pracujemy
+                w&nbsp;High Five: małe grupy, dużo uwagi dla&nbsp;każdego ucznia, praktyczny język
+                i&nbsp;jasno określony cel zajęć.
+              </p>
+
+              <p data-animation="fade-up">
+                Zajęcia prowadzą również zweryfikowani lektorzy z&nbsp;doświadczeniem w&nbsp;pracy
+                z&nbsp;dziećmi. Zajęcia dla&nbsp;klas&nbsp;1-7 organizujemy we&nbsp;współpracy
+                z&nbsp;High Five Agnieszka Karolewska, wspólnie dbając o&nbsp;dobór prowadzących,
+                spójny standard pracy i&nbsp;przyjazną atmosferę.
               </p>
 
               <!--
@@ -542,24 +630,30 @@
           <h2 class="u-sr-only" id="metoda-title">Jak wyglądają zajęcia</h2>
 
           <div class="method__grid">
+            <!--
+              "Mowij" nie jest polskim slowem - tryb rozkazujacy od "mowic"
+              to "mow". Bledna forma stala w master prompcie i zostala
+              przepisana do copy decku; poprawke polecil wlasciciel.
+              Kropki po czasownikach zdjete ta sama decyzja.
+            -->
             <ul class="method__verbs">
-              <li class="method__verb">Mówij.</li>
-              <li class="method__verb">Próbuj.</li>
-              <li class="method__verb">Poprawiaj.</li>
-              <li class="method__verb">Używaj.</li>
+              <li class="method__verb">Mów</li>
+              <li class="method__verb">Próbuj</li>
+              <li class="method__verb">Poprawiaj</li>
+              <li class="method__verb">Używaj</li>
             </ul>
 
             <div class="method__text">
               <p class="u-lead">
-                Zajęcia mają być miejscem aktywnego używania języka, nie kolejną godziną siedzenia
-                nad ćwiczeniami.
+                Zajęcia mają być miejscem aktywnego używania języka, nie&nbsp;kolejną godziną
+                siedzenia nad ćwiczeniami.
               </p>
 
               <ol class="method__steps">
-                <li class="method__step">Krótkie wejście w temat</li>
+                <li class="method__step">Krótkie wejście w&nbsp;temat</li>
                 <li class="method__step">Model języka</li>
-                <li class="method__step">Ćwiczenie w parach lub małej grupie</li>
-                <li class="method__step">Zastosowanie w zadaniu komunikacyjnym</li>
+                <li class="method__step">Ćwiczenie w&nbsp;parach lub małej grupie</li>
+                <li class="method__step">Zastosowanie w&nbsp;zadaniu komunikacyjnym</li>
                 <li class="method__step">Konkretna informacja zwrotna</li>
               </ol>
             </div>
@@ -568,8 +662,8 @@
       </section>
 
       <!-- ============================================================
-           06 CENA — Ile?
-           Liczby jako dominująca typografia. Bez pricing cards.
+           07 CENNIK — Ile kosztuje i jak rozliczamy?
+           Dwa panele jednej sekcji. Liczby jako dominująca typografia, bez pricing cards.
            ============================================================ -->
       <section class="section" id="cennik" data-animation="section" aria-labelledby="cennik-title">
         <div class="container">
@@ -578,48 +672,106 @@
               <span>07</span>
               <span>Cennik · klasy 1-7</span>
             </p>
-            <h2 class="u-display" id="cennik-title" data-animation="reveal">
-              Prosta cena. Bez ukrywania.
+            <h2 class="u-display pricing__claim" id="cennik-title" data-animation="reveal">
+              Prosta cena.
             </h2>
           </div>
 
+          <!-- ===== PANEL A - ile kosztuje ===== -->
           <div class="pricing__grid">
-            <div class="price price--primary">
+            <div class="price price--primary" data-animation="fade-up">
               <p class="price__figure">
                 <span class="price__amount">55</span>
-                <span class="price__unit">zł<br />/ 45 min</span>
+                <span class="price__unit">zł<br />/&nbsp;45&nbsp;min</span>
               </p>
               <p class="price__who">Pierwsze dziecko</p>
             </div>
 
-            <div class="price price--secondary">
+            <div class="price price--secondary" data-animation="fade-up">
               <p class="price__figure">
                 <span class="price__amount">50</span>
-                <span class="price__unit">zł<br />/ 45 min</span>
+                <span class="price__unit">zł<br />/&nbsp;45&nbsp;min</span>
               </p>
-              <p class="price__who">Drugie i każde kolejne dziecko z rodzeństwa</p>
+              <p class="price__who">Drugie i&nbsp;każde kolejne dziecko z&nbsp;rodzeństwa</p>
             </div>
 
-            <p class="pricing__note">
-              Cena za jedną lekcję dla klas 1-7. Grupa rozpoczyna pracę po zebraniu minimum 5
-              dzieci. Ceny kursu egzaminacyjnego, zajęć dla seniorów i lekcji online ustalamy
-              indywidualnie.
+            <!--
+              Przypis mówi WYŁĄCZNIE, czego dotyczą podane ceny. Odnośnik
+              do pełnego cennika stoi raz, na końcu panelu B - wcześniej
+              to samo wezwanie padało w sekcji dwa razy.
+            -->
+            <p class="pricing__note" data-animation="fade-up">
+              Podane ceny dotyczą regularnych zajęć grupowych dla&nbsp;klas 1-7 w&nbsp;SP&nbsp;402.
             </p>
+          </div>
+        </div>
+
+        <!--
+          ===== PANEL B - jak rozliczamy =====
+
+          Drugi akt TEJ SAMEJ sekcji 07, nie osobna sekcja: numer aktu pada raz,
+          w naglowku panelu A, i nie wraca. Rodzic czyta to jako jedna odpowiedz
+          rozlozona na dwa ekrany - najpierw ile, potem na jakich zasadach.
+
+          Model rozliczenia stoi tu WPROST, bo rodzic porownujacy szkoly domyslnie
+          zaklada stala oplate miesieczna. Bez tego nasza stawka czytalaby sie
+          jak abonament, a nie jak cena za odbyta lekcje.
+        -->
+        <div class="container billing">
+          <div class="billing__grid">
+            <h3 class="u-display billing__claim" data-animation="reveal">
+              Płacisz za&nbsp;zajęcia, które się odbywają.
+            </h3>
 
             <!--
-              Model rozliczenia podany WPROST. Rodzic porownujacy szkoly zaklada
-              stala oplate miesieczna - bez tego zdania nasza cena czytalaby sie
-              jak abonament, a nie jak stawka za odbyta lekcje.
+              Każda zasada ma teraz TYTUŁ i jedno zdanie wyjaśnienia. Wcześniej
+              był sam akapit, więc rodzic musiał go przeczytać w całości, żeby
+              wiedzieć, o czym jest. Tytuł niesie sens, zdanie niesie szczegół.
             -->
-            <p class="pricing__billing">Płacisz za zajęcia, które są w kalendarzu.</p>
+            <ol class="billing__rules">
+              <li class="billing__rule" data-animation="fade-up">
+                <span class="billing__number" aria-hidden="true">01</span>
+                <div class="billing__body">
+                  <strong class="billing__title">Bez stałej miesięcznej opłaty</strong>
+                  <p class="billing__text">
+                    Rozliczenie zależy od&nbsp;liczby zajęć zaplanowanych w&nbsp;danym miesiącu.
+                  </p>
+                </div>
+              </li>
 
-            <p class="pricing__note">
-              Nie pobieramy stałej opłaty miesięcznej niezależnej od liczby lekcji. Zajęcia, które
-              nie odbywają się w dni wolne od szkoły, nie są naliczane.
-            </p>
+              <li class="billing__rule" data-animation="fade-up">
+                <span class="billing__number" aria-hidden="true">02</span>
+                <div class="billing__body">
+                  <strong class="billing__title">Bez opłat za dni wolne</strong>
+                  <p class="billing__text">
+                    Jeśli zajęcia wypadają w&nbsp;dzień wolny od&nbsp;szkoły
+                    i&nbsp;nie&nbsp;odbywają się, nie&nbsp;są doliczane do&nbsp;rozliczenia.
+                  </p>
+                </div>
+              </li>
 
-            <p class="pricing__note">
-              <a class="u-link" href="/cennik/">Zobacz pełny cennik →</a>
+              <li class="billing__rule" data-animation="fade-up">
+                <span class="billing__number" aria-hidden="true">03</span>
+                <div class="billing__body">
+                  <strong class="billing__title">Grupa rusza od 5 osób</strong>
+                  <p class="billing__text">
+                    Zajęcia rozpoczynamy po&nbsp;zebraniu minimum 5&nbsp;dzieci.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <!--
+              JEDYNY odnośnik do pełnego cennika w tej sekcji. Podpis pod nim
+              mówi, co użytkownik tam zastanie - bez tego "wszystkich zajęć"
+              byłoby obietnicą bez treści.
+            -->
+            <p class="billing__more" data-animation="fade-up">
+              <a class="u-link billing__link" href="/cennik/">
+                Zobacz cennik wszystkich zajęć
+                <span class="billing__arrow" aria-hidden="true">→</span>
+              </a>
+              <span class="billing__scope">Kurs egzaminacyjny · seniorzy · online 1 na&nbsp;1</span>
             </p>
           </div>
         </div>
@@ -630,7 +782,7 @@
            Bez fikcyjnego licznika zapisanych dzieci.
            ============================================================ -->
       <section
-        class="section"
+        class="section enrollment"
         id="nabor"
         data-animation="section"
         data-theme="ink"
@@ -642,23 +794,28 @@
               <span>08</span>
               <span>Nabór 2026 · klasy 1-7</span>
             </p>
-            <h2 class="u-display" id="nabor-title" data-animation="reveal">
-              Grupa rusza od piątego dziecka.
+            <!--
+              Kropka w czerwieni - jedyny akcent koloru w typografii sekcji.
+              Osobny <span>, bo to zmiana KOLORU, nie kroju ani stopnia.
+            -->
+            <h2 class="u-display enrollment__claim" id="nabor-title" data-animation="reveal">
+              5 dzieci i&nbsp;startujemy<span class="enrollment__dot">.</span>
             </h2>
           </div>
 
           <div class="enrollment__grid">
             <div class="enrollment__fact">
               <p class="enrollment__figure">5</p>
-              <p class="enrollment__caption">
-                Tyle dzieci musi zebrać się w grupie, żeby zajęcia wystartowały.
-              </p>
+              <p class="enrollment__caption">Minimum 5 dzieci w&nbsp;grupie, żeby wystartować.</p>
             </div>
 
             <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
             <div class="enrollment__fact enrollment__fact--date" data-temporary="nabor-2026">
-              <p class="enrollment__figure">01.10</p>
-              <p class="enrollment__caption">Planowany start zajęć: 1 października 2026.</p>
+              <p class="enrollment__figure">
+                01.10
+                <span class="enrollment__year">2026</span>
+              </p>
+              <p class="enrollment__caption">Planowany start zajęć.</p>
             </div>
             <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
 
@@ -666,12 +823,19 @@
               <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
               <p class="enrollment__badge" data-temporary="nabor-2026">Zbieramy grupy</p>
               <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
-              <p class="u-lead">
-                Każda grupa rozpoczyna zajęcia po zebraniu minimum 5 dzieci. Po zgłoszeniu
-                skontaktujemy się w sprawie klasy, poziomu, terminu oraz aktualnego statusu grupy.
+
+              <!--
+                Zdanie o minimum 5 dzieci zeszlo stad: ta sama informacja stoi
+                juz w pierwszej kolumnie i w naglowku sekcji. Trzy razy to samo
+                w jednym ekranie czytalo sie jak zacinajaca sie plyta.
+              -->
+              <p class="enrollment__lead">
+                Po&nbsp;zgłoszeniu skontaktujemy się w&nbsp;sprawie klasy, poziomu, terminu
+                i&nbsp;aktualnego statusu grupy.
               </p>
+
               <a class="cta" href="#kontakt">
-                Zapisz się na zajęcia
+                Zapisz się na&nbsp;zajęcia
                 <span class="cta__arrow" aria-hidden="true">→</span>
               </a>
             </div>
@@ -697,20 +861,20 @@
               </p>
 
               <h2 class="location__place" id="lokalizacja-title" data-animation="reveal">
-                SP 402<br />Po lekcjach.
+                SP 402<br />Po&nbsp;lekcjach.
               </h2>
 
               <p class="u-label">Zajęcia dla klas 1-7 i kursy egzaminacyjne</p>
 
               <address class="location__address">
-                Szkoła Podstawowa nr 402<br />
-                im. Haliny Konopackiej<br />
-                ul. Jana Nowaka-Jeziorańskiego 22<br />
+                Szkoła Podstawowa nr&nbsp;402<br />
+                im.&nbsp;Haliny Konopackiej<br />
+                ul.&nbsp;Jana Nowaka-Jeziorańskiego 22<br />
                 03-982 Warszawa
               </address>
 
               <a
-                class="cta cta--ghost"
+                class="cta cta--ink"
                 href="https://www.google.com/maps/dir/?api=1&amp;destination=ul.+Jana+Nowaka-Jezioranskiego+22%2C+03-982+Warszawa"
                 target="_blank"
                 rel="noopener"
@@ -724,9 +888,9 @@
               </p>
 
               <p class="location__disclaimer">
-                Zajęcia High Five odbywają się na terenie SP 402 po zakończeniu lekcji szkolnych.
-                High Five nie jest oficjalnym serwisem szkoły, a szkoła nie odpowiada za ofertę
-                komercyjną.
+                Zajęcia High Five odbywają się na&nbsp;terenie SP&nbsp;402 po&nbsp;zakończeniu
+                lekcji szkolnych. High Five nie&nbsp;jest oficjalnym serwisem szkoły, a&nbsp;szkoła
+                nie&nbsp;odpowiada&nbsp;za&nbsp;ofertę&nbsp;komercyjną.
               </p>
             </div>
 
@@ -770,72 +934,115 @@
            Kontekst decyzji: docs/ADR/0005-trzecia-sciezka-oferty-seniorzy.md
            ============================================================ -->
       <section
-        class="section"
+        class="section seniors"
         id="seniorzy"
         data-animation="section"
         data-theme="blue"
         aria-labelledby="seniorzy-title"
       >
         <div class="container">
+          <!--
+            Gora sekcji: kolumna tekstu i kadr Terminalu obok siebie. Kadr
+            dochodzi do krawedzi okna - ta sama os co zdjecia hero, sekcji 02
+            i portretu w sekcji 05.
+          -->
+          <!--
+            UKLAD: po lewej tekst, po prawej kadr Terminalu dochodzacy do
+            krawedzi okna - ta sama os co zdjecia hero, sekcji 02 i portretu
+            w sekcji 05. Pod nimi drugi wiersz: wezwanie po lewej, dopisek
+            o zapisach po prawej.
+          -->
           <div class="seniors__grid">
-            <div class="seniors__text">
+            <div class="seniors__intro">
               <p class="u-label section__label">
                 <span>10</span>
                 <span>Dodatkowo · Terminal Kultury Gocław</span>
               </p>
 
-              <h2 class="u-h2 seniors__title" id="seniorzy-title" data-animation="reveal">
-                Angielski dla seniorów. Grupa początkująca.
+              <!--
+                Lamanie jest swiadome i kompozycyjne: dwa wiersze plakatu,
+                nie zwiazanie krotkiego slowa. Naglowek stoi w tym samym
+                rejestrze co "PROSTA CENA." i "MOW. PROBUJ." - wersaliki
+                w kroju display.
+              -->
+              <h2 class="seniors__title" id="seniorzy-title" data-animation="reveal">
+                Angielski dla<br />
+                seniorów.
               </h2>
 
-              <p class="u-lead" data-animation="fade-up">
-                Kameralne zajęcia dla osób 60+. Spokojne tempo, dużo rozmowy i praktyczny język
-                potrzebny w codziennych sytuacjach.
+              <p class="seniors__lead" data-animation="fade-up">
+                Kameralne zajęcia dla&nbsp;seniorów. Spokojne tempo, dużo rozmowy i&nbsp;praktyczny
+                angielski do&nbsp;codziennych sytuacji.
               </p>
 
-              <ul class="seniors__points">
-                <li class="seniors__point" data-animation="fade-up">
-                  <strong>Mała grupa</strong>
-                </li>
-                <li class="seniors__point" data-animation="fade-up">
-                  <strong>Tempo bez presji</strong>
-                </li>
-                <li class="seniors__point" data-animation="fade-up">
-                  <strong>Praktyczny język</strong>
-                </li>
-              </ul>
+              <div class="seniors__action">
+                <!--
+                  JEDNA linia o poziomach zamiast trzech kart.
+                  Rozpiska grup zyje na /oferta/seniorzy/ - strona glowna ma
+                  byc zapowiedzia oferty, nie jej katalogiem. Kreska przed
+                  tekstem jest pseudoelementem, bo nie niesie tresci.
+                -->
+                <p class="u-label seniors__meta" data-animation="fade-up">
+                  3&nbsp;poziomy · od&nbsp;podstaw do&nbsp;średniozaawansowanego
+                </p>
 
-              <a class="cta cta--ghost" href="/oferta/seniorzy/" data-animation="fade-up">
-                Zobacz zajęcia dla seniorów
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+                <a class="cta" href="/oferta/seniorzy/" data-animation="fade-up">
+                  Zobacz zajęcia dla&nbsp;seniorów
+                  <span class="cta__arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
 
-            <figure class="media media--4-3 seniors__media" data-animation="mask-up">
-              <picture>
-                <source
-                  type="image/avif"
-                  srcset="
-                    /src/assets/images/sections/terminal-kultury-480.avif 480w,
-                    /src/assets/images/sections/terminal-kultury-750.avif 750w
-                  "
-                  sizes="(min-width: 62rem) 45vw, 100vw"
-                />
-                <img
-                  src="/src/assets/images/sections/terminal-kultury-750.webp"
-                  srcset="
-                    /src/assets/images/sections/terminal-kultury-480.webp 480w,
-                    /src/assets/images/sections/terminal-kultury-750.webp 750w
-                  "
-                  sizes="(min-width: 62rem) 45vw, 100vw"
-                  alt="Budynek Terminalu Kultury Gocław w Warszawie"
-                  width="750"
-                  height="500"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-            </figure>
+            <!--
+              PRAWA KOLUMNA: kadr i dopisek pod nim.
+
+              Obie kolumny sa osobnymi stosami, a nie wierszami wspolnej
+              siatki. Przy wierszach wyzszy kadr spychal linie o poziomach
+              i wezwanie w dol - a te maja stac tuz pod leadem, niezaleznie
+              od tego, ile miejsca zajmie zdjecie.
+            -->
+            <div class="seniors__aside">
+              <!--
+                KADR W NATURALNEJ PROPORCJI 750x518, bez klasy proporcji.
+              Wcześniej stało tu `media--16-9`, czyli 1.78 wobec 1.45 źródła -
+              `object-fit: cover` zdejmował przez to górę i dół kadru razem
+              z literą "T" neonu w lewym górnym rogu. Teraz nic nie jest
+              ucinane, a proporcja jest bliższa projektowi referencyjnemu.
+
+              Ze `srcset` znikły warianty 480w: takie pliki nie istnieją
+              i nigdy nie powstały - generator robi dla tego źródła jedną
+              szerokość 750 px. Te same martwe odnośniki stoją jeszcze
+              na /lokalizacje/ i /oferta/seniorzy/.
+            -->
+              <figure class="media seniors__media" data-animation="mask-up">
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcset="/src/assets/images/sections/terminal-kultury-750.avif 750w"
+                    sizes="(min-width: 62rem) 52vw, 100vw"
+                  />
+                  <img
+                    src="/src/assets/images/sections/terminal-kultury-750.webp"
+                    srcset="/src/assets/images/sections/terminal-kultury-750.webp 750w"
+                    sizes="(min-width: 62rem) 52vw, 100vw"
+                    alt="Budynek Terminalu Kultury Gocław w Warszawie"
+                    width="750"
+                    height="518"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
+
+              <!--
+                Dopisek, nie drugie wezwanie: zapisy prowadzi Terminal Kultury,
+                wiec strona glowna moze o tym powiedziec, ale nie ma czego
+                obiecywac. Pionowa kreska jest obramowaniem, nie osobnym <hr>.
+              -->
+              <p class="seniors__note" data-animation="fade-up">
+                Zapisy i&nbsp;szczegóły na&nbsp;stronie Terminala.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -843,7 +1050,19 @@
       <!-- ============================================================
            09 FAQ + FINAL CTA — Co dalej?
            ============================================================ -->
-      <section class="section" id="faq" data-animation="section" aria-labelledby="faq-title">
+      <!--
+        Czarny akt miedzy granatem seniorow a kremowym kontaktem. Rytm sekcji
+        to teraz kremowy -> granat -> czern -> kremowy, czyli dokladnie regula
+        "kolor zmienia akt" z par. 9. Motyw niesie data-theme, wiec komponent
+        FAQ nie ma o nim pojecia - bierze kolory z rol semantycznych.
+      -->
+      <section
+        class="section"
+        id="faq"
+        data-animation="section"
+        data-theme="ink"
+        aria-labelledby="faq-title"
+      >
         <div class="container">
           <div class="faq-section__grid">
             <div class="faq-section__head">
@@ -860,13 +1079,13 @@
               <div class="faq">
                 <details class="faq__item">
                   <summary class="faq__question">
-                    Dla jakich klas są zajęcia?
+                    Dla&nbsp;jakich klas są zajęcia?
                     <span class="faq__sign" aria-hidden="true"></span>
                   </summary>
                   <div class="faq__answer">
                     <p>
-                      Dla uczniów klas 1-7 szkoły podstawowej. Dla klasy 8 prowadzimy osobny
-                      przygotowanie do egzaminu ósmoklasisty z języka angielskiego.
+                      Dla&nbsp;uczniów klas 1-7 szkoły podstawowej. Dla&nbsp;klasy 8 prowadzimy
+                      osobne przygotowanie do&nbsp;egzaminu ósmoklasisty z&nbsp;języka angielskiego.
                     </p>
                   </div>
                 </details>
@@ -878,8 +1097,9 @@
                   </summary>
                   <div class="faq__answer">
                     <p>
-                      Na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej przy ul. Jana
-                      Nowaka-Jeziorańskiego 22 w Warszawie, po zakończeniu lekcji szkolnych.
+                      Na&nbsp;terenie Szkoły Podstawowej nr&nbsp;402 im.&nbsp;Haliny Konopackiej
+                      przy ul.&nbsp;Jana Nowaka-Jeziorańskiego 22 w&nbsp;Warszawie,
+                      po&nbsp;zakończeniu lekcji szkolnych.
                     </p>
                   </div>
                 </details>
@@ -892,8 +1112,8 @@
                   </summary>
                   <div class="faq__answer">
                     <p>
-                      Planowany start to 1 października. Konkretna grupa rusza po zebraniu minimum 5
-                      dzieci.
+                      Planowany start to&nbsp;1 października. Konkretna grupa rusza po&nbsp;zebraniu
+                      minimum 5 dzieci.
                     </p>
                   </div>
                 </details>
@@ -906,9 +1126,9 @@
                   </summary>
                   <div class="faq__answer">
                     <p>
-                      55 zł za lekcję 45 minut dla pierwszego dziecka. Drugie i każde kolejne
-                      dziecko z rodzeństwa: 50 zł. Płacisz za zajęcia, które są w kalendarzu — bez
-                      stałej opłaty miesięcznej.
+                      55 zł za&nbsp;lekcję 45 minut dla&nbsp;pierwszego dziecka. Drugie i&nbsp;każde
+                      kolejne dziecko z&nbsp;rodzeństwa: 50 zł. Płacisz za&nbsp;zajęcia zaplanowane
+                      w&nbsp;kalendarzu —&nbsp;bez stałej opłaty miesięcznej.
                     </p>
                   </div>
                 </details>
@@ -920,8 +1140,8 @@
                   </summary>
                   <div class="faq__answer">
                     <p>
-                      Zadzwoń albo napisz e-mail. Skontaktujemy się w sprawie klasy, poziomu,
-                      dostępnego terminu i statusu grupy.
+                      Zadzwoń albo napisz e-mail. Skontaktujemy się w&nbsp;sprawie klasy, poziomu,
+                      dostępnego terminu i&nbsp;statusu grupy.
                     </p>
                   </div>
                 </details>
@@ -932,7 +1152,7 @@
       </section>
 
       <section
-        class="section section--airy"
+        class="section contact"
         id="kontakt"
         data-animation="section"
         aria-labelledby="kontakt-title"
@@ -945,37 +1165,71 @@
             </p>
 
             <h2 class="u-display contact__claim" id="kontakt-title" data-animation="reveal">
-              Gotowi na High Five?
+              Gotowi na&nbsp;High Five?
             </h2>
 
             <div class="contact__body">
               <p class="u-lead">
-                Napisz do nas. Podpowiemy, która forma zajęć najlepiej pasuje do wieku, celu i
-                możliwości czasowych.
+                Napisz do&nbsp;nas. Podpowiemy, która forma zajęć najlepiej pasuje do&nbsp;wieku,
+                celu i&nbsp;możliwości czasowych.
               </p>
 
               <ul class="contact__channels">
+                <!--
+                  Telefon jako TEKST, nie odnosnik - decyzja wlasciciela.
+                  Na desktopie `tel:` i tak niczego sensownego nie robi,
+                  a wyglada jak link do klikniecia.
+
+                  Numer zostaje odnosnikiem `tel:` w stopce, na kazdej
+                  stronie - dzieki temu dotkniecie go na telefonie
+                  nadal dzwoni, a wymog D2 (droga kontaktu dostepna bez
+                  JavaScriptu) jest spelniony.
+                -->
                 <li class="contact__channel">
-                  <a class="contact__link" href="tel:{{TEL_HREF}}">
+                  <p class="contact__row">
                     <span class="contact__value">{{TEL}}</span>
                     <span class="u-label">Telefon</span>
-                  </a>
+                  </p>
                 </li>
                 <li class="contact__channel">
-                  <a class="contact__link" href="mailto:{{EMAIL}}">
+                  <a class="contact__row contact__link" href="mailto:{{EMAIL}}">
                     <span class="contact__value">{{EMAIL}}</span>
                     <span class="u-label">E-mail</span>
                   </a>
                 </li>
               </ul>
+            </div>
 
-              <a
-                class="cta cta--large"
-                href="mailto:{{EMAIL}}?subject=Zapisy%20na%20zaj%C4%99cia%20High%20Five&amp;body=Imi%C4%99%20rodzica%2Fopiekuna%3A%0AKlasa%20dziecka%3A%0ATelefon%20lub%20e-mail%20do%20kontaktu%3A%0AUwagi%3A%0A"
-              >
-                Napisz do nas
-                <span class="cta__arrow" aria-hidden="true">→</span>
-              </a>
+            <!--
+              Dane rejestrowe. Par. 4 zabrania ich publikowania bez potwierdzenia
+              - te zostaly przekazane przez wlasciciela wprost i sa odnotowane
+              w docs/CONTENT_GAPS.md jako zamkniecie braku G-09.
+
+              <dl> zamiast czterech akapitow: to sa pary nazwa-wartosc i czytnik
+              ekranu ma je tak zapowiedziec. Blok stoi PO wezwaniu do dzialania
+              i jest wizualnie cichszy - ma uwiarygadniac, nie konkurowac.
+            -->
+            <div class="legal" data-animation="fade-up">
+              <p class="u-label legal__title">Dane firmy</p>
+
+              <dl class="legal__grid">
+                <div class="legal__item">
+                  <dt class="u-label legal__key">Firma</dt>
+                  <dd class="legal__value">High Five Magdalena Germel</dd>
+                </div>
+                <div class="legal__item">
+                  <dt class="u-label legal__key">NIP</dt>
+                  <dd class="legal__value">8241730595</dd>
+                </div>
+                <div class="legal__item">
+                  <dt class="u-label legal__key">REGON</dt>
+                  <dd class="legal__value">523281712</dd>
+                </div>
+                <div class="legal__item">
+                  <dt class="u-label legal__key">Działamy od</dt>
+                  <dd class="legal__value">2022</dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
@@ -1017,7 +1271,7 @@
     <!-- Sticky CTA na mobile, gdzie nie ma nawigacji. -->
     <div class="cta-dock">
       <a class="cta" href="#kontakt">
-        Zapisz się na zajęcia
+        Zapisz się na&nbsp;zajęcia
         <span class="cta__arrow" aria-hidden="true">→</span>
       </a>
     </div>

@@ -46,12 +46,20 @@ export const OFFERS = [
   {
     id: 'seniorzy',
     numer: '03',
-    skrot: '60+',
-    etykietaStopki: 'Seniorzy 60+',
+    skrot: 'Dla seniorów',
+    etykietaStopki: 'Seniorzy',
     tytul: 'Angielski dla seniorów',
     opis: 'Angielski dla seniorów',
-    kontekst: 'Terminal Kultury Gocław',
-    odbiorca: '60+',
+    /*
+     * Prog wiekowy zszedl STAD na polecenie wlasciciela z 19.09.2026 - par. 3
+     * i D16 zabranialy go od poczatku, a stal jeszcze w czterech miejscach.
+     *
+     * W jego miejsce wchodzi rzeczownik, a nie sam adres: podpis ma tu tak
+     * samo jak w pozostalych kaflach nazwac ODBIORCE i MIEJSCE, oddzielone
+     * kropka. Wlasciciel rozstrzygnal to wprost.
+     */
+    kontekst: 'Seniorzy · Terminal Kultury Gocław',
+    odbiorca: 'Seniorzy',
     miejsce: 'Terminal Kultury Gocław',
     url: '/oferta/seniorzy/',
     ctaMenu: 'Zobacz zajęcia',
@@ -60,8 +68,8 @@ export const OFFERS = [
   {
     id: 'online',
     numer: '04',
-    skrot: '1 na 1',
-    etykietaStopki: 'Online 1:1',
+    skrot: 'Online 1 na 1',
+    etykietaStopki: 'Online 1 na 1',
     tytul: 'Indywidualnie online',
     opis: 'Indywidualnie online',
 
@@ -93,14 +101,42 @@ export const CTA = {
    */
   'index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'oferta/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
-  'oferta/dzieci/index.html': { label: 'Zapisz dziecko', href: '/#kontakt' },
-  'oferta/egzamin-osmoklasisty/index.html': { label: 'Zapytaj o grupę', href: '/#kontakt' },
-  'oferta/seniorzy/index.html': { label: 'Zapytaj o miejsce', href: '/#kontakt' },
-  'oferta/online/index.html': { label: 'Umów lekcję', href: '/#kontakt' },
+  /*
+   * Ta strona ma WLASNA sekcje zapisow, wiec wezwanie zostaje na niej
+   * zamiast odsylac na strone glowna. Mapa jest kluczowana sciezka pliku,
+   * wiec zmiana dotyczy wylacznie tego adresu - pozostale osiem stron
+   * zachowuje swoje cele.
+   */
+  'oferta/dzieci/index.html': { label: 'Zapisz dziecko', href: '#zapisy-klasy-1-7' },
+  /* Ta strona ma WLASNA sekcje zapisow, wiec wezwanie zostaje na niej. */
+  'oferta/egzamin-osmoklasisty/index.html': {
+    label: 'Zapytaj o grupę',
+    href: '#zapisy-egzamin-osmoklasisty',
+  },
+  /*
+   * Ta strona ma WLASNA sekcje zapisow, wiec wezwanie zostaje na niej.
+   * Etykieta zeszla z "Zapytaj o miejsce": zapisow na te zajecia nie
+   * prowadzi High Five, tylko Terminal Kultury, wiec obietnica miejsca
+   * byla mocniejsza, niz ta strona moze dowiezc.
+   */
+  'oferta/seniorzy/index.html': { label: 'Zapytaj o zajęcia', href: '#zapisy-seniorzy' },
+  /*
+   * Cel zmieniony 19.09.2026: strona ma wlasna sekcje kontaktowa na dole,
+   * wiec wezwanie prowadzi do niej, a nie na strone glowna. Ta sama zasada
+   * co przy trzech pozostalych podstronach ofertowych (D18, D19, D20).
+   */
+  'oferta/online/index.html': { label: 'Umów lekcję', href: '#kontakt-online' },
   'lokalizacje/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'cennik/index.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
   'kariera/index.html': { label: 'Aplikuj', href: '#aplikacja' },
   '404.html': { label: 'Zapytaj o zajęcia', href: '/#kontakt' },
+  /*
+   * Polityka prywatnosci NIE MA wezwania w naglowku. To dokument prawny,
+   * a nie strona ofertowa - przycisk zapisu obok tytulu polityki czytalby
+   * sie jak sprzedaz przy okazji czytania klauzuli. Wartosc null usuwa
+   * blok w pasku i w szufladzie naraz (patrz htmlPartials w vite.config.js).
+   */
+  'polityka-prywatnosci/index.html': null,
 }
 
 export const CTA_DOMYSLNE = { label: 'Zapisz dziecko', href: '/oferta/dzieci/' }
@@ -125,19 +161,20 @@ export const LINK_CENNIK = CENY_KOMPLETNE ? 'Porównaj ceny' : 'Cennik'
  * na dane docelowe oznaczalaby pieciokrotna edycje i realne ryzyko, ze gdzies
  * zostanie stara wartosc.
  *
- * OBIE WARTOSCI SA TYMCZASOWE (decyzja D6 w CLAUDE.md). To prywatne konto
- * przekazane przez wlasciciela na czas budowy, NIE dane firmowe High Five.
+ * OBIE WARTOSCI SA DOCELOWE. Wlasciciel przekazal je bezposrednio i zastapily
+ * tymczasowe konto prywatne z decyzji D6 - patrz CLAUDE.md par. 15.
  *
- * TODO - DOCELOWY TELEFON: numer High Five nie zostal przekazany.
- * TODO - DOCELOWY E-MAIL: rekomendowana skrzynka we wlasnej domenie
- *        (np. kontakt@<domena>), gdy domena zostanie kupiona. Adres
- *        w domenie publicznego dostawcy oslabia wiarygodnosc szkoly.
- *        Domeny NIE wymyslamy - patrz decyzja D3.
+ * SKRZYNKA WE WLASNEJ DOMENIE - ZALATWIONE 17.09.2026. Adres zszedl
+ * z publicznego dostawcy na kontakt@highfive.academy; domene przekazal
+ * wlasciciel, nie zostala wymyslona. To zamyka brak G-17.
+ *
+ * Od 19.09.2026 domena poczty jest TEZ domena serwisu: adres kanoniczny to
+ * https://www.highfive.academy (decyzja D3, ADR 0010).
  */
 export const KONTAKT = {
   /** Postac wyswietlana, z niełamliwymi spacjami. */
-  telefon: '+48&nbsp;789&nbsp;789&nbsp;789',
+  telefon: '+48&nbsp;790&nbsp;266&nbsp;517',
   /** Postac dla protokolu tel: - bez spacji i znakow formatujacych. */
-  telefonHref: '+48789789789',
-  email: 'janek.gitara@onet.pl',
+  telefonHref: '+48790266517',
+  email: 'kontakt@highfive.academy',
 }

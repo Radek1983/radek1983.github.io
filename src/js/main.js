@@ -9,6 +9,7 @@ import { initNavigation } from './modules/navigation.js'
 import { initMenu } from './modules/menu.js'
 import { initMegaMenu } from './modules/mega-menu.js'
 import { initAccessibility } from './modules/accessibility.js'
+import { initPolicyToc } from './modules/policy-toc.js'
 
 function safeInit(name, fn) {
   try {
@@ -24,6 +25,7 @@ function bootstrap() {
   safeInit('menu', initMenu)
   safeInit('mega-menu', initMegaMenu)
   safeInit('animations', initAnimations)
+  safeInit('policy-toc', initPolicyToc)
 }
 
 if (document.readyState === 'loading') {

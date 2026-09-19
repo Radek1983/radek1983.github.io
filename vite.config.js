@@ -61,19 +61,31 @@ function htmlPartials() {
    * spanami w srodku. Dzieki temu klikalna jest cala powierzchnia kolumny,
    * a nie samo czerwone slowo na koncu, i nie powstaje zagniezdzony <a>.
    */
-  const megaMenu = OFFERS.map(
-    (o) => `          <li class="mega__item">
-            <a class="mega__link" href="${o.url}">
-              <span class="mega__number" aria-hidden="true">${o.numer}</span>
-              <span class="mega__label">${o.skrot}</span>
+  const megaMenu = (aktywnyUrl) =>
+    OFFERS.map((o) => {
+      /*
+       * Kolumna produktu, ktory uzytkownik wlasnie oglada, zostaje w stanie
+       * aktywnym bez najechania. `aria-current="page"` niesie te informacje
+       * jednoczesnie do CSS i do czytnika ekranu - nie potrzeba ani klasy
+       * modyfikatora, ani JavaScriptu odczytujacego adres w przegladarce.
+       *
+       * Cztery strony produktowe maja to samo data-section="oferta", wiec
+       * sam atrybut na <body> nie odroznilby ich od siebie.
+       */
+      const biezaca = o.url === aktywnyUrl ? ' aria-current="page"' : ''
+
+      return `          <li class="mega__item">
+            <a class="mega__link offer-mark" href="${o.url}"${biezaca}>
+              <span class="mega__number offer-mark__number" aria-hidden="true">${o.numer}</span>
+              <span class="mega__label offer-mark__label">${o.skrot}</span>
               <span class="mega__desc">${o.opis}</span>
               <span class="mega__meta">${o.kontekst}</span>
-              <span class="mega__cta"
-                >${o.ctaMenu} <span class="mega__arrow" aria-hidden="true">→</span></span
+              <span class="mega__cta offer-mark__cta"
+                >${o.ctaMenu} <span class="offer-mark__arrow" aria-hidden="true">→</span></span
               >
             </a>
-          </li>`,
-  ).join('\n')
+          </li>`
+    }).join('\n')
 
   /*
    * Ta sama lista w szufladzie mobilnej. Czterech kolumn nie przenosimy
@@ -90,13 +102,25 @@ function htmlPartials() {
   ).join('\n')
 
   /*
-   * I w stopce - ale z ETYKIETA OPISOWA, nie skrotem z mega-menu.
-   * "60+" i "1 na 1" dzialaja w panelu, gdzie stoja pod numerem i opisem.
-   * W stopce, jako goly odnosnik w kolumnie linkow, nie niosa kontekstu.
+   * I w stopce - ale z wlasna etykieta, nie skrotem z mega-menu.
+   * "Dla seniorow" dziala w panelu, gdzie stoi pod numerem i opisem;
+   * w kolumnie samych linkow czyta sie lepiej rzeczownik: "Seniorzy".
    */
   const stopkaOferta = OFFERS.map(
     (o) => `      <a class="u-link" href="${o.url}">${o.etykietaStopki}</a>`,
   ).join('\n')
+
+  /*
+   * Motyw kolorystyczny naglowka - wariant wspolnego komponentu, nie druga
+   * jego kopia.
+   *
+   * Kariera mowi do innego odbiorcy i ma ciemny akt, wiec naglowek dostaje
+   * tam `data-theme="ink"`. Wartosci bierze [data-theme='ink'] z
+   * base/variables.css - ta sama definicja, ktorej uzywaja czarne sekcje
+   * strony glownej. Markup, uklad, odstepy i animacje zostaja identyczne;
+   * zmieniaja sie WYLACZNIE role kolorow.
+   */
+  const MOTYW_NAGLOWKA = { 'kariera/index.html': ' data-theme="ink"' }
 
   return {
     name: 'high-five-html-partials',
@@ -124,18 +148,47 @@ function htmlPartials() {
          * normalizujemy ja do postaci uzywanej jako klucz w src/data/offers.mjs.
          */
         const klucz = ctx.filename.slice(root.length + 1).replace(/\\/g, '/')
-        const cta = CTA[klucz] ?? CTA_DOMYSLNE
+        const cta = klucz in CTA ? CTA[klucz] : CTA_DOMYSLNE
 
-        return wynik
-          .replaceAll('{{MEGA_MENU}}', megaMenu)
+        /*
+         * Strona BEZ wezwania w naglowku - wpis `null` w mapie CTA.
+         *
+         * W SZUFLADZIE blok znika w calosci: pozycje stoja tam w pionie,
+         * wiec brak przycisku niczego nie przesuwa.
+         *
+         * W PASKU zostaje pusta przegrodka. Pasek jest rozkladany przez
+         * `justify-content: space-between`, wiec usuniecie przycisku odeslaloby
+         * menu na sam prawy skraj - o 460 px dalej niz na pozostalych stronach.
+         * Przegrodka niesie etykiete domyslnego wezwania i jest wygaszona
+         * `visibility: hidden`, wiec ma DOKLADNIE szerokosc przycisku bez
+         * wpisywania jej jako liczby. Zmiana etykiety albo odstepow kapsuly
+         * przesunie ja sama.
+         *
+         * `visibility: hidden` zdejmuje element z drzewa dostepnosci i
+         * z kolejnosci focusu, wiec przegrodka nie jest ani klikalna,
+         * ani zapowiadana - to sam kawalek miejsca.
+         */
+        const przegrodka =
+          `<span class="cta site-header__cta site-header__cta--slot" aria-hidden="true">` +
+          `${CTA_DOMYSLNE.label}<span class="cta__arrow">→</span></span>`
+
+        const bezWezwania = wynik
+          .replace(/<!--CTA-PASEK-->[\s\S]*?<!--\/CTA-PASEK-->/g, przegrodka)
+          .replace(/[ \t]*<!--CTA-SZUFLADA-->[\s\S]*?<!--\/CTA-SZUFLADA-->\n?/g, '')
+
+        const zWezwaniem = wynik.replace(/[ \t]*<!--\/?CTA-(?:PASEK|SZUFLADA)-->\n?/g, '')
+
+        return (cta === null ? bezWezwania : zWezwaniem)
+          .replaceAll('{{MOTYW_NAGLOWKA}}', MOTYW_NAGLOWKA[klucz] ?? '')
+          .replaceAll('{{MEGA_MENU}}', megaMenu(`/${klucz.replace(/index\.html$/, '')}`))
           .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
           .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
           .replaceAll('{{LINK_CENNIK}}', LINK_CENNIK)
           .replaceAll('{{TEL}}', KONTAKT.telefon)
           .replaceAll('{{TEL_HREF}}', KONTAKT.telefonHref)
           .replaceAll('{{EMAIL}}', KONTAKT.email)
-          .replaceAll('{{CTA_LABEL}}', cta.label)
-          .replaceAll('{{CTA_HREF}}', cta.href)
+          .replaceAll('{{CTA_LABEL}}', cta?.label ?? '')
+          .replaceAll('{{CTA_HREF}}', cta?.href ?? '')
       },
     },
   }
@@ -210,6 +263,7 @@ export default defineConfig(({ mode }) => ({
         lokalizacje: resolve(root, 'lokalizacje/index.html'),
         cennik: resolve(root, 'cennik/index.html'),
         kariera: resolve(root, 'kariera/index.html'),
+        polityka: resolve(root, 'polityka-prywatnosci/index.html'),
 
         /*
          * Stare adresy zostaja jako strony przekierowujace. GitHub Pages nie

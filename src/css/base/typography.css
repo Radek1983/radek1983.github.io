@@ -28,13 +28,12 @@ body {
   font-family: var(--font-display);
   font-size: var(--step-display);
   font-weight: 800;
-  line-height: var(--leading-tight);
+  line-height: var(--leading-caps);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
 }
 
-h1,
-.u-h1 {
+h1 {
   font-family: var(--font-display);
   font-size: var(--step-h1);
   font-weight: 800;
@@ -53,8 +52,7 @@ h2,
   text-wrap: balance;
 }
 
-h3,
-.u-h3 {
+h3 {
   font-family: var(--font-body);
   font-size: var(--step-h3);
   font-weight: 500;
@@ -91,10 +89,6 @@ p:not([class]) {
   line-height: 1.2;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-}
-
-.u-measure-narrow {
-  max-width: var(--measure-narrow);
 }
 
 /* --- Linki --- */
@@ -149,4 +143,45 @@ a {
 .u-display.faq__title,
 .u-display.contact__claim {
   font-size: clamp(2.5rem, 7vw, 6.25rem);
+}
+
+/*
+ * --- Miejsce na tusz polskich wersalikow ---
+ *
+ * Dwa rozne defekty mialy to samo zrodlo: tusz wersalika z akcentem siega
+ * 0.95 em nad linie bazowa, a pudelko wiersza przy ciasnej interlinii jest
+ * nizsze. Nadmiar wychodzi PONAD pudelko tresci - zmierzone od 0.06 do
+ * 0.155 em, zaleznie od elementu.
+ *
+ * Dopoki nic nie przycina, nadmiar jest nieszkodliwy. Ale warstwa reveal
+ * odslania elementy maska o rozmiarze dokladnie pudelka (--- animations/
+ * reveal.css), a maska przycina wszystko poza nim. Skutek: plasko sciety
+ * akcent w "MOWIJ." i "KROTKO." dokladnie w miejscu kreski nad O.
+ *
+ * Padding powieksza pudelko maski, a ujemny margines tej samej wielkosci
+ * zdejmuje jego wplyw na uklad. Zero zmian w rytmie pionowym, zero zmian
+ * w geometrii - element zajmuje tyle samo miejsca, co przedtem, tylko ma
+ * gdzie wydrukowac akcent.
+ *
+ * Ujemny margines PIERWSZEGO elementu w bloku sklada sie jednak z gornym
+ * marginesem rodzica i podciaga caly blok w gore. Dlatego trik dostaja
+ * tylko te napisy, ktore faktycznie cos przycina - maska warstwy reveal
+ * albo overflow. Czasowniki sekcji 06 sa listą czterech osobnych <li>
+ * bez data-animation i bez przycinajacego rodzica: trik odsuwal je od
+ * etykiety "06 JAK UCZYMY" o 17 px, nie dajac nic w zamian.
+ */
+.u-wordmark,
+.u-display,
+.page-hero__title,
+.statement__claim,
+.closing__title,
+.offer-row__title,
+.paths__title,
+.mega__label,
+.location__place,
+.seniors__title,
+.site-footer__brand,
+.drawer__sublink strong {
+  padding-block: 0.18em;
+  margin-block: -0.18em;
 }

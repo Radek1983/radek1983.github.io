@@ -1,7 +1,7 @@
 {
   "name": "highfive-www",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "HIGH FIVE - angielski dla dzieci w SP 402 Warszawa. Statyczny one-page.",
   "type": "module",
   "engines": {

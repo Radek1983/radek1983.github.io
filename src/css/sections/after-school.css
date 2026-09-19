@@ -98,10 +98,16 @@
 
 /*
  * Wlasna skala zamiast .u-display: przy 10vw ten naglowek zajmowal 83% wysokosci
- * ekranu, a brief dopuszcza 30-70%. 6.5vw daje ok. 45% przy 1440 px.
+ * ekranu, a brief dopuszcza 30-70%.
+ *
+ * Stopien zszedl z 6.5vw po tym, jak interlinia wersalikow wzrosla do
+ * bezpiecznych 1.16 em. Przy 6.5vw naglowek lamal sie na SZESC wierszy
+ * i z nowa interlinia zajmowal 68% ekranu, spychajac akapit pod krawedz.
+ * Teraz mieszczą się PIĘĆ wierszy i blok wraca do ok. 53% - czyli mniej
+ * wiecej tam, gdzie byl przed zmiana interlinii.
  */
 .after-school__claim {
-  font-size: clamp(2.25rem, 6.5vw, 5.5rem);
+  font-size: clamp(2.125rem, 6.05vw, 5.125rem);
   max-inline-size: 16ch;
 }
 
@@ -127,7 +133,22 @@
  */
 .after-school__punch {
   margin-block-end: var(--space-4);
-  max-inline-size: 20ch;
+
+  /*
+   * Miara dobrana tak, zeby zdanie stalo w DWOCH wierszach, z podzialem
+   * po "pospiechu,". Przy 20ch lamalo sie na trzy, z samotnym "wiecej"
+   * w srodkowej linii.
+   *
+   * Widelki sa waskie i policzone przy stopniu 36 px: pierwszy wiersz
+   * potrzebuje 524 px, a przy 638 px doklei sie do niego "wiecej".
+   * 24ch to 575 px - mniej wiecej w srodku tego przedzialu.
+   *
+   * Jednostka `ch`, nie piksele: skaluje sie razem ze stopniem pisma,
+   * a szerokosc kolumny i stopien ida tu za ta sama szerokoscia okna,
+   * wiec proporcja - a z nia podzial na wiersze - zostaje taka sama
+   * na calej macierzy desktopu.
+   */
+  max-inline-size: 24ch;
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.4vw, 2.25rem);
   font-weight: 800;
@@ -136,11 +157,16 @@
 }
 
 /*
- * Miara szersza niz --measure jest tu celowa: przy 34rem ostatni wyraz
- * spadal do trzeciej linii. Zdanie ma sie zmiescic w dwoch.
+ * Miara szersza niz --measure jest tu celowa. Puenta ma miescic sie
+ * w DWOCH wierszach na calej macierzy desktopu - to jawna decyzja
+ * wlasciciela, pilnowana testem w tests/e2e/layout.spec.js.
+ *
+ * 34rem spychalo ostatni wyraz do trzeciej linii. Pozniej doszlo drugie
+ * pol piksela: myslnik jest szerszy od polpauzy, ktora stala tu wczesniej,
+ * wiec przy 1920 px zdanie znowu zaczelo lamac sie na trzy wiersze.
  */
 .after-school__coda {
-  max-inline-size: 38rem;
+  max-inline-size: 40.5rem;
   font-size: clamp(1.125rem, 1.45vw, 1.5rem);
   line-height: 1.45;
 }
@@ -208,15 +234,28 @@
     /*
      * Ten odstep steruje dlugoscia calego efektu. To on, a nie min-height,
      * decyduje jak dlugo zdjecie stoi.
+     *
+     * Zszedl dwa razy o cwierc z clamp(3rem, 13vh, 7.5rem): przy 120 px
+     * kolejne punkty czytaly sie jak osobne sekcje, a nie jak lista
+     * argumentow jednej mysli. Sekcja jest przez to krotsza, kadr stoi
+     * odpowiednio mniej - i taka jest cena tej zmiany.
+     *
+     * Ta wartosc jest JEDYNYM zrodlem odstepu miedzy blokami. Zadnemu
+     * blokowi nie wolno dolozyc wlasnego marginesu: wlasciciel wymaga,
+     * zeby wszystkie przerwy mialy dokladnie te sama wysokosc.
      */
-    gap: clamp(3rem, 13vh, 7.5rem);
+    gap: clamp(1.6875rem, 7.3vh, 4.25rem);
   }
 
   /*
-   * Puenta dostaje dodatkowy odstep ponad zwykly rytm blokow, zeby wjechala
-   * w kadr dopiero w koncowce sekcji i miala wlasny moment.
+   * Puenta NIE dostaje juz dodatkowego odstepu.
+   *
+   * Wczesniej stal tu margin-block-start, zeby wjechala w kadr dopiero
+   * w koncowce sekcji i miala wlasny moment. Wlasciciel zdecydowal inaczej:
+   * wszystkie przerwy w kolumnie maja miec dokladnie te sama wysokosc,
+   * a rytm ma byc rowny. Wlasny moment puenty niesie teraz sama typografia -
+   * kroj display i wiekszy stopien w .after-school__punch - a nie odstep.
+   *
+   * Reguly nie przywracaj bez decyzji wlasciciela.
    */
-  .after-school__block--punch {
-    margin-block-start: clamp(1.5rem, 6vh, 3.5rem);
-  }
 }
