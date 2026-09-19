@@ -127,6 +127,72 @@
         "inLanguage": "pl-PL"
       }
     </script>
+
+    <!--
+      FAQ sekcji 11 opisane danymi strukturalnymi.
+
+      Tresc jest tu POWTORZONA co do slowa z widocznego FAQ - Google odrzuca
+      oznaczenie, ktore mowi co innego niz strona. Przy kazdej zmianie pytania
+      albo odpowiedzi trzeba poprawic OBA miejsca; pilnuje tego test
+      w tests/e2e/faq.spec.js, ktory porownuje je automatycznie.
+
+      Twarde spacje z HTML sa tu zamienione na zwykle: JSON-LD niesie dane,
+      a nie sklad, wiec lamanie wierszy go nie dotyczy.
+
+      BEZ OBIETNICY WYNIKU ROZSZERZONEGO. Google ograniczyl w 2023 wyswietlanie
+      rozwijanych pytan do serwisow rzadowych i medycznych, wiec kafelka w SERP
+      sie tu nie spodziewamy. Oznaczenie zostaje, bo kosztuje zero, opisuje
+      tresc innym wyszukiwarkom i przetrwa ewentualny powrot tamtej polityki.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "inLanguage": "pl-PL",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Dla jakich klas są zajęcia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dla uczniów klas 1-7 szkoły podstawowej. Dla klasy 8 prowadzimy osobne przygotowanie do egzaminu ósmoklasisty z języka angielskiego."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Gdzie odbywają się zajęcia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Na terenie Szkoły Podstawowej nr 402 im. Haliny Konopackiej przy ul. Jana Nowaka-Jeziorańskiego 22 w Warszawie, po zakończeniu lekcji szkolnych."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kiedy startują zajęcia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Planowany start to 1 października. Konkretna grupa rusza po zebraniu minimum 5 dzieci."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ile kosztują zajęcia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "55 zł za lekcję 45 minut dla pierwszego dziecka. Drugie i każde kolejne dziecko z rodzeństwa: 50 zł. Płacisz za zajęcia zaplanowane w kalendarzu — bez stałej opłaty miesięcznej."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Jak zgłosić dziecko?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Zadzwoń albo napisz e-mail. Skontaktujemy się w sprawie klasy, poziomu, dostępnego terminu i statusu grupy."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>
