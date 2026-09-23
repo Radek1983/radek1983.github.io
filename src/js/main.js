@@ -10,6 +10,7 @@ import { initMenu } from './modules/menu.js'
 import { initMegaMenu } from './modules/mega-menu.js'
 import { initAccessibility } from './modules/accessibility.js'
 import { initPolicyToc } from './modules/policy-toc.js'
+import { initTelefon } from './modules/telefon.js'
 
 function safeInit(name, fn) {
   try {
@@ -26,6 +27,7 @@ function bootstrap() {
   safeInit('mega-menu', initMegaMenu)
   safeInit('animations', initAnimations)
   safeInit('policy-toc', initPolicyToc)
+  safeInit('telefon', initTelefon)
 }
 
 if (document.readyState === 'loading') {
