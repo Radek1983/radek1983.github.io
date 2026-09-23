@@ -263,7 +263,21 @@
               prowadzimy osobny kurs przygotowujący do&nbsp;egzaminu.
             </p>
 
-            <a class="cta cta--ink" href="#oferta">
+            <!--
+              CEL: sekcja 07, nie 04. Zmiana na polecenie wlasciciela
+              z 23.09.2026.
+
+              Wezwanie obiecuje CENY, a sekcja 04 ich nie podaje - stoja
+              dopiero dwie sekcje nizej. Rodzic ladowal wiec na przegladzie
+              czterech sciezek i musial scrollowac dalej, zeby zobaczyc to,
+              po co kliknal.
+
+              Zmienia sie WYLACZNIE `href`. Tekst i szerokosc przycisku
+              zostaja bez zmian, wiec geometria hero zamrozona w D7 -
+              opuszczenie przycisku i kompensacja w `--space-hero-lift` -
+              jest nietknieta.
+            -->
+            <a class="cta cta--ink" href="#cennik">
               Sprawdź grupy i&nbsp;ceny
               <span class="cta__arrow" aria-hidden="true">→</span>
             </a>
@@ -1246,20 +1260,24 @@
 
               <ul class="contact__channels">
                 <!--
-                  Telefon jako TEKST, nie odnosnik - decyzja wlasciciela.
-                  Na desktopie `tel:` i tak niczego sensownego nie robi,
-                  a wyglada jak link do klikniecia.
+                  Telefon jako ODNOSNIK - decyzja wlasciciela z 23.09.2026,
+                  zastepuje wczesniejsza, w ktorej numer stal tu jako tekst.
 
-                  Numer zostaje odnosnikiem `tel:` w stopce, na kazdej
-                  stronie - dzieki temu dotkniecie go na telefonie
-                  nadal dzwoni, a wymog D2 (droga kontaktu dostepna bez
-                  JavaScriptu) jest spelniony.
+                  Intencja tamtej decyzji zostaje spelniona, tylko inaczej:
+                  na komputerze `tel:` nadal niczego nie robi i nie ma
+                  wygladac jak link, ale rozstrzyga o tym RODZAJ WSKAZNIKA,
+                  a nie miejsce na stronie. Zdejmuje `href` modul
+                  src/js/modules/telefon.js - patrz komentarz w nim.
+
+                  Bez JavaScriptu numer zostaje klikalny wszedzie, wiec
+                  wymog D2 o drodze kontaktu dostepnej bez skryptu jest
+                  spelniony z zapasem.
                 -->
                 <li class="contact__channel">
-                  <p class="contact__row">
+                  <a class="contact__row contact__link" href="tel:{{TEL_HREF}}">
                     <span class="contact__value">{{TEL}}</span>
                     <span class="u-label">Telefon</span>
-                  </p>
+                  </a>
                 </li>
                 <li class="contact__channel">
                   <a class="contact__row contact__link" href="mailto:{{EMAIL}}">

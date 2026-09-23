@@ -436,6 +436,13 @@
           <h2 class="exam-price" id="egzamin-cennik" data-animation="fade-up">80 zł / 90 minut</h2>
 
           <ul class="exam-facts" data-animation="fade-up">
+            <!--
+              DOKLADNIE CZTERY POZYCJE. Siatka ma sztywno cztery kolumny
+              (pages/egzamin.css), wiec piata spada do drugiego wiersza
+              i czyta sie jak dopisek do pierwszej. Zdarzylo sie to
+              23.09.2026 przy dodawaniu wielkosci grupy - liczba stoi
+              dzis w zdaniu pod cena, nie tutaj.
+            -->
             <li class="exam-facts__item">1 spotkanie grupowe</li>
             <li class="exam-facts__item">90 minut pracy</li>
             <li class="exam-facts__item">Kurs dla&nbsp;klasy 8</li>
@@ -445,7 +452,9 @@
           </ul>
 
           <p class="exam-price__note" data-animation="fade-up">
-            Status grupy i&nbsp;termin rozpoczęcia potwierdzamy po&nbsp;kontakcie.
+            <!-- Wielkosc grupy przekazana przez wlasciciela 23.09.2026 (par. 3). -->
+            Grupa liczy od&nbsp;5 do&nbsp;8 osób. Status grupy i&nbsp;termin rozpoczęcia
+            potwierdzamy po&nbsp;kontakcie.
           </p>
 
           <!--

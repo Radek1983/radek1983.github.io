@@ -603,6 +603,166 @@
   --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
 }
 
+/* ============================================================
+   /oferta/online/ — sekcja CENNIK
+   ============================================================ */
+
+/*
+ * Sekcja zlecona przez właściciela 23.09.2026. Układ jest świadomie ten
+ * sam co cennik na podstronie egzaminacyjnej — cena jako element
+ * typograficzny, pod nią pas czterech faktów rozdzielonych włosowymi
+ * kreskami. Klasy są jednak WŁASNE (`online-*`), a nie współdzielone
+ * z `exam-*`: gdyby obie strony brały jeden zestaw reguł, zmiana skali
+ * tutaj przesuwałaby cennik ósmoklasistów, który jest zamknięty (D19).
+ *
+ * Reguły stoją w komponencie, a nie w `pages/online.css`, z tego samego
+ * powodu co trzy bloki wyżej: ta podstrona nie ma własnej warstwy,
+ * a dołożenie nowego pliku do `main.css` wywraca serwer deweloperski
+ * do czasu restartu (postcss-import zapamiętuje brak pliku). Zakres
+ * niesie `[data-page='online']`, więc dotyczy jednej strony.
+ */
+
+/*
+ * Etykieta sekcji nie ma w tej warstwie żadnego dolnego marginesu -
+ * reguła wyżej daje go tylko parze etykieta + .u-h2, a nagłówkiem jest
+ * tutaj sama cena. Bez tego CENNIK przylega do cyfr. 32 px to ten sam
+ * odstęp co pod etykietami cennika ósmoklasistów.
+ */
+[data-page='online'] .online-pricing .section__label {
+  margin-block-end: var(--space-8);
+}
+
+[data-page='online'] .online-price {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+}
+
+/*
+ * Pas czterech faktów pod ceną. Kreska nad listą jest tą „cienką linią
+ * pod ceną" z projektu — nie ma osobnego `<hr>`, bo obramowanie schodzi
+ * razem z listą przy każdej szerokości.
+ */
+[data-page='online'] .online-facts {
+  display: grid;
+  gap: var(--space-4);
+  margin-block: var(--space-8) 0;
+  padding: var(--space-6) 0 0;
+  border-block-start: 1px solid var(--color-rule);
+  list-style: none;
+}
+
+[data-page='online'] .online-facts__item {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/*
+ * Tekst opisowy, nie drobny druk: stopień tekstu ciągłego i miara
+ * ograniczona znakami, żeby wiersz nie rozjechał się na szerokim oknie.
+ * Krycie 72% — to samo co akapity kroków wyżej na tej stronie.
+ */
+
+/*
+ * Stopień pisma jest TEN SAM co w przypisach cennika ósmoklasisty -
+ * właściciel porównał obie strony 23.09.2026 i wybrał mniejszy.
+ * Zmiana tej wartości rozjeżdża dwa cenniki, więc idzie razem z tamtą.
+ */
+[data-page='online'] .online-price__text {
+  margin-block-start: var(--space-6);
+  max-inline-size: 39rem;
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+/*
+ * ODSTĘP POD PASEM FAKTÓW - 48 px, ten sam co w cenniku ósmoklasisty.
+ * Bierze tylko pierwszy akapit, bo blok stoi zaraz pod listą, a odstęp
+ * między samymi akapitami ma zostać mniejszy.
+ */
+[data-page='online'] .online-price__body > .online-price__text:first-child {
+  margin-block-start: var(--space-12);
+}
+
+[data-page='online'] .online-price__more {
+  margin-block-start: var(--space-8);
+}
+
+/*
+ * Tablet: 2 × 2. Cztery kolumny potrzebują tu więcej miejsca niż
+ * na podstronie egzaminacyjnej, bo „Indywidualne podejście" jest
+ * dłuższe od pozostałych trzech pozycji.
+ */
+@media (width >= 36rem) {
+  [data-page='online'] .online-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-8);
+  }
+}
+
+@media (width >= 62rem) {
+  [data-page='online'] .online-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  /*
+   * PODZIAŁ NA KOLUMNY MUSI BYĆ SYMETRYCZNY, żeby wyśrodkowanie było
+   * prawdziwe. Wcześniej pierwsza pozycja nie miała odstępu z lewej,
+   * a ostatnia z prawej - przy wyrównaniu do lewej nie było tego widać,
+   * ale po wyśrodkowaniu obie stałyby o pół odstępu obok osi swojej
+   * kolumny. Dlatego odstęp dostają wszystkie cztery, a kreska tylko
+   * trzy ostatnie.
+   */
+  [data-page='online'] .online-facts__item {
+    padding-inline: var(--space-6);
+  }
+
+  [data-page='online'] .online-facts__item + .online-facts__item {
+    border-inline-start: 1px solid var(--color-rule);
+  }
+}
+
+/*
+ * WYŚRODKOWANIE PODPISÓW dopiero tam, gdzie są kolumny - polecenie
+ * właściciela z 23.09.2026. Na telefonie lista jest jedną kolumną,
+ * więc środkowanie zrobiłoby z niej wyśrodkowany stos, obcy reszcie
+ * serwisu; podpisy zostają wtedy przy lewej krawędzi.
+ */
+@media (width >= 36rem) {
+  [data-page='online'] .online-facts__item {
+    text-align: center;
+  }
+}
+
+/*
+ * BLOK TEKSTU STOI POD CAŁĄ SIATKĄ i jest JEDNĄ, CIĄGŁĄ kolumną.
+ *
+ * Stał tu przez chwilę układ dwóch kolumn - właściciel odrzucił go
+ * 23.09.2026 tego samego dnia. Tekst ma być szerszy niż wcześniej, ale
+ * ma zostać zwykłym akapitem pod siatką, a nie drugą siatką.
+ * **Nie wracaj do kolumn.**
+ *
+ * Miara rośnie dopiero od 75rem, bo niżej blok i tak wypełnia prawie
+ * cały pas - 52ch to przy 1024 px już 93% jego szerokości. Wyżej daje
+ * około 2/3 pasa: 66% przy 1440 px, 62% przy 1920 px.
+ *
+ * Zdanie o płatności bierze tę samą miarę, bo przy węższej łamało się
+ * po „w danym" i wyglądało jak resztka poprzedniego układu.
+ */
+@media (width >= 75rem) {
+  [data-page='online'] .online-price__text {
+    max-inline-size: 60rem;
+  }
+}
+
 /*
  * ODSTĘP NAD KROKAMI na /kariera/ — sekcja „Co będziesz robić?".
  *

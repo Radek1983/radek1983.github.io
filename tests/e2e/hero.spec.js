@@ -90,4 +90,29 @@ test.describe('01 hero - uklad zatwierdzony', () => {
       expect(m.prawaTekstu, 'prawa krawedz tekstu').toBeLessThanOrEqual(0.42)
     })
   }
+
+  /*
+   * Wezwanie obiecuje CENY, wiec ma prowadzic tam, gdzie ceny stoja.
+   *
+   * Celowalo w sekcje 04, ktora pokazuje cztery sciezki oferty, ale nie
+   * podaje ani jednej kwoty - rodzic ladowal wiec dwie sekcje za wczesnie
+   * i musial scrollowac po to, po co kliknal. Wlasciciel przestawil cel
+   * na sekcje 07 dnia 23.09.2026.
+   *
+   * Test pilnuje samego CELU, nie ukladu: geometrie hero trzymaja
+   * asercje wyzej, bo tekst i szerokosc przycisku sie nie zmienily.
+   */
+  test('wezwanie w hero prowadzi do cen, nie do przegladu oferty', async ({ page }) => {
+    await page.goto('/')
+
+    const cta = page.locator('.hero__overlay .cta')
+    await expect(cta).toHaveAttribute('href', '#cennik')
+    await expect(cta).toContainText(/ceny/i)
+
+    /* Cel musi istniec i naprawde podawac kwoty - inaczej obietnica jest pusta. */
+    const cennik = page.locator('#cennik')
+    await expect(cennik).toHaveCount(1)
+    await expect(cennik).toContainText('55')
+    await expect(cennik).toContainText('50')
+  })
 })

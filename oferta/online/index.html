@@ -349,6 +349,103 @@
       </section>
 
       <!-- ============================================================
+           CENNIK · online 1 na 1
+
+           Sekcja zlecona przez wlasciciela 23.09.2026 wraz z projektem
+           referencyjnym. Tresc pochodzi co do slowa ze zlecenia - obraz
+           byl wylacznie referencja ukladu.
+
+           Uklad jest swiadomie TEN SAM co cennik na podstronie
+           egzaminacyjnej: cena jako element typograficzny, pod nia pas
+           czterech faktow rozdzielonych wlosowymi kreskami. Klasy sa
+           jednak wlasne (`online-*`), a reguly zakotwiczone w
+           [data-page='online'], wiec zmiana nie dotyka zadnej innej
+           strony.
+
+           Stoi TUZ NAD czerwona sekcja kontaktowa, bo odnosnik na dole
+           kieruje do sekcji "bezposrednio ponizej" - tak brzmialo
+           zlecenie. Miedzy "Jak wyglada wspolpraca" a kontaktem stoi
+           jeszcze "Dla kogo?", ktorej zlecenie nie wymienialo.
+           ============================================================ -->
+      <section
+        class="section online-pricing"
+        data-animation="section"
+        aria-labelledby="online-cennik"
+      >
+        <div class="container">
+          <p class="u-label section__label"><span>Cennik</span></p>
+
+          <!--
+            Stawke 120 zl za 60 minut przekazal wlasciciel 16.09.2026
+            (CLAUDE.md par. 3). Do dzis stala wylacznie na /cennik/;
+            ta sekcja jest pierwszym miejscem, w ktorym cena zajec
+            online stoi przy samej ofercie.
+          -->
+          <h2 class="online-price" id="online-cennik" data-animation="fade-up">
+            120 zł / 60 minut
+          </h2>
+
+          <ul class="online-facts" data-animation="fade-up">
+            <!--
+              DOKLADNIE CZTERY POZYCJE - siatka ma na desktopie sztywno
+              cztery kolumny, wiec piata spadlaby do drugiego wiersza
+              i czytala sie jak dopisek do pierwszej. Zdarzylo sie to
+              23.09.2026 na podstronie egzaminacyjnej.
+
+              Wersaliki daje CSS, nie zapis w HTML - tak samo jak
+              w pozostalych etykietach serwisu.
+            -->
+            <li class="online-facts__item">1 spotkanie online</li>
+            <li class="online-facts__item">60 min pracy</li>
+            <li class="online-facts__item">1 na 1</li>
+            <li class="online-facts__item">Indywidualne podejście</li>
+          </ul>
+
+          <!--
+            Oba akapity opisowe podmienil wlasciciel 23.09.2026, co do slowa.
+            Myslnik wtracenia ma po sobie twarda spacje, a przed soba zwykla -
+            par. 5 kontraktu: ma schodzic do nastepnego wiersza razem z tym,
+            co po nim, a nie wisiec na koncu.
+          -->
+          <!--
+            Oba akapity opisowe siedza we WSPOLNYM bloku, ktory od 75rem
+            rozklada je na dwie kolumny. Blok jest szerszy niz kolumna
+            tekstu (ok. 3/4 szerokosci pasa), ale wiersz zostaje krotki -
+            polecenie wlasciciela z 23.09.2026 mowilo o obu rzeczach naraz.
+            Zdanie o platnosci stoi POZA tym blokiem, bo ma zostac
+            pojedyncza, cicha linia pod spodem.
+          -->
+          <div class="online-price__body">
+            <p class="online-price__text" data-animation="fade-up">
+              Zajęcia dopasowujemy do&nbsp;tego, czego uczeń potrzebuje tu i&nbsp;teraz
+              —&nbsp;od&nbsp;nadrobienia zaległości i&nbsp;uporządkowania szkolnego materiału, przez
+              przygotowanie do&nbsp;sprawdzianów i&nbsp;egzaminów, po&nbsp;większą swobodę
+              w&nbsp;mówieniu.
+            </p>
+
+            <p class="online-price__text" data-animation="fade-up">
+              Pracujemy też nad&nbsp;angielskim, który przydaje się&nbsp;poza&nbsp;szkołą:
+              w&nbsp;podróży, podczas korzystania z&nbsp;anglojęzycznych treści w&nbsp;internecie
+              i&nbsp;w&nbsp;kontaktach z&nbsp;rówieśnikami z&nbsp;innych krajów.
+            </p>
+          </div>
+
+          <!--
+            Rozliczenie idzie Z GORY za spotkania zaplanowane na dany
+            miesiac - par. 3 kontraktu zabrania upraszczania tego do
+            "placisz tylko za odbyte zajecia".
+          -->
+          <p class="online-price__text" data-animation="fade-up">
+            Płatność odbywa się z&nbsp;góry za&nbsp;spotkania zaplanowane w&nbsp;danym miesiącu.
+          </p>
+
+          <p class="online-price__more" data-animation="fade-up">
+            <a class="u-link" href="#kontakt-online">Skontaktuj się w&nbsp;sprawie terminów →</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================
            KONTAKT — czerwony akt zamykający stronę
 
            Ten sam komponent, ktory zamyka trzy pozostale podstrony

@@ -461,6 +461,19 @@
   color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
 
+/*
+ * ODSTĘP POD PASEM FAKTÓW jest większy niż między akapitami - polecenie
+ * właściciela z 23.09.2026. Ten sam 48 px stoi w cenniku na
+ * `/oferta/online/`; obie sekcje mają oddychać tak samo.
+ *
+ * Reguła bierze TYLKO pierwszy przypis po liście. Gdyby zmienić sam
+ * `.exam-price__note`, urósłby też odstęp między dwoma przypisami,
+ * a te mają zostać blisko siebie.
+ */
+[data-page='egzamin'] .exam-facts + .exam-price__note {
+  margin-block-start: var(--space-12);
+}
+
 [data-page='egzamin'] .exam-price__more {
   margin-block-start: var(--space-6);
 }
@@ -471,13 +484,39 @@
     gap: 0;
   }
 
-  [data-page='egzamin'] .exam-facts__item + .exam-facts__item {
-    padding-inline-start: var(--space-8);
-    border-inline-start: 1px solid var(--color-rule);
+  /*
+   * PODPISY WYŚRODKOWANE W SWOICH KOLUMNACH - polecenie właściciela
+   * z 23.09.2026, ta sama zmiana co w cenniku na `/oferta/online/`.
+   *
+   * Środkowanie wymaga SYMETRYCZNEGO odstępu: wcześniej pierwsza pozycja
+   * nie miała go z lewej, a ostatnia z prawej, więc obie stałyby o pół
+   * odstępu obok osi swojej kolumny. Dlatego odstęp dostają wszystkie
+   * cztery, a kreska tylko trzy ostatnie.
+   *
+   * Niżej niż 62rem lista jest jedną kolumną i podpisy zostają przy
+   * lewej krawędzi - wyśrodkowany stos byłby obcy reszcie serwisu.
+   */
+  [data-page='egzamin'] .exam-facts__item {
+    padding-inline: var(--space-6);
+    text-align: center;
   }
 
-  [data-page='egzamin'] .exam-facts__item:not(:last-child) {
-    padding-inline-end: var(--space-8);
+  [data-page='egzamin'] .exam-facts__item + .exam-facts__item {
+    border-inline-start: 1px solid var(--color-rule);
+  }
+}
+
+/*
+ * Przypisy biorą tę samą miarę co tekst cennika na `/oferta/online/` -
+ * polecenie właściciela z 23.09.2026. Wcześniejsze 39rem zajmowało
+ * około 43% szerokości pasa i zostawiało po prawej pustkę.
+ *
+ * Zastrzeżenie o wyniku egzaminu nadal stoi w jednym wierszu: potrzebuje
+ * 581 px, a dostaje 960. Warunek z D19 jest spełniony z zapasem.
+ */
+@media (width >= 75rem) {
+  [data-page='egzamin'] .exam-price__note {
+    max-inline-size: 60rem;
   }
 }
 

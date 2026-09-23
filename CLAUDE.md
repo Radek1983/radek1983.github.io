@@ -95,14 +95,25 @@ zaplanowane w kalendarzu` — brzmienie wybrane przez właściciela 19.09.2026, 
   właściciela 15.09.2026; wcześniej stawka była jawnym brakiem danych.
 - **Angielski dla seniorów: 45 zł / 60 min.** **Online 1 na 1: 120 zł / 60 min.** Obie
   przekazane przez właściciela 16.09.2026 wraz z przebudową `/cennik/`; wcześniej były
-  jawnym brakiem danych. Stoją dziś **tylko na `/cennik/`** — podstrony produktowe ceny
-  nadal nie podają, co czeka na decyzję właściciela (`docs/CONTENT_GAPS.md`).
+  jawnym brakiem danych. **Stawka online stoi od 23.09.2026 także przy samej ofercie**
+  — właściciel zlecił sekcję `CENNIK` na `/oferta/online/`. Stawka senioralna nadal
+  wyłącznie na `/cennik/`; decyzja, czy ma zejść na `/oferta/seniorzy/`, należy do
+  właściciela (`docs/CONTENT_GAPS.md`).
 - **Model rozliczenia: płatność z góry za zajęcia zaplanowane na dany miesiąc.** To nie
   abonament i nie stały ryczałt. Spotkanie, o którym z góry wiadomo, że się nie odbędzie
   (dzień wolny, święto, przyczyny organizacyjne szkoły lub Terminalu Kultury), nie jest
   wliczane do płatności. Zajęcia opłacone, które nie odbędą się z nieplanowanej przyczyny,
   odliczamy od płatności za kolejny miesiąc. Przekazane przez właściciela 16.09.2026.
   **Nie upraszczaj tego do „płacisz tylko za odbyte zajęcia"** — rozliczenie idzie z góry.
+- **Wielkość grup.** Klasy 1-7: **5–8 osób**. Klasa 8 / egzamin ósmoklasisty:
+  **5–8 osób**. Seniorzy: **4–6 osób**. Przekazane przez właściciela 23.09.2026
+  w odpowiedzi na pytanie z audytu, czy fraza „małe grupy" ma za sobą konkret.
+  **Do tej pory nie miała** — serwis powtarzał „małe grupy" i „kameralne zajęcia"
+  kilkanaście razy bez jednej liczby, a jedyna liczba w serwisie (minimum 5 dzieci)
+  mówi o **warunku uruchomienia**, nie o rozmiarze grupy. To dwie różne rzeczy
+  i nie wolno ich mylić.
+  Zakres zapisujemy **półpauzą** (`5–8`), tak jak godziny kontaktu — to zakres,
+  nie łącznik. `klas 1-7` zostaje z dywizem, bo to utrwalona nazwa, nie zakres liczb.
 - **Godziny kontaktu telefonicznego: 17:00–21:00.** W ciągu dnia lektor pracuje w szkole,
   więc najszybszą drogą jest e-mail. Przekazane przez właściciela 17.09.2026 wraz
   z przebudową sekcji zapisów na `/oferta/dzieci/` — jedyne miejsce, gdzie te godziny
@@ -466,6 +477,11 @@ Techniki obowiązkowe: AVIF/WebP z `srcset`/`sizes`; **obraz LCP nigdy `loading=
 poniżej fold; `preload` tylko dla rzeczywiście krytycznych zasobów; `defer`/`module` dla skryptów;
 `transform`/`opacity` zamiast animowania `top`/`left`/`width`; usunięcie martwego kodu przed release.
 
+**WCAG 2.2 AA — z jednym świadomym wyjątkiem.** Wymóg obowiązuje w całości **poza kontrastem
+tekstu**: właściciel obejrzał 23.09.2026 dwa warianty poprawki i wybrał zachowanie obecnej
+palety. Stan, liczby i odrzucone warianty opisuje `docs/ACCESSIBILITY.md`; pomiar czeka
+wyłączony w `tests/e2e/kontrast.spec.js`. Reszta listy poniżej obowiązuje bez zmian.
+
 **WCAG 2.2 AA:** pełna obsługa klawiatury bez pułapek focusu; widoczny focus (nie `outline: none`
 bez zamiennika); skip link; logiczna kolejność DOM i focus; minimum 44×44 CSS px dla krytycznych
 targetów dotykowych; accessible name dla przycisków ikonowych; poprawne `label`, komunikaty błędów
@@ -615,6 +631,21 @@ Co dokładnie jest zamrożone — `src/css/sections/hero.css` i blok hero w `ind
 - lead łamany na **cztery** wiersze (`max-inline-size: 46ch`);
 - nagłówek: po jednym zdaniu w wierszu, dwa wiersze;
 - prawa granica całego tekstu: `--measure-hero-safe: 40vw`.
+
+**Zmiana z 23.09.2026 — wezwanie prowadzi do sekcji 07, nie do 04.** Polecenie
+właściciela po audycie. `Sprawdź grupy i ceny` celowało w `#oferta`, czyli w przegląd
+czterech ścieżek, który **nie podaje ani jednej kwoty** — rodzic lądował dwie sekcje
+za wcześnie i musiał przewijać dalej po to, po co kliknął. Dziś celuje w `#cennik`,
+gdzie od razu widzi `55` i `50 zł / 45 min`.
+
+**Zmienił się wyłącznie `href`.** Tekst i szerokość przycisku są te same, więc cała
+zamrożona geometria powyżej — opuszczenie wezwania i kompensacja w `--space-hero-lift` —
+jest nietknięta. Sprawdzone: po skoku etykieta `07 Cennik · klasy 1-7` stoi 56 px pod
+paskiem, nic nie jest przesłonięte.
+
+**Brzmienie zostaje.** Słowo „grupy" odnosi się do czterech grup odbiorców, nie do
+grafiku zajęć — tego serwis nie podaje nigdzie i nie poda bez danych od właściciela
+(G-04 w `docs/CONTENT_GAPS.md`).
 
 Pilnuje tego `tests/e2e/hero.spec.js` na macierzy 1280–1920 px. Czerwony test w tym pliku
 oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
@@ -813,8 +844,9 @@ Co jest zamrożone — blok `#kontakt` w `index.html` i `src/css/sections/contac
   (etykieta zmieniona przez właściciela z samego `Od`);
 - te same dane w JSON-LD (`legalName`, `taxID`, `foundingDate`) — rozjechanie ich to błąd,
   nie kosmetyka;
-- **telefon jako zwykły tekst, nie odnośnik** — wyjątek opisany w D2; klikalny `tel:` zostaje
-  w stopce na wszystkich dziewięciu stronach;
+- **telefon jest odnośnikiem `tel:` w HTML** — od 23.09.2026, patrz D2. Na komputerze
+  `href` zdejmuje moduł `telefon.js`, więc numer zachowuje się tam jak tekst. Wcześniejszy
+  zapis mówił, że stoi tu jako zwykły tekst — **to już nieaktualne**;
 - metryczka jest cichsza niż wezwanie: stopień `.legal__value` mniejszy niż `.contact__value`.
 
 Pilnuje tego `tests/e2e/kontakt.spec.js`.
@@ -1126,6 +1158,24 @@ podniesiona do `39rem` — to jednozdaniowy drobny druk, nie blok tekstu do czyt
 ciągiem, więc dłuższy wiersz niczego tu nie utrudnia. **Treść zastrzeżenia zostaje
 bez zmian**: §6 i `docs/COPY_DECK.md` zabraniają obiecywania wyniku, a test tego pilnuje.
 
+**23.09.2026 — cennik zrównany z cennikiem zajęć online.** Właściciel polecił to
+wprost, mimo zamknięcia strony, po obejrzeniu nowej sekcji `CENNIK` na
+`/oferta/online/`. Trzy zmiany w sekcji „05 CENNIK":
+
+- **cztery podpisy są wyśrodkowane w swoich kolumnach.** Warunkiem prawdziwego
+  środkowania jest **symetryczny odstęp**: wcześniej pierwsza pozycja nie miała go
+  z lewej, a ostatnia z prawej, więc obie stałyby o pół odstępu obok osi kolumny.
+  Dziś odstęp dostają wszystkie cztery, a kreska tylko trzy ostatnie;
+- **przypisy biorą 60rem zamiast 39rem** — 960 px przy oknie 1440, czyli 67% pasa
+  zamiast 43%. Zastrzeżenie o wyniku egzaminu nadal stoi w jednym wierszu (641 px
+  z 960 dostępnych), więc wymóg opisany wyżej jest spełniony z zapasem;
+- **odstęp pod pasem faktów to 48 px**, nie 24.
+
+**Te trzy wartości są WSPÓLNE z cennikiem na `/oferta/online/`** i właściciel
+porównywał obie strony obok siebie. Zmieniając je tutaj, zmień je tam — i odwrotnie.
+Reguły są osobne (`exam-*` kontra `online-*`), bo strony mają różne skale nagłówków
+i wspólny zestaw klas związałby rzeczy, które mają się różnić.
+
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
 ### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
@@ -1247,11 +1297,42 @@ rozwinięcie po kliknięciu istnieje wyłącznie jako mikrointerakcja **nad tre�
 w dokumencie**. `mailto:` dostaje gotowy `subject` i szkic `body` (imię rodzica, klasa dziecka,
 preferowany kontakt) — to przenosi wartość utraconego formularza bez żadnego backendu.
 
-**Wyjątek — telefon w sekcji `#kontakt`.** Na polecenie właściciela numer stoi tam jako zwykły
-tekst, nie odnośnik: na desktopie `tel:` niczego sensownego nie robi, a wygląda jak link do
-kliknięcia. **Klikalny `tel:` zostaje w stopce, na wszystkich dziewięciu stronach**, więc
-dotknięcie numeru na telefonie nadal dzwoni, a wymóg „droga kontaktu dostępna bez JavaScriptu"
-jest spełniony. Pilnują tego testy w `tests/smoke/page.spec.js` i `tests/e2e/kontakt.spec.js`.
+**Telefon — forma zależy od URZĄDZENIA, nie od miejsca na stronie.**
+Decyzja właściciela z **23.09.2026**. Zastępuje poprzednią, w której numer w sekcji 12 stał
+jako zwykły tekst, a klikalny był wyłącznie w stopce. **Tamta zasada już nie obowiązuje —
+nie przywracaj jej.**
+
+Zasada obowiązująca: **na dotyku każdy numer w serwisie jest odnośnikiem `tel:`, na wskaźniku
+żaden nim nie jest.** Dotyczy wszystkich jedenastu wystąpień: sekcji 12, sekcji zapisów na
+czterech podstronach ofertowych, `/kariera/`, `/lokalizacje/`, polityki prywatności i stopki
+na wszystkich dziesięciu stronach.
+
+Intencja poprzedniej decyzji jest zachowana: na komputerze `tel:` nadal niczego sensownego
+nie robi i nie ma wyglądać jak link. Zmienił się tylko sposób rozstrzygania — zamiast
+„w tej sekcji tak, w tamtej nie" pytamy o rodzaj wskaźnika.
+
+Jak to działa — `src/js/modules/telefon.js`:
+
+- w HTML numer jest **zawsze** odnośnikiem `tel:`;
+- przy `(hover: hover) and (pointer: fine)` moduł zdejmuje `href` i chowa go
+  w `data-tel-href`, skąd potrafi go przywrócić;
+- pytamy o **rodzaj wskaźnika, nie o szerokość okna** — wąskie okno na komputerze nadal ma
+  mysz, a duży tablet nadal ma palec;
+- `<a>` bez `href` przestaje być linkiem także dla czytnika ekranu i **wypada z kolejności
+  focusu** — sprawdzone, `document.activeElement` go nie przyjmuje.
+
+**Dlaczego JavaScript, skoro §10 każe trzymać treść krytyczną w HTML.** Bo numer **jest**
+w HTML, jako treść odnośnika. Skrypt tylko **odbiera** interaktywność, nigdy jej nie dodaje,
+więc **awaria JS niczego nie ukrywa** — bez skryptu numer jest widoczny i klikalny wszędzie,
+czyli dokładnie tak, jak przed tą zmianą. Pilnuje tego osobny test uruchamiany
+z **wyłączonym JavaScriptem** w `tests/e2e/regressions.spec.js`.
+
+Odrzucone warianty: `pointer-events: none` zostawiłoby odnośnik w drzewie dostępności —
+czytnik zapowiadałby link, który nic nie robi. Dwa warianty wiersza przełączane w CSS
+znaczyłyby duplikat numeru w jedenastu miejscach.
+
+Pilnują tego `tests/e2e/telefon.spec.js` (oba tryby, dziewięć stron), `tests/e2e/kontakt.spec.js`
+i `tests/smoke/page.spec.js`.
 
 - **GitHub Pages nie ma warstwy serwerowej i nie wyśle poczty.** Serwuje wyłącznie
   `Last-Modified`, `ETag`, `expires`, `Cache-Control: max-age=600`. Samo podanie adresu w kodzie
@@ -1271,27 +1352,28 @@ weryfikacji `instructions/` (§0) potwierdź, że decyzja nadal obowiązuje.
 
 Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczenia = jeszcze nieudokumentowane.
 
-| Temat                                           | Rozstrzygnięcie                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Repo prywatne na czas realizacji (§3.1)         | Odstępstwo: user site GitHub Pages musi być publiczne. `instructions/` w `.gitignore`, zero danych wrażliwych w historii                                                                                                                                                                                                                                                                                                                                                   |
-| Nagłówki bezpieczeństwa (§20.1, A.5) — ADR 0003 | GitHub Pages nie pozwala ustawić żadnego nagłówka. W `<meta>` działają `default-src`, `script-src`, `style-src`, `img-src`, `font-src`, `connect-src`, `base-uri`, `form-action`. **Ignorowane w meta:** `frame-ancestors`, `report-uri`, `sandbox`. **Bez odpowiednika w meta:** `X-Content-Type-Options`, `Permissions-Policy`. `Referrer-Policy` przez `<meta name="referrer">`. Docelowa polityka w `ops/headers.example.conf` + macierz zgodności w `docs/HOSTING.md` |
-| Cache i HSTS (§15.2) — ADR 0003                 | Pages daje sztywne `max-age=600` dla wszystkiego; `immutable` dla hashowanych assetów i HSTS nieosiągalne. Łagodzenie: „Enforce HTTPS” + `upgrade-insecure-requests`. **Domena + Cloudflare przed Pages usuwa to odstępstwo w całości** — argument za wcześniejszym zakupem domeny                                                                                                                                                                                         |
-| Preview/staging (§14) — ADR 0004                | Ochrona dostępu do Pages wymaga GitHub Enterprise Cloud — niedostępna. **Środowisko preview nie powstaje**; rolę podglądu pełni lokalne `npm run preview`, testy w CI i artefakt builda. Gdyby kiedyś powstało, musi mieć `noindex, nofollow`, własny `robots.txt` z `Disallow: /`, bez `sitemap.xml` i bez canonical na preview                                                                                                                                           |
-| Ochrona `main` (§3.2)                           | Rulesets działają na publicznym repo w planie Free. Required approvals = 0 — GitHub nie pozwala zatwierdzić własnego PR. PR + zielone checks pozostają obowiązkowe                                                                                                                                                                                                                                                                                                         |
-| Wersje narzędzi (A.1, B.1)                      | **Rozstrzygnięte — patrz D5 i errata E-01.** Vite 8 bez zmian; ESLint 10, Stylelint 17, html-validate 11. Node zawężony do `>=24.8.0`. ADR wyłącznie dla jawności przy odbiorze                                                                                                                                                                                                                                                                                            |
-| Inter Display (§18 briefu)                      | Inter v4 na licencji SIL OFL zawiera Inter Display. Self-host WOFF2 z oficjalnego wydania, licencja odnotowana w `docs/DESIGN_SYSTEM.md`. Nie pobieraj webfontów z witryn referencyjnych                                                                                                                                                                                                                                                                                   |
-| Kadry AI jako mock (D4)                         | Placeholdery wyraźnie oznaczone, docelowe proporcje 4:5 / 3:2 / 16:9, minimum 6 spójnych kadrów. **Nie udawaj, że placeholder pokazuje rzeczywistych uczniów SP 402.** Wymagania w `docs/ART_DIRECTION.md` i `docs/CONTENT_GAPS.md`                                                                                                                                                                                                                                        |
-| Brak formularza (D2)                            | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15                                                                                                                                                                                                                                                                                                                                                                                     |
-| Hosting i `base` — ADR 0001                     | GitHub Pages user site, `base` = `/`, źródło „GitHub Actions” ustawiane ręcznie w Settings → Pages                                                                                                                                                                                                                                                                                                                                                                         |
-| Brzmienie primary CTA — ADR 0006                | Odstępstwo polecone przez właściciela: `Zapisz się na zajęcia` zamiast `Zgłoś dziecko do grupy` z master promptu §7. Czasownik „zgłosić” niosł skojarzenie ze zgłoszeniem na policję. Funkcja, cel `#kontakt` i kolor sygnałowy bez zmian, więc zakaz miękkich CTA nadal obowiązuje. **BIZ-007 formalnie naruszone** — w raporcie odbioru jako odstępstwo, nie PASS                                                                                                        |
-| Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                          |
-| Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                           |
-| Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                         |
-| Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                            |
-| Polityka prywatności — ADR 0011                 | Dziesiąty adres serwisu, zlecony przez właściciela. Pełna treść jako HTML, PDF tylko do pobrania. Treść co do słowa z dokumentu właściciela — **zmiana danych na stronie oznacza zmianę PDF-a, nie odwrotnie**. Jeden widoczny odnośnik: stopka, kolumna `Informacje`, pod `Kontakt`                                                                                                                                                                                       |
-| Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                   |
-| Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                    |
-| Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                  |
+| Temat                                           | Rozstrzygnięcie                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repo prywatne na czas realizacji (§3.1)         | Odstępstwo: user site GitHub Pages musi być publiczne. `instructions/` w `.gitignore`, zero danych wrażliwych w historii                                                                                                                                                                                                                                                                                                                                                                      |
+| Nagłówki bezpieczeństwa (§20.1, A.5) — ADR 0003 | GitHub Pages nie pozwala ustawić żadnego nagłówka. W `<meta>` działają `default-src`, `script-src`, `style-src`, `img-src`, `font-src`, `connect-src`, `base-uri`, `form-action`. **Ignorowane w meta:** `frame-ancestors`, `report-uri`, `sandbox`. **Bez odpowiednika w meta:** `X-Content-Type-Options`, `Permissions-Policy`. `Referrer-Policy` przez `<meta name="referrer">`. Docelowa polityka w `ops/headers.example.conf` + macierz zgodności w `docs/HOSTING.md`                    |
+| Cache i HSTS (§15.2) — ADR 0003                 | Pages daje sztywne `max-age=600` dla wszystkiego; `immutable` dla hashowanych assetów i HSTS nieosiągalne. Łagodzenie: „Enforce HTTPS” + `upgrade-insecure-requests`. **Domena + Cloudflare przed Pages usuwa to odstępstwo w całości** — argument za wcześniejszym zakupem domeny                                                                                                                                                                                                            |
+| Preview/staging (§14) — ADR 0004                | Ochrona dostępu do Pages wymaga GitHub Enterprise Cloud — niedostępna. **Środowisko preview nie powstaje**; rolę podglądu pełni lokalne `npm run preview`, testy w CI i artefakt builda. Gdyby kiedyś powstało, musi mieć `noindex, nofollow`, własny `robots.txt` z `Disallow: /`, bez `sitemap.xml` i bez canonical na preview                                                                                                                                                              |
+| Ochrona `main` (§3.2)                           | Rulesets działają na publicznym repo w planie Free. Required approvals = 0 — GitHub nie pozwala zatwierdzić własnego PR. PR + zielone checks pozostają obowiązkowe                                                                                                                                                                                                                                                                                                                            |
+| Wersje narzędzi (A.1, B.1)                      | **Rozstrzygnięte — patrz D5 i errata E-01.** Vite 8 bez zmian; ESLint 10, Stylelint 17, html-validate 11. Node zawężony do `>=24.8.0`. ADR wyłącznie dla jawności przy odbiorze                                                                                                                                                                                                                                                                                                               |
+| Inter Display (§18 briefu)                      | Inter v4 na licencji SIL OFL zawiera Inter Display. Self-host WOFF2 z oficjalnego wydania, licencja odnotowana w `docs/DESIGN_SYSTEM.md`. Nie pobieraj webfontów z witryn referencyjnych                                                                                                                                                                                                                                                                                                      |
+| Kadry AI jako mock (D4)                         | Placeholdery wyraźnie oznaczone, docelowe proporcje 4:5 / 3:2 / 16:9, minimum 6 spójnych kadrów. **Nie udawaj, że placeholder pokazuje rzeczywistych uczniów SP 402.** Wymagania w `docs/ART_DIRECTION.md` i `docs/CONTENT_GAPS.md`                                                                                                                                                                                                                                                           |
+| Kontrast WCAG AA                                | **Odstępstwo świadome, decyzja właściciela z 23.09.2026.** Kremowy tekst na czerwieni daje 3,36 przy wymaganych 4,5; etykiety i przygaszenia 2,30–4,25. Właściciel obejrzał na żywo dwa warianty poprawki — przyciemnioną czerwień `#cb3227` i podniesione krycia — i wybrał zachowanie obecnej palety. **Nie proponuj tego ponownie bez jego inicjatywy.** Pomiary, odrzucone warianty i konsekwencje: `docs/ACCESSIBILITY.md`. Gotowy pomiar czeka wyłączony w `tests/e2e/kontrast.spec.js` |
+| Brak formularza (D2)                            | Odstępstwo od master promptu §7 i §16. Zatwierdzone przez właściciela. Szczegóły w §15                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Hosting i `base` — ADR 0001                     | GitHub Pages user site, `base` = `/`, źródło „GitHub Actions” ustawiane ręcznie w Settings → Pages                                                                                                                                                                                                                                                                                                                                                                                            |
+| Brzmienie primary CTA — ADR 0006                | Odstępstwo polecone przez właściciela: `Zapisz się na zajęcia` zamiast `Zgłoś dziecko do grupy` z master promptu §7. Czasownik „zgłosić” niosł skojarzenie ze zgłoszeniem na policję. Funkcja, cel `#kontakt` i kolor sygnałowy bez zmian, więc zakaz miękkich CTA nadal obowiązuje. **BIZ-007 formalnie naruszone** — w raporcie odbioru jako odstępstwo, nie PASS                                                                                                                           |
+| Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                                             |
+| Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                                              |
+| Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                                            |
+| Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                                               |
+| Polityka prywatności — ADR 0011                 | Dziesiąty adres serwisu, zlecony przez właściciela. Pełna treść jako HTML, PDF tylko do pobrania. Treść co do słowa z dokumentu właściciela — **zmiana danych na stronie oznacza zmianę PDF-a, nie odwrotnie**. Jeden widoczny odnośnik: stopka, kolumna `Informacje`, pod `Kontakt`                                                                                                                                                                                                          |
+| Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                                      |
+| Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                                       |
+| Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                                     |
 
 ## 17. Kryteria odbioru
 
@@ -1344,6 +1426,21 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   (D18). **Obrysowy `cta--ghost` stoi już tylko na `/oferta/seniorzy/`** — ostatnie
   wystąpienie po zmianach z 18.09.2026. Zdjęcie go stamtąd zostawiłoby serwisowi
   jeden język przycisków, ale to decyzja właściciela, nie porządki.
+
+- **Dwa cenniki produktowe mają wspólny rytm, ale OSOBNE reguły.** Sekcja `CENNIK`
+  na `/oferta/online/` (zlecona 23.09.2026) i sekcja „05 CENNIK" u ósmoklasisty
+  trzymają dziś te same trzy wartości: podpisy wyśrodkowane w kolumnach, tekst
+  o mierze **60rem** od 75rem w górę, odstęp pod pasem faktów **48 px**, stopień
+  pisma **15 px**. Właściciel porównywał obie strony obok siebie, więc zmiana jednej
+  z tych wartości idzie na obie strony naraz.
+
+  Klasy są jednak rozdzielone (`online-*` kontra `exam-*`) i **nie scalaj ich**:
+  strony mają różne skale nagłówków, a wspólny zestaw związałby rzeczy, które mają
+  się różnić. Strona ósmoklasisty jest zamknięta (D19) — każda kolejna zmiana tam
+  wymaga osobnego polecenia.
+
+  **Tekst pod pasem faktów jest JEDNĄ, ciągłą kolumną.** Stał tam przez chwilę układ
+  dwóch kolumn; właściciel odrzucił go tego samego dnia. Nie wracaj do niego.
 
 - **`u-mt-8` w HTML NIE ISTNIEJE w żadnym arkuszu.** Klasa stoi w jedenastu miejscach
   na sześciu stronach i miała dawać margines u góry — nigdy nie powstała, więc bloki,

@@ -75,7 +75,17 @@ test.describe('/oferta/egzamin-osmoklasisty/ - strona zatwierdzona', () => {
       'href',
       'mailto:kontakt@highfive.academy',
     )
-    await expect(pozycje.nth(1).locator('a')).toHaveAttribute('href', 'tel:+48790266517')
+    /*
+     * Cel numeru, niezaleznie od urzadzenia: na dotyku stoi w `href`,
+     * na wskazniku modul telefon.js przenosi go do `data-tel-href`.
+     * Asercja na jeden z tych atrybutow przechodzilaby tylko w jednym
+     * projekcie Playwrighta.
+     */
+    const celTelefonu = await pozycje
+      .nth(1)
+      .locator('a')
+      .evaluate((el) => el.getAttribute('href') ?? el.dataset.telHref)
+    expect(celTelefonu).toBe('tel:+48790266517')
   })
 
   test('droga kontaktu jest jedna i prowadzi w jedno miejsce', async ({ page }) => {
@@ -263,6 +273,79 @@ test.describe('/oferta/egzamin-osmoklasisty/ - strona zatwierdzona', () => {
           `naglowek do leadu na ${url}: ${inny.naglowekDoLeadu} vs ${wzorzec.naglowekDoLeadu}`,
         ).toBeLessThanOrEqual(6)
       }
+    })
+  })
+
+  /*
+   * SEKCJA 05 CENNIK — zrownana z cennikiem na /oferta/online/ 23.09.2026.
+   *
+   * Wlasciciel porownywal obie strony obok siebie i polecil te trzy
+   * wartosci wprost: wysrodkowane podpisy, miara tekstu 60rem i odstep
+   * 48 px pod pasem faktow. Te same liczby pilnuje `online.spec.js` -
+   * jesli zmieniasz je tutaj, zmien je tam.
+   */
+  test.describe('05 cennik', () => {
+    test('podpisy stoja na osiach kolumn, tekst ma szerokosc cennika online', async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 })
+      await page.goto('/oferta/egzamin-osmoklasisty/')
+
+      const dane = await page.evaluate(() => {
+        const sekcja = document.querySelector('.exam-pricing')
+        const lista = sekcja.querySelector('.exam-facts')
+        const pozycje = [...lista.children]
+        const przypis = sekcja.querySelector('.exam-price__note')
+        const pudlo = (el) => el.getBoundingClientRect()
+
+        /*
+         * Mierzymy PROSTOKAT TEKSTU, nie pudelko pozycji: pudelko wypelnia
+         * kolumne, wiec jego srodek lezy na osi zawsze.
+         */
+        const odchylenie = pozycje.map((el) => {
+          const zakres = document.createRange()
+          zakres.selectNodeContents(el)
+          const t = zakres.getClientRects()[0]
+          const k = pudlo(el)
+          return t ? Math.round(t.x + t.width / 2 - (k.x + k.width / 2)) : 0
+        })
+
+        return {
+          odchylenie,
+          odstep: Math.round(pudlo(przypis).top - pudlo(lista).bottom),
+          miara: Math.round(pudlo(przypis).width),
+          scroll: document.documentElement.scrollWidth - window.innerWidth,
+        }
+      })
+
+      for (const [i, wartosc] of dane.odchylenie.entries()) {
+        expect(Math.abs(wartosc), `podpis ${i + 1} na osi kolumny`).toBeLessThan(2)
+      }
+
+      expect(dane.odstep, 'odstep pod pasem faktow').toBe(48)
+      expect(dane.miara, 'miara przypisu').toBe(960)
+      expect(dane.scroll, 'poziomy scroll').toBeLessThanOrEqual(0)
+    })
+
+    /*
+     * Warunek z D19: zastrzezenie o wyniku egzaminu stoi w JEDNYM wierszu.
+     * Zdanie potrzebuje 581 px i po poszerzeniu przypisow ma ich 960.
+     * Tresci zdania nie wolno zmieniac - par. 6 kontraktu.
+     */
+    test('zastrzezenie o wyniku egzaminu stoi w jednym wierszu', async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 })
+      await page.goto('/oferta/egzamin-osmoklasisty/')
+
+      const przypis = page.locator('.exam-price__note').last()
+      await expect(przypis).toHaveText(/Nie\s+obiecujemy wyniku egzaminu/)
+
+      /*
+       * Liczymy WYSOKOSC wobec interlinii, nie prostokaty zakresu:
+       * WebKit dzieli zakres na wiecej prostokatow niz Chromium nawet
+       * w jednym wierszu, wiec tamten pomiar mowil o silniku, nie o ukladzie.
+       */
+      const wierszy = await przypis.evaluate((el) =>
+        Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)),
+      )
+      expect(wierszy).toBe(1)
     })
   })
 })

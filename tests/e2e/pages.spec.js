@@ -363,9 +363,10 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
      * i online 1 na 1 (120 zl za 60 min) - dwie ostatnie przekazal wlasciciel
      * 16.09.2026 wraz z przebudowa cennika.
      *
-     * Stawka senioralna weszla na wlasna podstrone 19.09.2026, tez na jego
-     * polecenie. Strona online nadal ceny NIE podaje - i dopoki wlasciciel
-     * nie zdecyduje inaczej, ma jej nie podawac.
+     * Stawka senioralna weszla na wlasna podstrone 19.09.2026, a online
+     * 23.09.2026 - obie na polecenie wlasciciela. Kazda podstrona ma
+     * pokazywac WYLACZNIE swoja stawke: cudza kwota w tym miejscu znaczy,
+     * ze cennik sie rozjechal.
      */
     await page.goto('/cennik/')
     await expect(page.locator('body')).toContainText('55 zł / 45 min')
@@ -383,7 +384,10 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
 
     await page.goto('/oferta/online/')
     const online = await page.locator('main').innerText()
-    expect(online, 'strona online nadal bez ceny').not.toMatch(/\d+\s*z[lł]\s*\/\s*\d+\s*min/i)
+    expect(online, 'stawka online zgodna z par. 3').toMatch(/120\s*zł\s*\/\s*60\s*min/i)
+    expect(online, 'zadna inna kwota za minuty').not.toMatch(
+      /(?!120\s*zł\s*\/\s*60)\b(?!120\b)\d+\s*zł\s*\/\s*\d+\s*min/i,
+    )
   })
 
   test('kurs egzaminacyjny nie obiecuje wyniku', async ({ page }) => {
@@ -466,7 +470,10 @@ test.describe('architektura - tresc i uczciwosc materialu', () => {
     const mail = page.locator('#aplikacja a[href^="mailto:"]')
     await expect(mail).toHaveCount(1)
     await expect(mail).toHaveAttribute('href', 'mailto:kontakt@highfive.academy')
-    await expect(page.locator('#aplikacja a[href^="tel:"]')).toHaveCount(1)
+    /* Selektor lapie obie postacie: z `href` na dotyku i z `data-tel-href` na wskazniku. */
+    await expect(
+      page.locator('#aplikacja a[href^="tel:"], #aplikacja a[data-tel-href]'),
+    ).toHaveCount(1)
   })
 
   test('zaden link wewnetrzny nie prowadzi donikad', async ({ page, request }) => {
