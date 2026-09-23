@@ -85,9 +85,10 @@ Stan i zasady:
 - Właścicielem domeny i konta u rejestratora pozostaje Zamawiający.
 - Wariant **z `www`**, nie apex: jeden `CNAME` zamiast czterech rekordów A na adresy
   GitHuba, które bywają zmieniane. Ten sam wariant stoi w grafice Open Graph.
-- **Publikacja w GitHub Pages jest dziś wyłączona** decyzją właściciela. Po jej włączeniu:
-  potwierdzić „Enforce HTTPS" — przy własnej domenie certyfikat Let's Encrypt wystawia się
-  dopiero po propagacji DNS i do tego czasu opcja bywa wyszarzona.
+- **Serwis jest opublikowany od 19.09.2026.** Źródło Pages stoi na „GitHub Actions",
+  a `Enforce HTTPS` działa: `http://` na obu wariantach domeny oddaje 301 na
+  `https://www.highfive.academy/`. Sprawdzane przy każdym wdrożeniu przez smoke test
+  w `deploy-production.yml`.
 - Pliku `CNAME` repozytorium nie wersjonuje; przy wdrożeniu przez GitHub Actions domena
   żyje w konfiguracji Pages. Gdyby odpięła się przy kolejnym wdrożeniu — `public/CNAME`
   z jedną linią `www.highfive.academy`, zgodną z ustawieniem co do znaku.
