@@ -1831,6 +1831,20 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   znika i wzorzec przestaje działać. **Cokolwiek zawiera odwrotny apostrof albo
   ukośnik odwrotny — pisz narzędziem plikowym.**
 
+- **Geometrię mierz PO przewinięciu elementu w kadr.** Część serwisu używa animacji
+  sterowanych przewijaniem (`animation-timeline: view()` w `animations/editorial.css`),
+  a one mają stan początkowy z przesunięciem — czasowniki sekcji 06 startują od
+  `translate: 0 0.4em`, czyli 36,8 px przy stopniu 92 px. Element stojący daleko pod
+  krawędzią okna raportuje więc **zupełnie inne współrzędne** niż ten sam element
+  czytany przez użytkownika.
+
+  Kosztowało to jeden test, który przez długi czas pilnował stanu, którego nikt nie
+  widzi: lokalnie pomiar zawsze wyprzedzał animację, a na wolniejszym runnerze CI raz
+  wyprzedziła go animacja i test padł jako „flaky" — mimo że w kodzie nic się nie
+  zepsuło. **Czerwony test tej klasy sprawdź najpierw pomiarem obu stanów**, zanim
+  uznasz go za regresję. Obok `document.fonts.ready` to druga rzecz, na którą czeka
+  się przed odczytem `getBoundingClientRect()`.
+
 - **Nie używaj leniwego dopasowania do kasowania bloku CSS.** Wzorzec zaczyna
   dopasowanie od PIERWSZEGO komentarza w pliku, nie od sąsiedniego: 04.10.2026 taki
   zapis skasował 93 linie `sections/enrollment.css`. Kotwicz wzorzec na nazwie

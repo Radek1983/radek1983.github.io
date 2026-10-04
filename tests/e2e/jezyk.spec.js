@@ -152,13 +152,31 @@ test.describe('06 jak uczymy', () => {
   })
 
   /*
-   * Etykieta sekcji i pierwszy czasownik stały 37 px od siebie. Ujemny
+   * Etykieta sekcji i pierwszy czasownik stały zbyt blisko siebie: ujemny
    * margines z warstwy anty-przycinającej podciągał pierwszy element
-   * o 17 px i napis kleił się do "06 JAK UCZYMY".
+   * o 0.18em i napis kleił się do "06 JAK UCZYMY". Odstęp daje dziś
+   * `margin` listy czasowników, czyli 23 px przy oknie 1440.
+   *
+   * POMIAR MUSI BYĆ PO PRZEWINIĘCIU SEKCJI W KADR i to nie jest kosmetyka.
+   * `.method__verb` ma animację sterowaną przewijaniem (`animation-timeline:
+   * view()`), która startuje od `translate: 0 0.4em`. Przy stopniu 92 px to
+   * 36,8 px w dół - dokładnie tyle, ile ten test "zyskiwał", mierząc sekcję
+   * stojącą daleko pod krawędzią okna.
+   *
+   * Przez to test przez długi czas pilnował stanu, którego nikt nie widzi:
+   * lokalnie pomiar zawsze wyprzedzał animację i wychodziło 59,8 px, a na
+   * wolniejszym runnerze CI raz wyszło 23,0 px i test padł. Nie była to
+   * regresja w kodzie, tylko wyścig w pomiarze - stąd "flaky" w CI.
+   *
+   * Próg 20 px odróżnia stan zdrowy (23 px) od zepsutego: powrót ujemnego
+   * marginesu anty-przycinającego zbiłby odstęp do około 6 px.
    */
   test('pierwszy czasownik nie klei się do etykiety sekcji', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto('/')
+
+    await page.locator('#metoda').scrollIntoViewIfNeeded()
+    await page.evaluate(() => document.fonts.ready)
 
     const odstep = await page.evaluate(() => {
       const etykieta = document.querySelector('#metoda .section__label')
@@ -166,6 +184,6 @@ test.describe('06 jak uczymy', () => {
       return pierwszy.getBoundingClientRect().top - etykieta.getBoundingClientRect().bottom
     })
 
-    expect(odstep).toBeGreaterThanOrEqual(30)
+    expect(odstep).toBeGreaterThanOrEqual(20)
   })
 })
