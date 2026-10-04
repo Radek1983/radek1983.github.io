@@ -86,7 +86,17 @@ test.describe('/oferta/seniorzy/ - strona zatwierdzona', () => {
      * jeden cel klikniecia - przycisk do Terminala wyzej.
      */
     await expect(pozycje.nth(0).locator('a')).toHaveCount(0)
-    await expect(pozycje.nth(1).locator('a')).toHaveAttribute('href', 'tel:+48790266517')
+    /*
+     * Cel numeru, niezaleznie od urzadzenia: na dotyku stoi w `href`,
+     * na wskazniku modul telefon.js przenosi go do `data-tel-href`.
+     * Asercja na jeden z tych atrybutow przechodzilaby tylko w jednym
+     * projekcie Playwrighta.
+     */
+    const celTelefonu = await pozycje
+      .nth(1)
+      .locator('a')
+      .evaluate((el) => el.getAttribute('href') ?? el.dataset.telHref)
+    expect(celTelefonu).toBe('tel:+48790266517')
   })
 
   /*

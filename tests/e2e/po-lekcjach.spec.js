@@ -158,7 +158,7 @@ test.describe('02 po lekcjach - uklad zatwierdzony', () => {
 
       const linie = await wiersze(page, '.after-school__punch')
 
-      expect(linie).toEqual(['Mniej wożenia, mniej pośpiechu,', 'więcej spokojnego popołudnia.'])
+      expect(linie).toEqual(['Harmonogram dopasowany', 'do realiów szkolnego dnia.'])
     })
   }
 
@@ -188,9 +188,9 @@ test.describe('02 po lekcjach - uklad zatwierdzony', () => {
     await page.goto('/')
 
     const haslo = page.locator('.after-school__claim')
-    await expect(haslo).toContainText('Mniej logistyki.')
     await expect(haslo).toContainText('Znane miejsce.')
-    await expect(haslo).toContainText('Więcej ciągłości.')
+    await expect(haslo).toContainText('Popołudniowe grupy.')
+    await expect(haslo).toContainText('Prosty plan.')
 
     const stopien = await haslo.evaluate((el) => parseFloat(getComputedStyle(el).fontSize))
     expect(stopien, 'stopien plakatowy').toBeGreaterThanOrEqual(64)
@@ -199,8 +199,13 @@ test.describe('02 po lekcjach - uklad zatwierdzony', () => {
   test('tresc konczaca sekcje jest ta zatwierdzona przez wlasciciela', async ({ page }) => {
     await page.goto('/')
 
+    /*
+     * Tresc wymieniona 04.10.2026 na polecenie wlasciciela. Godzina 14:40
+     * to nowy fakt z par. 3 kontraktu - to jedyne miejsce na stronie
+     * glownej, ktore ja podaje.
+     */
     await expect(page.locator('.after-school__coda')).toHaveText(
-      'Angielski staje się naturalną częścią dnia dziecka — wpisuje się w jego codzienny rytm, bez dodatkowych dojazdów i pośpiechu. Nie jest kolejnym obowiązkiem do odhaczenia.',
+      /Zajęcia odbywają\s+się\s+od\s+14:40, kiedy szkoła udostępnia sale\s+na\s+zajęcia dodatkowe\./,
     )
   })
 })

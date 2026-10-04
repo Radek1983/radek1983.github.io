@@ -106,12 +106,13 @@
 
               <p class="u-lead rate-hero__lead" data-animation="fade-up">
                 Nie&nbsp;pobieramy stałego ryczałtu. Na&nbsp;początku miesiąca płacisz
-                za&nbsp;zajęcia zaplanowane w&nbsp;kalendarzu. Jeśli spotkanie nie&nbsp;może się
-                odbyć z&nbsp;przyczyn organizacyjnych, nie&nbsp;jest wliczane do&nbsp;rozliczenia.
+                za&nbsp;zajęcia zaplanowane w&nbsp;kalendarzu. Jeśli spotkanie
+                nie&nbsp;może&nbsp;się odbyć z&nbsp;przyczyn organizacyjnych, nie&nbsp;jest wliczane
+                do&nbsp;rozliczenia.
               </p>
 
               <p class="rate-hero__note" data-animation="fade-up">
-                Liczba zajęć może różnić się między miesiącami, dlatego różna może być również
+                Liczba zajęć może różnić&nbsp;się między miesiącami, dlatego różna może być również
                 wysokość płatności.
               </p>
             </div>
@@ -187,17 +188,52 @@
               <p class="rates__caption">Drugie i&nbsp;każde kolejne dziecko z&nbsp;rodzeństwa</p>
             </div>
 
+            <!--
+              Trzecia kolumna mowi o DOSTEPNOSCI, nie o dacie - polecenie
+              wlasciciela z 04.10.2026. Stal tu "Warunek startu" z planowanym
+              startem 1 pazdziernika i byl to ostatni blok czasowy
+              `data-temporary` w calym serwisie.
+
+              Nowa tresc nie podaje zadnej daty, wiec nie wygasnie ponownie.
+              Warunek pieciu uczniow dotyczy uruchomienia KOLEJNEJ grupy,
+              a nie startu oferty - to dwie rozne rzeczy i nie wolno ich mylic.
+
+              "uczniow SP 402" jest tu swiadome: oferta klas 1-7 jest dla
+              uczniow tej szkoly. Kurs egzaminacyjny jest otwarty takze dla
+              innych szkol, ale to osobna sciezka (par. 3 kontraktu).
+            -->
             <div class="rates__tier rates__tier--condition" data-animation="fade-up">
-              <h3 class="rates__condition-title">Warunek startu</h3>
+              <h3 class="rates__condition-title">Grupy i&nbsp;wolne miejsca</h3>
               <p class="rates__condition-copy">
-                Grupa rozpoczyna zajęcia po&nbsp;zebraniu minimum 5&nbsp;dzieci.
+                Do&nbsp;grup, w&nbsp;których są wolne miejsca, można dołączyć w&nbsp;trakcie
+                semestru.
               </p>
-              <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
-              <p class="rates__condition-copy" data-temporary="nabor-2026">
-                Planowany start: 1&nbsp;października 2026.
+              <p class="rates__condition-copy">
+                Jeśli zbierze&nbsp;się minimum 5&nbsp;uczniów SP&nbsp;402 o&nbsp;zbliżonym poziomie
+                i&nbsp;dostępności, możemy uruchomić kolejną grupę.
               </p>
-              <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
             </div>
+          </div>
+
+          <!--
+            MATERIALY DO ZAJEC - ten sam blok co na /oferta/dzieci/ i w sekcji
+            07 strony glownej. Fakt przekazany przez wlasciciela 04.10.2026
+            (par. 3): materialy NIE sa w cenie zajec.
+
+            Kwota stoi w zdaniu i ma tam zostac. Podniesienie jej do rejestru
+            cyfr obok 55 i 50 zrobiloby z niej czwarta pozycje cennika,
+            a komplet zalezy od poziomu - stad "zwykle okolo".
+
+            Blok niesie TYLKO gorna kreske. Dolna ma juz wezwanie ponizej,
+            wiec `border-block` z /oferta/dzieci/ dalby tu dwie linie
+            jedna nad druga.
+          -->
+          <div class="materials" data-animation="fade-up">
+            <p class="u-label materials__label">Materiały do&nbsp;zajęć</p>
+            <p class="materials__text">
+              Do&nbsp;ceny zajęć należy doliczyć jednorazowy koszt zakupu podręcznika i&nbsp;zeszytu
+              ćwiczeń. Koszt kompletu zwykle wynosi około 100&nbsp;zł.
+            </p>
           </div>
 
           <p class="rates__more" data-animation="fade-up">
@@ -243,9 +279,9 @@
               <h3 class="rules__name">Bez stałego ryczałtu</h3>
               <p class="rules__copy">
                 Kwota zależy od&nbsp;liczby zaplanowanych spotkań. Jeśli zajęcia przypadają
-                w&nbsp;dzień wolny, święto albo z&nbsp;góry wiadomo, że&nbsp;nie&nbsp;mogą się odbyć
-                z&nbsp;przyczyn organizacyjnych szkoły lub Terminalu Kultury, nie&nbsp;są wliczane
-                do&nbsp;płatności.
+                w&nbsp;dzień wolny, święto albo z&nbsp;góry wiadomo, że&nbsp;nie&nbsp;mogą&nbsp;się
+                odbyć z&nbsp;przyczyn organizacyjnych szkoły lub Terminalu Kultury, nie&nbsp;są
+                wliczane do&nbsp;płatności.
               </p>
             </li>
 
@@ -253,8 +289,8 @@
               <p class="rules__number" aria-hidden="true">03</p>
               <h3 class="rules__name">Korekta w&nbsp;kolejnym miesiącu</h3>
               <p class="rules__copy">
-                Jeśli opłacone wcześniej zajęcia nie&nbsp;odbędą się z&nbsp;nieplanowanej przyczyny,
-                ich koszt odliczamy od&nbsp;płatności za&nbsp;kolejny miesiąc.
+                Jeśli opłacone wcześniej zajęcia nie&nbsp;odbędą&nbsp;się z&nbsp;nieplanowanej
+                przyczyny, ich koszt odliczamy od&nbsp;płatności za&nbsp;kolejny miesiąc.
               </p>
             </li>
           </ol>
@@ -366,7 +402,7 @@
           </p>
 
           <a class="cta cta--large cta--ink" href="/#kontakt" data-animation="fade-up">
-            Skontaktuj się
+            Skontaktuj&nbsp;się
             <span class="cta__arrow" aria-hidden="true">→</span>
           </a>
         </div>

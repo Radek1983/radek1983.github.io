@@ -1011,7 +1011,10 @@ test.describe('motion', () => {
      * sprawdzamy tam, gdzie zostal: w stopce, obecnej na kazdej stronie.
      */
     await expect(page.locator('#kontakt')).toContainText('+48 790 266 517')
-    await expect(page.locator('.site-footer a[href^="tel:"]')).toBeVisible()
+    /* Selektor lapie obie postacie: z `href` na dotyku i z `data-tel-href` na wskazniku. */
+    await expect(
+      page.locator('.site-footer a[href^="tel:"], .site-footer a[data-tel-href]'),
+    ).toBeVisible()
     await expect(page.locator('.site-footer a[href^="mailto:"]')).toBeVisible()
 
     await context.close()

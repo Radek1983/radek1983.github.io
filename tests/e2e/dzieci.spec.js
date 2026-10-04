@@ -72,7 +72,17 @@ test.describe('/oferta/dzieci/ - strona zatwierdzona', () => {
     await expect(pozycje.nth(2)).toContainText('17:00–21:00')
 
     await expect(pozycje.nth(0).locator('a')).toHaveAttribute('href', `mailto:${MAIL_ZAPISY}`)
-    await expect(pozycje.nth(1).locator('a')).toHaveAttribute('href', 'tel:+48790266517')
+    /*
+     * Cel numeru, niezaleznie od urzadzenia: na dotyku stoi w `href`,
+     * na wskazniku modul telefon.js przenosi go do `data-tel-href`.
+     * Asercja na jeden z tych atrybutow przechodzilaby tylko w jednym
+     * projekcie Playwrighta.
+     */
+    const celTelefonu = await pozycje
+      .nth(1)
+      .locator('a')
+      .evaluate((el) => el.getAttribute('href') ?? el.dataset.telHref)
+    expect(celTelefonu).toBe('tel:+48790266517')
   })
 
   /*

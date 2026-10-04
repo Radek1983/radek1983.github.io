@@ -13,7 +13,29 @@
   overflow: hidden;
 }
 
+/*
+ * PRZEWIJA SIĘ ŚCIEŻKA, NIE PASEK — i od 04.10.2026 na KAŻDEJ szerokości.
+ *
+ * Mechanizm istniał wcześniej, ale wyłącznie poniżej 48rem. Wyżej pasek
+ * miał tylko `overflow: hidden` na opakowaniu, więc wszystko, co nie
+ * mieściło się w oknie, było obcinane bez możliwości dotarcia do tego:
+ * 71 px przy 1366 px, 157 px przy 1280 px. Właściciel zgłosił ucięty
+ * ostatni napis; to samo zachowanie miał pasek od początku, tylko ucinało
+ * się wtedy mniej istotne hasło.
+ *
+ * Scalone w jedną regułę zamiast dwóch mechanizmów na dwóch elementach:
+ * jeden obszar przewijania znaczy jedno miejsce do zmiany i jeden element
+ * do udostępnienia klawiaturze.
+ *
+ * Suwak jest UKRYTY, ale przewijanie działa — ten sam zabieg co w spisie
+ * treści polityki prywatności. `overscroll-behavior-inline: contain`
+ * zatrzymuje łańcuch przewijania: bez tego dojechanie palcem do końca
+ * paska przeciągałoby całą stronę, a gestem na gładziku cofało historię.
+ */
 .ticker__track {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
   display: flex;
   gap: var(--space-8);
   padding-block: var(--space-1);
@@ -26,8 +48,18 @@
 }
 
 /* Bez autoplay w spoczynku - wymog briefu. Warstwa ruchu powstaje osobno. */
+
+/*
+ * `flex: none` jest WARUNKIEM przewijania, nie kosmetyką. Element siatki
+ * flex domyślnie wolno ścisnąć, a `white-space: nowrap` i tak nie pozwala
+ * tekstowi się złamać - więc pozycje kurczyły się poniżej swojej treści,
+ * litery wychodziły poza ich pudełka, a ścieżka miała dokładnie szerokość
+ * paska. Dla przeglądarki nie było czego przewijać i na telefonie dwie
+ * ostatnie pozycje zostawały niedostępne mimo `overflow: auto`.
+ */
 .ticker__item {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: var(--space-8);
 }
@@ -69,18 +101,11 @@
   }
 }
 
-@media (width < 48rem) {
-  /* Na waskim ekranie pasek przewija sie poziomo palcem, nie zawija.
-     Centrowanie jest tu wykluczone: przy przewijaniu poziomym schowaloby
-     poczatek listy poza dostepnym obszarem. */
-  .ticker__track {
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .ticker__track::-webkit-scrollbar {
-    display: none;
-  }
+/*
+ * Suwak chowamy także w silnikach WebKit — `scrollbar-width` ich nie dotyczy.
+ */
+.ticker__track::-webkit-scrollbar {
+  display: none;
 }
 
 /* --- Header --- */

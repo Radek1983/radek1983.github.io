@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+const NBSP = String.fromCharCode(160)
+
 /**
  * /oferta/online/ — narracja fotograficzna strony.
  *
@@ -37,6 +39,10 @@ test.describe('online 1 na 1', () => {
       'online-deklaracja',
       'online-kroki',
       'online-dla-kogo',
+      // Cennik doszedl 23.09.2026 na polecenie wlasciciela. Stoi TUZ NAD
+      // sekcja kontaktowa, bo odnosnik na jego dole kieruje do sekcji
+      // "bezposrednio ponizej".
+      'online-cennik',
       'online-cta',
     ])
 
@@ -191,7 +197,17 @@ test.describe('online 1 na 1', () => {
       'href',
       'mailto:kontakt@highfive.academy',
     )
-    await expect(pozycje.nth(1).locator('a')).toHaveAttribute('href', 'tel:+48790266517')
+    /*
+     * Cel numeru, niezaleznie od urzadzenia: na dotyku stoi w `href`,
+     * na wskazniku modul telefon.js przenosi go do `data-tel-href`.
+     * Asercja na jeden z tych atrybutow przechodzilaby tylko w jednym
+     * projekcie Playwrighta.
+     */
+    const celTelefonu = await pozycje
+      .nth(1)
+      .locator('a')
+      .evaluate((el) => el.getAttribute('href') ?? el.dataset.telHref)
+    expect(celTelefonu).toBe('tel:+48790266517')
     await expect(page.locator('main')).not.toContainText('highfive.zapisy')
   })
 
@@ -259,6 +275,135 @@ test.describe('online 1 na 1', () => {
       // Zdjecia nie znikaja na malym ekranie - wymog wlasciciela.
       expect(w.heroWidoczne, 'kadr lektorki').toBe(true)
       expect(w.uczenWidoczny, 'kadr ucznia').toBe(true)
+    })
+  }
+
+  /*
+   * SEKCJA CENNIK — zlecona przez wlasciciela 23.09.2026.
+   *
+   * Tresc pochodzi co do slowa ze zlecenia, wiec test porownuje ja
+   * ze wzorcem po zamianie twardych spacji na zwykle: interesuje nas
+   * tresc, nie rodzaj spacji (par. 5 kontraktu).
+   */
+  test('cennik podaje stawke, cztery fakty i droge kontaktu', async ({ page }) => {
+    const sekcja = page.locator('.online-pricing')
+    await expect(sekcja).toHaveCount(1)
+
+    await expect(sekcja.locator('.section__label')).toHaveText('Cennik')
+    await expect(page.locator('#online-cennik')).toHaveText('120 zł / 60 minut')
+
+    /*
+     * DOKLADNIE CZTERY POZYCJE. Siatka ma na desktopie sztywno cztery
+     * kolumny, wiec piata spadlaby do drugiego wiersza - to juz sie
+     * zdarzylo na podstronie egzaminacyjnej.
+     */
+    const fakty = sekcja.locator('.online-facts__item')
+    await expect(fakty).toHaveCount(4)
+    for (const [i, tekst] of [
+      '1 spotkanie online',
+      '60 min pracy',
+      '1 na 1',
+      'Indywidualne podejście',
+    ].entries()) {
+      await expect(fakty.nth(i)).toHaveText(tekst)
+    }
+
+    // Wersaliki daje CSS, nie zapis w HTML - tak jak w reszcie serwisu.
+    await expect(fakty.first()).toHaveCSS('text-transform', 'uppercase')
+
+    const akapity = await sekcja.locator('.online-price__text').allTextContents()
+    const czysty = akapity.map((t) => t.replaceAll(NBSP, ' ').replace(/\s+/g, ' ').trim())
+    expect(czysty).toEqual([
+      'Zajęcia dopasowujemy do tego, czego uczeń potrzebuje tu i teraz — od nadrobienia zaległości i uporządkowania szkolnego materiału, przez przygotowanie do sprawdzianów i egzaminów, po większą swobodę w mówieniu.',
+      'Pracujemy też nad angielskim, który przydaje się poza szkołą: w podróży, podczas korzystania z anglojęzycznych treści w internecie i w kontaktach z rówieśnikami z innych krajów.',
+      'Płatność odbywa się z góry za spotkania zaplanowane w danym miesiącu.',
+    ])
+
+    /*
+     * Odnosnik celuje w sekcje kontaktowa TEJ strony, nie na strone glowna.
+     * To ta sama kotwica, w ktora celuje wezwanie z naglowka.
+     */
+    const link = sekcja.locator('.online-price__more a')
+    await expect(link).toHaveAttribute('href', '#kontakt-online')
+    await expect(link).toHaveText(/Skontaktuj\s+się\s+w\s+sprawie terminów/)
+
+    // Cennik stoi MIEDZY "Dla kogo?" a sekcja kontaktowa.
+    const y = async (s) => (await page.locator(s).boundingBox()).y
+    expect(await y('.online-pricing')).toBeGreaterThan(await y('#online-dla-kogo'))
+    expect(await y('#kontakt-online')).toBeGreaterThan(await y('.online-pricing'))
+  })
+
+  /*
+   * UKLAD CENNIKA. Wlasciciel dopracowywal go 23.09.2026 razem z cennikiem
+   * ósmoklasisty i porownywal obie strony obok siebie - stad te same
+   * wartosci w `egzamin.spec.js`.
+   */
+  for (const [szerokosc, kolumny] of [
+    [1440, 4],
+    [1024, 4],
+    [768, 2],
+    [390, 1],
+  ]) {
+    test(`cennik uklada sie w ${kolumny} kolumn przy ${szerokosc}px`, async ({ page }) => {
+      await page.setViewportSize({ width: szerokosc, height: 900 })
+      await page.goto('/oferta/online/')
+
+      const dane = await page.evaluate(() => {
+        const sekcja = document.querySelector('.online-pricing')
+        const lista = sekcja.querySelector('.online-facts')
+        const pozycje = [...lista.children]
+        const tekst = sekcja.querySelector('.online-price__text')
+        const pudlo = (el) => el.getBoundingClientRect()
+
+        /*
+         * Wysrodkowanie mierzymy na PROSTOKACIE TEKSTU, nie na pudelku
+         * pozycji: pudelko jest wysrodkowane zawsze, bo wypelnia kolumne.
+         */
+        const odchylenie = pozycje.map((el) => {
+          const zakres = document.createRange()
+          zakres.selectNodeContents(el)
+          const t = zakres.getClientRects()[0]
+          const k = pudlo(el)
+          return t ? Math.round(t.x + t.width / 2 - (k.x + k.width / 2)) : 0
+        })
+
+        return {
+          kolumny: new Set(pozycje.map((el) => Math.round(pudlo(el).x))).size,
+          odchylenie,
+          odstep: Math.round(pudlo(tekst).top - pudlo(lista).bottom),
+          jednaKolumnaTekstu: [...sekcja.querySelectorAll('.online-price__text')].every(
+            (el, _i, all) => Math.abs(pudlo(el).x - pudlo(all[0]).x) < 1,
+          ),
+          nadmiar: Math.max(
+            ...[...sekcja.querySelectorAll('*')].map((el) => el.scrollWidth - el.clientWidth),
+          ),
+          scroll: document.documentElement.scrollWidth - window.innerWidth,
+        }
+      })
+
+      expect(dane.kolumny, 'liczba kolumn').toBe(kolumny)
+
+      /*
+       * Podpisy sa wysrodkowane wszedzie tam, gdzie SA kolumny. Na telefonie
+       * lista jest jedna kolumna i podpisy zostaja przy lewej krawedzi -
+       * wysrodkowany stos bylby obcy reszcie serwisu.
+       */
+      for (const [i, wartosc] of dane.odchylenie.entries()) {
+        if (kolumny > 1) expect(Math.abs(wartosc), `podpis ${i + 1} na osi kolumny`).toBeLessThan(2)
+        else expect(wartosc, `podpis ${i + 1} przy lewej krawedzi`).toBeLessThan(0)
+      }
+
+      // 48 px - ta sama wartosc co w cenniku ósmoklasisty.
+      expect(dane.odstep, 'odstep pod pasem faktow').toBe(48)
+
+      /*
+       * TEKST JEST JEDNA, CIAGLA KOLUMNA. Stal tu przez chwile uklad dwoch
+       * kolumn - wlasciciel odrzucil go tego samego dnia.
+       */
+      expect(dane.jednaKolumnaTekstu, 'tekst w jednej kolumnie').toBe(true)
+
+      expect(dane.nadmiar, 'przepelnienie w sekcji').toBeLessThanOrEqual(1)
+      expect(dane.scroll, 'poziomy scroll').toBeLessThanOrEqual(0)
     })
   }
 })

@@ -32,13 +32,27 @@ test.describe('12 kontakt', () => {
     await expect(kanaly).toHaveCount(2)
 
     /*
-     * Telefon jest TEKSTEM, nie odnosnikiem - decyzja wlasciciela. Na
-     * desktopie `tel:` niczego sensownego nie robi, a wyglada jak link.
-     * Numer zostaje klikalny w stopce, wiec dotkniecie go na telefonie
-     * nadal dzwoni.
+     * Telefon jest ODNOSNIKIEM `tel:` w HTML - decyzja wlasciciela
+     * z 23.09.2026, zastepuje wczesniejsza, w ktorej stal tu jako tekst.
+     *
+     * Na urzadzeniu ze wskaznikiem modul telefon.js zdejmuje `href`
+     * i chowa go w `data-tel-href`, wiec numer przestaje byc linkiem
+     * dokladnie tam, gdzie `tel:` niczego nie robi. Testy biegna
+     * z mysza, wiec tutaj spodziewamy sie postaci odlaczonej.
+     *
+     * Samo przelaczanie sprawdza tests/e2e/telefon.spec.js w obu trybach.
      */
     await expect(kanaly.nth(0)).toContainText('+48 790 266 517')
-    await expect(kanaly.nth(0).locator('a')).toHaveCount(0)
+
+    /*
+     * Cel numeru niezaleznie od urzadzenia: na dotyku stoi w `href`,
+     * na wskazniku modul telefon.js przenosi go do `data-tel-href`.
+     */
+    const celTelefonu = await kanaly
+      .nth(0)
+      .locator('a')
+      .evaluate((el) => el.getAttribute('href') ?? el.dataset.telHref)
+    expect(celTelefonu).toBe('tel:+48790266517')
 
     await expect(kanaly.nth(1).locator('a')).toHaveAttribute(
       'href',

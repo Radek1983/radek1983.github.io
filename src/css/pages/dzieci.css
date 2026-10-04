@@ -93,3 +93,223 @@
   line-height: 1.45;
   color: color-mix(in srgb, var(--color-text) 62%, transparent);
 }
+
+/* ============================================================
+   MATERIAŁY DO ZAJĘĆ
+   ============================================================ */
+
+/*
+ * Ten sam układ co w cenniku na stronie głównej: etykieta, zdanie
+ * i dwie włosowe kreski - górna należy do bloku, dolna jest kreską
+ * zamykającą. Blok dodany 04.10.2026 na polecenie właściciela.
+ *
+ * Klasy są WŁASNE, nie współdzielone z sekcją 07 strony głównej.
+ * Tamta jest zamknięta (D12), więc wspólny zestaw związałby dwa układy,
+ * które mogą się rozejść - ta sama zasada co przy cennikach online
+ * i ósmoklasisty (par. 18 kontraktu).
+ *
+ * Zakres bierze `[data-page='dzieci']`, więc nazwa `materials` nie może
+ * zderzyć się z niczym na pozostałych dziewięciu stronach.
+ */
+[data-page='dzieci'] .materials {
+  margin-block-start: clamp(1.25rem, 2vw, 2rem);
+  padding-block: var(--space-5, 1.25rem);
+  border-block: 1px solid var(--color-rule);
+}
+
+[data-page='dzieci'] .materials__label {
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+/*
+ * Bez ograniczenia miary: zdanie ma przebiegać przez szerokość pasa,
+ * tak jak w cenniku na stronie głównej. To dwa wiersze drobnego druku,
+ * a nie blok tekstu do czytania ciągiem.
+ */
+[data-page='dzieci'] .materials__text {
+  margin-block-start: var(--space-3);
+  max-inline-size: none;
+}
+
+/* ============================================================
+   MIEJSCE ZAJĘĆ — blok organizacyjny
+   ============================================================ */
+
+/*
+ * Adres i godziny stały wcześniej w jednym ciągu i czytały się jak jeden
+ * komunikat. Kreska rozdziela je na dwa bloki - polecenie właściciela
+ * z 04.10.2026.
+ *
+ * Odstęp nad kreską ODEJMUJE `gap` kolumny. `.split__text` jest kolumną
+ * flex z przerwą 16 px, więc bez tej korekty margines dokładałby się do
+ * niej i kreska odjeżdżałaby od adresu dalej niż tekst pod nią.
+ * Ten sam zabieg co przy dopisku o współpracy w hero tej strony.
+ */
+[data-page='dzieci'] .place-org {
+  margin-block-start: calc(clamp(1.5rem, 2.6vw, 2.5rem) - var(--space-4));
+  padding-block-start: clamp(1.5rem, 2.6vw, 2.5rem);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+[data-page='dzieci'] .place-org__label {
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+/*
+ * Zdanie o popołudniach jest MOCNIEJSZE, ale nie jest nagłówkiem: waga 500
+ * i stopień tekstu ciągłego. Wyżej nie wolno - z tekstowego Intera
+ * self-hostujemy tylko Regular 400 i Medium 500 (par. 7), więc 600 albo 700
+ * przeglądarka pogrubiłaby sztucznie.
+ */
+[data-page='dzieci'] .place-org__claim {
+  margin-block-start: var(--space-4);
+  font-weight: 500;
+}
+
+/*
+ * Zdanie o godzinie 14:40 jest tekstem POMOCNICZYM: cichsze krycie
+ * i węższa miara niż zdanie nad nim. Godzina celowo nie dostaje ani
+ * większego stopnia, ani koloru - ma się czytać jako wyjaśnienie
+ * ograniczenia, nie jako obietnica.
+ */
+[data-page='dzieci'] .place-org__note {
+  margin-block-start: var(--space-3);
+  max-inline-size: 46ch;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+/* ============================================================
+   CENNIK — układ plakatowy
+   ============================================================ */
+
+/*
+ * Przebudowa z 04.10.2026 na polecenie właściciela, według obrazu
+ * referencyjnego. Sekcja miała wcześniej zwykły nagłówek i wspólny
+ * komponent `.cols`; dziś ma rejestr plakatowy i własną siatkę.
+ *
+ * Klasy są WŁASNE, bo `.cols` niesie także sekcje na innych stronach -
+ * zmiana w nim ruszyłaby `/kariera/` i `/oferta/online/`. Zakres bierze
+ * `[data-page='dzieci']`, więc nazwy `rate*` nie zderzą się z `.price*`
+ * strony głównej ani z `.rates*` podstrony `/cennik/`.
+ */
+
+/*
+ * Hasło ma DWA STOPNIE: "Prosta cena." jest większe od "Bez ukrywania.",
+ * tak jak w projekcie referencyjnym. Dlatego dwa osobne elementy liniowe
+ * przełączone na blokowe, a nie jeden napis z miarą znakową - jeden
+ * element nie może mieć dwóch rozmiarów.
+ *
+ * Interlinia i padding anty-clippingowy przychodzą z klasy `u-display`
+ * i nie wolno ich tu obniżać: polskie wersaliki z akcentem potrzebują
+ * miejsca nad linią, a maska warstwy reveal przycina wszystko poza
+ * pudełkiem (par. 5 i test polish-caps).
+ */
+[data-page='dzieci'] .rate-claim__lead,
+[data-page='dzieci'] .rate-claim__sub {
+  display: block;
+}
+
+[data-page='dzieci'] .rate-claim__lead {
+  font-size: clamp(2.625rem, 7vw, 6rem);
+}
+
+[data-page='dzieci'] .rate-claim__sub {
+  font-size: clamp(1.875rem, 5vw, 4.25rem);
+}
+
+[data-page='dzieci'] .rate-grid {
+  display: grid;
+  gap: var(--space-8);
+  margin-block-start: clamp(1.25rem, 2vw, 2rem);
+  padding-block-start: clamp(1rem, 1.6vw, 1.5rem);
+  border-block-start: 1px solid var(--color-rule);
+  list-style: none;
+}
+
+/*
+ * Cena i jej jednostka stoją OBOK SIEBIE, wyrównane do linii bazowej.
+ * `align-items: baseline` jest tu warunkiem kompozycji: przy wyrównaniu
+ * do środka „/ 45 min" unosiłoby się w połowie wysokości cyfr.
+ */
+[data-page='dzieci'] .rate__figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+[data-page='dzieci'] .rate__amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 5.4vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+[data-page='dzieci'] .rate__unit {
+  font-size: clamp(1.0625rem, 1.5vw, 1.5rem);
+  font-weight: 500;
+}
+
+[data-page='dzieci'] .rate__who {
+  margin-block-start: var(--space-3);
+  max-inline-size: 26ch;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+/*
+ * Nagłówek trzeciej kolumny jest MOCNIEJSZY od tekstu, ale wyraźnie
+ * mniejszy od cen - kolumna niesie informację, nie kwotę.
+ */
+[data-page='dzieci'] .rate__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2vw, 1.875rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+[data-page='dzieci'] .rate__text {
+  margin-block-start: var(--space-3);
+  max-inline-size: 34ch;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+/*
+ * Na telefonie kolumny idą jedna pod drugą, a pionowe kreski zamieniają
+ * się w poziome - inaczej nic by ich nie rozdzielało.
+ */
+[data-page='dzieci'] .rate + .rate {
+  padding-block-start: var(--space-8);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+@media (width >= 62rem) {
+  [data-page='dzieci'] .rate-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  /*
+   * Odstęp dostają WSZYSTKIE trzy kolumny, kreska tylko dwie ostatnie.
+   * Przy odstępie wyłącznie po stronie kreski pierwsza kolumna zaczynałaby
+   * się o te kilkadziesiąt pikseli bliżej krawędzi niż pozostałe.
+   */
+  [data-page='dzieci'] .rate {
+    padding-inline: clamp(1.5rem, 2.6vw, 2.5rem);
+  }
+
+  [data-page='dzieci'] .rate:first-child {
+    padding-inline-start: 0;
+  }
+
+  [data-page='dzieci'] .rate + .rate {
+    padding-block-start: 0;
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--color-rule);
+  }
+}

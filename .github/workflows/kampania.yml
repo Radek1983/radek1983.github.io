@@ -1,0 +1,142 @@
+name: Kampania czasowa
+
+# Pilnuje komunikatow sezonowych, ktore maja zniknac po konkretnej dacie.
+#
+# Serwis jest statyczny i nie ma zadnego mechanizmu wygaszania tresci -
+# atrybuty `data-temporary` i komentarze "USUNAC PO ..." sa notatka dla
+# czlowieka, nie kodem. Bez tego workflow nikt by sie nie dowiedzial,
+# ze strona zaczela mowic o przyszlosci, ktora minela.
+#
+# Workflow NICZEGO NIE ZMIENIA na stronie. Zaklada zgloszenie i na tym
+# konczy - tresc po wygasnieciu kampanii wymaga decyzji wlasciciela,
+# bo zalezy od tego, czy zajecia faktycznie ruszyly.
+
+on:
+  schedule:
+    # 06:00 UTC, czyli 07:00 lub 08:00 czasu lokalnego zaleznie od pory roku.
+    - cron: '0 6 * * *'
+  # Do sprawdzenia dzialania bez czekania na harmonogram.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sprawdz:
+    name: czy kampania wygasla
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Policz komunikaty i porownaj z data
+        id: stan
+        run: |
+          set -euo pipefail
+
+          # ---------------------------------------------------------------
+          # DATA WYGASNIECIA kampanii "nabor 2026".
+          #
+          # Trzymana tutaj, a nie w danych serwisu, bo to jedyne miejsce,
+          # ktore jej uzywa - build o niej nie wie i wiedziec nie musi.
+          # Przy kolejnej kampanii zmienia sie ta jedna linia i znacznik
+          # `data-temporary` w HTML.
+          # ---------------------------------------------------------------
+          WYGASA="2026-10-01"
+          ZNACZNIK="nabor-2026"
+
+          DZIS=$(date -u +%F)
+          echo "dzis: $DZIS, kampania wygasa: $WYGASA"
+
+          # Elementy oznaczone znacznikiem.
+          OZNACZONE=$(grep -rl "data-temporary=\"$ZNACZNIK\"" --include='*.html' . | sort || true)
+
+          # Tekst o starcie zyje takze w danych strukturalnych, gdzie
+          # atrybutu HTML wpisac sie nie da - stad osobne szukanie.
+          W_JSONLD=$(grep -rln "Planowany start to 1 października" --include='*.html' . | sort || true)
+
+          ILE=$(grep -rc "data-temporary=\"$ZNACZNIK\"" --include='*.html' . | grep -v ':0$' | awk -F: '{s+=$2} END {print s+0}')
+
+          {
+            echo "dzis=$DZIS"
+            echo "wygasa=$WYGASA"
+            echo "ile=$ILE"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo 'miejsca<<KONIEC'
+            echo "$OZNACZONE" | sed 's/^\.\///;s/^/- /'
+            if [ -n "$W_JSONLD" ]; then
+              echo "$W_JSONLD" | sed 's/^\.\///;s/^/- /;s/$/ (dane strukturalne JSON-LD)/'
+            fi
+            echo 'KONIEC'
+          } >> "$GITHUB_OUTPUT"
+
+          if [[ "$DZIS" < "$WYGASA" ]]; then
+            echo "przeterminowana=nie" >> "$GITHUB_OUTPUT"
+            echo "Kampania nadal aktualna - nic do zrobienia."
+          elif [ "$ILE" -eq 0 ]; then
+            echo "przeterminowana=nie" >> "$GITHUB_OUTPUT"
+            echo "Data minela, ale komunikatow juz nie ma - posprzatane."
+          else
+            echo "przeterminowana=tak" >> "$GITHUB_OUTPUT"
+            echo "UWAGA: data minela, a komunikaty nadal sa na stronie."
+          fi
+
+      - name: Zgloszenie, jesli kampania przeterminowana
+        if: steps.stan.outputs.przeterminowana == 'tak'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tytul = 'Kampania „nabór 2026" wygasła — strona mówi o przeszłości'
+
+            /*
+             * Bez tego sprawdzenia workflow zakladalby nowe zgloszenie
+             * codziennie, az do posprzatania - czyli zamienilby sie
+             * w generator halasu.
+             */
+            const otwarte = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'kampania',
+            })
+            if (otwarte.data.some((i) => i.title === tytul)) {
+              core.info('Zgłoszenie już istnieje — nie duplikuję.')
+              return
+            }
+
+            const tresc = [
+              `Data startu (**${{ steps.stan.outputs.wygasa }}**) minęła, a na stronie nadal stoi`,
+              `**${{ steps.stan.outputs.ile }}** oznaczonych komunikatów o naborze.`,
+              '',
+              '## Pliki do przejrzenia',
+              '',
+              `${{ steps.stan.outputs.miejsca }}`,
+              '',
+              '## Zanim cokolwiek zmienisz',
+              '',
+              'Treść po wygaśnięciu **zależy od tego, co się faktycznie stało** —',
+              'czy zajęcia ruszyły, czy nabór trwa dalej, czy część grup wystartowała.',
+              'To decyzja właściciela, nie zadanie techniczne.',
+              '',
+              '## Czego nie przegapić',
+              '',
+              '- komunikat o starcie jest **także w JSON-LD** (`FAQPage` na stronie głównej),',
+              '  gdzie atrybutu `data-temporary` wpisać się nie da;',
+              '- `tests/smoke/page.spec.js` **wymaga** obecności tych elementów',
+              '  (`toHaveCount(5)`) — usunięcie ich bez poprawienia testu wywróci CI;',
+              '- sekcja 08 zostaje na stronie (D14), znika z niej tylko data i plakietka.',
+              '',
+              '_Zgłoszenie założone automatycznie przez `.github/workflows/kampania.yml`._',
+            ].join('\n')
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: tytul,
+              body: tresc,
+              labels: ['kampania'],
+            })
+            core.info('Założono zgłoszenie.')

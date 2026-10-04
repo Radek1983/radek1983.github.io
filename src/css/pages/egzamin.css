@@ -138,8 +138,78 @@
   max-inline-size: 13ch;
 }
 
+/*
+ * LEAD jest w tym hero tekstem GŁÓWNYM i ma być wyraźnie większy od dopisku
+ * o otwartości kursu, który stoi pod kreską. Rozstrzygnięcie właściciela
+ * z 04.10.2026: 20 px wobec 16 px dopisku i 15 px jego etykiety.
+ *
+ * Stopień jest NAJWIĘKSZY, przy którym zdanie mieści się w TRZECH wierszach
+ * do 1280 px włącznie - też polecenie właściciela. Przy 21 px wierszy robią
+ * się cztery już przy 1280. Poniżej 1152 px wiersze są cztery i tego nie da
+ * się obejść stopniem: kolumna jest wtedy węższa niż zdanie w trzech liniach.
+ *
+ * Miara jest zdjęta (`none`), bo globalne `p:not([class])` i wspólna miara
+ * leadu liczą ją w `ch` - czyli w znakach, nie w pikselach. Przy mierze
+ * w `ch` zmniejszanie pisma zwęża kolumnę w tej samej proporcji i liczba
+ * wierszy NIE DRGA. Tu wiersz ma wyznaczać kolumna siatki, nie licznik znaków.
+ */
 [data-page='egzamin'] .page-hero__lead {
-  max-inline-size: 46ch;
+  font-size: clamp(1.0625rem, 0.4vw + 0.9rem, 1.25rem);
+  max-inline-size: none;
+}
+
+/*
+ * HERO — blok o otwartości kursu, pod włosową kreską.
+ *
+ * Dodany 04.10.2026 na polecenie właściciela, razem ze zdjęciem „Next step."
+ * z nagłówka. Rozstrzyga rzecz, która dotąd stała dopiero w sekcji
+ * lokalizacji: czy kurs dotyczy tylko uczniów SP 402.
+ *
+ * `align-self: stretch` jest WARUNKIEM, żeby kreska przebiegła przez całą
+ * kolumnę. `.page-hero__text` jest kolumną flex z `align-items: flex-start`,
+ * więc każde dziecko kurczy się do swojej treści — bez tego linia miałaby
+ * szerokość zdania nad nią i wyglądałaby jak przypadek.
+ *
+ * Zero wcięcia: blok startuje z tej samej krawędzi co etykieta, nagłówek
+ * i lead. Czerwieni tu nie ma — ani poziomej kreski, ani pionowej.
+ */
+[data-page='egzamin'] .exam-intro {
+  align-self: stretch;
+  padding-block-start: clamp(1.25rem, 2.2vw, 2rem);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+/*
+ * Nagłówek bloku jest MOCNIEJSZY od tekstu pod nim, ale to nadal etykieta,
+ * nie drugi headline: wersaliki w kroju display, stopień tekstu ciągłego.
+ *
+ * 04.10.2026 stopień ZEJECHAŁ z 17 na 15 px na polecenie właściciela, razem
+ * ze stopniem zdania pod nim. Cały blok jest dopiskiem do leadu, a nie drugim
+ * głosem o tej samej sile - przy 17 px czytał się jak równorzędny akapit.
+ * Mniejsze pismo załatwia przy okazji drugi warunek: etykieta ma stać
+ * w JEDNYM wierszu. Mieści się tak od 1152 px w górę; niżej kolumna jest
+ * od niej krótsza i wiersze są dwa.
+ */
+[data-page='egzamin'] .exam-intro__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.8125rem, 0.4vw + 0.72rem, 0.9375rem);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/*
+ * Zdanie dopisku jest MNIEJSZE od leadu (16 px wobec 20) i większe od swojej
+ * etykiety. Miara zdjęta z tego samego powodu co w leadzie: `46ch` trzymało
+ * je na 460 px, czyli na połowie kolumny, więc wiersze były cztery przy
+ * dwóch potrzebnych.
+ */
+[data-page='egzamin'] .exam-intro__text {
+  margin-block-start: var(--space-3);
+  font-size: clamp(0.9375rem, 0.25vw + 0.9rem, 1rem);
+  max-inline-size: none;
 }
 
 @media (width >= 62rem) {
@@ -165,7 +235,24 @@
    * kadru ruszają z tej samej wysokości.
    */
   [data-page='egzamin'] .page-hero__text {
-    grid-column: 1 / span 6;
+    /*
+     * SIEDEM pól, nie sześć. Kadr jest węższy o jedną piątą i przyklejony
+     * do prawej krawędzi, więc po lewej zostawał mu pas pustki szerokości
+     * ćwierci ekranu - 190 px przy oknie 1440. Właściciel zgłosił to
+     * 04.10.2026: „drugie tyle co szerokość tekstu to jest puste miejsce".
+     * Tekst zabiera ten pas, kadr zostaje nietknięty (539 px przy 1440),
+     * a między kolumnami zostaje 75 px, czyli rynna siatki.
+     *
+     * `grid-row: 1` jest tu WARUNKIEM, nie ozdobą. Tekst i kadr dzielą od
+     * teraz kolumnę 7, a auto-placement nie nakłada elementów na siebie:
+     * kadr nie mieścił się już w pierwszym wierszu i lądował w drugim,
+     * który nie ma własnej treści - więc miał zero wysokości i zdjęcie
+     * znikało z ekranu. Wiersz wskazany wprost zdejmuje auto-placement
+     * z gry i pozwala obszarom zachodzić. Wizualnie nie zachodzą: tekst
+     * kończy się na 826 px, kadr zaczyna na 901.
+     */
+    grid-row: 1;
+    grid-column: 1 / span 7;
     justify-content: flex-start;
 
     /*
@@ -192,6 +279,7 @@
    * szerokość z LEWEJ - wspólna oś z pozostałymi zdjęciami serwisu zostaje.
    */
   [data-page='egzamin'] .page-hero__media {
+    grid-row: 1;
     grid-column: 7 / -1;
     justify-self: end;
     inline-size: 80%;
@@ -461,6 +549,19 @@
   color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
 
+/*
+ * ODSTĘP POD PASEM FAKTÓW jest większy niż między akapitami - polecenie
+ * właściciela z 23.09.2026. Ten sam 48 px stoi w cenniku na
+ * `/oferta/online/`; obie sekcje mają oddychać tak samo.
+ *
+ * Reguła bierze TYLKO pierwszy przypis po liście. Gdyby zmienić sam
+ * `.exam-price__note`, urósłby też odstęp między dwoma przypisami,
+ * a te mają zostać blisko siebie.
+ */
+[data-page='egzamin'] .exam-facts + .exam-price__note {
+  margin-block-start: var(--space-12);
+}
+
 [data-page='egzamin'] .exam-price__more {
   margin-block-start: var(--space-6);
 }
@@ -471,13 +572,39 @@
     gap: 0;
   }
 
-  [data-page='egzamin'] .exam-facts__item + .exam-facts__item {
-    padding-inline-start: var(--space-8);
-    border-inline-start: 1px solid var(--color-rule);
+  /*
+   * PODPISY WYŚRODKOWANE W SWOICH KOLUMNACH - polecenie właściciela
+   * z 23.09.2026, ta sama zmiana co w cenniku na `/oferta/online/`.
+   *
+   * Środkowanie wymaga SYMETRYCZNEGO odstępu: wcześniej pierwsza pozycja
+   * nie miała go z lewej, a ostatnia z prawej, więc obie stałyby o pół
+   * odstępu obok osi swojej kolumny. Dlatego odstęp dostają wszystkie
+   * cztery, a kreska tylko trzy ostatnie.
+   *
+   * Niżej niż 62rem lista jest jedną kolumną i podpisy zostają przy
+   * lewej krawędzi - wyśrodkowany stos byłby obcy reszcie serwisu.
+   */
+  [data-page='egzamin'] .exam-facts__item {
+    padding-inline: var(--space-6);
+    text-align: center;
   }
 
-  [data-page='egzamin'] .exam-facts__item:not(:last-child) {
-    padding-inline-end: var(--space-8);
+  [data-page='egzamin'] .exam-facts__item + .exam-facts__item {
+    border-inline-start: 1px solid var(--color-rule);
+  }
+}
+
+/*
+ * Przypisy biorą tę samą miarę co tekst cennika na `/oferta/online/` -
+ * polecenie właściciela z 23.09.2026. Wcześniejsze 39rem zajmowało
+ * około 43% szerokości pasa i zostawiało po prawej pustkę.
+ *
+ * Zastrzeżenie o wyniku egzaminu nadal stoi w jednym wierszu: potrzebuje
+ * 581 px, a dostaje 960. Warunek z D19 jest spełniony z zapasem.
+ */
+@media (width >= 75rem) {
+  [data-page='egzamin'] .exam-price__note {
+    max-inline-size: 60rem;
   }
 }
 
@@ -658,12 +785,20 @@
  * `address` zamiast `div`: to realny adres miejsca zajęć, a nie ozdoba.
  * `font-style: normal`, bo przeglądarki domyślnie składają address kursywą,
  * a kursywa nie występuje w języku typograficznym High Five.
+ *
+ * Odstępy w karcie są NIERÓWNE i to jest celowe. Nazwa szkoły i adres
+ * mówią o jednym - gdzie to jest - więc stoją blisko siebie. Podpis roli
+ * miejsca jest osobnym zdaniem i dostaje więcej powietrza, które dokłada
+ * jego własny `padding-block-start`.
+ *
+ * Przy równym odstępie 24 px karta czytała się jak trzy niezwiązane
+ * wiersze i rosła o 40 px bez powodu - właściciel zgłosił ją 04.10.2026
+ * jako zbyt ciężką.
  */
 [data-page='egzamin'] .exam-location__card {
-  grid-column: 1 / -1;
   display: grid;
-  gap: var(--space-6);
-  padding: clamp(1.75rem, 3vw, 2.5rem);
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
   background-color: var(--color-bg);
   color: var(--color-text);
   font-style: normal;
@@ -709,12 +844,87 @@
   background-color: var(--color-signal);
 }
 
+/*
+ * Zdanie o godzinach jest MOCNIEJSZE od akapitu nad nim, ale nie jest
+ * nagłówkiem. Waga 500, nie 600: z tekstowego Intera self-hostujemy tylko
+ * Regular i Medium (§7), więc wyżej przeglądarka pogrubiłaby litery sztucznie.
+ *
+ * Pełna moc czerni zamiast 78% krycia, które mają tu pozostałe akapity -
+ * to ten jeden wiersz ma się wybijać.
+ */
+[data-page='egzamin'] .exam-location__text .exam-location__hours {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/*
+ * PRAWA KOLUMNA to jeden element siatki: granatowa karta adresowa
+ * i czarny panel o otwartości kursu, jeden pod drugim.
+ *
+ * Gdyby były dwoma osobnymi elementami siatki, trafiłyby do osobnych
+ * wierszy, a odstęp między nimi dyktowałaby rynna wiersza - prawie
+ * 100 px. Właściciel zgłosił to wprost: sekcja się przez to wyciągała,
+ * a lewa kolumna stała pusta. Tutaj odstęp ma jedno źródło i jedną
+ * wartość, niezależną od rytmu siatki.
+ *
+ * `align-content: start` trzyma stos u góry pasa - bez tego rozjechałby
+ * się na całą wysokość wiersza, gdy lewa kolumna jest wyższa.
+ */
+[data-page='egzamin'] .exam-location__side {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+/*
+ * KURS OTWARTY SPOZA SP 402 - czarny panel pod granatową kartą.
+ *
+ * Wariant wybrany przez właściciela 04.10.2026 spośród trzech. Wcześniej
+ * blok stał w kolumnie tekstowej pod włosową kreską; przeniesienie go
+ * w prawo robi z dwóch paneli jedną wypowiedź - gdzie są zajęcia i dla
+ * kogo - i zostawia lewą kolumnę przy samej treści.
+ *
+ * Kolory bierze `[data-theme='ink']`, więc nie ma tu ani jednej wartości
+ * wpisanej wprost. Padding jest ten sam co w karcie obok: panele mają
+ * wyglądać jak para, a nie jak dwa pomysły.
+ *
+ * CZERWIENI TU NIE MA i nie wolno jej dokładać. W tej sekcji pojawia się
+ * wyłącznie w granatowej karcie, nad podpisem roli miejsca.
+ */
+[data-page='egzamin'] .exam-open {
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+[data-page='egzamin'] .exam-open__label {
+  /*
+   * Etykieta nie dziedziczy miary akapitow sekcji: wersaliki ze
+   * zwiekszonym trackingiem potrzebuja wiecej miejsca.
+   */
+  max-inline-size: none;
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+/*
+ * Krycie pełne, nie przygaszone jak etykieta: ta informacja rozstrzyga,
+ * czy kurs w ogóle dotyczy czytającego.
+ */
+[data-page='egzamin'] .exam-open__text {
+  margin-block: var(--space-4) 0;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
 @media (width >= 62rem) {
   [data-page='egzamin'] .exam-location__text {
     grid-column: 1 / span 6;
   }
 
-  [data-page='egzamin'] .exam-location__card {
+  [data-page='egzamin'] .exam-location__side {
     grid-column: 8 / -1;
   }
 }

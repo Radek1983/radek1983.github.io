@@ -6,6 +6,21 @@
  * Zamiast tego link do zewnetrznej nawigacji.
  */
 
+/*
+ * Sekcja zaczyna się bliżej poprzedniej niż reszta serwisu - polecenie
+ * właściciela z 04.10.2026. Nad etykietą „09 Lokalizacje" stało pełne
+ * `--space-section` (72 px przy oknie 1440), a nad nim jeszcze dolny
+ * odstęp czarnego aktu naboru; razem robiło się ponad sto pikseli pustki
+ * między dwiema sekcjami.
+ *
+ * Mnożnik, nie własna wartość: odstęp ma dalej skalować się z resztą
+ * serwisu, tylko od niższego pułapu. Dolny odstęp sekcji zostaje pełny -
+ * pod nią jest już sekcja senioralna i ten rytm jest w porządku.
+ */
+#lokalizacja {
+  padding-block-start: calc(var(--space-section) * 0.55);
+}
+
 .location__grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
@@ -22,10 +37,13 @@
 }
 
 /*
- * Naglowek w rejestrze plakatowym, nie w rejestrze sekcji informacyjnej.
- * --step-h1 to ten sam stopien, ktory niesie "PLACISZ TYLKO ZA ZAJECIA"
- * w cenniku; przy 1440 px daje 75 px i miesci "PO LEKCJACH." w kolumnie
- * szerokiej na 550 px bez lamania.
+ * Stopień wrócił do pełnego `--step-h1` 04.10.2026, gdy hasło skróciło
+ * się do „Popołudniami.". Schodził wcześniej o 12%, a potem o 20%, bo
+ * „ZAJĘCIA POPOŁUDNIOWE." nie mieściło się w jednym wierszu - właściciel
+ * wolał skrócić tekst niż dalej zmniejszać pismo.
+ *
+ * Przy krótszym haśle zapas jest duży: POPOŁUDNIAMI. potrzebuje przy
+ * oknie 1440 około 594 px, a kolumna tekstowa ma 790 px.
  */
 .location__place {
   font-family: var(--font-display);
@@ -36,36 +54,108 @@
   text-transform: uppercase;
 }
 
+/*
+ * Podpis nad adresem jest PRZYGASZONY tak samo jak etykiety sekcji
+ * i etykieta „Materiały do zajęć" w cenniku - polecenie właściciela
+ * z 04.10.2026. Stał w pełnej mocy czerni i czytał się jak kolejne
+ * hasło, a nie jak podpis bloku adresowego.
+ *
+ * Ta sama para wartości co w `.section__label`: kolor tekstu plus 55%
+ * krycia, nie osobny, jaśniejszy kolor. Dzięki temu podpis zachowuje
+ * się tak samo na kremie i na każdym innym tle.
+ */
+.location__meta {
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+/*
+ * Adres w rejestrze TEKSTU CIĄGŁEGO, nie leadu - polecenie właściciela
+ * z 04.10.2026. Wskazał dwa wzorce: drobny opis materiałów w cenniku
+ * i lead sekcji senioralnej; oba biorą `--step-body`, czyli 19 px przy
+ * oknie 1440. Adres stał wcześniej na `--step-lead` (24 px) i czytał się
+ * jak drugie hasło sekcji, a nie jak dana teleadresowa.
+ *
+ * Interlinia zostaje ciaśniejsza niż w akapicie: to trzy krótkie wiersze
+ * jednego bloku, nie tekst do czytania ciągiem.
+ */
 .location__address {
   font-style: normal;
-  font-size: var(--step-lead);
+  font-size: var(--step-body);
   line-height: 1.45;
 }
 
+/*
+ * Zastrzeżenie o relacji ze SP 402 stoi w DWÓCH wierszach - polecenie
+ * właściciela z 04.10.2026. Globalna miara `--measure` to 544 px, czyli
+ * trzy wiersze przy tej długości zdania; kolumna tekstowa ma dziś 790 px,
+ * więc miejsce jest. To drobny druk pod kreską, nie blok do czytania
+ * ciągiem, dlatego dłuższy wiersz niczego tu nie utrudnia.
+ *
+ * Treść jest nietykalna (par. 4 kontraktu): mówi, że High Five nie jest
+ * serwisem szkoły. Zmieniamy wyłącznie szerokość, w której się łamie.
+ */
 .location__disclaimer {
-  max-inline-size: var(--measure);
+  max-inline-size: 44rem;
   padding-block-start: var(--space-4);
   border-block-start: 1px solid var(--color-rule);
   font-size: 0.9375rem;
   opacity: 0.75;
 }
 
+/*
+ * Kadr renderuje się TAK SAMO jak na `/lokalizacje/` - polecenie
+ * właściciela z 04.10.2026. Do tej pory było inaczej z dwóch powodów
+ * naraz i oba trzeba było naprawić.
+ *
+ * 1. ZŁA FORMUŁA WYJŚCIA POZA SIATKĘ. Stało tu `calc(50% - 50vw)`, ale
+ *    `50%` liczy się od pola siatki, nie od kontenera - przy pięciu
+ *    kolumnach dawało to margines -468 px zamiast -36 px. Kadr miał
+ *    999 px szerokości, z czego 405 px wychodziło poza okno i było
+ *    obcinane przez `overflow-x: clip` sekcji. Widać było jego lewą
+ *    część, czyli kompozycyjny przypadek, a nie zaplanowany kadr.
+ *    Token `--bleed-inline` liczy to poprawnie i tego samego używa
+ *    `.split__media` na `/lokalizacje/`.
+ *
+ * 2. SZTYWNE 16:9. Pudełko miało proporcję 1.78 przy pliku o proporcji
+ *    1.85, podczas gdy na `/lokalizacje/` kadr dostaje wysokość, a nie
+ *    proporcję - stąd pionowy format 1.31 i widok całego budynku.
+ *    Ta sama wartość `min(70svh, 34rem)` daje ten sam efekt tutaj.
+ */
 .location__media {
   grid-column: 1 / -1;
+  aspect-ratio: 3 / 2;
 }
 
 @media (width >= 62rem) {
+  /*
+   * PROPORCJE ODWRÓCONE 04.10.2026 na polecenie właściciela: tekst siedem
+   * kolumn, kadr pięć. Wcześniej było odwrotnie - fotografia miała w tej
+   * sekcji większą obecność niż adres.
+   *
+   * Powód jest dwojaki. Właściciel uznał, że zdjęcie budynku niewiele
+   * wnosi, a hasło „ZAJĘCIA POPOŁUDNIOWE." ma stać w JEDNYM wierszu -
+   * przy pięciu kolumnach fraza potrzebowała 790 px, a kolumna dawała
+   * 558 px, więc łamała się na dwa wiersze.
+   *
+   * Prawa krawędź kadru nadal sięga krawędzi okna - to wspólna oś
+   * ze zdjęciami hero i sekcji 02, i ona się nie zmienia.
+   */
   .location__text {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 7;
   }
 
   /*
-   * Kadr dostaje siedem kolumn zamiast szesciu - 58 procent zamiast 50.
-   * Fotografia ma miec w tej sekcji wieksza obecnosc niz tekst adresowy,
-   * a prawa krawedz siega krawedzi okna.
+   * PROPORCJA, NIE WYSOKOŚĆ. Na `/lokalizacje/` kadr dostaje stałą
+   * wysokość, bo stoi w szerokiej kolumnie i wychodzi z niej pudełko 1.31.
+   * Tutaj kolumna ma pięć pól zamiast siedmiu, więc ta sama wysokość dałaby
+   * pudełko pionowe - 0.78 przy oknie 1024 - i budynek zostałby pokrojony
+   * w pionowy pasek. Proporcja 13:10 to ten sam kształt co tam, niezależnie
+   * od szerokości kolumny.
    */
   .location__media {
-    grid-column: 6 / -1;
-    margin-inline-end: calc(50% - 50vw);
+    grid-column: 8 / -1;
+    margin-inline-end: calc(var(--bleed-inline) * -1);
+    aspect-ratio: 13 / 10;
   }
 }

@@ -84,15 +84,32 @@ test.describe('regresje tresci', () => {
   /*
    * Awaria JS nie moze ukryc jedynej drogi kontaktu (D2 w CLAUDE.md).
    * Telefon i mail maja byc klikalne na KAZDEJ stronie, nie tylko na homepage.
+   *
+   * Test biegnie z WYLACZONYM JavaScriptem i to jest jego istota. Od
+   * 23.09.2026 numer telefonu przestaje byc odnosnikiem na urzadzeniach
+   * ze wskaznikiem - robi to modul telefon.js. Gdyby ten modul kiedys
+   * zaczal dzialac odwrotnie albo gdyby ktos przeniosl numer do JS-a,
+   * strona bez skryptow zostalaby bez drogi kontaktu. Tego pilnuje
+   * dokladnie ten test.
    */
-  test('kazda strona ma klikalny telefon i mail', async ({ page }) => {
-    for (const url of STRONY) {
-      await page.goto(url)
-      await expect(page.locator('a[href^="tel:"]').first(), `tel na ${url}`).toHaveAttribute(
-        'href',
-        'tel:+48790266517',
-      )
-      await expect(page.locator('a[href^="mailto:"]').first(), `mail na ${url}`).toBeVisible()
+  test('kazda strona ma klikalny telefon i mail BEZ JavaScriptu', async ({ browser }) => {
+    const kontekst = await browser.newContext({ javaScriptEnabled: false })
+    const strona = await kontekst.newPage()
+
+    try {
+      for (const url of STRONY) {
+        await strona.goto(url)
+        await expect(
+          strona.locator('a[href^="tel:"]').first(),
+          `tel na ${url} bez JS`,
+        ).toHaveAttribute('href', 'tel:+48790266517')
+        await expect(
+          strona.locator('a[href^="mailto:"]').first(),
+          `mail na ${url} bez JS`,
+        ).toBeVisible()
+      }
+    } finally {
+      await kontekst.close()
     }
   })
 
