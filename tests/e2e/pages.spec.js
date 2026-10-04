@@ -530,7 +530,7 @@ test.describe('mega-menu - dopracowanie', () => {
       {
         numer: '01',
         etykieta: 'Klasy 1-7',
-        opis: 'Angielski po lekcjach',
+        opis: 'Angielski popołudniami',
         kontekst: 'SP 402 · klasy 1-7',
         cta: 'Zobacz zajęcia →',
         href: '/oferta/dzieci/',
