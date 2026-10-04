@@ -796,7 +796,6 @@
  * jako zbyt ciężką.
  */
 [data-page='egzamin'] .exam-location__card {
-  grid-column: 1 / -1;
   display: grid;
   gap: 1.25rem;
   padding: clamp(1.5rem, 2.6vw, 2.25rem);
@@ -859,43 +858,64 @@
 }
 
 /*
- * KURS OTWARTY SPOZA SP 402 - blok redakcyjny, nie karta.
+ * PRAWA KOLUMNA to jeden element siatki: granatowa karta adresowa
+ * i czarny panel o otwartości kursu, jeden pod drugim.
  *
- * Dwa elementy pod włosową kreską: etykieta i zdanie. Kreska biegnie
- * na szerokość kolumny i jest JEDYNYM separatorem tego bloku.
+ * Gdyby były dwoma osobnymi elementami siatki, trafiłyby do osobnych
+ * wierszy, a odstęp między nimi dyktowałaby rynna wiersza - prawie
+ * 100 px. Właściciel zgłosił to wprost: sekcja się przez to wyciągała,
+ * a lewa kolumna stała pusta. Tutaj odstęp ma jedno źródło i jedną
+ * wartość, niezależną od rytmu siatki.
  *
- * CZERWIENI TU NIE MA i nie wolno jej dokładać. Stał tu przez chwilę
- * krótki czerwony pasek nad etykietą - ten sam wzorzec co nad podpisem
- * roli miejsca na granatowej karcie - ale właściciel kazał go zdjąć
- * 04.10.2026: na kremowym tle czytał się jak druga kreska zaraz pod
- * separatorem, czyli jak usterka. Na granacie zostaje, bo tam jest
- * jedynym kolorem i ma co podświetlić.
- *
- * Blok nie może wyglądać jak doklejona sekcja, więc odstęp nad kreską
- * i pod nią jest ten sam.
+ * `align-content: start` trzyma stos u góry pasa - bez tego rozjechałby
+ * się na całą wysokość wiersza, gdy lewa kolumna jest wyższa.
  */
-[data-page='egzamin'] .exam-open {
-  padding-block-start: clamp(1.5rem, 2.6vw, 2.25rem);
-  border-block-start: 1px solid var(--color-rule);
-}
-
-[data-page='egzamin'] .exam-location__text .exam-open__label {
-  /*
-   * Etykieta nie dziedziczy miary 44ch od akapitow sekcji: wersaliki
-   * ze zwiekszonym trackingiem potrzebuja wiecej miejsca i lamaly sie
-   * na dwa wiersze, mimo ze kolumna ma 660 px.
-   */
-  max-inline-size: none;
-  color: var(--color-text);
-  opacity: 0.55;
+[data-page='egzamin'] .exam-location__side {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
 }
 
 /*
- * Krycie pełne, nie 78% jak pozostałe akapity: ta informacja ma być
- * zauważalna, bo rozstrzyga, czy kurs w ogóle dotyczy czytającego.
+ * KURS OTWARTY SPOZA SP 402 - czarny panel pod granatową kartą.
+ *
+ * Wariant wybrany przez właściciela 04.10.2026 spośród trzech. Wcześniej
+ * blok stał w kolumnie tekstowej pod włosową kreską; przeniesienie go
+ * w prawo robi z dwóch paneli jedną wypowiedź - gdzie są zajęcia i dla
+ * kogo - i zostawia lewą kolumnę przy samej treści.
+ *
+ * Kolory bierze `[data-theme='ink']`, więc nie ma tu ani jednej wartości
+ * wpisanej wprost. Padding jest ten sam co w karcie obok: panele mają
+ * wyglądać jak para, a nie jak dwa pomysły.
+ *
+ * CZERWIENI TU NIE MA i nie wolno jej dokładać. W tej sekcji pojawia się
+ * wyłącznie w granatowej karcie, nad podpisem roli miejsca.
  */
-[data-page='egzamin'] .exam-location__text .exam-open__text {
-  margin-block-start: 1.25rem;
+[data-page='egzamin'] .exam-open {
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+[data-page='egzamin'] .exam-open__label {
+  /*
+   * Etykieta nie dziedziczy miary akapitow sekcji: wersaliki ze
+   * zwiekszonym trackingiem potrzebuja wiecej miejsca.
+   */
+  max-inline-size: none;
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+/*
+ * Krycie pełne, nie przygaszone jak etykieta: ta informacja rozstrzyga,
+ * czy kurs w ogóle dotyczy czytającego.
+ */
+[data-page='egzamin'] .exam-open__text {
+  margin-block: var(--space-4) 0;
+  font-size: 1.0625rem;
+  line-height: 1.55;
   color: var(--color-text);
 }
 
@@ -904,7 +924,7 @@
     grid-column: 1 / span 6;
   }
 
-  [data-page='egzamin'] .exam-location__card {
+  [data-page='egzamin'] .exam-location__side {
     grid-column: 8 / -1;
   }
 }

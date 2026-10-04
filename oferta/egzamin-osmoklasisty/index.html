@@ -400,13 +400,40 @@
                 Rozroznienia NIE WOLNO zacierac: zajecia klas 1-7 sa dla
                 uczniow SP 402, kurs egzaminacyjny nie.
 
-                Blok redakcyjny, nie karta: wlosowa kreska u gory, etykieta
-                i zdanie. BEZ czerwonego akcentu - stal tu przez chwile
-                krotki pasek nad etykieta, wlasciciel kazal go zdjac
-                04.10.2026. Czerwien w tej sekcji zostaje WYLACZNIE
+                Czarny panel, nie blok w kolumnie tekstowej - wlasciciel
+                wybral ten wariant 04.10.2026 sposrod trzech przedstawionych.
+                Stoi POD granatowa karta i razem z nia tworzy prawa kolumne:
+                gdzie sa zajecia i dla kogo sa. Lewa kolumna zostaje przez
+                to czysta - naglowek, akapit, godziny.
+
+                Czerwieni tu NIE MA. W tej sekcji pojawia sie wylacznie
                 w granatowej karcie, nad podpisem roli miejsca.
               -->
-              <div class="exam-open" data-animation="fade-up">
+            </div>
+
+            <!--
+              Prawa kolumna to JEDEN element siatki, nie dwa. Dwa osobne
+              elementy ladowalyby w osobnych wierszach, a wtedy odstep
+              miedzy nimi dyktowalaby rynna wiersza - prawie 100 px,
+              czego wlasciciel nie chcial. Tutaj odstep ustawia `gap`
+              tego stosu i jest nim dokladnie jedna wartosc.
+            -->
+            <div class="exam-location__side">
+              <address class="exam-location__card" data-theme="blue" data-animation="fade-up">
+                <p class="exam-location__school">
+                  Szkoła Podstawowa nr&nbsp;402<br />
+                  im.&nbsp;Haliny Konopackiej
+                </p>
+
+                <p class="exam-location__address">
+                  ul.&nbsp;Jana Nowaka-Jeziorańskiego 22<br />
+                  03-982 Warszawa
+                </p>
+
+                <p class="exam-location__role">Miejsce zajęć High Five</p>
+              </address>
+
+              <div class="exam-open" data-theme="ink" data-animation="fade-up">
                 <p class="u-label exam-open__label">
                   Kurs otwarty dla&nbsp;ósmoklasistów z&nbsp;różnych szkół
                 </p>
@@ -416,20 +443,6 @@
                 </p>
               </div>
             </div>
-
-            <address class="exam-location__card" data-theme="blue" data-animation="fade-up">
-              <p class="exam-location__school">
-                Szkoła Podstawowa nr&nbsp;402<br />
-                im.&nbsp;Haliny Konopackiej
-              </p>
-
-              <p class="exam-location__address">
-                ul.&nbsp;Jana Nowaka-Jeziorańskiego 22<br />
-                03-982 Warszawa
-              </p>
-
-              <p class="exam-location__role">Miejsce zajęć High Five</p>
-            </address>
           </div>
         </div>
       </section>
