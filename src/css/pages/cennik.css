@@ -322,11 +322,56 @@
   text-transform: uppercase;
 }
 
+/*
+ * Miara zdjęta 04.10.2026 razem z nową treścią. `30ch` trzymało akapit
+ * na 265 px przy kolumnie 421 px, więc prawa krawędź zostawała poszarpana
+ * i trzecia kolumna wyglądała na węższą niż dwie obok. Teraz wiersz
+ * wyznacza kolumna siatki, tak jak w dwóch pozostałych.
+ */
 [data-page='cennik'] .rates__condition-copy {
-  max-inline-size: 30ch;
+  max-inline-size: none;
   font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
   line-height: 1.5;
   color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+/*
+ * MATERIAŁY DO ZAJĘĆ — pełnoszeroki blok pod trzema kolumnami.
+ *
+ * Nazwy klas są te same co na `/oferta/dzieci/`, ale reguły są WŁASNE
+ * i zakotwiczone w `[data-page='cennik']`. Tamta strona jest zamknięta
+ * (D18), a wspólny zestaw klas związałby dwa układy, które mają różne
+ * szerokości kolumn i różne skale.
+ *
+ * Blok niesie TYLKO górną kreskę. Dolną ma już wezwanie poniżej, więc
+ * `border-block` z tamtej strony postawiłby tu dwie linie jedna nad drugą.
+ * Kolejność z projektu wychodzi więc sama: kolumny → kreska → etykieta →
+ * zdanie → kreska → wezwanie.
+ *
+ * To nie jest czwarta pozycja cennika: zdanie biegnie przez cały pas,
+ * a nie w kolumnie, i nie ma przy sobie żadnej cyfry w rejestrze stawek.
+ */
+[data-page='cennik'] .materials {
+  margin-block-start: clamp(2rem, 3vw, 3rem);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+[data-page='cennik'] .materials__label {
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+/*
+ * Bez ograniczenia miary: to jedno zdanie drobnego druku przez szerokość
+ * pasa, a nie blok tekstu do czytania ciągiem. Ten sam wybór co w cenniku
+ * na stronie głównej i na `/oferta/dzieci/`.
+ */
+[data-page='cennik'] .materials__text {
+  margin-block-start: var(--space-3);
+  max-inline-size: none;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.5;
 }
 
 [data-page='cennik'] .rates__more {
