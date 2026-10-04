@@ -100,7 +100,7 @@
     `data-page="egzamin"` to HAK ZAKRESU, nie ozdoba.
 
     `data-section="oferta"` nosza wszystkie cztery strony produktowe, więc nie
-    da się po nim odróżnić tej jednej. Każda reguła wyglądu dopisana dla tej
+    da&nbsp;się po nim odróżnić tej jednej. Każda reguła wyglądu dopisana dla tej
     podstrony jest w `src/css/pages/egzamin.css` zakotwiczona w tym atrybucie
     i nie ma prawa dosięgnąć żadnego innego widoku.
   -->
@@ -126,12 +126,13 @@
               </p>
 
               <!--
-                "Next step." otwiera naglowek i jest czescia nazwy oferty.
-                Wlasciciel zdjal je 18.09.2026 i tego samego dnia przywrocil,
-                po obejrzeniu wersji bez niego - zostaje.
+                "Next step." ZDJETE 04.10.2026 na polecenie wlasciciela.
+                Zdejmowal je juz 18.09.2026 i tego samego dnia przywrocil;
+                tym razem decyzja jest odwrotna i ostateczna - nie wracaj
+                do niego bez jego polecenia.
               -->
               <h1 class="u-display page-hero__title" id="egzamin-title" data-animation="fade-up">
-                Next step. Przygotuj się do&nbsp;egzaminu. Spokojnie i&nbsp;systematycznie.
+                Przygotuj&nbsp;się do&nbsp;egzaminu. Spokojnie i&nbsp;systematycznie.
               </h1>
 
               <p class="u-lead page-hero__lead" data-animation="fade-up">
@@ -139,6 +140,27 @@
                 i&nbsp;podstawą programową. Dopracowana metodyka, strategie egzaminacyjne
                 i&nbsp;regularna praktyka zwiększają pewność przed egzaminem.
               </p>
+
+              <!--
+                KURS JEST OTWARTY SPOZA SP 402 - fakt przekazany przez
+                wlasciciela 04.10.2026 (par. 3). Stoi juz w sekcji lokalizacji
+                nizej, ale tam rodzic trafia dopiero po przewinieciu polowy
+                strony; tutaj rozstrzyga sie, czy oferta go w ogole dotyczy.
+
+                Blok wyrownany do TEJ SAMEJ lewej krawedzi co naglowek, lead
+                i kreska - zero wciecia. Kreska jest pozioma i szara; czerwieni
+                tu nie ma, ani poziomej, ani pionowej.
+              -->
+              <div class="exam-intro" data-animation="fade-up">
+                <p class="exam-intro__title">
+                  Zajęcia w&nbsp;SP&nbsp;402 —&nbsp;otwarte także dla&nbsp;uczniów z&nbsp;innych
+                  szkół
+                </p>
+                <p class="exam-intro__text">
+                  Zajęcia prowadzimy na&nbsp;terenie SP&nbsp;402, ale do&nbsp;kursu mogą dołączyć
+                  także uczniowie klas 8 spoza szkoły.
+                </p>
+              </div>
 
               <!--
                 BEZ WEZWANIA W HERO - swiadomie, decyzja wlasciciela z 17.09.2026.
@@ -207,8 +229,8 @@
           </h2>
 
           <p class="u-lead statement__cols" data-animation="fade-up">
-            Pracujemy nad tym, co&nbsp;naprawdę liczy się na&nbsp;egzaminie: rozumieniem, pisaniem,
-            komunikacją, gramatyką i&nbsp;skutecznym działaniem pod presją czasu.
+            Pracujemy nad tym, co&nbsp;naprawdę liczy&nbsp;się na&nbsp;egzaminie: rozumieniem,
+            pisaniem, komunikacją, gramatyką i&nbsp;skutecznym działaniem pod presją czasu.
           </p>
         </div>
       </section>
@@ -303,14 +325,14 @@
 
           <div class="exam-approach__grid">
             <h2 class="exam-approach__claim" id="egzamin-przed" data-animation="fade-up">
-              Wiedza to&nbsp;jedno. Liczy się&nbsp;też
+              Wiedza to&nbsp;jedno. Liczy&nbsp;się też
               <span class="exam-approach__accent">sposób pracy.</span>
             </h2>
 
             <div class="exam-approach__side">
               <p class="u-lead exam-approach__lead" data-animation="fade-up">
                 Porządkujemy materiał, oswajamy format zadań i&nbsp;ćwiczymy pracę z&nbsp;czasem.
-                Uczeń ma wiedzieć, czego się spodziewać i&nbsp;jak podejść do&nbsp;zadania krok
+                Uczeń ma wiedzieć, czego&nbsp;się spodziewać i&nbsp;jak podejść do&nbsp;zadania krok
                 po&nbsp;kroku.
               </p>
 
@@ -341,16 +363,58 @@
           <div class="exam-location__grid">
             <div class="exam-location__text">
               <h2 class="exam-location__claim" id="egzamin-lokalizacja" data-animation="fade-up">
-                Spotykamy się na&nbsp;Gocławiu.
+                Spotykamy&nbsp;się na&nbsp;Gocławiu.
               </h2>
 
+              <!--
+                Pelna nazwa szkoly i adres stoja w granatowej karcie obok,
+                wiec akapit ich NIE POWTARZA - polecenie wlasciciela
+                z 04.10.2026. Akapit odpowiada na dwa inne pytania: gdzie
+                spotyka sie High Five i kto jest organizatorem kursu.
+
+                Rozdzial rol jest tu wymogiem par. 4, nie stylistyka:
+                SP 402 udostepnia sale, kurs prowadzi High Five.
+              -->
               <p data-animation="fade-up">
-                Zajęcia odbywają się na&nbsp;terenie Szkoły Podstawowej nr&nbsp;402 im.&nbsp;Haliny
-                Konopackiej. To&nbsp;miejsce zajęć High Five —&nbsp;szkoła nie&nbsp;jest
-                organizatorem kursu.
+                Kurs High Five odbywa&nbsp;się na&nbsp;terenie SP&nbsp;402 na&nbsp;Gocławiu.
+                SP&nbsp;402 udostępnia sale na&nbsp;zajęcia, natomiast organizatorem kursu jest High
+                Five.
               </p>
 
-              <p data-animation="fade-up">Zajęcia odbywają się po&nbsp;lekcjach szkolnych.</p>
+              <!--
+                "Po lekcjach szkolnych" zeszlo stad 04.10.2026 na polecenie
+                wlasciciela: sugerowalo, ze zajecia zaczynaja sie zaraz po
+                dzwonku. Godziny 14:40 TU NIE MA swiadomie - ta sekcja mowi
+                o lokalizacji, a nie o organizacji dnia. Godzine podaje
+                strona glowna i /oferta/dzieci/.
+              -->
+              <p class="exam-location__hours" data-animation="fade-up">
+                Zajęcia odbywają&nbsp;się w&nbsp;godzinach popołudniowych.
+              </p>
+
+              <!--
+                KURS JEST OTWARTY SPOZA SP 402 - fakt przekazany przez
+                wlasciciela 04.10.2026 (par. 3). To jedno z dwoch miejsc
+                w serwisie, ktore to mowi; drugim jest FAQ strony glownej.
+
+                Rozroznienia NIE WOLNO zacierac: zajecia klas 1-7 sa dla
+                uczniow SP 402, kurs egzaminacyjny nie.
+
+                Blok redakcyjny, nie karta: wlosowa kreska u gory, etykieta
+                i zdanie. BEZ czerwonego akcentu - stal tu przez chwile
+                krotki pasek nad etykieta, wlasciciel kazal go zdjac
+                04.10.2026. Czerwien w tej sekcji zostaje WYLACZNIE
+                w granatowej karcie, nad podpisem roli miejsca.
+              -->
+              <div class="exam-open" data-animation="fade-up">
+                <p class="u-label exam-open__label">
+                  Kurs otwarty dla&nbsp;ósmoklasistów z&nbsp;różnych szkół
+                </p>
+                <p class="exam-open__text">
+                  Do&nbsp;grupy mogą dołączyć uczniowie klas 8 z&nbsp;innych szkół
+                  —&nbsp;nie&nbsp;trzeba być uczniem SP&nbsp;402.
+                </p>
+              </div>
             </div>
 
             <address class="exam-location__card" data-theme="blue" data-animation="fade-up">
