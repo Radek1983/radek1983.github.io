@@ -287,6 +287,33 @@ o planowanym starcie w kaflu `Start grupy` na `/oferta/dzieci/` — służy do t
 zostaje jednym akapitem dla czytnika ekranu, a po usunięciu bloku czasowego
 `data-temporary` nie zostaje sierocy znacznik łamania.
 
+**Zaimek `się` wiąże się WSTECZ, nie do przodu — to wyjątek od reguły wyżej.**
+Rozstrzygnięcie właściciela z 04.10.2026.
+
+Krótkie słowa z listy powyżej (`z`, `w`, `do`, `dla`, `nie`) zapowiadają to, co po
+nich następuje, więc schodzą do następnego wiersza **razem z kolejnym** wyrazem.
+`się` działa odwrotnie: dopełnia czasownik, który stoi **przed** nim, i ma zostać
+tuż za nim. Stąd twarda spacja **przed** `się`, nigdy po:
+
+- dobrze: `uczą&nbsp;się chętniej`, `odbywają&nbsp;się w&nbsp;godzinach`
+- źle: `uczą się&nbsp;chętniej` — to ciągnie `się` w stronę następnego wyrazu
+  i odrywa je od czasownika
+
+Konsekwencja praktyczna: **`się` MOŻE kończyć wiersz** — pod warunkiem, że stoi
+bezpośrednio po swoim czasowniku. Jeśli para `czasownik się` nie mieści się
+w wierszu, schodzi niżej w całości. Dlatego `się` nie ma na liście słów, które
+test traktuje jako wiszące (`KROTKIE` w `tests/e2e/po-lekcjach.spec.js`).
+
+**Serwis przeszedł na tę regułę jednorazowo 04.10.2026:** 89 wystąpień na trzynastu
+plikach, w tym 13 związanych wcześniej błędnie do przodu. Zamiana zmieniła wyłącznie
+łamanie wierszy — po podmianie twardych spacji z powrotem na zwykłe treść każdego
+pliku jest znak w znak taka sama, co skrypt sprawdził przed zapisem.
+
+**Pułapka techniczna przy takiej zamianie:** `\b` w wyrażeniach regularnych
+JavaScriptu jest oparte na ASCII, a `się` kończy się na `ę`. Granicy słowa po tym
+znaku **nie ma**, więc wzorzec `/ się\b/` nie dopasowuje niczego. Trzeba jawnie
+wymienić to, co może stać po zaimku: biała spacja, interpunkcja albo znacznik.
+
 **Myślnik wtrącenia działa ODWROTNIE niż krótkie słowo.** Ma się odrywać od poprzedniego
 wyrazu i schodzić do następnego wiersza razem z tym, co po nim — więc zwykła spacja przed
 i twarda po: `na co dzień —&nbsp;w podróży`. Wiązanie go z poprzednim wyrazem zostawia
@@ -1170,6 +1197,32 @@ pionowe w rynnach gridów i pozioma nad przypisem cenowym.
 To druga — obok podmiany odnośników — zmiana dopuszczona na tej stronie; jak
 tamtą, poleconą wprost przez właściciela.
 
+**04.10.2026 — trzecia kolumna sekcji 01 i blok materiałów.** Trzecia zmiana
+dopuszczona na tej stronie, również polecona wprost, wraz z projektem
+referencyjnym:
+
+- **`WARUNEK STARTU` zastąpiły `GRUPY I WOLNE MIEJSCA`.** Stał tu planowany
+  start 1 października w bloku `data-temporary="nabor-2026"` — **ostatnim
+  takim bloku w całym serwisie**. Nowa treść nie podaje żadnej daty, więc
+  nie wygaśnie ponownie;
+- **warunek pięciu uczniów dotyczy KOLEJNEJ grupy**, nie startu oferty.
+  To dwie różne rzeczy i nie wolno ich mylić — tak samo jak „minimum
+  5 dzieci" nie opisuje wielkości grupy (§3);
+- treść mówi `uczniów SP 402` świadomie: oferta klas 1-7 jest dla uczniów
+  tej szkoły, a otwarty dla innych jest wyłącznie kurs egzaminacyjny (§3).
+  **Nie zacieraj tego w żadną stronę;**
+- **blok `MATERIAŁY DO ZAJĘĆ`** pod trzema kolumnami, przed wezwaniem.
+  Kolejność: kolumny → kreska → etykieta → zdanie → kreska → wezwanie;
+- **miara akapitów trzeciej kolumny zdjęta.** `30ch` trzymało je na 265 px
+  przy kolumnie 421 px, więc kolumna wyglądała na węższą niż dwie obok.
+
+**Blok materiałów ma TE SAME nazwy klas co `/oferta/dzieci/`, ale WŁASNE
+reguły** pod `[data-page='cennik']`. Tamta strona jest zamknięta (D18),
+a wspólny zestaw związałby dwa układy o różnych szerokościach kolumn.
+Jedna różnica wobec tamtego wzorca jest celowa: tutaj blok niesie **tylko
+górną kreskę**, bo dolną ma już wezwanie poniżej — `border-block` postawiłby
+dwie linie jedna nad drugą.
+
 Pilnuje tego `tests/e2e/cennik.spec.js`.
 
 ### D18 — podstrona `/oferta/dzieci/` jest zamknięta
@@ -1374,6 +1427,60 @@ i wspólny zestaw klas związałby rzeczy, które mają się różnić.
 `W wiadomości wystarczy klasa ucznia i kontakt do Ciebie.`. Brzmienie różni się
 od tamtego o jedno słowo i **tak ma zostać** — komunikat jest per ścieżka.
 Bez wzmianki o uczniach spoza SP 402, z tego samego powodu co tam (G-21).
+
+**04.10.2026 — hero przebudowane.** Polecenie właściciela, wraz z projektem
+referencyjnym:
+
+- **`Next step.` zeszło z nagłówka.** Właściciel zdjął je i przywrócił
+  18.09.2026; teraz zdjął ponownie. Nagłówek ma dziś **cztery wiersze**;
+- **pod leadem stoi blok `.exam-intro`** pod włosową kreską: etykieta
+  wersalikami i zdanie o tym, że kurs jest otwarty także dla uczniów
+  klas 8 spoza SP 402 (§3). Kreska biegnie przez całą kolumnę dzięki
+  `align-self: stretch` — `.page-hero__text` jest kolumną flex
+  z `align-items: flex-start`, więc bez tego miałaby szerokość zdania;
+- **kolumna tekstowa ma SIEDEM pól siatki, nie sześć.** Kadr jest węższy
+  o jedną piątą i przyklejony do prawej krawędzi, więc po lewej zostawał
+  mu pas pustki szerokości ćwierci ekranu — 190 px przy oknie 1440.
+  Dziś zostaje 75 px, czyli rynna siatki. **Kadr jest nietknięty**:
+  539 px przy 1440, tyle samo co przed zmianą;
+- **hierarchia stopni: lead 20 px, dopisek 16 px, jego etykieta 15 px.**
+  Lead jest tu tekstem głównym, blok pod kreską dopiskiem. Lead mieści
+  się w **trzech wierszach** do 1280 px włącznie; niżej są cztery i nie
+  da się tego obejść stopniem.
+
+Dwie pułapki zapisane w kodzie:
+
+1. **Miara w `ch` unieruchamia liczbę wierszy.** Zmniejszanie pisma zwęża
+   kolumnę w tej samej proporcji, więc liczba znaków w wierszu nie drga.
+   Lead i dopisek mają dziś `max-inline-size: none` i wiersz wyznacza im
+   kolumna siatki.
+2. **`grid-row: 1` jest warunkiem, nie ozdobą.** Po poszerzeniu kolumny
+   tekst i kadr dzielą kolumnę 7, a auto-placement nie nakłada elementów
+   na siebie — kadr lądował w drugim wierszu, który nie ma własnej treści
+   (`<picture>` jest pozycjonowane bezwzględnie), więc miał zero wysokości
+   i **zdjęcie znikało z ekranu**. Wiersz wskazany wprost na obu kolumnach
+   zdejmuje auto-placement z gry.
+
+**04.10.2026 — sekcja lokalizacji przebudowana.** Też polecenie właściciela,
+też z projektem referencyjnym:
+
+- **akapit nie powtarza już nazwy szkoły ani adresu** — stoją w granatowej
+  karcie obok. Mówi dziś, gdzie spotyka się High Five i **kto organizuje
+  kurs**: SP 402 udostępnia sale, organizatorem jest High Five. To rozdział
+  ról wymagany przez §4, nie stylistyka;
+- **czerwona kreska pod separatorem ZDJĘTA.** Stał tu krótki pasek nad
+  etykietą `KURS OTWARTY…` — ten sam wzorzec co nad podpisem roli miejsca
+  na karcie — ale na kremowym tle czytał się jak druga kreska zaraz pod
+  separatorem. **Czerwień zostaje w tej sekcji wyłącznie w granatowej
+  karcie.** Nie dokładaj jej z powrotem;
+- **karta jest zwarta: 270 px zamiast 286.** Odstępy w niej są **nierówne
+  celowo** — 20 px między nazwą szkoły a adresem, bo mówią o jednym,
+  i 44 px przed podpisem roli, bo to osobne zdanie. Przy równych 24 px
+  karta czytała się jak trzy niezwiązane wiersze.
+
+**Strona mówi dziś dwa razy, że kurs jest otwarty spoza SP 402** — w bloku
+hero i w dolnym bloku sekcji lokalizacji. Właściciel wie; zlecenie z tego
+dnia zabraniało ruszać hero przy pracy nad lokalizacją. **Do jego decyzji.**
 
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
