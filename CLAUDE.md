@@ -177,10 +177,30 @@ nauczania; obietnicy wyniku egzaminu.
 Każdy brak zapisz w `docs/CONTENT_GAPS.md` ze statusem, właścicielem danych, miejscem użycia
 i informacją, czy blokuje release. Brak nieblokujący nie zatrzymuje pracy.
 
-**Relacja ze SP 402.** Pisz: „zajęcia HIGH FIVE odbywają się na terenie SP 402 po lekcjach”.
-Nie sugeruj, że HIGH FIVE jest oficjalnym serwisem SP 402 ani że szkoła odpowiada za ofertę
-komercyjną. Nie używaj logo SP 402. Adres SP 402 to **miejsce zajęć, nie adres rejestrowy
-HIGH FIVE** — dotyczy to również JSON-LD.
+**Relacja ze SP 402.** Pisz: „zajęcia HIGH FIVE odbywają się na terenie SP 402
+**w godzinach popołudniowych**”. Nie sugeruj, że HIGH FIVE jest oficjalnym serwisem SP 402
+ani że szkoła odpowiada za ofertę komercyjną.
+
+**Brzmienie „po lekcjach” zostało wycofane 04.10.2026 decyzją właściciela** — to odstępstwo
+od master promptu, który dyktował tę frazę dosłownie. Powód jest merytoryczny: zajęcia nie
+zaczynają się zaraz po dzwonku, tylko najwcześniej o 14:40, bo dopiero wtedy szkoła
+udostępnia sale (§3). Fraza obiecywała rodzicowi coś innego, niż serwis dowozi.
+
+Zamiana objęła dwanaście miejsc: stopkę na wszystkich dziesięciu stronach, kafel na
+`/oferta/`, zdanie na `/lokalizacjach/`, trzy wpisy w `src/data/offers.mjs`, JSON-LD strony
+głównej, trzy metadane `/oferta/dzieci/` i `alt` zdjęcia w sekcji 02. **Treść o relacji ze
+szkołą jest nietknięta** — zmieniła się wyłącznie pora.
+
+Cztery wystąpienia zostają świadomie i **nie są przeoczeniem**:
+
+- etykieta sekcji 02 `02 Po lekcjach` i kotwica `#po-lekcjach` — właściciel zostawił je
+  18.09…04.10.2026; kotwica to adres w sieci, nie obietnica;
+- `po zakończeniu lekcji szkolnych od godziny 14:40` w sekcji 09 — brzmienie właściciela,
+  gdzie fraza stoi **razem z godziną**, więc niczego nie zaciemnia;
+- dwa zdania na `/lokalizacjach/` o **cudzej szkole** („czy po lekcjach istnieje możliwość
+  wynajęcia sali”) — tam fraza opisuje warunek organizacyjny obcej placówki, a nie porę
+  zajęć High Five. Nie używaj logo SP 402. Adres SP 402 to **miejsce zajęć, nie adres rejestrowy
+  HIGH FIVE** — dotyczy to również JSON-LD.
 
 ## 5. Copy deck — tekst zatwierdzony
 
@@ -596,6 +616,24 @@ w SP 402 Warszawa`), a opis mówił wyłącznie o klasach 1-7. Serwis ma dziś c
 - Podstrony SEO-owe (`/angielski-dla-dzieci-warszawa/`, `/egzamin-osmoklasisty-angielski/`,
   `/cennik/`) nadal tylko opisz w `docs/SEO.md`. **Nie rozszerzaj zakresu bez zlecenia.**
 
+**Indeksacja — co kosztowało podpięcie domeny.** Audyt z 04.10.2026. Google zapisał
+**stronę główną jako 404** w trzech wariantach (`http://highfive.academy/`,
+`http://www.highfive.academy/`, `https://www.highfive.academy/`), skanując ją
+16–19 września — czyli dokładnie w oknie propagacji DNS i wystawiania certyfikatu.
+Skutkiem jest brak strony głównej w indeksie: z dziesięciu adresów zaindeksowany
+jest **jeden** (`/oferta/seniorzy/`), a pozostałe osiem czeka w stanie „wykryto,
+obecnie niezindeksowana", normalnym dla nowej domeny bez linków zewnętrznych.
+
+Serwis jest przy tym technicznie w porządku — sprawdzone na produkcji: `robots.txt`
+wpuszcza, `sitemap.xml` przyjęta i odczytana, canonical poprawny, nigdzie żadnego
+`noindex`, zero zepsutych linków wewnętrznych na 29 adresach z dwunastu stron.
+
+**Wniosek na przyszłość: domenę podpina się PRZED pierwszym zaproszeniem robota,
+nigdy w trakcie.** Weryfikacja poprawki w Search Console trwa tygodniami, a przez
+ten czas marka nie znajduje się nawet po własnej nazwie. Odzyskanie indeksacji idzie
+przez „Poproś o zaindeksowanie", nie przez zmiany w treści — dopóki adres jest
+u Google oznaczony jako nieistniejący, nie ma czego oceniać.
+
 **Analityka.** Taksonomia w `docs/ANALYTICS.md`: `cta_apply_click`, `contact_email_click`,
 `contact_phone_click`, `route_click`, `faq_open`. Zero PII w zdarzeniach. Żadnych trackerów bez
 decyzji biznesowej; integracja izolowana w osobnym module i zgodna z mechanizmem zgody.
@@ -624,7 +662,7 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
 | ------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **D1**  | Środowisko lokalne                        | Node.js 24 LTS instalowany lokalnie. `npm ci`, lint, build i Playwright uruchamiane przed każdym PR                                                                                                                             |
 | **D2**  | Konwersja                                 | **Brak formularza zgłoszeniowego w v1.** Główne CTA prowadzi do sekcji kontaktu z adresem e-mail i telefonem                                                                                                                    |
-| **D3**  | Adres                                     | **`https://www.highfive.academy` — podpięte 19.09.2026** (ADR 0010). Wcześniej `https://radek1983.github.io/`. Publikacja w GitHub Pages wstrzymana decyzją właściciela                                                         |
+| **D3**  | Adres                                     | **`https://www.highfive.academy` — podpięte 19.09.2026** (ADR 0010). Wcześniej `https://radek1983.github.io/`. **Serwis jest opublikowany i serwowany przez GitHub Pages**; wstrzymanie publikacji wygasło 04.10.2026           |
 | **D4**  | Fotografia                                | Kadry generowane przez AI. Teraz mock/placeholder w docelowych proporcjach, podmiana po dostarczeniu finalnych plików                                                                                                           |
 | **D5**  | Wersje narzędzi                           | **Aktualne majory: ESLint 10, Stylelint 17, html-validate 11.** Zmiana wpisana do `instructions/ERRATA-zalacznik-techniczny-v1.1.md` (E-01) — rozstrzygnięte, nie pytaj o to ponownie                                           |
 | **D6**  | Dane kontaktowe                           | **Docelowe:** e-mail `kontakt@highfive.academy`, telefon `+48 790 266 517`. Przekazane przez właściciela; zastąpiły konto prywatne z czasu budowy. Errata E-02 mówi o wartościach tymczasowych — jest w tym punkcie nieaktualna |
@@ -799,8 +837,9 @@ Po zamianie: `npm run images`.
   zatwierdzona w briefie propozycja wartości (§5);
 - puenta brzmi `Harmonogram dopasowany do realiów szkolnego dnia.` i nadal stoi
   w **dwóch wierszach** — miara 24ch wystarczyła bez zmian;
-- koda podaje **godzinę 14:40** i to jest jedyne miejsce na stronie głównej, które ją
-  niesie. Fakt przekazany tego samego dnia (§3), więc §4 go nie blokuje;
+- koda podaje **godzinę 14:40**. Fakt przekazany tego samego dnia (§3), więc §4 go nie
+  blokuje. **Od 04.10.2026 nie jest to już jedyne miejsce na stronie głównej z tą
+  godziną** — właściciel dopisał ją także do zastrzeżenia w sekcji 09 (D15);
 - **blok „Dla rodzica oznacza to mniej logistycznego chaosu…" został bez zmian** —
   właściciel go nie wymieniał.
 
@@ -1069,8 +1108,12 @@ i ceny` w hero: czarne tło, jasna czcionka marki, czerwień sygnałowa po najec
 - **adres jest w rejestrze tekstu ciągłego** (`--step-body`), nie leadu — czytał się
   jak drugie hasło sekcji;
 - **podpis nad adresem jest przygaszony** do 55% krycia, jak wszystkie etykiety;
-- **zastrzeżenie o relacji ze SP 402 stoi w dwóch wierszach** — miara podniesiona
-  z globalnych 544 px na 704 px. Treść nietknięta, broni jej §4;
+- **zastrzeżenie o relacji ze SP 402** — miara podniesiona z globalnych 544 px na 704 px.
+  Stało w **dwóch** wierszach do 04.10.2026, kiedy właściciel dopisał do niego
+  `od godziny 14:40`. Dłuższego zdania w dwóch wierszach **nie da się** tam zmieścić:
+  potrzebowałoby ok. 975 px na wiersz, a kolumna tekstowa ma 790 px. Dziś stoi
+  w **trzech** wierszach i tak ma zostać — to drobny druk pod kreską, nie element
+  kompozycji. Powrót do dwóch wierszy oznaczałby zwężenie kadru szkoły;
 - **odstęp nad sekcją mniejszy o 45%**, mnożnikiem `0.55` od `--space-section`.
 
 **Wariant `cta--ink` przycisku `Wyznacz trasę` bez zmian** — niesie też hero (D7).
@@ -1478,9 +1521,26 @@ też z projektem referencyjnym:
   i 44 px przed podpisem roli, bo to osobne zdanie. Przy równych 24 px
   karta czytała się jak trzy niezwiązane wiersze.
 
-**Strona mówi dziś dwa razy, że kurs jest otwarty spoza SP 402** — w bloku
-hero i w dolnym bloku sekcji lokalizacji. Właściciel wie; zlecenie z tego
-dnia zabraniało ruszać hero przy pracy nad lokalizacją. **Do jego decyzji.**
+**Strona mówi dwa razy, że kurs jest otwarty spoza SP 402** — w bloku hero
+i w sekcji lokalizacji. Właściciel obejrzał oba i **zdecydował zostawić oba**
+(04.10.2026). Nie usuwaj żadnego z nich.
+
+**04.10.2026 — blok o otwartości kursu przeniesiony do prawej kolumny.**
+Właściciel wybrał ten wariant spośród trzech przedstawionych na podglądach:
+czarny panel **pod granatową kartą adresową**, zamiast bloku pod włosową
+kreską w kolumnie tekstowej. Dwie płyty tworzą razem jedną wypowiedź —
+gdzie są zajęcia i dla kogo — a lewa kolumna zostaje przy samej treści.
+
+Odrzucone warianty: osobny czarny pas na pełną szerokość (wpadał wprost
+na granatowy akt „Jak pracujemy?”, łamiąc sekwencję kolorów z §7) i czarny
+blok w kolumnie tekstowej (czytał się jak karta, §8).
+
+**Prawa kolumna jest JEDNYM elementem siatki** — `.exam-location__side`.
+Dwa osobne elementy trafiłyby do osobnych wierszy, a odstęp między nimi
+dyktowałaby rynna wiersza: prawie 100 px. Właściciel zgłosił to wprost
+(„strona się wyciągnęła, a po lewej jest pusto”). Dziś odstęp ma jedno
+źródło i wynosi **16 px**. Pod lewą kolumną zostaje ok. 130 px pustki
+i to jest świadomy stan — prawa niesie dwie płyty, lewa trzy akapity.
 
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
@@ -1675,7 +1735,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Hub oferty i przekierowania — ADR 0008          | Zlecone przez właściciela: serwis hybrydowy. Strona główna zostaje one-page, cztery produkty dostają adresy pod `/oferta`, cennik przestaje być kategorią menu. Kontekstowe CTA i lista oferty z `src/data/offers.mjs`. Mega-menu otwierane kliknięciem, nie najechaniem. **Przekierowania ze starych adresów to meta refresh, nie 301** - GitHub Pages nie ma warstwy serwerowej                                                                                                             |
 | Trzy podstrony — ADR 0007                       | Odstępstwo zlecone przez właściciela: `/dla-seniorow/`, `/online/`, `/kariera/` zamiast jednego one-page z master promptu §23. Statyczny MPA bez routera, wspólne fragmenty HTML w `partials/`, wspólne bloki w `components/page-sections.css`, kolor przez istniejące `[data-theme]`. Menu urosło do ośmiu pozycji, więc powstała szuflada mobilna z pułapką focusu - argument „cztery kotwice nie uzasadniają hamburgera" przestał obowiązywać                                              |
 | Brzmienie sceny metody — ADR 0009               | Odstępstwo polecone przez właściciela: `MÓW PRÓBUJ POPRAWIAJ UŻYWAJ` zamiast `MÓWIJ. PRÓBUJ. POPRAWIAJ. UŻYWAJ.` z master promptu §16. „Mówij" nie jest polskim słowem — tryb rozkazujący od „mówić" to „mów". Kropki zdjęte tą samą decyzją. Kolor, skala i układ sceny bez zmian                                                                                                                                                                                                            |
-| Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. Publikacja w Pages nadal wyłączona decyzją właściciela; `Enforce HTTPS` do potwierdzenia po propagacji DNS                                                                                                                               |
+| Własna domena — ADR 0010                        | Adresem kanonicznym jest `https://www.highfive.academy` (wariant z `www`, ten sam co w grafice Open Graph). Podmiana wykonana **przed** publikacją, żeby Google nie zdążył zaindeksować adresu technicznego — GitHub Pages nie odda prawdziwego 301. **Serwis jest dziś opublikowany**, a wszystkie cztery warianty adresu zachowują się poprawnie: `http`/`https` oraz z `www` i bez prowadzą przez 301 do `https://www.highfive.academy/`. Koszt okna propagacji opisuje §13                |
 | Polityka prywatności — ADR 0011                 | Dziesiąty adres serwisu, zlecony przez właściciela. Pełna treść jako HTML, PDF tylko do pobrania. Treść co do słowa z dokumentu właściciela — **zmiana danych na stronie oznacza zmianę PDF-a, nie odwrotnie**. Jeden widoczny odnośnik: stopka, kolumna `Informacje`, pod `Kontakt`                                                                                                                                                                                                          |
 | Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                                      |
 | Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                                       |
