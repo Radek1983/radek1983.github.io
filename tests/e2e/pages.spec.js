@@ -33,7 +33,7 @@ const STRONY = [
     url: '/oferta/egzamin-osmoklasisty/',
     sekcja: 'oferta',
     title: 'Egzamin ósmoklasisty z angielskiego - Gocław | High Five',
-    h1: /Przygotuj się do\s+egzaminu/i,
+    h1: /Przygotuj\s+się\s+do\s+egzaminu/i,
     cta: 'Zapytaj o grupę',
   },
   {

@@ -112,7 +112,7 @@ test.describe('higiena językowa', () => {
      * "przekłada się na High Five" stoi tam "przekłada się na sposób, w jaki
      * pracujemy w High Five". Pilnujemy samego zwrotu, nie reszty zdania.
      */
-    expect(t).toMatch(/przekłada się na/)
+    expect(t).toMatch(/przekłada\s+się na/)
     expect(t).not.toMatch(/doświadczenie przekłada na/)
   })
 

@@ -325,7 +325,7 @@ test.describe('online 1 na 1', () => {
      */
     const link = sekcja.locator('.online-price__more a')
     await expect(link).toHaveAttribute('href', '#kontakt-online')
-    await expect(link).toHaveText(/Skontaktuj się\s+w\s+sprawie terminów/)
+    await expect(link).toHaveText(/Skontaktuj\s+się\s+w\s+sprawie terminów/)
 
     // Cennik stoi MIEDZY "Dla kogo?" a sekcja kontaktowa.
     const y = async (s) => (await page.locator(s).boundingBox()).y

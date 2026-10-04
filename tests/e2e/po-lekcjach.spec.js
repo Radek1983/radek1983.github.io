@@ -205,7 +205,7 @@ test.describe('02 po lekcjach - uklad zatwierdzony', () => {
      * glownej, ktore ja podaje.
      */
     await expect(page.locator('.after-school__coda')).toHaveText(
-      /Zajęcia odbywają się\s+od\s+14:40, kiedy szkoła udostępnia sale\s+na\s+zajęcia dodatkowe\./,
+      /Zajęcia odbywają\s+się\s+od\s+14:40, kiedy szkoła udostępnia sale\s+na\s+zajęcia dodatkowe\./,
     )
   })
 })
