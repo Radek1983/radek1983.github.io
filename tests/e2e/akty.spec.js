@@ -46,9 +46,13 @@ test.describe('akty 09-12', () => {
 
   test('09 SP 402 ma nagłówek plakatowy i kadr przy krawędzi', async ({ page }) => {
     const tytul = page.locator('#lokalizacja-title')
-    // <br /> bez spacji wokol daje 'SP 402Po lekcjach.' w textContent.
+    /*
+     * Haslo zmienione 04.10.2026 na polecenie wlasciciela: "Po lekcjach."
+     * przestalo byc prawda, bo zajecia nie zaczynaja sie zaraz po dzwonku.
+     * <br /> bez spacji wokol daje 'SP 402Popoludniami.' w textContent.
+     */
     await expect(tytul).toContainText('SP 402')
-    await expect(tytul).toContainText('Po lekcjach.')
+    await expect(tytul).toContainText('Popołudniami.')
     await expect(tytul).toHaveCSS('text-transform', 'uppercase')
 
     const m = await page.evaluate(() => {
@@ -68,7 +72,13 @@ test.describe('akty 09-12', () => {
     expect(m.nadmiar, 'clipping naglowka').toBeLessThanOrEqual(1)
     expect(m.stopien, 'rejestr plakatowy').toBeGreaterThanOrEqual(64)
     expect(m.odPrawej, 'kadr przy krawedzi okna').toBeLessThanOrEqual(1)
-    expect(m.udzialKadru).toBeGreaterThanOrEqual(50)
+    /*
+     * Kadr zajmuje MNIEJ niż połowę okna od 04.10.2026: właściciel uznał,
+     * że zdjęcie budynku niewiele wnosi, i kolumna tekstowa dostała siedem
+     * pól siatki zamiast pięciu. Zmierzone 41% przy oknie 1440.
+     * Dolna granica pilnuje, żeby zdjęcie nie zeszło do roli miniatury.
+     */
+    expect(m.udzialKadru).toBeGreaterThanOrEqual(35)
 
     // Zastrzezenie zostaje, ale wyciszone i pod kreska.
     const przypis = page.locator('.location__disclaimer')

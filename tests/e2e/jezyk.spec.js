@@ -95,9 +95,16 @@ test.describe('higiena językowa', () => {
     await page.goto('/')
     const t = await tekst(page)
 
-    // Rodzaj: "przygotowanie" jest nijakie, więc "osobne", nie "osobny".
+    /*
+     * Rodzaj: "przygotowanie" jest nijakie, więc "osobne", nie "osobny".
+     *
+     * Samej frazy nie ma już na stronie - właściciel przepisał FAQ
+     * 04.10.2026 i stoi tam dziś "kurs przygotowujący". Zakaz zostaje,
+     * bo ten błąd wraca przy każdym przepisywaniu akapitu; pozytywna
+     * asercja celuje w zdanie, które faktycznie jest na stronie.
+     */
     expect(t).not.toMatch(/osobny przygotowanie/)
-    expect(t).toMatch(/osobne przygotowanie do\s+egzaminu/)
+    expect(t).toMatch(/osobny kurs przygotowujący do\s+egzaminu/)
 
     /*
      * Czasownik zwrotny: "przekłada SIĘ na". Zdanie prowadzi dalej inaczej

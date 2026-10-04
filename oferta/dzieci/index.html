@@ -112,13 +112,13 @@
               </p>
 
               <h1 class="u-display page-hero__title" id="dzieci-title" data-animation="fade-up">
-                Po&nbsp;lekcjach. Z&nbsp;energią. Z&nbsp;efektami.
+                Popołudniami. Z&nbsp;energią. Z&nbsp;efektami.
               </h1>
 
               <p class="u-lead page-hero__lead" data-animation="fade-up">
-                Zajęcia dla&nbsp;uczniów klas 1-7 prowadzone po&nbsp;lekcjach w&nbsp;SP 402
-                w&nbsp;Warszawie. Małe grupy, dużo praktycznego angielskiego i&nbsp;spokojna,
-                przyjazna atmosfera.
+                Zajęcia dla&nbsp;uczniów klas 1-7 SP&nbsp;402 odbywają się&nbsp;na&nbsp;terenie
+                szkoły w&nbsp;godzinach popołudniowych. Małe grupy, dużo praktycznego angielskiego
+                i&nbsp;spokojna, przyjazna atmosfera.
               </p>
 
               <!--
@@ -263,10 +263,31 @@
                   >ul.&nbsp;Jana Nowaka-Jeziorańskiego&nbsp;22 w&nbsp;Warszawie.</span
                 >
               </p>
-              <p data-animation="fade-up">
-                Zajęcia odbywają się po&nbsp;lekcjach szkolnych, więc dziecko zostaje w&nbsp;znanym
-                sobie miejscu.
-              </p>
+              <!--
+                ORGANIZACJA ZAJEC - osobny blok pod kreska, dodany 04.10.2026
+                na polecenie wlasciciela. Wczesniej miejsce i godziny staly
+                w jednym ciagu i zlewaly sie w jeden komunikat.
+
+                GODZINA 14:40 ZOSTAJE W ZWYKLYM TEKSCIE. Zadnej wiekszej
+                typografii, zadnego koloru sygnalowego, zadnej plakietki -
+                to techniczne wyjasnienie, dlaczego nie da sie zaczac
+                wczesniej, a nie zaleta oferty. Warunek postawiony wprost.
+
+                Kreska to `border-block-start` z tokenem `--color-rule`,
+                czyli ten sam separator co w cenniku tej strony i w reszcie
+                serwisu. Zaden nowy styl globalny nie powstal.
+              -->
+              <div class="place-org" data-animation="fade-up">
+                <p class="u-label place-org__label">Organizacja zajęć</p>
+                <p class="place-org__claim">
+                  Zajęcia odbywają się&nbsp;w&nbsp;godzinach popołudniowych.
+                </p>
+                <p class="place-org__note">
+                  Najwcześniejsza możliwa godzina rozpoczęcia to&nbsp;14:40 —&nbsp;od&nbsp;tej
+                  godziny szkoła udostępnia sale na&nbsp;zajęcia dodatkowe. Konkretny termin zależy
+                  od&nbsp;grupy.
+                </p>
+              </div>
               <a class="cta cta--ink" href="/lokalizacje/" data-animation="fade-up">
                 Zobacz lokalizacje
                 <span class="cta__arrow" aria-hidden="true">→</span>
@@ -305,31 +326,83 @@
       <section class="section" data-animation="section" aria-labelledby="dzieci-cennik">
         <div class="container">
           <p class="u-label section__label"><span>Cennik</span></p>
-          <h2 class="u-h2" id="dzieci-cennik" data-animation="fade-up">
-            Prosta cena. Bez ukrywania.
+          <h2 class="u-display rate-claim" id="dzieci-cennik" data-animation="fade-up">
+            <span class="rate-claim__lead">Prosta cena.</span>
+            <span class="rate-claim__sub">Bez ukrywania.</span>
           </h2>
 
-          <ul class="cols u-mt-8">
-            <li class="cols__item" data-animation="fade-up">
-              <h3>55 zł / 45 min</h3>
-              <p>Pierwsze dziecko.</p>
+          <!--
+            TRZY KOLUMNY CENNIKA. Wlasne klasy `rate*`, nie wspoldzielony
+            komponent `.cols` - ten niesie takze sekcje na innych stronach,
+            a ten uklad jest plakatowy i ma inna hierarchie. Reguly stoja
+            w pages/dzieci.css pod [data-page='dzieci'].
+
+            Kreska nad siatka i kreski miedzy kolumnami to ten sam token
+            `--color-rule` co w reszcie serwisu. Zero kart, zero ramek.
+          -->
+          <ul class="rate-grid">
+            <li class="rate" data-animation="fade-up">
+              <p class="rate__figure">
+                <span class="rate__amount">55 zł</span>
+                <span class="rate__unit">/&nbsp;45 min</span>
+              </p>
+              <p class="rate__who">Pierwsze dziecko.</p>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>50 zł / 45 min</h3>
-              <p>Drugie i&nbsp;każde kolejne dziecko z&nbsp;rodzeństwa.</p>
+
+            <li class="rate" data-animation="fade-up">
+              <p class="rate__figure">
+                <span class="rate__amount">50 zł</span>
+                <span class="rate__unit">/&nbsp;45 min</span>
+              </p>
+              <p class="rate__who">Drugie i&nbsp;każde kolejne dziecko z&nbsp;rodzeństwa.</p>
             </li>
-            <li class="cols__item" data-animation="fade-up">
-              <h3>Start grupy</h3>
-              <p>
-                Grupa rozpoczyna zajęcia po&nbsp;zebraniu minimum 5 dzieci.
-                <!-- ===== BLOK CZASOWY: NABÓR 2026 — USUNĄĆ PO 1 PAŹDZIERNIKA ===== -->
-                <span class="u-own-line" data-temporary="nabor-2026"
-                  >Planowany start: 1&nbsp;października 2026.</span
+
+            <li class="rate rate--groups" data-animation="fade-up">
+              <!--
+                TRZECIA KOLUMNA MOWI O DOSTEPNOSCI, nie o dacie startu.
+                Tresc nie podaje zadnej daty, wiec nie wygasnie ponownie.
+                Warunek piatki dotyczy uruchomienia KOLEJNEJ grupy, a nie
+                dolaczenia do istniejacej. "uczniow SP 402" nie jest
+                ozdobnikiem - oferta klas 1-7 jest dla uczniow tej szkoly.
+              -->
+              <h3 class="rate__title">Grupy i&nbsp;wolne miejsca</h3>
+              <p class="rate__text">
+                Zajęcia już trwają. Do&nbsp;grup, w&nbsp;których są wolne miejsca, można nadal
+                dołączyć.
+                <!--
+                  Zdanie o kolejnej grupie zaczyna WLASNY WIERSZ - polecenie
+                  wlasciciela z 04.10.2026. Sluzy do tego klasa u-own-line
+                  (display: block), a NIE znacznik lamania, ktorego par. 5
+                  kontraktu zabrania wprost.
+                -->
+                <span class="u-own-line"
+                  >Jeśli zbierze się&nbsp;minimum 5 uczniów SP&nbsp;402 o&nbsp;zbliżonym poziomie
+                  i&nbsp;dostępności, możemy uruchomić kolejną grupę.</span
                 >
-                <!-- ===== KONIEC BLOKU CZASOWEGO ===== -->
               </p>
             </li>
           </ul>
+
+          <!--
+            MATERIALY DO ZAJEC - ten sam uklad co w cenniku na stronie
+            glownej: etykieta, zdanie i dwie wlosowe kreski.
+
+            Klasy sa jednak WLASNE i zakotwiczone w [data-page='dzieci'].
+            Sekcja 07 strony glownej jest zamknieta (D12), wiec wspolny
+            zestaw klas zwiazalby dwa uklady, ktore moga sie rozejsc -
+            ta sama zasada co przy cennikach online i osmoklasisty.
+
+            Kwota stoi w zdaniu i ma tam zostac: komplet zalezy od poziomu,
+            wiec jedna stala cena bylaby obietnica ponad to, co wiemy
+            (par. 4 kontraktu).
+          -->
+          <div class="materials" data-animation="fade-up">
+            <p class="u-label materials__label">Materiały do&nbsp;zajęć</p>
+            <p class="materials__text">
+              Do&nbsp;ceny zajęć należy doliczyć jednorazowy koszt zakupu podręcznika i&nbsp;zeszytu
+              ćwiczeń. Koszt kompletu zwykle wynosi około 100&nbsp;zł.
+            </p>
+          </div>
         </div>
       </section>
       <!-- ============================================================

@@ -25,7 +25,8 @@ const STRONY = [
     url: '/oferta/dzieci/',
     sekcja: 'oferta',
     title: 'Angielski dla klas 1-7 na Gocławiu | High Five',
-    h1: /Po\s+lekcjach/i,
+    // Haslo zmienione 04.10.2026: zajecia nie zaczynaja sie zaraz po dzwonku.
+    h1: /Popołudniami/i,
     cta: 'Zapisz dziecko',
   },
   {

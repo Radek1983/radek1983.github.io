@@ -105,6 +105,25 @@ zaplanowane w kalendarzu` — brzmienie wybrane przez właściciela 19.09.2026, 
   wliczane do płatności. Zajęcia opłacone, które nie odbędą się z nieplanowanej przyczyny,
   odliczamy od płatności za kolejny miesiąc. Przekazane przez właściciela 16.09.2026.
   **Nie upraszczaj tego do „płacisz tylko za odbyte zajęcia"** — rozliczenie idzie z góry.
+- **Godzina rozpoczęcia zajęć: najwcześniej 14:40.** Od tej godziny SP 402 udostępnia
+  sale na zajęcia dodatkowe; konkretny termin zależy od grupy. Przekazane przez
+  właściciela 04.10.2026. To **nie jest grafik**, którego §4 zabrania wymyślać — to
+  godzina, od której w ogóle można zacząć, i jedyna godzina publikowana w serwisie.
+  Stoi w sekcji 02 strony głównej, w sekcji „Miejsce zajęć" na `/oferta/dzieci/`
+  i w FAQ. Zamyka część braku G-04.
+- **Materiały NIE są w cenie zajęć.** Do ceny dochodzi jednorazowy koszt podręcznika
+  i zeszytu ćwiczeń, **zwykle około 100 zł**. Przekazane przez właściciela 04.10.2026;
+  zamyka brak G-07, który §4 trzymał otwarty („czy materiały są w cenie").
+  **Kwota jest przybliżeniem i ma nim zostać** — komplet zależy od poziomu, więc jedna
+  stała cena byłaby obietnicą ponad to, co wiemy. Nie podnoś jej do rejestru cyfr
+  obok 55 i 50: to informacja dodatkowa, nie trzecia pozycja cennika.
+- **Dla kogo są zajęcia klas 1-7, a dla kogo kurs egzaminacyjny.** Zajęcia klas 1-7
+  są dla **uczniów SP 402**. Kurs przygotowujący do egzaminu ósmoklasisty jest otwarty
+  **także dla uczniów klas 8 z innych szkół**. Przekazane przez właściciela 04.10.2026.
+  Rozróżnienia **nie wolno zacierać** w żadną stronę: ani sugerować, że na zajęcia
+  klas 1-7 może przyjść dziecko spoza SP 402, ani zawężać kursu egzaminacyjnego
+  do uczniów tej jednej szkoły. Dziś nazywa je FAQ strony głównej i hero
+  `/oferta/dzieci/`.
 - **Wielkość grup.** Klasy 1-7: **5–8 osób**. Klasa 8 / egzamin ósmoklasisty:
   **5–8 osób**. Seniorzy: **4–6 osób**. Przekazane przez właściciela 23.09.2026
   w odpowiedzi na pytanie z audytu, czy fraza „małe grupy" ma za sobą konkret.
@@ -168,19 +187,36 @@ HIGH FIVE** — dotyczy to również JSON-LD.
 Sekcje briefu oznaczone jako gotowe copy to zatwierdzony copy deck. Przenieś je do
 `docs/COPY_DECK.md` i mapuj na fragmenty kodu. **Nie przerabiaj ich na generyczny marketing.**
 
-- **H1:** `Angielski po lekcjach. W tej samej szkole.`
+- **H1:** `Angielski w SP 402. W małych grupach.`
+  **Zmienione 04.10.2026 na polecenie właściciela.** Poprzednie brzmienie
+  (`Angielski po lekcjach. W tej samej szkole.`) pochodziło wprost z copy decku
+  briefu i stało się mylące: zajęcia nie zaczynają się zaraz po dzwonku, tylko
+  popołudniami, najwcześniej o 14:40. To samo dotyczy hasła `PO LEKCJACH.`
+  na `/oferta/dzieci/`, dziś `POPOŁUDNIAMI.`, i hasła sekcji 09, dziś
+  `SP 402 / POPOŁUDNIAMI.`
+  **Odstępstwo od briefu, nie literówka do cofnięcia.**
 - **Hero lead:** `Zajęcia dla uczniów klas 1-7, prowadzone po lekcjach w SP 402 w Warszawie. Małe grupy, dużo praktycznego angielskiego i osobny program przygotowujący do egzaminu ósmoklasisty.`
   Brzmienie zmienione przez właściciela wraz z rozbiciem oferty na cztery produkty (ADR 0008).
 - **Nabór:** `Nabór trwa. Start zajęć: 1 października. Grupa rusza po zebraniu minimum 5 dzieci.`
 - **Primary CTA:** `Zapisz się na zajęcia`, w nagłówku skrócone do `Zapisz się`.
   Wcześniej brief żądał `Zgłoś dziecko do grupy`. Zmianę polecił właściciel: „zgłoś dziecko” czyta się jak zgłoszenie na policję. Cel, kolor i rola CTA bez zmian — **ADR 0006**
 - **Lokalna propozycja wartości:** `Mniej logistyki. Znane miejsce. Więcej ciągłości.`
+  **Zdjęta ze strony 04.10.2026 na polecenie właściciela.** Hasło sekcji 02 brzmi dziś
+  `Znane miejsce. Popołudniowe grupy. Prosty plan.` — z tego samego powodu co H1:
+  „mniej logistyki" opisywało korzyść, która wynikała z zostawania po lekcjach.
+  Zapis zostaje w copy decku jako ślad po decyzji briefu; **na stronie go nie ma**.
 - **Język metody:** `MÓW  PRÓBUJ  POPRAWIAJ  UŻYWAJ`
   Master prompt §16 pisał `MÓWIJ.` — „mówij" nie jest polskim słowem. Poprawkę na `MÓW`
   i zdjęcie kropek polecił właściciel — **ADR 0009**.
 
 Zakaz pustych fraz: „nowoczesne metody”, „najwyższa jakość”, „doświadczeni lektorzy”,
-„przyjazna atmosfera” — o ile nie stoi za nimi potwierdzony konkret. Najpierw konkret lokalny,
+„przyjazna atmosfera” — o ile nie stoi za nimi potwierdzony konkret.
+
+**„Przyjazna atmosfera" stoi dziś w leadzie hero strony głównej i `/oferta/dzieci/`** —
+brzmienie podał właściciel 04.10.2026 i podtrzymał je mimo tego zakazu. Obrona jest
+taka, że w obu miejscach fraza stoi tuż obok konkretu („małe grupy", które mają pokrycie
+w liczbach 5–8 z §3). **Świadome odstępstwo, nie przeoczenie** — nie usuwaj jej bez
+decyzji właściciela i nie dopisuj jej w kolejnych miejscach. Najpierw konkret lokalny,
 potem korzyść edukacyjna.
 
 ### Łamanie wierszy — zasada obowiązkowa
@@ -502,7 +538,7 @@ w SP 402 Warszawa`), a opis mówił wyłącznie o klasach 1-7. Serwis ma dziś c
   **Tytuły wszystkich podstron pochodzą z tego samego zlecenia** i niosą lokalizację
   (Gocław) zamiast dopisku `Warszawa`.
 
-- `h1`: `Angielski po lekcjach. W tej samej szkole.`
+- `h1`: `Angielski w SP 402. W małych grupach.` — zmieniony 04.10.2026, patrz §5
 - Wymagane: canonical, Open Graph, favicon, `sitemap.xml`, `robots.txt`, poprawny `lang`,
   semantyczne nagłówki, trwałe kotwice, cała istotna treść w DOM.
 - **`og:image` — jeden plik marki dla całego serwisu**, `public/social/og-image.png`
@@ -662,6 +698,33 @@ paskiem, nic nie jest przesłonięte.
 grafiku zajęć — tego serwis nie podaje nigdzie i nie poda bez danych od właściciela
 (G-04 w `docs/CONTENT_GAPS.md`).
 
+**04.10.2026 — nowy nagłówek, nowy lead, nowa etykieta wezwania i nowy pasek.**
+Cztery zmiany jednego dnia, wszystkie na polecenie właściciela po tym, jak minął
+1 października:
+
+- **H1 brzmi `Angielski w SP 402. W małych grupach.`** Poprzednie hasło mówiło
+  „po lekcjach", a zajęcia zaczynają się najwcześniej o 14:40 — patrz §5;
+- **lead ma dziś PIĘĆ wierszy**, nie cztery. Liczba wierszy jest skutkiem dłuższej
+  treści, nie osobnym ustaleniem — test pilnuje jej dalej, ale pod zmienioną wartością;
+- **wezwanie brzmi `Sprawdź ceny i zasady zajęć`.** Stało tu przez chwilę
+  `Sprawdź grupy i wolne miejsca`; właściciel wymienił je tego samego dnia. Cel
+  `#cennik` i wariant `cta--ink` bez zmian, więc zamrożona geometria hero jest
+  nietknięta;
+- **pasek faktów niesie pięć pozycji** zamiast siedmiu, pierwsza łączy stan
+  z zaproszeniem: `Zajęcia już trwają — wolne miejsca`. Zeszły z niego obie pozycje
+  kampanii naborowej, więc **pasek nie ma już żadnego `data-temporary`**.
+
+**Pasek jest PRZEWIJALNY, nie ucinany** — i to jest poprawka usterki, nie kosmetyka.
+Mechanizm istniał wyłącznie poniżej 48rem; wyżej opakowanie miało `overflow: hidden`,
+więc wszystko, co nie mieściło się w oknie, znikało bez możliwości dotarcia: 71 px
+przy 1366 px, 157 px przy 1280 px. Przewijanie żyje dziś w `.ticker__track` na każdej
+szerokości, suwak jest ukryty, a ścieżka ma `tabindex` i nazwę, bo obszar przewijalny
+musi być osiągalny z klawiatury (WCAG 2.1.1).
+
+**`flex: none` na pozycjach paska jest warunkiem przewijania, nie kosmetyką.**
+Bez niego przeglądarka ściska je poniżej treści, litery wychodzą poza swoje pudełka,
+a ścieżka ma dokładnie szerokość paska — czyli nie ma czego przewijać.
+
 Pilnuje tego `tests/e2e/hero.spec.js` na macierzy 1280–1920 px. Czerwony test w tym pliku
 oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
 
@@ -702,6 +765,20 @@ kadru, który stoi na stronie — a archiwum ma trzymać to, czego na stronie **
 Pliki zamieniły się miejscami, więc nazwa `after-school-corridor-zastapione-2026-09-19.png`
 zwolniła się dla kadru zdejmowanego i nie było kolizji mimo tej samej daty.
 Po zamianie: `npm run images`.
+
+**04.10.2026 — cała treść sekcji wymieniona na polecenie właściciela.**
+
+- hasło brzmi `Znane miejsce. Popołudniowe grupy. Prosty plan.` — zdjęta została
+  zatwierdzona w briefie propozycja wartości (§5);
+- puenta brzmi `Harmonogram dopasowany do realiów szkolnego dnia.` i nadal stoi
+  w **dwóch wierszach** — miara 24ch wystarczyła bez zmian;
+- koda podaje **godzinę 14:40** i to jest jedyne miejsce na stronie głównej, które ją
+  niesie. Fakt przekazany tego samego dnia (§3), więc §4 go nie blokuje;
+- **blok „Dla rodzica oznacza to mniej logistycznego chaosu…" został bez zmian** —
+  właściciel go nie wymieniał.
+
+Odstępy między blokami i ich równość są nietknięte: zmierzone przed i po, 89/66/66 px
+przy 1440. Nierówność pierwszego z nich jest pierwotna i **nie jest usterką do naprawy**.
 
 Pilnuje tego `tests/e2e/po-lekcjach.spec.js` na macierzy 1280–1920 px. Czerwony test w tym
 pliku oznacza, że zatwierdzony układ się rozjechał — naprawiasz kod, **nie** asercję.
@@ -846,6 +923,19 @@ Właściciel polecił ją zdjąć mimo zamknięcia sekcji. **Odstęp 16 px zosta
 to on trzymał podpis pod cyfrą, nie kreska, więc geometria panelu się nie ruszyła.
 **Kreska nad przypisem cenowym zostaje**: oddziela cały panel od drobnego druku.
 
+**04.10.2026 — blok MATERIAŁY DO ZAJĘĆ.** Dodany na polecenie właściciela wraz
+z samym faktem (§3). Stoi między cenami a przypisem, w dwóch włosowych kreskach:
+górną niesie sam blok, dolną przypis, który miał ją od zawsze. **Żaden nowy styl
+separatora nie powstał.**
+
+**Kwota stoi w zdaniu i ma tam zostać.** Podniesienie jej do rejestru cyfr obok 55
+i 50 zrobiłoby z niej trzecią pozycję cennika, a komplet zależy od poziomu.
+
+Odstęp pod blokiem jest **ciaśniejszy** niż nad nim (32 px wobec 48): oba drobne druki
+należą do tej samej myśli, a odstęp nad blokiem oddziela go od cen. Robi to ujemny
+margines przypisu, **nie mniejszy `gap` siatki** — ten sam `gap` niesie też przerwę
+między cenami a materiałami i ścisnąłby oba odstępy naraz.
+
 Pilnuje tego `tests/e2e/pricing.spec.js`.
 
 ### D13 — sekcja 12 kontakt jest zamknięta
@@ -896,6 +986,27 @@ Co jest zamrożone — blok `#nabor` w `index.html` i `src/css/sections/enrollme
 przed maską reveal — nie ma nic wspólnego z odległością **między** wierszami. Wyłapał to
 `tests/e2e/polish-caps.spec.js` i miał rację.
 
+**04.10.2026 — sekcja przestała być zapowiedzią naboru.** Kampania wygasła,
+więc właściciel polecił przebudowę:
+
+- nagłówek brzmi `Zajęcia już trwają. Nadal możesz dołączyć.` i stoi w **dwóch
+  wierszach**, po zdaniu na wiersz. Stopień zszedł z `8.4vw` na `5.2vw`, a miara
+  z 15ch na 22ch — tyle, ile ma dłuższe zdanie, więc podział wypada sam, bez `<br />`;
+- **kafel z datą startu zniknął.** W jego miejsce stoi `WOLNE MIEJSCA` — podtytuł
+  kolumny, nie drugi headline. Siedzi w tym samym wierszu subgridu co cyfra `5`,
+  więc kreski pod podpisami zostają na jednej osi;
+- pierwsza kolumna ma dziś **dwa piętra podpisu**: zdanie główne i cichszy dopisek.
+  Oba w jednym bloku, bo kolumna jest subgridem o dwóch wierszach — trzecie dziecko
+  utworzyłoby wiersz domyślny i rozjechało kreski;
+- plakietka brzmi `Sprawdź status grupy`.
+
+**Wezwanie zostaje przy `Zapisz się na zajęcia`** (ADR 0006). Stało tu przez chwilę
+`Zapytaj o miejsce`; właściciel wycofał tę zmianę tego samego dnia, gdy okazało się,
+że osłabia primary CTA wbrew §18. **Nie zmieniaj tego brzmienia bez ADR.**
+
+**Sekcja nie niesie już żadnego bloku czasowego** i nadal mieści się w jednym ekranie
+desktopowym — 532 px przy oknie 900, czyli z większym zapasem niż przed zmianą.
+
 Pilnuje tego `tests/e2e/nabor.spec.js` na macierzy 1280–1920 px.
 
 ### D15 — sekcja 09 lokalizacje jest zamknięta
@@ -913,6 +1024,29 @@ i ceny` w hero: czarne tło, jasna czcionka marki, czerwień sygnałowa po najec
   Na stronie głównej nie ma już żadnego przycisku obrysowego;
 - odnośnik prowadzi do trasy Google Maps na adres SP 402 i otwiera się w nowej karcie
   z `rel="noopener"`.
+
+**04.10.2026 — hasło, kadr i typografia adresu.** Wszystko na polecenie właściciela:
+
+- hasło brzmi `SP 402 / Popołudniami.` Po drodze stało tu `Zajęcia popołudniowe.`,
+  ale samo słowo `POPOŁUDNIOWE.` ma przy pełnym stopniu 594 px wobec 558 px kolumny
+  i nie da się go złamać — właściciel wolał skrócić tekst niż dalej zmniejszać pismo,
+  więc stopień wrócił do pełnego `--step-h1`;
+- **kolumna tekstowa ma siedem pól siatki, kadr pięć** — wcześniej odwrotnie.
+  Właściciel uznał, że zdjęcie budynku niewiele wnosi;
+- **kadr renderuje się tak jak na `/lokalizacje/`.** Dwie usterki naraz: formuła
+  `calc(50% - 50vw)` liczyła wyjście poza siatkę od pola siatki, nie od kontenera,
+  więc przy pięciu kolumnach dawała margines −468 px zamiast −36 px i **405 px kadru
+  wychodziło poza okno**, obcinane przez `overflow-x: clip`. Dziś używa tokenu
+  `--bleed-inline`, tak jak `.split__media`. Druga rzecz: sztywne 16:9 zastąpiła
+  proporcja **13:10**, ta sama co tam;
+- **adres jest w rejestrze tekstu ciągłego** (`--step-body`), nie leadu — czytał się
+  jak drugie hasło sekcji;
+- **podpis nad adresem jest przygaszony** do 55% krycia, jak wszystkie etykiety;
+- **zastrzeżenie o relacji ze SP 402 stoi w dwóch wierszach** — miara podniesiona
+  z globalnych 544 px na 704 px. Treść nietknięta, broni jej §4;
+- **odstęp nad sekcją mniejszy o 45%**, mnożnikiem `0.55` od `--space-section`.
+
+**Wariant `cta--ink` przycisku `Wyznacz trasę` bez zmian** — niesie też hero (D7).
 
 Pilnuje tego `tests/e2e/lokalizacja.spec.js`.
 
@@ -1126,6 +1260,32 @@ odrzucone.
 **Świadomie BEZ wzmianki o dzieciach spoza SP 402.** Serwis nigdzie nie mówi, czy
 mogą uczestniczyć, a par. 4 zabrania dopisywania faktów spoza par. 3. Brak
 odnotowany w `docs/CONTENT_GAPS.md` (G-21) i czeka na decyzję właściciela.
+
+**04.10.2026 — cztery zmiany treści i przebudowa cennika.** Wszystko na polecenie
+właściciela:
+
+- **hero:** hasło `POPOŁUDNIAMI. Z ENERGIĄ. Z EFEKTAMI.` i lead mówiący wprost,
+  że zajęcia są **dla uczniów SP 402** (§3). Dopisek o współpracy bez zmian;
+- **„Miejsce zajęć" rozdzielone na dwa bloki** włosową kreską: adres i `ORGANIZACJA
+ZAJĘĆ`. Godzina 14:40 stoi w **zwykłym tekście pomocniczym** — bez większego
+  stopnia, bez koloru sygnałowego, bez plakietki. To wyjaśnienie ograniczenia,
+  nie zaleta oferty, i tak ma zostać. Zdanie o popołudniach ma wagę **500, nie 600**:
+  z tekstowego Intera self-hostujemy tylko Regular i Medium (§7);
+- **cennik przebudowany na układ plakatowy** według obrazu referencyjnego: hasło
+  w dwóch stopniach (`Prosta cena.` większe od `Bez ukrywania.`), kreska, trzy
+  kolumny z pionowymi separatorami, blok materiałów między dwiema kreskami;
+- **trzecia kolumna mówi o dostępności, nie o dacie.** `Grupy i wolne miejsca`
+  zastąpiło `Start grupy` z planowanym 1 października. Treść nie podaje żadnej daty,
+  więc nie wygaśnie ponownie; warunek piątki dotyczy uruchomienia **kolejnej** grupy.
+  Zdanie o niej zaczyna własny wiersz przez `.u-own-line`, nie `<br />` (§5).
+
+**Klasy `rate*` i `materials` są WŁASNE, nie współdzielone.** Komponent `.cols`
+niesie także sekcje na `/kariera/` i `/oferta/online/`, a blok materiałów na stronie
+głównej żyje w zamkniętej sekcji 07 (D12). Wszystkie reguły są zakotwiczone
+w `[data-page='dzieci']`.
+
+**Na tej stronie nie ma już bloku czasowego** — `Planowany start: 1 października 2026.`
+był ostatnim.
 
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
 
@@ -1480,6 +1640,34 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
 
   **Tekst pod pasem faktów jest JEDNĄ, ciągłą kolumną.** Stał tam przez chwilę układ
   dwóch kolumn; właściciel odrzucił go tego samego dnia. Nie wracaj do niego.
+
+- **FAQ ISTNIEJE NA STRONIE DWA RAZY.** Widoczny akordeon w sekcji 11 i `FAQPage`
+  w JSON-LD w nagłówku dokumentu. Zmiana tylko jednego miejsca wysyła wyszukiwarkom
+  nieaktualną treść — po aktualizacji 04.10.2026 dane strukturalne są **składane
+  z widocznego FAQ**, z twardymi spacjami zamienionymi na zwykłe. Pilnuje tego
+  `tests/e2e/faq.spec.js`, który porównuje oba miejsca co do znaku.
+
+  **Pułapka przy edycji skryptem:** te same zdania występują w pliku dwa razy,
+  a JSON-LD stoi WYŻEJ. Zwykłe podstawienie trafia więc w dane strukturalne,
+  nie w widoczne pytanie. Dziel plik na nagłówek i resztę albo celuj selektorem.
+
+  **Treść FAQ wymieniona 04.10.2026** na polecenie właściciela: pytanie o start
+  zajęć zastąpiło `Czy można jeszcze dołączyć do grupy?`, a odpowiedzi niosą dziś
+  godzinę 14:40, koszt materiałów i rozróżnienie SP 402 / inne szkoły. §6 kontraktu
+  zabraniał publikować zasady dołączenia po starcie — to zlecenie jest potwierdzeniem.
+  Odpowiedź mówi o dostępności miejsc, ale **nie podaje ich liczby** (§4).
+
+- **Nie edytuj plików przez powłokę, gdy tekst zawiera odwrotne apostrofy.**
+  Powłoka traktuje je jako podstawienie polecenia i wycina fragment — zdarzyło się
+  to 04.10.2026 trzy razy, raz zostawiając w arkuszu komentarz bez nazwy klasy.
+  To samo dotyczy sekwencji ze znakiem ucieczki w wyrażeniach regularnych: ukośnik
+  znika i wzorzec przestaje działać. **Cokolwiek zawiera odwrotny apostrof albo
+  ukośnik odwrotny — pisz narzędziem plikowym.**
+
+- **Nie używaj leniwego dopasowania do kasowania bloku CSS.** Wzorzec zaczyna
+  dopasowanie od PIERWSZEGO komentarza w pliku, nie od sąsiedniego: 04.10.2026 taki
+  zapis skasował 93 linie `sections/enrollment.css`. Kotwicz wzorzec na nazwie
+  selektora albo zawężaj zakres wycinka.
 
 - **`u-mt-8` w HTML NIE ISTNIEJE w żadnym arkuszu.** Klasa stoi w jedenastu miejscach
   na sześciu stronach i miała dawać margines u góry — nigdy nie powstała, więc bloki,

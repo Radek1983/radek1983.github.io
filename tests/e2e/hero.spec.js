@@ -77,8 +77,12 @@ test.describe('01 hero - uklad zatwierdzony', () => {
       expect(m.dolBloku, 'dol bloku w kadrze').toBeLessThan(0.82)
       expect(m.goraBloku, 'gora bloku w kadrze').toBeGreaterThan(0.02)
 
-      // Lead lamie sie na cztery wiersze - jawne zyczenie wlasciciela.
-      expect(m.leadLinie, 'wiersze leadu').toBe(4)
+      /*
+       * Lead ma PIEC wierszy od 04.10.2026. Wczesniej mial cztery, ale
+       * wlasciciel wymienil jego tresc na dluzsza - liczba wierszy jest
+       * skutkiem tresci, nie osobnym ustaleniem.
+       */
+      expect(m.leadLinie, 'wiersze leadu').toBe(5)
 
       // Kazde zdanie naglowka w jednej linii.
       expect(m.tytulLinie, 'wiersze naglowka').toBe(2)

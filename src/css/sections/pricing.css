@@ -98,8 +98,54 @@
  * akapit do czytania ciagiem, wiec swiadomie nie obowiazuje go --measure.
  * Stoi POD obiema cenami, nigdy miedzy nimi.
  */
+
+/*
+ * MATERIAŁY DO ZAJĘĆ — informacja dodatkowa, nie trzecia pozycja cennika.
+ *
+ * Kwota celowo zostaje w zdaniu, w rejestrze tekstu ciągłego. Podniesienie
+ * jej do rejestru cyfr obok 55 i 50 czytałoby się jak kolejna stawka,
+ * a komplet zależy od poziomu - stała cena byłaby obietnicą ponad to,
+ * co wiemy (par. 4).
+ *
+ * Kreska u góry to to samo obramowanie co w przypisie poniżej, więc blok
+ * siada między dwiema identycznymi liniami bez jednego nowego stylu.
+ * Odstęp nad nią daje `gap` siatki, pod nią - własny padding.
+ */
+.pricing__materials {
+  grid-column: 1 / -1;
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.pricing__materials-label {
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+/*
+ * Bez ograniczenia miary: blok ma przebiegać przez całą szerokość pasa,
+ * tak jak w projekcie referencyjnym. Zdanie ma dwa wiersze na desktopie,
+ * więc długi wiersz niczego tu nie utrudnia - to nie jest blok tekstu
+ * do czytania ciągiem.
+ */
+.pricing__materials-text {
+  margin-block-start: var(--space-4);
+  max-inline-size: none;
+}
+
+/*
+ * Przypis stoi BLIŻEJ bloku materiałów niż wynikałoby z `gap` siatki -
+ * polecenie właściciela z 04.10.2026. Odstęp nad blokiem materiałów ma
+ * zostać pełny (oddziela go od cen), a ten pod nim jest ciaśniejszy,
+ * bo oba drobne druki należą do tej samej myśli.
+ *
+ * Ujemny margines, a nie mniejszy `gap` siatki: `gap` niesie także
+ * odstęp między cenami a materiałami, więc jego zmiana ścisnęłaby oba
+ * naraz. 48 px z siatki minus 16 px daje 32 px nad kreską.
+ */
 .pricing__note {
   grid-column: 1 / -1;
+  margin-block-start: calc(var(--space-4) * -1);
   padding-block-start: var(--space-4);
   border-block-start: 1px solid var(--color-rule);
   font-size: 0.9375rem;

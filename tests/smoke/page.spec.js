@@ -17,7 +17,12 @@ test.describe('tresc i SEO', () => {
     await page.reload()
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toHaveText('Angielski po lekcjach. W tej samej szkole.')
+    /*
+     * H1 wymieniony 04.10.2026 na polecenie wlasciciela. Poprzednie brzmienie
+     * pochodzilo z copy decku briefu (par. 5), wiec zmiana jest odstepstwem
+     * odnotowanym w CLAUDE.md - nie literowka do cofniecia.
+     */
+    await expect(page.locator('h1')).toHaveText('Angielski w SP 402. W małych grupach.')
     expect(errors).toEqual([])
   })
 
@@ -94,8 +99,14 @@ test.describe('tresc i SEO', () => {
     await expect(body).toContainText('klas 1-7')
     await expect(body).toContainText(/egzamin/i)
     await expect(body).toContainText('SP 402')
-    await expect(body).toContainText('1 października')
-    await expect(body).toContainText('minimum 5 dzieci')
+
+    /*
+     * DATY STARTU JUZ NIE MA i ma nie wrocic - 1 pazdziernika minal,
+     * a strona mowi dzis, ze zajecia trwaja. W jej miejsce stoi warunek
+     * stały: minimum pieciu uczniow do uruchomienia grupy.
+     */
+    await expect(body).not.toContainText('1 października')
+    await expect(body).toContainText(/minimum 5 (dzieci|uczniów)/i)
     await expect(body).toContainText('55 zł')
     await expect(body).toContainText('50 zł')
     await expect(body).toContainText('egzaminu ósmoklasisty')
@@ -191,12 +202,16 @@ test.describe('tresc i SEO', () => {
 
   test('nabor jest informacja czasowa, a nie tematem przewodnim', async ({ page }) => {
     /*
-     * Wlasciciel przenios nabor do paska faktow na gorze i usunal czerwony baner.
-     * Nabor moze byc wiec widoczny, ale kazdy jego element musi dac sie usunac
-     * po 1 pazdziernika. Piec elementow w czterech miejscach: dwie pozycje
-     * w pasku, data i plakietka w sekcji 07 oraz jedno pytanie FAQ.
+     * KAMPANIA WYGASLA 1 PAZDZIERNIKA i 04.10.2026 zeszla ze strony glownej
+     * w calosci: dwie pozycje paska, kafel z data, plakietka statusu
+     * i pytanie FAQ o start. Po tej operacji nie zostal tu ani jeden
+     * blok czasowy.
+     *
+     * Test pilnuje zera, a nie piatki: gdyby ktos dopisal nowa date,
+     * musi ja oznaczyc - i wtedy ten test zapali sie jako przypomnienie,
+     * ze trzeba ustalic, kiedy ma zniknac.
      */
-    await expect(page.locator('[data-temporary="nabor-2026"]')).toHaveCount(5)
+    await expect(page.locator('[data-temporary="nabor-2026"]')).toHaveCount(0)
 
     // Warunek istotny: zadna wzmianka o naborze nie moze byc nieoznaczona,
     // bo wtedy zostalaby na stronie po usunieciu bloku czasowego.
@@ -219,14 +234,17 @@ test.describe('tresc i SEO', () => {
     expect(nieoznaczone).toEqual([])
 
     /*
-     * Naglowek sekcji 08 opisuje warunek STALY, nie date - dlatego zostaje
-     * na stronie takze po 1 pazdziernika. Brzmienie wlasciciel zmienil
-     * 16.09.2026 z "Grupa rusza od piątego dziecka." na "5 dzieci
-     * i startujemy."; warunek jest ten sam, wiec test pilnuje intencji
-     * (minimum grupy bez daty), a nie konkretnego zdania.
+     * Naglowek sekcji 08 opisuje stan, ktory nie ma daty waznosci - dlatego
+     * zostaje na stronie takze po 1 pazdziernika. Brzmienie zmieniano dwa
+     * razy: 16.09.2026 na "5 dzieci i startujemy.", a 04.10.2026 na
+     * "Zajęcia już trwają. Nadal możesz dołączyć.", gdy kampania wygasla.
+     *
+     * Warunek piatki zszedl z naglowka do pierwszej kolumny sekcji i to tam
+     * go dzis sprawdzamy. Test pilnuje intencji - stanu bez daty - a nie
+     * konkretnego zdania.
      */
-    await expect(page.locator('#nabor-title')).toContainText(/5\s*dzieci/i)
     await expect(page.locator('#nabor-title')).not.toContainText(/pa[zż]dziernik|2026/i)
+    await expect(page.locator('#nabor')).toContainText(/minimum 5 dzieci/i)
 
     // Czerwony baner zostal usuniety - nabor nie ma wlasnego pasa na stronie.
     await expect(page.locator('.notice')).toHaveCount(0)

@@ -111,8 +111,16 @@ test.describe('08 nabor - uklad zatwierdzony', () => {
 
     const tytul = page.locator('#nabor-title')
 
-    // Warunek staly, ktory zostaje na stronie takze po 1 pazdziernika.
-    await expect(tytul).toContainText(/5\s*dzieci/i)
+    /*
+     * Haslo wymienione 04.10.2026: kampania naborowa wygasla, wiec sekcja
+     * mowi dzis, ze zajecia trwaja i nadal mozna dolaczyc. Warunek piatki
+     * zostal, ale zszedl do pierwszej kolumny - w naglowku go juz nie ma.
+     *
+     * Zakaz daty ZOSTAJE i jest tu najwazniejszy: naglowek nie moze wrocic
+     * do obietnicy terminu, ktora znowu sie zestarzeje.
+     */
+    await expect(tytul).toContainText(/Zajęcia już trwają/i)
+    await expect(tytul).toContainText(/Nadal możesz dołączyć/i)
     await expect(tytul).not.toContainText(/pa[zż]dziernik|2026/i)
 
     const wiersze = await page.evaluate(() => {
@@ -127,11 +135,16 @@ test.describe('08 nabor - uklad zatwierdzony', () => {
   })
 
   /*
-   * Blok czasowy musi dac sie usunac w calosci po 1 pazdziernika. W tej sekcji
-   * sa dwa znaczniki: data i plakietka statusu.
+   * Blokow czasowych w tej sekcji JUZ NIE MA. Byly dwa - kafel z data startu
+   * i plakietka "Zbieramy grupy" - i oba zeszly 04.10.2026 razem z trescia,
+   * ktora sie zestarzala.
+   *
+   * Test pilnuje, zeby nie wrocily: kazda data w tej sekcji jest obietnica,
+   * ktora kiedys przestanie byc prawda, a przypominajacy o tym workflow
+   * zadziala dopiero po scaleniu do main.
    */
-  test('elementy czasowe sa oznaczone do usuniecia', async ({ page }) => {
+  test('sekcja nie niesie juz zadnego bloku czasowego', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('#nabor [data-temporary="nabor-2026"]')).toHaveCount(2)
+    await expect(page.locator('#nabor [data-temporary]')).toHaveCount(0)
   })
 })
