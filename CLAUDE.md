@@ -599,12 +599,27 @@ Przeglądarki: Chrome, Edge, Firefox (aktualna + 2 poprzednie), Safari macOS i i
   dostawcy na `kontakt@highfive.academy`; domenę przekazał właściciel, nie została
   wymyślona. To zamyka G-17. **Od 19.09.2026 domena poczty jest też domeną serwisu** —
   strona stoi pod `www.highfive.academy` (D3, ADR 0010).
-- **Jeden wyjątek od „jednego źródła": sekcja zapisów na `/oferta/dzieci/`.** Niesie
-  osobny adres zapisowy `highfive.zapisy@gmail.com`, wpisany wprost w HTML, nie przez
-  `{{EMAIL}}`. Decyzja właściciela z 17.09.2026. To **nie jest pozostałość** po starej
-  wartości — skrzynka zapisowa jest czymś innym niż ogólny adres kontaktowy, który stoi
-  w stopce i w sekcji 12. Zakaz powrotu gmaila obowiązuje więc na ośmiu stronach,
-  nie na dziewięciu.
+- **Adresy są DWA i oba są scentralizowane — od 04.10.2026.** Obok `email` stoi
+  w `KONTAKT` drugi wpis `emailZapisy` (`highfive.zapisy@gmail.com`), podstawiany
+  przez własny znacznik `{{EMAIL_ZAPISY}}`. Wcześniej adres zapisowy był wpisany
+  wprost w HTML; centralizacja **nie zmieniła wartości** ani niczego na stronie —
+  zbudowane znaczniki `/oferta/dzieci/` są po niej identyczne co do znaku.
+  Dała jedno miejsce do podmiany, gdyby skrzynka przeniosła się do własnej domeny.
+
+  **Rozdział obu adresów zostaje** — decyzja właściciela z 17.09.2026. Skrzynka
+  zapisowa jest czymś innym niż ogólny adres kontaktowy ze stopki i sekcji 12;
+  **nie ujednolicaj ich**. Zakaz powrotu gmaila jako adresu **ogólnego** obowiązuje
+  więc na ośmiu stronach, nie na dziewięciu.
+
+  **Wyjątek od centralizacji: `/polityka-prywatnosci/`.** Cztery wystąpienia tego
+  adresu zostają tam wpisane wprost, bo treść strony jest cytatem z PDF-a właściciela
+  (D21). Podstawianie jej przy budowaniu znaczyłoby, że zmiana w kodzie po cichu
+  zmienia dokument prawny.
+
+  **`htmlPartials` podstawia znaczniki także w komentarzach HTML** — komentarz
+  wymieniający `{{` z nazwy znacznika zamienia się po zbudowaniu w adres i traci
+  sens. Opisuj je słowami.
+
 - Adres e-mail widoczny publicznie ściąga spam — świadomie przyjęte ryzyko.
 - **Żadna stara wartość nie może wrócić** — ani konto prywatne z czasu budowy, ani
   skrzynka na gmailu. Pilnuje tego test w `tests/e2e/regressions.spec.js`, który
@@ -1094,6 +1109,24 @@ Ten sam zabieg co w sekcjach 05 i 12 strony głównej.
   samym bloku czasowym `data-temporary="nabor-2026"`, więc zniknie razem z nim
   po 1 października.
 
+**04.10.2026 — drobny druk mówi, CO PODAĆ W ZGŁOSZENIU.** Polecenie właściciela
+po audycie. Akapit pod kreską w sekcji zapisów zaczyna się dziś zdaniem
+`W wiadomości wystarczy klasa dziecka i kontakt do Ciebie.`, a dopiero po nim
+stoi dotychczasowe zdanie o odpowiadaniu mailem.
+
+Zdanie poszło do **drobnego druku, nie do leadu**: lead ma tu zostać dwuwierszowy,
+a trzecie zdanie rozbiłoby mu układ. Po zmianie akapit ma dwa wiersze na desktopie
+i trzy na telefonie, bez wiszących krótkich słów.
+
+**Brzmienie jest INNE na każdej ścieżce i nie wolno go ujednolicać** — właściciel
+rozstrzygnął to wprost: online potrzebuje poziomu i dostępności, klasy 1-7 samej
+klasy, a ósmoklasiści klasy ucznia. Audyt proponował jeden wspólny komunikat;
+odrzucone.
+
+**Świadomie BEZ wzmianki o dzieciach spoza SP 402.** Serwis nigdzie nie mówi, czy
+mogą uczestniczyć, a par. 4 zabrania dopisywania faktów spoza par. 3. Brak
+odnotowany w `docs/CONTENT_GAPS.md` (G-21) i czeka na decyzję właściciela.
+
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
 
 ### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
@@ -1175,6 +1208,12 @@ wprost, mimo zamknięcia strony, po obejrzeniu nowej sekcji `CENNIK` na
 porównywał obie strony obok siebie. Zmieniając je tutaj, zmień je tam — i odwrotnie.
 Reguły są osobne (`exam-*` kontra `online-*`), bo strony mają różne skale nagłówków
 i wspólny zestaw klas związałby rzeczy, które mają się różnić.
+
+**04.10.2026 — drobny druk mówi, CO PODAĆ W ZGŁOSZENIU.** Ta sama zmiana co na
+`/oferta/dzieci/` i z tego samego polecenia: akapit pod kreską zaczyna się zdaniem
+`W wiadomości wystarczy klasa ucznia i kontakt do Ciebie.`. Brzmienie różni się
+od tamtego o jedno słowo i **tak ma zostać** — komunikat jest per ścieżka.
+Bez wzmianki o uczniach spoza SP 402, z tego samego powodu co tam (G-21).
 
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 

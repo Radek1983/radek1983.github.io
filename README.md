@@ -144,19 +144,20 @@ Materiały źródłowe właściciela leżą w `instructions/` i są **wpisane do
 
 ## Dokumentacja
 
-| Plik                           | O czym                                        |
-| ------------------------------ | --------------------------------------------- |
-| `CLAUDE.md`                    | kontrakt projektu — czytaj przed każdą zmianą |
-| `docs/ADR/`                    | decyzje architektoniczne z uzasadnieniem      |
-| `docs/ARCHITECTURE.md`         | stos, warstwy, zależności                     |
-| `docs/DESIGN_SYSTEM.md`        | tokeny, typografia, siatka                    |
-| `docs/ART_DIRECTION.md`        | zasady fotografii i kompozycji                |
-| `docs/COPY_DECK.md`            | zatwierdzone teksty                           |
-| `docs/CONTENT_GAPS.md`         | czego brakuje i kto ma to dostarczyć          |
-| `docs/ACCESSIBILITY.md`        | stan dostępności i świadome odstępstwo        |
-| `docs/HOSTING.md`              | co GitHub Pages potrafi, a czego nie          |
-| `docs/HOSTING_IMPROVEMENTS.md` | co zyskamy po przejściu na warstwę z CDN      |
-| `docs/DEPLOYMENT.md`           | wdrożenie i wycofanie                         |
+| Plik                           | O czym                                                |
+| ------------------------------ | ----------------------------------------------------- |
+| `CLAUDE.md`                    | kontrakt projektu — czytaj przed każdą zmianą         |
+| `docs/ADR/`                    | decyzje architektoniczne z uzasadnieniem              |
+| `docs/ARCHITECTURE.md`         | stos, warstwy, zależności                             |
+| `docs/DESIGN_SYSTEM.md`        | tokeny, typografia, siatka                            |
+| `docs/ART_DIRECTION.md`        | zasady fotografii i kompozycji                        |
+| `docs/COPY_DECK.md`            | zatwierdzone teksty                                   |
+| `docs/CONTENT_GAPS.md`         | czego brakuje i kto ma to dostarczyć                  |
+| `docs/ACCESSIBILITY.md`        | stan dostępności i świadome odstępstwo                |
+| `docs/AUDYT-2026-10.md`        | raport z audytu jakości i lista zadań dla właściciela |
+| `docs/HOSTING.md`              | co GitHub Pages potrafi, a czego nie                  |
+| `docs/HOSTING_IMPROVEMENTS.md` | co zyskamy po przejściu na warstwę z CDN              |
+| `docs/DEPLOYMENT.md`           | wdrożenie i wycofanie                                 |
 
 **Siedmiu dokumentów wymaganych przez §11 kontraktu dziś nie ma:**
 `CONTENT.md`, `SEO.md`, `TESTING.md`, `MOTION.md`, `ANALYTICS.md`,

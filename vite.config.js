@@ -178,18 +178,27 @@ function htmlPartials() {
 
         const zWezwaniem = wynik.replace(/[ \t]*<!--\/?CTA-(?:PASEK|SZUFLADA)-->\n?/g, '')
 
-        return (cta === null ? bezWezwania : zWezwaniem)
-          .replaceAll('{{MOTYW_NAGLOWKA}}', MOTYW_NAGLOWKA[klucz] ?? '')
-          .replaceAll('{{MEGA_MENU}}', megaMenu(`/${klucz.replace(/index\.html$/, '')}`))
-          .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
-          .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
-          .replaceAll('{{LINK_CENNIK}}', LINK_CENNIK)
-          .replaceAll('{{TEL}}', KONTAKT.telefon)
-          .replaceAll('{{TEL_HREF}}', KONTAKT.telefonHref)
-          .replaceAll('{{EMAIL}}', KONTAKT.email)
-          .replaceAll('{{FACEBOOK}}', KONTAKT.facebook)
-          .replaceAll('{{CTA_LABEL}}', cta?.label ?? '')
-          .replaceAll('{{CTA_HREF}}', cta?.href ?? '')
+        return (
+          (cta === null ? bezWezwania : zWezwaniem)
+            .replaceAll('{{MOTYW_NAGLOWKA}}', MOTYW_NAGLOWKA[klucz] ?? '')
+            .replaceAll('{{MEGA_MENU}}', megaMenu(`/${klucz.replace(/index\.html$/, '')}`))
+            .replaceAll('{{MENU_MOBILNE_OFERTA}}', menuMobilne)
+            .replaceAll('{{STOPKA_OFERTA}}', stopkaOferta)
+            .replaceAll('{{LINK_CENNIK}}', LINK_CENNIK)
+            .replaceAll('{{TEL}}', KONTAKT.telefon)
+            .replaceAll('{{TEL_HREF}}', KONTAKT.telefonHref)
+            .replaceAll('{{EMAIL}}', KONTAKT.email)
+            /*
+             * Skrzynka zapisowa klas 1-7 - inna niz ogolna i taka ma zostac
+             * (D6). Znacznik stoi dzis w JEDNYM miejscu, na /oferta/dzieci/;
+             * polityka prywatnosci niesie ten sam adres wpisany wprost, bo
+             * jej tresc jest cytatem z dokumentu, nie copy strony (D21).
+             */
+            .replaceAll('{{EMAIL_ZAPISY}}', KONTAKT.emailZapisy)
+            .replaceAll('{{FACEBOOK}}', KONTAKT.facebook)
+            .replaceAll('{{CTA_LABEL}}', cta?.label ?? '')
+            .replaceAll('{{CTA_HREF}}', cta?.href ?? '')
+        )
       },
     },
   }

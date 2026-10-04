@@ -178,6 +178,24 @@ export const KONTAKT = {
   telefonHref: '+48790266517',
   email: 'kontakt@highfive.academy',
   /*
+   * OSOBNA SKRZYNKA ZAPISOWA, nie pozostalosc po starej wartosci.
+   * Decyzja wlasciciela z 17.09.2026 (D6): zgloszenie do grupy klas 1-7
+   * idzie gdzie indziej niz ogolna korespondencja, wiec oba adresy maja
+   * zostac rozdzielone. **Nie ujednolicaj ich z `email` powyzej.**
+   *
+   * Do 04.10.2026 stala wpisana wprost w HTML. Centralizacja nie zmienia
+   * wartosci ani niczego na stronie - daje jedno miejsce do podmiany,
+   * gdyby skrzynka przeniosla sie kiedys do wlasnej domeny. Dzis takiej
+   * skrzynki NIE MA i par. 4 zabrania publikowania niepotwierdzonego
+   * adresu, wiec zostaje ta, ktora odbiera poczte.
+   *
+   * UWAGA: `/polityka-prywatnosci/` niesie ten adres w CZTERECH miejscach
+   * i tam zostaje wpisany wprost. Tresc tej strony jest cytatem z PDF-a
+   * wlasciciela (D21), wiec podstawianie jej przy budowaniu znaczyloby,
+   * ze zmiana w kodzie po cichu zmienia dokument prawny.
+   */
+  emailZapisy: 'highfive.zapisy@gmail.com',
+  /*
    * Oficjalny profil marki. Stoi TU, a nie w stopce, bo ten sam adres
    * niesie takze `sameAs` w danych strukturalnych strony glownej - dwa
    * wpisane recznie URL-e rozjechalyby sie przy pierwszej zmianie.

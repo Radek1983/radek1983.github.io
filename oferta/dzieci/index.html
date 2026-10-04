@@ -378,15 +378,21 @@
             <div class="enroll__item" data-animation="fade-up">
               <dt class="enroll__label">E-mail</dt>
               <!--
-                ADRES WPISANY WPROST, nie {{EMAIL}}.
+                INNY ZNACZNIK NIZ RESZTA SERWISU: bierze adres zapisowy,
+                a nie ogolny. Nazw obu znacznikow nie wypisuje tu wprost,
+                bo htmlPartials podstawia je takze w komentarzach.
 
-                To jedyne miejsce w serwisie, ktore NIE bierze adresu
-                z KONTAKT w src/data/offers.mjs. Wlasciciel polecil to
-                17.09.2026: skrzynka zapisowa jest inna niz ogolny adres
-                kontaktowy, ktory stoi w stopce i w sekcji 12.
+                Skrzynka zapisowa jest czyms innym niz ogolny adres
+                kontaktowy, ktory stoi w stopce tej samej strony i w sekcji
+                12 strony glownej. Wlasciciel rozdzielil oba 17.09.2026
+                (D6) - **nie ujednolicaj ich**.
+
+                Do 04.10.2026 adres byl tu wpisany wprost. Centralizacja
+                niczego nie zmienila na stronie: ta sama wartosc, jedno
+                miejsce do podmiany w src/data/offers.mjs.
               -->
               <dd class="enroll__value">
-                <a href="mailto:highfive.zapisy@gmail.com">highfive.zapisy@gmail.com</a>
+                <a href="mailto:{{EMAIL_ZAPISY}}">{{EMAIL_ZAPISY}}</a>
               </dd>
             </div>
 
@@ -401,8 +407,20 @@
             </div>
           </dl>
 
+          <!--
+            Zdanie o tym, CO PODAC W ZGLOSZENIU - polecenie wlasciciela
+            z 04.10.2026. Kazda sciezka potrzebuje czego innego, wiec
+            brzmienie jest tu inne niz na pozostalych podstronach i NIE
+            wolno go ujednolicac. Dla klas 1-7 wystarcza klasa i kontakt.
+
+            Swiadomie BEZ wzmianki o dzieciach spoza SP 402: serwis nigdzie
+            nie mowi, czy moga uczestniczyc, a par. 4 zabrania dopisywania
+            faktow spoza par. 3. Czeka na decyzje wlasciciela, odnotowane
+            w docs/CONTENT_GAPS.md.
+          -->
           <p class="enroll__note" data-animation="fade-up">
-            W&nbsp;ciągu dnia lektor pracuje w&nbsp;szkole, dlatego najszybciej odpowiadamy mailowo.
+            W&nbsp;wiadomości wystarczy klasa dziecka i&nbsp;kontakt do&nbsp;Ciebie. W&nbsp;ciągu
+            dnia lektor pracuje w&nbsp;szkole, dlatego najszybciej odpowiadamy mailowo.
           </p>
         </div>
       </section>
