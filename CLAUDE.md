@@ -1831,6 +1831,18 @@ CD / HOST / TEST / ROLL / HAND z rozdz. 27 specyfikacji.
   znika i wzorzec przestaje działać. **Cokolwiek zawiera odwrotny apostrof albo
   ukośnik odwrotny — pisz narzędziem plikowym.**
 
+- **Zmiana treści dotyka także CI, nie tylko stron i testów.** Smoke test produkcji
+  w `deploy-production.yml` szuka w pobranym HTML konkretnych fraz — to jedyne
+  miejsce poza `tests/`, które cytuje copy. Przegląd frazy „po lekcjach"
+  z 04.10.2026 objął dziesięć stron, metadane, dane strukturalne i testy, ale
+  **ominął workflow**: wdrożenie PR-a #13 skończyło się czerwonym smoke testem
+  przy poprawnie opublikowanej stronie, bo CI nadal szukał wycofanego zdania.
+
+  Przy każdym hurtowym przeglądzie treści skanuj również `.github/workflows/`.
+  Kotwice w smoke teście są dziś **faktami z §3 i chronionym brzmieniem CTA**
+  (ADR 0006), a nie dowolnym zdaniem copy, i porównuje je **po zdjęciu twardych
+  spacji** — te wędrują po tekście przy każdej korekcie łamania wierszy.
+
 - **Geometrię mierz PO przewinięciu elementu w kadr.** Część serwisu używa animacji
   sterowanych przewijaniem (`animation-timeline: view()` w `animations/editorial.css`),
   a one mają stan początkowy z przesunięciem — czasowniki sekcji 06 startują od

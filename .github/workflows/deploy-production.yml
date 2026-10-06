@@ -107,8 +107,20 @@ jobs:
           test "$code" = "200"
 
           echo "--- czy tresc krytyczna jest w HTML ---"
-          grep -q "Angielski po lekcjach" /tmp/index.html
-          grep -q "SP 402" /tmp/index.html || grep -q "402" /tmp/index.html
+          # Twarde spacje sa skladem, nie trescia (par. 5 kontraktu), i wedruja
+          # po tekscie przy kazdej korekcie lamania wierszy. Porownujemy wiec
+          # tekst PO ich zdjeciu - inaczej test padalby po zmianie typografii,
+          # mimo ze tresc stoi na stronie nietknieta.
+          sed 's/&nbsp;/ /g' /tmp/index.html > /tmp/index.txt
+
+          # Kotwice to FAKTY z par. 3 i chronione brzmienie CTA (ADR 0006),
+          # a nie dowolne zdanie copy. Stala tu fraza "Angielski po lekcjach",
+          # ktora wlasciciel wycofal 04.10.2026 (par. 4) - wdrozenie konczylo sie
+          # wtedy czerwonym smoke testem przy poprawnie opublikowanej stronie.
+          grep -q "High Five" /tmp/index.txt
+          grep -q "SP 402" /tmp/index.txt
+          grep -q "45 min" /tmp/index.txt
+          grep -q "Zapisz się na zajęcia" /tmp/index.txt
 
           echo "--- czy to build, a nie surowe zrodla ---"
           if grep -q '/src/js/main.js' /tmp/index.html; then
