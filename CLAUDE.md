@@ -410,6 +410,7 @@ strony. **Brak gradientów.**
   **Skalowanie stopnia pisma korzenia** powyżej limitu było sprawdzone i działa — wypełnia
   okno na każdej szerokości — ale przy ~2200 px wordmark hero wchodzi pod pasek nagłówka,
   a hero jest zamknięte (D7). To osobna decyzja, nie poprawka przy okazji.
+
 - **Forma:** corner radius **0** w modułach (kapsuła dozwolona tylko dla CTA), shadows **0**,
   glassmorphism **0**. Ikony wyłącznie użytkowe: strzałka, plus/minus w FAQ, marker mapy.
 - **Fotografia:** editorialowa, naturalne światło, dzieci w ruchu i rozmowie, bliskie kadry,
