@@ -86,7 +86,14 @@ function baseName(file) {
  * samego powodu co archiwum: warianty maja powstawac z kadrow, ktore stoja
  * na stronie, a nie z materialu przed obrobka.
  */
-const POMIJANE_KATALOGI = new Set(['archiwum', 'new to use'])
+/*
+ * `do-wymiany` to katalog roboczy na kadry, ktore maja dostac wyzsza
+ * rozdzielczosc: `obecne` trzyma kopie dzisiejszych plikow, `nowe` czeka
+ * na wersje wygenerowane przez wlasciciela. Pomijamy go z tego samego
+ * powodu co dwa pozostale - dopoki plik nie wrocil pod swoja wlasciwa
+ * sciezke, nie jest zrodlem serwisu i nie ma z niego nic powstawac.
+ */
+const POMIJANE_KATALOGI = new Set(['archiwum', 'new to use', 'do-wymiany'])
 
 async function collectSources(dir) {
   const out = []
