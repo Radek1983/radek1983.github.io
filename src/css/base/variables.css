@@ -100,7 +100,28 @@
   --grid-columns: 4;
   --grid-gutter: 0.75rem;
   --grid-margin: 1.25rem;
-  --container-max: 96rem;
+
+  /*
+   * MAKSYMALNA SZEROKOSC SIATKI. Podniesiona 08.10.2026 z 96rem (1536 px)
+   * na 120rem (1920 px) na polecenie wlasciciela.
+   *
+   * Powyzej tej wartosci siatka przestaje rosnac i centruje sie, a nadmiar
+   * idzie w marginesy. Prawy margines jest niewidoczny, bo wypelniaja go
+   * kadry dochodzace do krawedzi okna (wspolna os z D7, D11, D16) - lewy
+   * zostaje pustym kremem. Przy 1920 px dawalo to 228 px pustki po jednej
+   * stronie i czytalo sie jak usterka, nie jak kompozycja.
+   *
+   * PONIZEJ 1536 px NIE ZMIENIA SIE NIC. Limit zaczyna dzialac dopiero
+   * wyzej, a wszystkie sekcje zatwierdzano na 1440 px - cala zamrozona
+   * geometria D7-D21 zostaje przy tych szerokosciach co do piksela.
+   *
+   * SUFIT WYZNACZAJA ZDJECIA, NIE KOD. Przy 1920 px kadr hero rozciaga sie
+   * 1.2x (plik 1600 px), co jest niewidoczne. Wyzej robi sie miekki: 1.4x
+   * przy 2200 i 1.6x przy 2560. Podniesienie limitu dalej wymaga nowych
+   * zrodel - hero i biurko w sekcji kontaktu musialyby miec 2560 px,
+   * a kadr Terminalu (dzis 750 px) jest za maly juz przy tej wartosci.
+   */
+  --container-max: 120rem;
 
   /* --- Motion. Wartosci startowe z briefu; warstwa ruchu powstaje w osobnym kroku. --- */
   --dur-micro: 180ms;

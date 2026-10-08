@@ -384,7 +384,32 @@ strony. **Brak gradientów.**
   Display może zajmować 30–70% viewportu, być kadrowany krawędzią, nachodzić na zdjęcie
   i chwilowo być sticky. Body copy zachowuje czytelną długość wiersza.
 - **Siatka:** desktop 12 kolumn, margines 24–36 px, gutter 12–20 px. Mobile 4 kolumny,
-  margines 16–20 px.
+  margines 16–20 px. **Maksymalna szerokość siatki: `--container-max: 120rem` (1920 px)**
+  — podniesiona z 96rem 08.10.2026 na polecenie właściciela.
+
+  Powyżej limitu siatka przestaje rosnąć i centruje się, a nadmiar idzie w marginesy.
+  **Widać tylko lewy**, bo prawy wypełniają kadry dochodzące do krawędzi okna (wspólna
+  oś z D7, D11, D16) — przy 1920 px dawało to 228 px pustki po jednej stronie i czytało
+  się jak usterka. Po zmianie: 36 px, czyli tyle co przy 1440.
+
+  **Poniżej 1536 px nie zmienia się nic** i to był warunek tej zmiany: wszystkie sekcje
+  zatwierdzano na 1440 px, więc zamrożona geometria D7–D21 zostaje przy tych
+  szerokościach co do piksela. Czternaście zamków sekcji przeszło bez poprawiania
+  jednej asercji — pilnują relacji (równe kolumny, kadr przy krawędzi, brak clippingu),
+  a nie bezwzględnych współrzędnych.
+
+  **Dalszego podnoszenia limitu NIE ROBIMY bez nowych zdjęć.** Sufit wyznacza
+  rozdzielczość źródeł, nie kod: kadr hero ma plik 1600 px, więc przy 1920 rozciąga się
+  1,2× (niewidoczne), przy 2200 — 1,4×, przy 2560 — 1,6×. Generator `npm run images`
+  **nie powiększa** (`widths.filter(w => w <= width)`), więc wariantu 2000 px, który ma
+  w konfiguracji, nigdy nie wyprodukował. Czego brakuje: hero i biurko z sekcji kontaktu
+  w **2560 px** (dziś 1672 i 1536), kadr Terminalu w **1100 px** (dziś 750 — za mały już
+  przy 1920). Pozostałe kadry mają zapas.
+
+  Przy 2560 px pas wraca (356 px), ale jest po obu stronach i layout zostaje złożony.
+  **Skalowanie stopnia pisma korzenia** powyżej limitu było sprawdzone i działa — wypełnia
+  okno na każdej szerokości — ale przy ~2200 px wordmark hero wchodzi pod pasek nagłówka,
+  a hero jest zamknięte (D7). To osobna decyzja, nie poprawka przy okazji.
 - **Forma:** corner radius **0** w modułach (kapsuła dozwolona tylko dla CTA), shadows **0**,
   glassmorphism **0**. Ikony wyłącznie użytkowe: strzałka, plus/minus w FAQ, marker mapy.
 - **Fotografia:** editorialowa, naturalne światło, dzieci w ruchu i rozmowie, bliskie kadry,
