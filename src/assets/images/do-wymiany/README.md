@@ -8,25 +8,31 @@ nie wróci pod swoją właściwą ścieżkę.
   z tych kadrów mają powstać wersje w wyższej rozdzielczości.
 - **`nowe/`** — tutaj wrzucasz wygenerowane pliki.
 
-## Dlaczego te trzy
+## Dlaczego akurat te
 
 Maksymalna szerokość siatki stoi dziś na **1920 px** (`--container-max: 120rem`,
 §7 kontraktu). Sufit wyznaczają zdjęcia, nie kod: kadry pełnoekranowe rozciągają się
-wtedy ponad swoją rozdzielczość i robią się miękkie. Trzeci kadr jest za mały już dziś.
+wtedy ponad swoją rozdzielczość i robią się miękkie.
 
-| plik                       | ma dziś     | **potrzebuje**  | stan                    | gdzie stoi                                               |
-| -------------------------- | ----------- | --------------- | ----------------------- | -------------------------------------------------------- |
-| ~~`hero-classroom`~~       | 2560 × 1440 | —               | **ZROBIONE 08.10.2026** | hero strony głównej, pełna szerokość                     |
-| `detail-desk-1600.png`     | 1536 × 1024 | **2560 × 1700** | czeka                   | sekcja 12 kontakt, pełna szerokość                       |
-| `terminal-kultury-750.jpg` | 750 × 518   | **1600 × 1100** | czeka                   | sekcja 10 seniorzy, `/lokalizacje/`, `/oferta/seniorzy/` |
+**Z trzech kadrów zostało jedno.** Hero i Terminal są podmienione; czeka biurko
+z sekcji kontaktu.
+
+| plik                   | ma dziś     | **potrzebuje**  | stan                    | gdzie stoi                                               |
+| ---------------------- | ----------- | --------------- | ----------------------- | -------------------------------------------------------- |
+| ~~`hero-classroom`~~   | 2560 × 1440 | —               | **ZROBIONE 08.10.2026** | hero strony głównej, pełna szerokość                     |
+| `detail-desk-1600.png` | 1536 × 1024 | **2560 × 1700** | czeka                   | sekcja 12 kontakt, pełna szerokość                       |
+| ~~`terminal-kultury`~~ | 1600 × 1100 | —               | **ZROBIONE 08.10.2026** | sekcja 10 seniorzy, `/lokalizacje/`, `/oferta/seniorzy/` |
 
 **Hero jest załatwione.** Nowe źródło `hero/hero-classroom-2560.png` dało warianty
 768 / 1200 / 1600 / 2000 / 2560 px, poprzedni kadr leży w `archiwum/` pod nazwą
 `hero-classroom-zastapione-2026-10-08.png`. Przeglądarka dobiera dziś wariant nie
 węższy niż pudełko na każdej szerokości — rozciągnięcia nie ma nigdzie.
 
-**Kadr Terminalu jest za mały już przy 1920 px** — zajmuje tam około 1000 px, a plik
-ma 750. Jego podmiana poprawi stronę od razu, niezależnie od dalszego podnoszenia limitu.
+**Terminal też jest załatwiony.** Źródło urosło z 750 × 518 na 1600 × 1100, więc
+`aspect-ratio` w `sections/seniors.css` poszło za plikiem (`1600 / 1100`) — zostawienie
+starego ułamka wróciłoby do przycinania kadru, czyli do problemu sprzed września.
+Przy okazji zniknęły **martwe odnośniki `terminal-kultury-480`** na `/lokalizacje/`
+i `/oferta/seniorzy/`: wskazywały pliki, które nigdy nie powstały.
 
 ## Warunki, które muszą być spełnione
 

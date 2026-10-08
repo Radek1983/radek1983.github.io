@@ -74,7 +74,7 @@
 }
 
 /*
- * Proporcja kadru = proporcja PLIKU (750x518), więc `object-fit: cover`
+ * Proporcja kadru = proporcja PLIKU (1600x1100), więc `object-fit: cover`
  * nie ma czego przyciąć. Stała tu klasa `media--16-9`, czyli 1.78 wobec
  * 1.45 źródła - zdejmowała górę i dół kadru razem z literą „T" neonu
  * w lewym górnym rogu. Zgłosił to właściciel 19.09.2026.
@@ -82,10 +82,15 @@
  * Wartość jest zapisana ułamkiem ze źródła, a nie zaokrąglona do 3/2:
  * przy 1.5 wracałoby przycinanie, tym razem z lewej i prawej krawędzi -
  * czyli znowu po neonie.
+ *
+ * 08.10.2026 źródło urosło z 750x518 na 1600x1100 (1.448 -> 1.455), bo przy
+ * 1920 px kadr zajmował około 1000 px i był rozciągany 1.27x. Ułamek musiał
+ * pójść za plikiem: zostawienie 750/518 przy nowym źródle wróciłoby do
+ * przycinania, czyli do problemu sprzed września.
  */
 .seniors__media {
   grid-column: 1 / -1;
-  aspect-ratio: 750 / 518;
+  aspect-ratio: 1600 / 1100;
 }
 
 /* --- DOL: linia o poziomach, wezwanie, dopisek -------------------------- */
