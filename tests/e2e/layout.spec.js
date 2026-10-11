@@ -1208,12 +1208,21 @@ test.describe('05 o high five', () => {
     await expect(img).toHaveAttribute('src', /about-magdalena-germel/)
     await expect(img).toHaveAttribute('alt', /Magdalena Germel/)
 
-    // Wymiary w atrybutach rezerwuja miejsce, wiec obraz nie przesuwa layoutu.
-    await expect(img).toHaveAttribute('width', '1122')
-    await expect(img).toHaveAttribute('height', '1402')
+    /*
+     * Wymiary w atrybutach rezerwuja miejsce, wiec obraz nie przesuwa layoutu.
+     *
+     * Zrodlo podmienione 11.10.2026: bylo 1122 x 1402, jest 1600 x 1600.
+     * Powod jest wylacznie techniczny - stary plik mial za malo pikseli dla
+     * slotu, ktory na szerokim monitorze dochodzi do 959 px. UKLAD SEKCJI
+     * JEST NIETKNIETY: pudelko ma dalej proporcje 4/5, a kwadratowe zrodlo
+     * jest w nim przycinane po bokach. Portret jest wysrodkowany, wiec
+     * ciecie zabiera samo tlo.
+     */
+    await expect(img).toHaveAttribute('width', '1600')
+    await expect(img).toHaveAttribute('height', '1600')
     await expect(img).toHaveAttribute('loading', 'lazy')
 
-    // Pelna proporcja zrodla - kwadratowy kadr obcinal biurko i notatnik.
+    // Proporcja PUDELKA bez zmian - to ona trzyma zatwierdzona geometrie D11.
     const proporcja = await page.evaluate(() => {
       const box = document.querySelector('#o-nas .about__media').getBoundingClientRect()
       return +(box.width / box.height).toFixed(2)
