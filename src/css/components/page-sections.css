@@ -199,7 +199,7 @@
 
 .split__media {
   grid-column: 1 / -1;
-  aspect-ratio: 1800 / 1350;
+  aspect-ratio: 3 / 2;
   margin-block-start: var(--space-8);
 }
 
@@ -217,28 +217,12 @@
     grid-column: 1 / span 5;
   }
 
-  /*
-   * PROPORCJA PLIKU, nie sztywna wysokosc (11.10.2026).
-   *
-   * Stalo tu `block-size: min(70svh, 34rem)`, czyli 544 px niezaleznie od
-   * okna, przy szerokosci branej z siatki - a ta rosnie. Ksztalt pudelka
-   * zmienial sie wiec razem z szerokoscia ekranu i to samo zdjecie bylo
-   * na kazdym monitorze przyciete inaczej: 1.31 przy 1440, 1.75 przy 1920,
-   * 2.05 przy 2560 i 2.86 przy 3440.
-   *
-   * Przy 2.86 z klatki zostawal poziomy pasek - 63% zdjecia szlo do kosza.
-   * Wlasciciel zglosil to na /kariera/ oraz, osobno, jako ucieta glowe
-   * ucznia na /oferta/online/, nie wiedzac, ze to jedna przyczyna.
-   *
-   * Ulamek zapisany wymiarami pliku (1800 x 1350), a nie zaokraglony do 4/3:
-   * ta sama zasada co przy kadrze Terminalu, gdzie zaokraglenie wracalo
-   * z przycinaniem - tam po literze "T" neonu.
-   */
   .split__media {
     grid-column: 7 / -1;
     margin-block-start: 0;
     margin-inline-end: calc(var(--bleed-inline) * -1);
-    aspect-ratio: 1800 / 1350;
+    aspect-ratio: auto;
+    block-size: min(70svh, 34rem);
   }
 
   /* Wariant odwrocony - kadr po lewej, dochodzi do lewej krawedzi okna. */
