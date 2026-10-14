@@ -798,6 +798,51 @@
 }
 
 /*
+ * HERO /kariera/ MA MIESCIC SIE W JEDNYM EKRANIE (14.10.2026).
+ *
+ * Zgloszenie wlasciciela: po wejsciu na podstrone hero nie miesci sie
+ * w oknie - tresc jest ucieta dolna krawedzia. Zmierzone przed poprawka,
+ * razem z paskiem naglowka:
+ *
+ *   1366 x 768   805 px pasa   113% okna
+ *   1440 x 900   823 px pasa    99% okna
+ *   1920 x 1080  849 px pasa    85% okna
+ *
+ * To NIE jest regresja - produkcja ma te same wartosci co do piksela,
+ * sprawdzone `scripts/porownaj-z-produkcja.mjs`. Ta strona po prostu
+ * niesie najdluzszy tekst hero w calym serwisie: naglowek na cztery
+ * wiersze plus dwa akapity.
+ *
+ * Wysokosc buduje przede wszystkim NAGLOWEK - 340 z 823 px, czyli 41%.
+ * Drugi skladnik to odstep pionowy kolumny, 126 px.
+ *
+ * Stopien pisma musi byc tu nadpisany LOKALNIE. Naglowek nosi globalna
+ * klase `.u-display`, ktora bierze `--step-display` - a ten token niesie
+ * takze naglowki sekcji 11 i 12 strony glownej, gdzie dwunastka jest
+ * zamknieta (D13). Zmiana tokenu ruszylaby wiec dwie sekcje, ktorych
+ * nikt o to nie prosil.
+ *
+ * Zakres bierze `[data-section='kariera'] .page-hero__text`, nie sama
+ * stronę: ten sam naglowek `.u-display` stoi nizej w sekcji zapisow
+ * i tam ma zostac bez zmian.
+ */
+
+/*
+ * Trzy skladniki naraz, bo zaden z osobna nie wystarczyl. Wszystkie trzy
+ * sa ZALEZNE OD WYSOKOSCI OKNA, nie od szerokosci: problem dotyczy niskich
+ * ekranow, a nie waskich. Na monitorze 1080 px wysokosci wartosci wracaja
+ * mniej wiecej do produkcyjnych.
+ */
+[data-section='kariera'] .page-hero__text {
+  padding-block: clamp(1.5rem, 4vh, 3rem);
+  row-gap: clamp(1rem, 2.4vh, 1.5rem);
+}
+
+[data-section='kariera'] .page-hero__text .u-display {
+  font-size: clamp(2rem, 3.9vw, 3.5rem);
+}
+
+/*
  * WYLICZENIE W SEKCJI „Więcej niż tylko praca" na /kariera/.
  *
  * Reset serwisu zdejmuje punktory każdej liście z klasą (`ul[class]`
