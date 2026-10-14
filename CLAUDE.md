@@ -1383,6 +1383,19 @@ w `[data-page='dzieci']`.
 **Na tej stronie nie ma już bloku czasowego** — `Planowany start: 1 października 2026.`
 był ostatnim.
 
+**14.10.2026 — hero dociągnięte do wzorca ósmoklasisty.** Polecenie właściciela:
+etykieta ma ruszać tuż pod belką menu, a górna krawędź kadru ma stać równo
+z górą jej liter. Przed zmianą tekst zaczynał się **121 px** pod belką, a kadr
+dotykał górnej krawędzi pasa — para rozjeżdżała się o całą tę wartość.
+Dziś litery stoją **23 px** pod belką, kadr 1 px niżej, czyli dokładnie tak
+jak na `/oferta/egzamin-osmoklasisty/` (D19).
+
+Zmiana żyje w `components/page-sections.css`, w bloku wspólnym dla trzech
+stron: klas 1-7, seniorów i online. **Odstęp wisi na sekcji, nie na kolumnie
+tekstowej** — gdyby wisiał na tekście, etykieta znów zjechałaby niżej niż kadr.
+Treść, stopnie pisma i szerokości kolumn są nietknięte; przesunął się wyłącznie
+start pasa i zniknęło pionowe wyśrodkowanie tekstu względem kadru.
+
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
 
 ### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
@@ -1542,6 +1555,15 @@ dyktowałaby rynna wiersza: prawie 100 px. Właściciel zgłosił to wprost
 źródło i wynosi **16 px**. Pod lewą kolumną zostaje ok. 130 px pustki
 i to jest świadomy stan — prawa niesie dwie płyty, lewa trzy akapity.
 
+**14.10.2026 — ta strona jest WZORCEM startu hero dla podstron ofertowych.**
+Właściciel wskazał ją wprost: etykieta rusza 23 px pod belką menu, a górna
+krawędź kadru stoi równo z górą jej liter. Mechanizm jest opisany wyżej
+(odstęp na sekcji, `align-items: stretch`, zerowy padding tekstu u góry)
+i został powtórzony na `/oferta/dzieci/`, `/oferta/seniorzy/`,
+`/oferta/online/` oraz — osobnym poleceniem tego samego dnia — na
+`/kariera/`. **Sama strona jest nietknięta** — zmiana dotyczyła wyłącznie
+tamtych czterech.
+
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
 ### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
@@ -1605,6 +1627,12 @@ przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i
   właściciel; to ostatnie miejsce, w którym stał próg wiekowy zakazany przez D16.
   **Nie zastępuj tego zwrotem `dla seniorów`** — nazwa oferty stoi wiersz wyżej,
   w nagłówku strony.
+
+**14.10.2026 — hero dociągnięte do wzorca ósmoklasisty.** Ta sama zmiana
+co na `/oferta/dzieci/` i z tego samego polecenia. Przed nią tekst zaczynał
+się **88 px** pod belką menu, a kadr dotykał górnej krawędzi pasa; dziś litery
+etykiety stoją 23 px pod belką, a kadr równo z nimi. Treść i stopnie pisma
+bez zmian.
 
 Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 
