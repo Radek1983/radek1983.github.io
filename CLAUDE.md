@@ -560,10 +560,24 @@ Techniki obowiązkowe: AVIF/WebP z `srcset`/`sizes`; **obraz LCP nigdy `loading=
 poniżej fold; `preload` tylko dla rzeczywiście krytycznych zasobów; `defer`/`module` dla skryptów;
 `transform`/`opacity` zamiast animowania `top`/`left`/`width`; usunięcie martwego kodu przed release.
 
-**WCAG 2.2 AA — z jednym świadomym wyjątkiem.** Wymóg obowiązuje w całości **poza kontrastem
-tekstu**: właściciel obejrzał 23.09.2026 dwa warianty poprawki i wybrał zachowanie obecnej
-palety. Stan, liczby i odrzucone warianty opisuje `docs/ACCESSIBILITY.md`; pomiar czeka
-wyłączony w `tests/e2e/kontrast.spec.js`. Reszta listy poniżej obowiązuje bez zmian.
+**WCAG 2.2 AA — z DWOMA świadomymi wyjątkami.** Wymóg obowiązuje w całości poza nimi.
+
+1. **Kontrast tekstu.** Właściciel obejrzał 23.09.2026 dwa warianty poprawki i wybrał
+   zachowanie obecnej palety. Stan, liczby i odrzucone warianty opisuje
+   `docs/ACCESSIBILITY.md`; pomiar czeka wyłączony w `tests/e2e/kontrast.spec.js`.
+2. **Kryterium 1.4.4 „Resize text" — ADR 0014, 18.10.2026.** Korzeń skaluje się
+   z szerokością okna, a powiększenie przeglądarki tę szerokość zmniejsza, więc
+   w zakresie 100–175% powiększenie **nie powiększa tekstu**. Treść przy tym nie znika
+   i nic nie jest ucinane (sprawdza `scripts/sprawdz-skalowanie.mjs`), powyżej 175%
+   powiększenie znowu działa, a układ mobilny jest nietknięty.
+
+**Reszta listy poniżej obowiązuje bez zmian.**
+
+**Wartości pilnowane w testach zapisuj jako KROTNOŚĆ STOPNIA PISMA, nie jako liczbę
+pikseli.** Od ADR 0014 każda wartość w `rem` zmienia się razem z szerokością okna, więc
+asercja na „48 px" świeci na czerwono, choć odstęp rośnie i maleje dokładnie tak, jak ma.
+Trzy takie asercje zostały przepisane na polecenie właściciela; proporcja niczego nie
+przepuszcza, bo rozjechanie wartości względem reszty sekcji nadal daje inną krotność.
 
 **WCAG 2.2 AA:** pełna obsługa klawiatury bez pułapek focusu; widoczny focus (nie `outline: none`
 bez zamiennika); skip link; logiczna kolejność DOM i focus; minimum 44×44 CSS px dla krytycznych
@@ -1383,6 +1397,19 @@ w `[data-page='dzieci']`.
 **Na tej stronie nie ma już bloku czasowego** — `Planowany start: 1 października 2026.`
 był ostatnim.
 
+**14.10.2026 — hero dociągnięte do wzorca ósmoklasisty.** Polecenie właściciela:
+etykieta ma ruszać tuż pod belką menu, a górna krawędź kadru ma stać równo
+z górą jej liter. Przed zmianą tekst zaczynał się **121 px** pod belką, a kadr
+dotykał górnej krawędzi pasa — para rozjeżdżała się o całą tę wartość.
+Dziś litery stoją **23 px** pod belką, kadr 1 px niżej, czyli dokładnie tak
+jak na `/oferta/egzamin-osmoklasisty/` (D19).
+
+Zmiana żyje w `components/page-sections.css`, w bloku wspólnym dla trzech
+stron: klas 1-7, seniorów i online. **Odstęp wisi na sekcji, nie na kolumnie
+tekstowej** — gdyby wisiał na tekście, etykieta znów zjechałaby niżej niż kadr.
+Treść, stopnie pisma i szerokości kolumn są nietknięte; przesunął się wyłącznie
+start pasa i zniknęło pionowe wyśrodkowanie tekstu względem kadru.
+
 Pilnuje tego `tests/e2e/dzieci.spec.js`.
 
 ### D19 — podstrona `/oferta/egzamin-osmoklasisty/` jest zamknięta
@@ -1542,6 +1569,15 @@ dyktowałaby rynna wiersza: prawie 100 px. Właściciel zgłosił to wprost
 źródło i wynosi **16 px**. Pod lewą kolumną zostaje ok. 130 px pustki
 i to jest świadomy stan — prawa niesie dwie płyty, lewa trzy akapity.
 
+**14.10.2026 — ta strona jest WZORCEM startu hero dla podstron ofertowych.**
+Właściciel wskazał ją wprost: etykieta rusza 23 px pod belką menu, a górna
+krawędź kadru stoi równo z górą jej liter. Mechanizm jest opisany wyżej
+(odstęp na sekcji, `align-items: stretch`, zerowy padding tekstu u góry)
+i został powtórzony na `/oferta/dzieci/`, `/oferta/seniorzy/`,
+`/oferta/online/` oraz — osobnym poleceniem tego samego dnia — na
+`/kariera/`. **Sama strona jest nietknięta** — zmiana dotyczyła wyłącznie
+tamtych czterech.
+
 Pilnuje tego `tests/e2e/egzamin.spec.js`.
 
 ### D20 — podstrona `/oferta/seniorzy/` jest zamknięta
@@ -1605,6 +1641,12 @@ przycięty do kształtu desktopowego telefon obciąłby drugi raz — od góry i
   właściciel; to ostatnie miejsce, w którym stał próg wiekowy zakazany przez D16.
   **Nie zastępuj tego zwrotem `dla seniorów`** — nazwa oferty stoi wiersz wyżej,
   w nagłówku strony.
+
+**14.10.2026 — hero dociągnięte do wzorca ósmoklasisty.** Ta sama zmiana
+co na `/oferta/dzieci/` i z tego samego polecenia. Przed nią tekst zaczynał
+się **88 px** pod belką menu, a kadr dotykał górnej krawędzi pasa; dziś litery
+etykiety stoją 23 px pod belką, a kadr równo z nimi. Treść i stopnie pisma
+bez zmian.
 
 Pilnuje tego `tests/e2e/oferta-seniorzy.spec.js`.
 
@@ -1740,6 +1782,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                                      |
 | Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                                       |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                                     |
+| Skalowanie układu — ADR 0014                    | Korzeń skaluje się z szerokością okna (`clamp(0.75rem, 100vw / 96, 2.5rem)`), `--container-max` zostaje w `rem`. Kasuje puste marginesy od 1280 do 3840 px i czyni układ niezmienniczym wobec skali. **Drugie świadome odstępstwo od WCAG** — kryterium 1.4.4: powiększenie przeglądarki jest w zakresie 100–175% częściowo neutralizowane. Treść nie znika, powyżej 175% powiększenie znowu działa, mobile nietknięte                                                                        |
 
 ## 17. Kryteria odbioru
 

@@ -31,7 +31,7 @@ const WIDTHS = {
 
 /** AVIF daje najmniejszy plik, WebP jest fallbackiem dla starszych Safari. */
 const FORMATS = [
-  { ext: 'avif', options: { quality: 55, effort: 6 } },
+  { ext: 'avif', options: { quality: 65, effort: 6 } },
   { ext: 'webp', options: { quality: 78, effort: 5 } },
 ]
 

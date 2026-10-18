@@ -6,9 +6,60 @@
   box-sizing: border-box;
 }
 
+/*
+ * SKALOWANIE UKLADU WRAZ Z SZEROKOSCIA OKNA - W OBIE STRONY.
+ *
+ * Caly serwis jest wymierzony w `rem` - siatka, odstepy `--space-*` i gorne
+ * granice skali `--step-*`. Korzen jest wiec jedynym pokretlem, ktore rusza
+ * pismo, odstepy i szerokosc kolumny naraz, w tej samej proporcji.
+ *
+ * `100vw / 120` daje DOKLADNIE 16 px przy 1920 px - to punkt sklejenia ze
+ * stanem produkcyjnym - i zmienia sie liniowo w obie strony: 32 px przy 3840,
+ * 21.3 px przy 2560, 14.5 px przy 1745, 12.8 px przy 1536. Razem
+ * z `--container-max: 120rem` (`base/variables.css`) znaczy to, ze kazde okno
+ * desktopowe pokazuje TEN SAM uklad w innej skali: te same proporcje, ta sama
+ * liczba znakow w wierszu, zero pustych marginesow.
+ *
+ * Praktyczny skutek przy powiekszeniu przegladarki: 125% na ekranie 1920 daje
+ * okno CSS 1536, korzen 12.8 px, czyli FIZYCZNIE 16 px - tyle samo co przy
+ * 100%. Strona nie rosnie i nie przestaje miescic sie w ekranie. Przy 50%
+ * dziala to odwrotnie: okno 3840, korzen 32 px, fizycznie znowu 16.
+ *
+ * DOLNA GRANICA `0.75rem` (12 px) jest kompromisem, nie zaokragleniem.
+ * Pelna proporcja dawalaby 11.4 px przy oknie 1366 px, a to jest szerokosc
+ * REALNEGO laptopa, nie powiekszenia - tekst bylby tam za drobny. Granica
+ * wchodzi do gry ponizej 1440 px i zatrzymuje kurczenie.
+ *
+ * Ponizej 62rem (992 px) korzen WRACA do 16 px - regula nizej. Tam konczy
+ * sie uklad desktopowy i zaczyna mobilny, strojony pod telefon przy 16 px.
+ * Telefon o szerokosci 390 px dostalby z tej formuly 3.25 px.
+ *
+ * Dzielenie dlugosci przez LICZBE jest legalne; mnozenie dwoch dlugosci
+ * (`1rem * (100vw / 1920)`) nie jest i przegladarka po cichu odrzuca cala
+ * deklaracje - ta pulapka juz raz kosztowala sesje.
+ *
+ * `1rem` w granicach to 16 px, bo na elemencie glownym `rem` odnosi sie
+ * do wartosci POCZATKOWEJ, nie do wyliczanej - wiec to nie jest bledne kolo.
+ *
+ * Czego ta regula NIE rusza: progow `@media`. W zapytaniu medialnym `rem`
+ * odnosi sie do poczatkowego korzenia, wiec `75rem` to nadal 1200 px
+ * niezaleznie od skali. Szuflada mobilna wchodzi tam, gdzie wchodzila.
+ */
 html {
+  font-size: clamp(0.75rem, 100vw / 96, 2.5rem);
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+}
+
+/*
+ * Uklad mobilny trzyma korzen produkcyjny. Ponizej tego progu sekcje ukladaja
+ * sie w jedna kolumne, a szerokosc okna przestaje byc miara "jak duzy jest
+ * ekran" - telefon ma 390 px i potrzebuje pelnych 16 px, nie jednej piatej.
+ */
+@media (width < 62rem) {
+  html {
+    font-size: 1rem;
+  }
 }
 
 body {

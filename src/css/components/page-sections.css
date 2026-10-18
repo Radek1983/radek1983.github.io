@@ -76,6 +76,53 @@
   }
 }
 
+/*
+ * --- Hero podstron ofertowych: jeden start tekstu i kadru ---
+ *
+ * Wzorcem jest `/oferta/egzamin-osmoklasisty/`, wskazana przez wlasciciela
+ * 14.10.2026: etykieta rusza tuz pod belka menu, a gorna krawedz kadru stoi
+ * rowno z gora liter tej etykiety. Pozostale strony z tym hero mialy to
+ * rozjechane, bo braly uklad wspolny - kadr o stalej wysokosci dotykal
+ * gornej krawedzi pasa, a tekst byl wysrodkowany wzgledem niego i zaczynal
+ * sie 88-121 px nizej.
+ *
+ * `/kariera/` doszla tu 14.10.2026, osobnym poleceniem. Zakres bierze
+ * `[data-section='kariera']`, bo ta strona nie ma atrybutu `data-page`.
+ *
+ * Trzy skladniki, kazdy odpowiada za co innego:
+ *   padding sekcji  - odstep od belki menu, ten sam dla obu kolumn naraz;
+ *   align-items     - obie kolumny ruszaja z gory pasa, nie z jego osi;
+ *   padding tekstu  - zero u gory, bo odstep daje juz sekcja.
+ *
+ * Odstep wisi na SEKCJI, nie na kolumnie tekstowej. Gdyby wisial na tekscie,
+ * etykieta zjechalaby nizej niz kadr i para znowu by sie rozjechala - ta sama
+ * pulapka jest opisana przy hero w `pages/egzamin.css`.
+ *
+ * Egzaminu tu NIE MA. Ma wlasne, strojone reguly hero (siedem pol tekstu,
+ * kadr wezszy o jedna piata) i to on jest wzorcem, nie przedmiotem zmiany.
+ */
+[data-page='dzieci'] .page-hero,
+[data-page='seniorzy'] .page-hero,
+[data-page='online'] .page-hero,
+[data-section='kariera'] .page-hero {
+  padding-block: var(--space-6) 0;
+}
+
+@media (width >= 62rem) {
+  [data-page='dzieci'] .page-hero__grid,
+  [data-page='seniorzy'] .page-hero__grid,
+  [data-page='online'] .page-hero__grid,
+  [data-section='kariera'] .page-hero__grid {
+    align-items: start;
+  }
+
+  [data-page='dzieci'] .page-hero__text,
+  [data-page='seniorzy'] .page-hero__text,
+  [data-page='online'] .page-hero__text {
+    padding-block: 0 clamp(2rem, 4vh, 3rem);
+  }
+}
+
 /* --- Deklaracja typograficzna --- */
 
 .statement__claim {
@@ -795,6 +842,74 @@
   --step-enroll-title: clamp(2rem, 8.6vw, 8rem);
   --measure-enroll-lead: 44ch;
   --step-enroll-lead: clamp(1.0625rem, 1.85vw, 1.75rem);
+}
+
+/*
+ * HERO /kariera/ MA MIESCIC SIE W JEDNYM EKRANIE (14.10.2026).
+ *
+ * Zgloszenie wlasciciela: po wejsciu na podstrone hero nie miesci sie
+ * w oknie - tresc jest ucieta dolna krawedzia. Zmierzone przed poprawka,
+ * razem z paskiem naglowka:
+ *
+ *   1366 x 768   805 px pasa   113% okna
+ *   1440 x 900   823 px pasa    99% okna
+ *   1920 x 1080  849 px pasa    85% okna
+ *
+ * To NIE jest regresja - produkcja ma te same wartosci co do piksela,
+ * sprawdzone `scripts/porownaj-z-produkcja.mjs`. Ta strona po prostu
+ * niesie najdluzszy tekst hero w calym serwisie: naglowek na cztery
+ * wiersze plus dwa akapity.
+ *
+ * Wysokosc buduje przede wszystkim NAGLOWEK - 340 z 823 px, czyli 41%.
+ * Drugi skladnik to odstep pionowy kolumny, 126 px.
+ *
+ * Stopien pisma musi byc tu nadpisany LOKALNIE. Naglowek nosi globalna
+ * klase `.u-display`, ktora bierze `--step-display` - a ten token niesie
+ * takze naglowki sekcji 11 i 12 strony glownej, gdzie dwunastka jest
+ * zamknieta (D13). Zmiana tokenu ruszylaby wiec dwie sekcje, ktorych
+ * nikt o to nie prosil.
+ *
+ * Zakres bierze `[data-section='kariera'] .page-hero__text`, nie sama
+ * stronę: ten sam naglowek `.u-display` stoi nizej w sekcji zapisow
+ * i tam ma zostac bez zmian.
+ */
+
+/*
+ * Trzy skladniki naraz, bo zaden z osobna nie wystarczyl. Wszystkie trzy
+ * sa ZALEZNE OD WYSOKOSCI OKNA, nie od szerokosci: problem dotyczy niskich
+ * ekranow, a nie waskich. Na monitorze 1080 px wysokosci wartosci wracaja
+ * mniej wiecej do produkcyjnych.
+ */
+[data-section='kariera'] .page-hero__text {
+  /*
+   * Od 14.10.2026 odstep jest TYLKO DOLNY. Gorny daje sekcja, razem
+   * z trzema podstronami ofertowymi - patrz blok „Hero podstron ofertowych"
+   * wyzej. Dolna wartosc zostaje wlasna i WEZSZA niz tam (1.5rem zamiast
+   * 2rem), bo to ona broni jednego ekranu przy oknie 768 px wysokosci.
+   */
+  padding-block: 0 clamp(1.5rem, 4vh, 3rem);
+  row-gap: clamp(1rem, 2.4vh, 1.5rem);
+}
+
+/*
+ * Akapity na PELNA SZEROKOSC kolumny.
+ *
+ * Wspolna regula daje `.page-hero__lead { max-inline-size: 42ch }`, czyli
+ * 503 px. Kolumna tekstowa ma tu 637-722 px i konczy sie 20 px przed kadrem
+ * (to rynna siatki), wiec miedzy tekstem a zdjeciem zostawal martwy pas
+ * 134-219 px - wlasciciel zglosil go 14.10.2026.
+ *
+ * Granice wiersza wyznacza od teraz kolumna, nie miara w `ch`: 57 znakow
+ * przy 1366 px i 64 przy 1920, czyli nadal w zakresie czytelnym (§7).
+ * Ta strona niesie najdluzszy tekst hero w serwisie - dwa akapity - wiec
+ * szersza kolumna zabiera mu tez wysokosc, co pomaga jednemu ekranowi.
+ */
+[data-section='kariera'] .page-hero__lead {
+  max-inline-size: none;
+}
+
+[data-section='kariera'] .page-hero__text .u-display {
+  font-size: clamp(2rem, 3.9vw, 3.5rem);
 }
 
 /*

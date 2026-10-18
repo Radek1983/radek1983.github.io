@@ -610,8 +610,20 @@ test.describe('03 co dziecko zyskuje - pas typograficzny', () => {
       await page.goto('/')
       const z = await skrajneZapasy(page, 900)
 
-      expect(z.lewy, `lewy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
-      expect(z.prawy, `prawy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
+      /*
+       * Tolerancja setnej piksela, a nie zapas na przesuniecie.
+       *
+       * Skrajne polozenie pasa wypada DOKLADNIE na krawedzi kolumny - zapas
+       * wynosi 0.000 px przy kazdej szerokosci, tak samo jak na produkcji.
+       * Przy skalowanym korzeniu ta sama zerowa wartosc wychodzi z arytmetyki
+       * jako -0.0001, bo skladniki przestaly byc okraglymi pikselami.
+       * To nie jest przesuniecie ukladu: 0.0001 px nie istnieje na zadnym
+       * ekranie, a prawdziwa regresja ruszy ten pomiar o piksele.
+       */
+      const EPSILON = -0.01
+
+      expect(z.lewy, `lewy zapas przy ${width} px`).toBeGreaterThanOrEqual(EPSILON)
+      expect(z.prawy, `prawy zapas przy ${width} px`).toBeGreaterThanOrEqual(EPSILON)
     }
   })
 
@@ -1208,12 +1220,21 @@ test.describe('05 o high five', () => {
     await expect(img).toHaveAttribute('src', /about-magdalena-germel/)
     await expect(img).toHaveAttribute('alt', /Magdalena Germel/)
 
-    // Wymiary w atrybutach rezerwuja miejsce, wiec obraz nie przesuwa layoutu.
-    await expect(img).toHaveAttribute('width', '1122')
-    await expect(img).toHaveAttribute('height', '1402')
+    /*
+     * Wymiary w atrybutach rezerwuja miejsce, wiec obraz nie przesuwa layoutu.
+     *
+     * Zrodlo podmienione 11.10.2026: bylo 1122 x 1402, jest 1600 x 1600.
+     * Powod jest wylacznie techniczny - stary plik mial za malo pikseli dla
+     * slotu, ktory na szerokim monitorze dochodzi do 959 px. UKLAD SEKCJI
+     * JEST NIETKNIETY: pudelko ma dalej proporcje 4/5, a kwadratowe zrodlo
+     * jest w nim przycinane po bokach. Portret jest wysrodkowany, wiec
+     * ciecie zabiera samo tlo.
+     */
+    await expect(img).toHaveAttribute('width', '1600')
+    await expect(img).toHaveAttribute('height', '1600')
     await expect(img).toHaveAttribute('loading', 'lazy')
 
-    // Pelna proporcja zrodla - kwadratowy kadr obcinal biurko i notatnik.
+    // Proporcja PUDELKA bez zmian - to ona trzyma zatwierdzona geometrie D11.
     const proporcja = await page.evaluate(() => {
       const box = document.querySelector('#o-nas .about__media').getBoundingClientRect()
       return +(box.width / box.height).toFixed(2)
@@ -1353,6 +1374,27 @@ test.describe('05 o high five - kotwica i wejscie faktow', () => {
   test('po skoku widac naglowek i caly opis, nie sam tytul', async ({ page }) => {
     for (const width of [1280, 1440, 1920]) {
       await page.setViewportSize({ width, height: 900 })
+
+      /*
+       * Kotwica MUSI byc odpalona po ustawieniu okna, a nie przed.
+       *
+       * Przegladarka przewija do kotwicy RAZ, przy wczytaniu dokumentu.
+       * Petla idzie przez trzy szerokosci w tej samej karcie, a `goto`
+       * pod ten sam adres z tym samym hashem jest nawigacja w obrebie
+       * dokumentu - przewijanie sie nie powtarza, zostaje stare `scrollY`,
+       * a zmiana szerokosci przesuwa w tym czasie cel.
+       *
+       * Do 18.10.2026 roznica byla niewidoczna, bo dokument mial przy
+       * 1280, 1440 i 1920 px podobna wysokosc. Od czasu, gdy uklad skaluje
+       * sie z szerokoscia okna, rozni sie o cwierc i stare `scrollY`
+       * ladowalo 700 px przed sekcja.
+       *
+       * Wejscie przez stronę bez hasha zeruje pozycje, a dopiero potem
+       * idzie prawdziwy skok. Sprawdzone pomiarem: przy swiezym oknie
+       * naglowek stoi 97 / 109 / 146 px pod belka, czyli tak jak ma.
+       * To poprawka NAWIGACJI w tescie - asercje zostaja bez zmian.
+       */
+      await page.goto('/')
       await page.goto('/#o-nas')
       await poczekajNaKoniecScrolla(page)
       await page.waitForTimeout(1400)

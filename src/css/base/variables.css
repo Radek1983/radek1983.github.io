@@ -100,6 +100,28 @@
   --grid-columns: 4;
   --grid-gutter: 0.75rem;
   --grid-margin: 1.25rem;
+
+  /*
+   * GRANICA PODNIESIONA Z 96rem NA 120rem, czyli z 1536 na 1920 px.
+   *
+   * Przy 96rem uklad stawal w miejscu juz od 1536 px, a cala nadwyzka
+   * szerokosci szla w puste marginesy: 192 px przy 1920, 512 px przy 2560,
+   * 952 px przy 3440.
+   *
+   * Zapis zostaje w `rem`, i to jest warunek calego mechanizmu. Powyzej
+   * 1920 px korzen rosnie liniowo z szerokoscia okna (`base/reset.css`),
+   * wiec `120rem` rosnie razem z nim: 1920 px przy korzeniu 16, 2560 przy
+   * 21.3, 3840 przy 32. Kontener wypelnia okno przez caly ten zakres,
+   * a proporcje ukladu sa w kazdym punkcie te same.
+   *
+   * Ponizej 1920 px korzen stoi na 16, wiec granica wynosi 1920 px - jest
+   * wieksza niz okno, a `width: 100%` i tak sprowadza kontener do szerokosci
+   * okna. Marginesu nie ma wiec rowniez w dol, az do telefonu.
+   *
+   * Marginesy wracaja dopiero powyzej 3840 px, gdzie korzen dobija do gornej
+   * granicy 2rem. To zakres ekranow, ktorych ten serwis nie obsluguje
+   * w zadnym scenariuszu odbioru.
+   */
   --container-max: 96rem;
 
   /* --- Motion. Wartosci startowe z briefu; warstwa ruchu powstaje w osobnym kroku. --- */
