@@ -79,7 +79,22 @@
      * dawalaby ponad 1000 px i wypchnelaby sekcje pod krawedz ekranu.
      */
     aspect-ratio: auto;
-    block-size: clamp(24rem, calc(100svh - 7rem), 48rem);
+
+    /*
+     * Dolna granica podniesiona z 24rem na 28rem.
+     *
+     * 24rem (384 px) bylo nizsze od samego bloku tekstu, wiec przy bardzo
+     * niskim oknie - powiekszenie przegladarki 175% daje 489 px wysokosci -
+     * wezwanie wychodzilo pod dolna krawedz kadru i bylo ucinane: 47 px.
+     * 28rem to wysokosc, przy ktorej caly blok ma gdzie stanac.
+     *
+     * Granica wchodzi do gry WYLACZNIE ponizej 35rem (560 px) wysokosci okna,
+     * bo dopiero wtedy `100svh - 7rem` schodzi ponizej 28rem. Przy kazdym
+     * normalnym oknie - 1080, 900, nawet 768 i 571 px - decyduje srodkowy
+     * argument i nic sie nie zmienia. Zatwierdzona geometria hero (D7)
+     * zostaje nietknieta.
+     */
+    block-size: clamp(28rem, calc(100svh - 7rem), 48rem);
   }
 
   .hero__overlay {
@@ -101,7 +116,24 @@
      * i tekst siegal 48% szerokosci - czyli wchodzil na dziewczynke.
      */
     inline-size: calc(var(--measure-hero-safe) + var(--space-6));
-    justify-content: center;
+
+    /*
+     * `safe` jest tu ZABEZPIECZENIEM, nie zmiana kompozycji.
+     *
+     * Blok tekstu jest wysrodkowany pionowo w kadrze. Gdy okno jest niskie -
+     * a przy powiekszeniu przegladarki do 125% i wyzej wlasnie takie jest -
+     * tresc bywa wyzsza od kadru, a wysrodkowanie rozklada nadmiar po rowno
+     * na obie strony. Gorna polowa wjezdzala wtedy POD przyklejony pasek
+     * nawigacji: 10 px przy 125%, 41 px przy 150%, 64 px przy 175%.
+     * Wordmark bywal przez to ucięty w polowie wysokosci liter.
+     *
+     * Slowo `safe` mowi: wysrodkuj, dopoki tresc sie miesci, a gdy przestanie
+     * - wyrownaj do gory. Nadmiar idzie wtedy w DOL, czyli tam, gdzie da sie
+     * do niego doscrollowac. Dopoki tresc sie miesci, deklaracja nie robi
+     * NICZEGO, wiec zatwierdzona geometria hero (D7) jest nietknieta -
+     * sprawdzone porownaniem z produkcja przy 1536 i 1920 px.
+     */
+    justify-content: safe center;
     gap: var(--space-6);
 
     /*

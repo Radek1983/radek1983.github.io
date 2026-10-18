@@ -311,6 +311,7 @@ test.describe('/oferta/egzamin-osmoklasisty/ - strona zatwierdzona', () => {
         return {
           odchylenie,
           odstep: Math.round(pudlo(przypis).top - pudlo(lista).bottom),
+          korzen: parseFloat(getComputedStyle(document.documentElement).fontSize),
           miara: Math.round(pudlo(przypis).width),
           scroll: document.documentElement.scrollWidth - window.innerWidth,
         }
@@ -320,8 +321,22 @@ test.describe('/oferta/egzamin-osmoklasisty/ - strona zatwierdzona', () => {
         expect(Math.abs(wartosc), `podpis ${i + 1} na osi kolumny`).toBeLessThan(2)
       }
 
-      expect(dane.odstep, 'odstep pod pasem faktow').toBe(48)
-      expect(dane.miara, 'miara przypisu').toBe(960)
+      /*
+       * TRZY KROTNOSCI STOPNIA PISMA - patrz bliźniacza asercja
+       * w `online.spec.js`. Obie strony trzymają tę samą wartość (§18),
+       * a od 18.10.2026 trzymają ją jako proporcję, bo korzeń skaluje się
+       * z szerokością okna. Na pulpicie produkcyjnym to nadal te same 48 px.
+       */
+      expect(dane.odstep / dane.korzen, 'odstep pod pasem faktow w krotnosciach pisma').toBeCloseTo(
+        3,
+        1,
+      )
+      /*
+       * SZESCDZIESIAT KROTNOSCI STOPNIA PISMA, czyli `60rem` z §18 - na
+       * pulpicie produkcyjnym te same 960 px. Ta sama zamiana co przy
+       * odstepie wyzej i z tego samego powodu.
+       */
+      expect(dane.miara / dane.korzen, 'miara przypisu w krotnosciach pisma').toBeCloseTo(60, 0)
       expect(dane.scroll, 'poziomy scroll').toBeLessThanOrEqual(0)
     })
 

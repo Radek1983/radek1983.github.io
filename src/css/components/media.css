@@ -55,7 +55,28 @@
   position: static;
 }
 
-@media (width >= 62rem) and (height >= 40rem) {
+/*
+ * Prog wysokosci jest PROPORCJA, nie liczba pikseli - zmienione 18.10.2026.
+ *
+ * Stalo tu `(height >= 40rem)`, czyli 640 px. Warunek byl poprawny, dopoki
+ * uklad mial stala skale: niskie okno znaczylo wtedy naprawde malo miejsca
+ * na tor, po ktorym jedzie kadr.
+ *
+ * Od czasu, gdy korzen skaluje sie z szerokoscia okna (`base/reset.css`),
+ * ta przeslanka przestala byc prawdziwa. Powiekszenie przegladarki do 150%
+ * na ekranie 1920 daje okno CSS 1280x571: wysokosc spada ponizej 640 px,
+ * ale razem z nia maleje CALA tresc, wiec miejsca jest proporcjonalnie tyle
+ * samo co przy 100%. Prog gasil efekt bez powodu - wlasciciel zglosil to
+ * jako znikajace przyklejenie zdjecia w sekcji 02.
+ *
+ * `aspect-ratio <= 12/5` pyta o to samo, co tamten warunek mial pytac:
+ * czy okno nie jest skrajnie szerokie wzgledem swojej wysokosci. Przy
+ * powiekszaniu proporcja okna SIE NIE ZMIENIA, wiec efekt zachowuje sie
+ * tak samo w calym zakresie: 1920x856, 1536x685 i 1280x571 to ta sama
+ * proporcja 2.24 i ten sam wynik. Naprawde niskie okno - 1920x600, czyli
+ * 3.2 - nadal degraduje sie do zwyklego bloku, zgodnie z rozdz. 30.1.
+ */
+@media (width >= 62rem) and (aspect-ratio <= 12/5) {
   .media--sticky {
     position: sticky;
     inset-block-start: calc(var(--header-h, 4rem) + var(--space-8));

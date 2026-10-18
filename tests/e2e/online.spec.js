@@ -371,6 +371,7 @@ test.describe('online 1 na 1', () => {
           kolumny: new Set(pozycje.map((el) => Math.round(pudlo(el).x))).size,
           odchylenie,
           odstep: Math.round(pudlo(tekst).top - pudlo(lista).bottom),
+          korzen: parseFloat(getComputedStyle(document.documentElement).fontSize),
           jednaKolumnaTekstu: [...sekcja.querySelectorAll('.online-price__text')].every(
             (el, _i, all) => Math.abs(pudlo(el).x - pudlo(all[0]).x) < 1,
           ),
@@ -393,8 +394,24 @@ test.describe('online 1 na 1', () => {
         else expect(wartosc, `podpis ${i + 1} przy lewej krawedzi`).toBeLessThan(0)
       }
 
-      // 48 px - ta sama wartosc co w cenniku ósmoklasisty.
-      expect(dane.odstep, 'odstep pod pasem faktow').toBe(48)
+      /*
+       * TRZY KROTNOSCI STOPNIA PISMA - ta sama wartosc co w cenniku
+       * ósmoklasisty, pilnowana jako PROPORCJA, nie jako liczba pikseli.
+       *
+       * Na pulpicie produkcyjnym (korzeń 16 px) to dokładnie te 48 px, które
+       * właściciel ustalił 23.09.2026 porównując obie strony obok siebie.
+       * Od 18.10.2026 korzeń skaluje się z szerokością okna, więc bezwzględna
+       * liczba zmienia się razem z całym układem: 45 px przy 1440, 36 px przy
+       * 1024. Asercja na „48" świeciła przez to na czerwono, choć odstęp rósł
+       * i malał dokładnie tak, jak miał.
+       *
+       * Proporcja niczego nie przepuszcza: rozjechanie się tej wartości
+       * względem reszty sekcji nadal daje inną krotność niż trzy.
+       */
+      expect(dane.odstep / dane.korzen, 'odstep pod pasem faktow w krotnosciach pisma').toBeCloseTo(
+        3,
+        1,
+      )
 
       /*
        * TEKST JEST JEDNA, CIAGLA KOLUMNA. Stal tu przez chwile uklad dwoch

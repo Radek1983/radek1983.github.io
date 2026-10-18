@@ -560,10 +560,24 @@ Techniki obowiązkowe: AVIF/WebP z `srcset`/`sizes`; **obraz LCP nigdy `loading=
 poniżej fold; `preload` tylko dla rzeczywiście krytycznych zasobów; `defer`/`module` dla skryptów;
 `transform`/`opacity` zamiast animowania `top`/`left`/`width`; usunięcie martwego kodu przed release.
 
-**WCAG 2.2 AA — z jednym świadomym wyjątkiem.** Wymóg obowiązuje w całości **poza kontrastem
-tekstu**: właściciel obejrzał 23.09.2026 dwa warianty poprawki i wybrał zachowanie obecnej
-palety. Stan, liczby i odrzucone warianty opisuje `docs/ACCESSIBILITY.md`; pomiar czeka
-wyłączony w `tests/e2e/kontrast.spec.js`. Reszta listy poniżej obowiązuje bez zmian.
+**WCAG 2.2 AA — z DWOMA świadomymi wyjątkami.** Wymóg obowiązuje w całości poza nimi.
+
+1. **Kontrast tekstu.** Właściciel obejrzał 23.09.2026 dwa warianty poprawki i wybrał
+   zachowanie obecnej palety. Stan, liczby i odrzucone warianty opisuje
+   `docs/ACCESSIBILITY.md`; pomiar czeka wyłączony w `tests/e2e/kontrast.spec.js`.
+2. **Kryterium 1.4.4 „Resize text" — ADR 0014, 18.10.2026.** Korzeń skaluje się
+   z szerokością okna, a powiększenie przeglądarki tę szerokość zmniejsza, więc
+   w zakresie 100–175% powiększenie **nie powiększa tekstu**. Treść przy tym nie znika
+   i nic nie jest ucinane (sprawdza `scripts/sprawdz-skalowanie.mjs`), powyżej 175%
+   powiększenie znowu działa, a układ mobilny jest nietknięty.
+
+**Reszta listy poniżej obowiązuje bez zmian.**
+
+**Wartości pilnowane w testach zapisuj jako KROTNOŚĆ STOPNIA PISMA, nie jako liczbę
+pikseli.** Od ADR 0014 każda wartość w `rem` zmienia się razem z szerokością okna, więc
+asercja na „48 px" świeci na czerwono, choć odstęp rośnie i maleje dokładnie tak, jak ma.
+Trzy takie asercje zostały przepisane na polecenie właściciela; proporcja niczego nie
+przepuszcza, bo rozjechanie wartości względem reszty sekcji nadal daje inną krotność.
 
 **WCAG 2.2 AA:** pełna obsługa klawiatury bez pułapek focusu; widoczny focus (nie `outline: none`
 bez zamiennika); skip link; logiczna kolejność DOM i focus; minimum 44×44 CSS px dla krytycznych
@@ -1768,6 +1782,7 @@ Oznaczenie `ADR NNNN` wskazuje plik z uzasadnieniem w `docs/ADR/`. Brak oznaczen
 | Metadane SEO per strona — ADR 0013              | Tytuły i opisy dziewięciu stron według listy właściciela; `title` strony głównej przestał być dosłownym cytatem z briefu. Doszły: `WebSite` JSON-LD, adres rejestrowy w organizacji, `BreadcrumbList` na czterech podstronach ofertowych, pełne karty Twittera. Bez `LocalBusiness`, `Course` i `FAQPage` — wymagają decyzji albo danych, których nie ma                                                                                                                                      |
 | Licencja repozytorium — ADR 0012                | `LICENSE.md` o charakterze ALL RIGHTS RESERVED. Repozytorium jest publiczne z przymusu (user site GitHub Pages), a nie z wyboru. Żadnej licencji open source. `package.json` zostaje bez pola `license`                                                                                                                                                                                                                                                                                       |
 | Trigger wdrożenia — ADR 0002                    | Push do `main` wdraża automatycznie; rollback przez `workflow_dispatch` z parametrem `ref`. Bez `revert` i bez force push                                                                                                                                                                                                                                                                                                                                                                     |
+| Skalowanie układu — ADR 0014                    | Korzeń skaluje się z szerokością okna (`clamp(0.75rem, 100vw / 96, 2.5rem)`), `--container-max` zostaje w `rem`. Kasuje puste marginesy od 1280 do 3840 px i czyni układ niezmienniczym wobec skali. **Drugie świadome odstępstwo od WCAG** — kryterium 1.4.4: powiększenie przeglądarki jest w zakresie 100–175% częściowo neutralizowane. Treść nie znika, powyżej 175% powiększenie znowu działa, mobile nietknięte                                                                        |
 
 ## 17. Kryteria odbioru
 

@@ -610,8 +610,20 @@ test.describe('03 co dziecko zyskuje - pas typograficzny', () => {
       await page.goto('/')
       const z = await skrajneZapasy(page, 900)
 
-      expect(z.lewy, `lewy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
-      expect(z.prawy, `prawy zapas przy ${width} px`).toBeGreaterThanOrEqual(0)
+      /*
+       * Tolerancja setnej piksela, a nie zapas na przesuniecie.
+       *
+       * Skrajne polozenie pasa wypada DOKLADNIE na krawedzi kolumny - zapas
+       * wynosi 0.000 px przy kazdej szerokosci, tak samo jak na produkcji.
+       * Przy skalowanym korzeniu ta sama zerowa wartosc wychodzi z arytmetyki
+       * jako -0.0001, bo skladniki przestaly byc okraglymi pikselami.
+       * To nie jest przesuniecie ukladu: 0.0001 px nie istnieje na zadnym
+       * ekranie, a prawdziwa regresja ruszy ten pomiar o piksele.
+       */
+      const EPSILON = -0.01
+
+      expect(z.lewy, `lewy zapas przy ${width} px`).toBeGreaterThanOrEqual(EPSILON)
+      expect(z.prawy, `prawy zapas przy ${width} px`).toBeGreaterThanOrEqual(EPSILON)
     }
   })
 
@@ -1362,6 +1374,27 @@ test.describe('05 o high five - kotwica i wejscie faktow', () => {
   test('po skoku widac naglowek i caly opis, nie sam tytul', async ({ page }) => {
     for (const width of [1280, 1440, 1920]) {
       await page.setViewportSize({ width, height: 900 })
+
+      /*
+       * Kotwica MUSI byc odpalona po ustawieniu okna, a nie przed.
+       *
+       * Przegladarka przewija do kotwicy RAZ, przy wczytaniu dokumentu.
+       * Petla idzie przez trzy szerokosci w tej samej karcie, a `goto`
+       * pod ten sam adres z tym samym hashem jest nawigacja w obrebie
+       * dokumentu - przewijanie sie nie powtarza, zostaje stare `scrollY`,
+       * a zmiana szerokosci przesuwa w tym czasie cel.
+       *
+       * Do 18.10.2026 roznica byla niewidoczna, bo dokument mial przy
+       * 1280, 1440 i 1920 px podobna wysokosc. Od czasu, gdy uklad skaluje
+       * sie z szerokoscia okna, rozni sie o cwierc i stare `scrollY`
+       * ladowalo 700 px przed sekcja.
+       *
+       * Wejscie przez stronę bez hasha zeruje pozycje, a dopiero potem
+       * idzie prawdziwy skok. Sprawdzone pomiarem: przy swiezym oknie
+       * naglowek stoi 97 / 109 / 146 px pod belka, czyli tak jak ma.
+       * To poprawka NAWIGACJI w tescie - asercje zostaja bez zmian.
+       */
+      await page.goto('/')
       await page.goto('/#o-nas')
       await poczekajNaKoniecScrolla(page)
       await page.waitForTimeout(1400)
